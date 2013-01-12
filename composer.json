@@ -1,0 +1,25 @@
+{
+    "name": "icecave/chrono",
+    "type": "library",
+    "description": "Dates, times, clocks, and timers.",
+    "keywords": ["time", "date", "clock", "timer", "chrono"],
+    "homepage": "https://github.com/IcecaveStudios/chrono",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "James Harris",
+            "email": "james.harris@icecave.com.au"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "require-dev": {
+        "phake/phake": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Icecave\\Chrono": "lib"
+        }
+    }
+}
