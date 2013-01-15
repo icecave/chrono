@@ -1,25 +1,44 @@
 <?php
 namespace Icecave\Chrono;
 
+/**
+ * Represents a date.
+ */
 class Date
 {
+    /**
+     * @param integer $year
+     * @param integer $month
+     * @param integer $day
+     */
     public function __construct($year, $month, $day)
     {
+        Detail\Normalizer::normalizeDate($year, $month, $day);
+
         $this->year = $year;
         $this->month = $month;
         $this->day = $day;
     }
 
+    /**
+     * @return integer
+     */
     public function year()
     {
         return $this->year;
     }
 
+    /**
+     * @return integer
+     */
     public function month()
     {
         return $this->month;
     }
 
+    /**
+     * @return integer
+     */
     public function day()
     {
         return $this->day;

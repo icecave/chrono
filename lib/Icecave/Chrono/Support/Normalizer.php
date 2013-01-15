@@ -1,5 +1,5 @@
 <?php
-namespace Icecave\Chrono\Detail;
+namespace Icecave\Chrono\Support;
 
 class Normalizer
 {

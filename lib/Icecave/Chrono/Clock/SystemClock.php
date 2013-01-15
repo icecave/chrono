@@ -1,12 +1,6 @@
 <?php
 namespace Icecave\Chrono\Clock;
 
-use Icecave\Chrono\Date;
-use Icecave\Chrono\DateTime;
-use Icecave\Chrono\Month;
-use Icecave\Chrono\Time;
-use Icecave\Chrono\TimeZone;
-use Icecave\Chrono\Year;
 use Icecave\Isolator\Isolator;
 
 class SystemClock extends AbstractClock
