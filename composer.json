@@ -15,11 +15,20 @@
         "php": ">=5.3.0"
     },
     "require-dev": {
-        "phake/phake": "1.*"
+        "icecave/testing": "1.*",
+        "eloquent/typhoon": "0.6.*"
     },
     "autoload": {
         "psr-0": {
-            "Icecave\\Chrono": "lib"
+            "Icecave\\Chrono": "lib",
+            "Icecave\\Chrono\\TypeCheck": "lib-typhoon"
+        }
+    },
+    "extra": {
+        "typhoon": {
+            "output-path": "lib-typhoon",
+            "validator-namespace": "Icecave\\Chrono\\TypeCheck",
+            "use-native-callable": false
         }
     }
 }

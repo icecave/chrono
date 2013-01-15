@@ -3,10 +3,14 @@ namespace Icecave\Chrono;
 
 class Time
 {
-    public function __construct($hours = 0, $minutes = 0, $seconds = 0, TimeZone $timeZone = null)
-    {
+    public function __construct(
+        $hours = 0,
+        $minutes = 0,
+        $seconds = 0,
+        TimeZone $timeZone = null,
+    ) {
         if ($timeZone === null) {
-            $timeZone = new TimeZone();
+            $timeZone = new TimeZone;
         }
 
         $this->hours = $hours;

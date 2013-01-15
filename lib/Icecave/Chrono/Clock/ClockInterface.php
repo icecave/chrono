@@ -8,65 +8,65 @@ use Icecave\Chrono\Time;
 use Icecave\Chrono\TimeZone;
 use Icecave\Chrono\Year;
 
-interface IClock
+interface ClockInterface
 {
     /**
-     * @return Time
+     * @return Time The current local time.
      */
     public function localTime();
 
     /**
-     * @return DateTime
+     * @return DateTime The current local date/time.
      */
     public function localDateTime();
 
     /**
-     * @return Date
+     * @return Date The current local date.
      */
     public function localDate();
 
     /**
-     * @return Month
+     * @return Month The current local month.
      */
     public function localMonth();
 
     /**
-     * @return Year
+     * @return Year The current local year.
      */
     public function localYear();
 
     /**
-     * @return Time
+     * @return Time The current UTC time.
      */
     public function utcTime();
 
     /**
-     * @return DateTime
+     * @return DateTime The current UTC date/time.
      */
     public function utcDateTime();
 
     /**
-     * @return Date
+     * @return Date The current UTC date.
      */
     public function utcDate();
 
     /**
-     * @return Month
+     * @return Month The current UTC month.
      */
     public function utcMonth();
 
     /**
-     * @return Year
+     * @return Year The current UTC year.
      */
     public function utcYear();
 
     /**
-     * @return TimeZone
+     * @return TimeZone The local timezone.
      */
     public function timeZone();
 
     /**
-     * @return integer
+     * @return integer The current time as a unix timestamp.
      */
     public function unixTime();
 }

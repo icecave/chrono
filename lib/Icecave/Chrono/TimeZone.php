@@ -3,44 +3,54 @@ namespace Icecave\Chrono;
 
 class TimeZone
 {
-    public function __construct($hours = 0, $minutes = 0)
+    public function __construct($offset, $isDST)
     {
-        $this->hours = $hours;
-        $this->minutes = $minutes;
+        $this->offset = $offset;
+        $this->isDST = $isDST;
     }
 
     public function hours()
     {
-        return $this->hours;
+        return intval($this->offset() / 60);
     }
 
     public function minutes()
     {
-        return $this->minutes;
+        return $this->offset() % 60;
+    }
+
+    public function offset()
+    {
+        return $this->offset;
     }
 
     public function isUTC()
     {
-        return $this->hours === 0
-            && $this->minutes === 0;
+        return $this->offset() === 0
+            && !$this->isDST();
+    }
+
+    public function isDST()
+    {
+        return $this->isDST;
     }
 
     public function compare(TimeZone $timeZone)
     {
-        return $this->hours() - $timeZone->hours()
-            || $this->minutes() - $timeZone->minutes();
+        return $this->offset() - $timezone->offset()
+            || intval($this->isDST()) - intval($timezone->isDST());
     }
 
     public function __toString()
     {
         return sprintf(
             '%s%02d%02d',
-            $this->hours < 0 ? '-' : '+',
-            $this->hours,
-            $this->minutes
+            $this->hours() < 0 ? '-' : '+',
+            abs($this->hours()),
+            abs($this->minutes())
         );
     }
 
-    private $hours;
-    private $minutes;
+    private $offset;
+    private $isDST;
 }
