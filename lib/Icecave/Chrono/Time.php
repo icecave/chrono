@@ -6,10 +6,10 @@ use Icecave\Chrono\TypeCheck\TypeCheck;
 class Time implements IsoRepresentationInterface
 {
     /**
-     * @param integer       $hours
-     * @param integer       $minutes
-     * @param integer       $seconds
-     * @param TimeZone|null $timeZone
+     * @param integer       $hours    The hours component of the time.
+     * @param integer       $minutes  The minutes component of the time.
+     * @param integer       $seconds  The seconds component of the time.
+     * @param TimeZone|null $timeZone The time zone of the time.
      */
     public function __construct(
         $hours = 0,
@@ -27,6 +27,60 @@ class Time implements IsoRepresentationInterface
         $this->minutes = $minutes;
         $this->seconds = $seconds;
         $this->timeZone = $timeZone;
+    }
+
+    /**
+     * @return integer The hours component of the time.
+     */
+    public function hours()
+    {
+        $this->typeCheck->hours(func_get_args());
+
+        return $this->hours;
+    }
+
+    /**
+     * @return integer The minutes component of the time.
+     */
+    public function minutes()
+    {
+        $this->typeCheck->minutes(func_get_args());
+
+        return $this->minutes;
+    }
+
+    /**
+     * @return integer The seconds component of the time.
+     */
+    public function seconds()
+    {
+        $this->typeCheck->seconds(func_get_args());
+
+        return $this->seconds;
+    }
+
+    /**
+     * @return TimeZone The time zone of the time.
+     */
+    public function timeZone()
+    {
+        $this->typeCheck->timeZone(func_get_args());
+
+        return $this->timeZone;
+    }
+
+    /**
+     * Perform a {@see strcmp} style comparison with another time point.
+     *
+     * @param TimePointInterface $timePoint The time point to compare.
+     *
+     * @return integer 0 if $this and $timePoint are equal, <0 if $this < $timePoint, or >0 if $this > $timePoint.
+     */
+    public function compare(Time $timePoint)
+    {
+        $this->typeCheck->compare(func_get_args());
+
+        return strcmp($this->isoString(), $timePoint->isoString());
     }
 
     /**

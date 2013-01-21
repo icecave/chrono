@@ -1,6 +1,9 @@
 <?php
 namespace Icecave\Chrono;
 
+/**
+ * Represents a concrete point on the time continuum.
+ */
 interface TimePointInterface extends IsoRepresentationInterface
 {
     /**
