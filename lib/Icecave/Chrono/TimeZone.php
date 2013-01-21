@@ -13,7 +13,7 @@ class TimeZone implements IsoRepresentationInterface
     {
         $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
 
-        $this->offset = $offset;
+        $this->offset = intval(round($offset / 60)) * 60;
         $this->isDst = $isDst;
     }
 
@@ -70,13 +70,13 @@ class TimeZone implements IsoRepresentationInterface
      */
     public function isoString()
     {
-        $abs  = abs($this->offset);
-        $hours = intval($abs / 60);
-        $minutes = $abs % 60;
+        $seconds = abs($this->offset);
+        $hours   = $seconds / 3600;
+        $minutes = ($seconds % 3600) / 60;
 
         return sprintf(
             '%s%02d:%02d',
-            $this->offset > 0 ? '+' : '-',
+            $this->offset >= 0 ? '+' : '-',
             $hours,
             $minutes
         );

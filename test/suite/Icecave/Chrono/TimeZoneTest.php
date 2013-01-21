@@ -17,6 +17,18 @@ class TimeZoneTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($timeZone->isDst());
     }
 
+    public function testConstructorRounding()
+    {
+        $timeZone = new TimeZone(60 + 15);
+        $this->assertSame(60, $timeZone->offset());
+
+        $timeZone = new TimeZone(60 - 15);
+        $this->assertSame(60, $timeZone->offset());
+
+        $timeZone = new TimeZone(60);
+        $this->assertSame(60, $timeZone->offset());
+    }
+
     public function testIsUtc()
     {
         $this->assertFalse($this->_timeZone->isUtc());
@@ -52,7 +64,7 @@ class TimeZoneTest extends PHPUnit_Framework_TestCase
     public function testCompareLess()
     {
         $a = new TimeZone(0);
-        $b = new TimeZone(1);
+        $b = new TimeZone(60);
 
         $this->assertLessThan(0, $a->compare($b));
         $this->assertGreaterThan(0, $b->compare($a));
@@ -66,7 +78,7 @@ class TimeZoneTest extends PHPUnit_Framework_TestCase
 
     public function testCompareGreater()
     {
-        $a = new TimeZone(1);
+        $a = new TimeZone(60);
         $b = new TimeZone(0);
 
         $this->assertGreaterThan(0, $a->compare($b));
@@ -77,5 +89,21 @@ class TimeZoneTest extends PHPUnit_Framework_TestCase
 
         $this->assertGreaterThan(0, $a->compare($b));
         $this->assertLessThan(0, $b->compare($a));
+    }
+
+    public function testIsoString()
+    {
+        $this->assertEquals('+10:00', $this->_timeZone->isoString());
+        $this->assertEquals('+10:00', $this->_timeZone->__toString());
+
+        // UTC must be "positive zero" ...
+        $timeZone = new TimeZone;
+        $this->assertEquals('+00:00', $timeZone->isoString());
+        $this->assertEquals('+00:00', $timeZone->__toString());
+
+        // Negative ...
+        $timeZone = new TimeZone(-19800);
+        $this->assertEquals('-05:30', $timeZone->isoString());
+        $this->assertEquals('-05:30', $timeZone->__toString());
     }
 }
