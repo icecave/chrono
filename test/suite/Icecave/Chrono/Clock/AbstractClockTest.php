@@ -14,38 +14,34 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->_timeZone = new TimeZone(36000, false);
-
         $this->_clock = Phake::partialMock(__NAMESPACE__ . '\AbstractClock');
 
-        Phake::when($this->_clock)
-            ->timeZone()
-            ->thenReturn($this->_timeZone);
+        $this->_timeZone = new TimeZone(36000, true);
 
         Phake::when($this->_clock)
             ->currentLocalTimeInfo()
-            ->thenReturn(array(10, 20, 13, 20, 11, 2013));
+            ->thenReturn(array(10, 20, 13, 20, 11, 2013, '<unused>', '<unused>', 1, 36000));
 
         Phake::when($this->_clock)
             ->currentUtcTimeInfo()
-            ->thenReturn(array(1, 2, 3, 4, 5, 2011)); // Intentially set vastly different from localTimeInfo to catch potential errors.
+            ->thenReturn(array(1, 2, 3, 4, 5, 2011, '<unused>', '<unused>', 0, 0)); // Intentially set vastly different from localTimeInfo to catch potential errors.
     }
     
     public function verifyLocalClockSuspended()
     {
         Phake::inOrder(
-            Phake::verify($this->_clock)->suspend(),
+            Phake::verify($this->_clock, Phake::atLeast(1))->suspend(),
             Phake::verify($this->_clock, Phake::times(1))->currentLocalTimeInfo(),
-            Phake::verify($this->_clock)->resume()
+            Phake::verify($this->_clock, Phake::atLeast(1))->resume()
         );
     }
 
     public function verifyUtcClockSuspended()
     {
         Phake::inOrder(
-            Phake::verify($this->_clock)->suspend(),
+            Phake::verify($this->_clock, Phake::atLeast(1))->suspend(),
             Phake::verify($this->_clock, Phake::times(1))->currentUtcTimeInfo(),
-            Phake::verify($this->_clock)->resume()
+            Phake::verify($this->_clock, Phake::atLeast(1))->resume()
         );
     }
 

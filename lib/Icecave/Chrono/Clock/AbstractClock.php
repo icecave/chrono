@@ -131,6 +131,18 @@ abstract class AbstractClock implements SuspendableClockInterface
     }
 
     /**
+     * @return TimeZone The local timezone.
+     */
+    public function timeZone()
+    {
+        $lock = new ScopedSuspension($this);
+
+        list($seconds, $minutes, $hours, $day, $month, $year, $weekDay, $yearDay, $isDst, $offset) = $this->localTimeInfo();
+
+        return new TimeZone($offset, $isDst ? true : false);
+    }
+
+    /**
      * Suspend the clock at the current time.
      */
     public function suspend()
@@ -178,6 +190,8 @@ abstract class AbstractClock implements SuspendableClockInterface
     }
 
     /**
+     * The clock MUST be suspended before calling this method.
+     *
      * @return array<integer> A tuple containing time information, as per {@see localtime()}.
      */
     protected function localTimeInfo()
@@ -186,6 +200,8 @@ abstract class AbstractClock implements SuspendableClockInterface
     }
 
     /**
+     * The clock MUST be suspended before calling this method.
+     *
      * @return array<integer> A tuple containing time information, as per {@see localtime()}, but for the UTC timezone.
      */
     protected function utcTimeInfo()
@@ -196,14 +212,14 @@ abstract class AbstractClock implements SuspendableClockInterface
     /**
      * Fetch the current local time information, bypassing suspended state.
      *
-     * @return array<integer> A tuple containing time information, as per {@see localtime()}.
+     * @return array<integer> A tuple containing time information, as per {@see localtime()}, plus the timezone offset in seconds.
      */
     abstract protected function currentLocalTimeInfo();
 
     /**
-    * Fetch the current UTC time information, bypassing suspended state.
-    *
-     * @return array<integer> A tuple containing time information, as per {@see localtime()}, but for the UTC timezone.
+     * Fetch the current UTC time information, bypassing suspended state.
+     *
+     * @return array<integer> A tuple containing time information, as per {@see localtime()}, plus the timezone offset in seconds, but for the UTC timezone.
      */
     abstract protected function currentUtcTimeInfo();
 
