@@ -9,8 +9,8 @@ use Icecave\Chrono\TypeCheck\TypeCheck;
 class Month extends AbstractInterval implements IsoRepresentationInterface
 {
     /**
-     * @param Year    $year     The year.
-     * @param integer $ordinal  The month number.
+     * @param Year    $year    The year.
+     * @param integer $ordinal The month number.
      */
     public function __construct(Year $year, $ordinal)
     {

@@ -39,6 +39,7 @@ class SystemClock extends AbstractClock
         $parts = $this->isolator->date('s,i,H,d,m,Y,w,z,I,Z', $this->unixTime());
         $parts = explode(',', $parts);
         $parts = array_map('intval', $parts);
+
         return $parts;
     }
 
@@ -52,6 +53,7 @@ class SystemClock extends AbstractClock
         $parts = $this->isolator->gmdate('s,i,H,d,m,Y,w,z,0,0', $this->unixTime());
         $parts = explode(',', $parts);
         $parts = array_map('intval', $parts);
+
         return $parts;
     }
 

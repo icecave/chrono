@@ -14,7 +14,7 @@ class ScopedSuspensionTest extends PHPUnit_Framework_TestCase
     public function testLock()
     {
         $lock = new ScopedSuspension($this->_clock);
-        
+
         Phake::verify($this->_clock, Phake::times(1))->suspend();
         Phake::verify($this->_clock, Phake::times(0))->resume();
 

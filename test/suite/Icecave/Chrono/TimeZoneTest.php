@@ -2,7 +2,6 @@
 namespace Icecave\Chrono;
 
 use PHPUnit_Framework_TestCase;
-use Phake;
 
 class TimeZoneTest extends PHPUnit_Framework_TestCase
 {

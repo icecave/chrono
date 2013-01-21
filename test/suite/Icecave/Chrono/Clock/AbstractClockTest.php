@@ -26,7 +26,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
             ->currentUtcTimeInfo()
             ->thenReturn(array(1, 2, 3, 4, 5, 2011, '<unused>', '<unused>', 0, 0)); // Intentially set vastly different from localTimeInfo to catch potential errors.
     }
-    
+
     public function verifyLocalClockSuspended()
     {
         Phake::inOrder(
@@ -189,10 +189,10 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
         $expected = new DateTime(2013, 11, 20, 13, 20, 10, $this->_timeZone);
         $result = $this->_clock->localDateTime();
         $this->assertEquals($expected, $result);
-        
+
         $result = $this->_clock->localDateTime();
         $this->assertEquals($expected, $result);
-        
+
         // Calls implementation twice ...
         Phake::verify($this->_clock, Phake::times(2))->currentLocalTimeInfo();
     }

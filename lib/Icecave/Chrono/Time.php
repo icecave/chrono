@@ -4,9 +4,9 @@ namespace Icecave\Chrono;
 class Time implements IsoRepresentationInterface
 {
     /**
-     * @param integer $hours
-     * @param integer $minutes
-     * @param integer $seconds
+     * @param integer       $hours
+     * @param integer       $minutes
+     * @param integer       $seconds
      * @param TimeZone|null $timeZone
      */
     public function __construct(

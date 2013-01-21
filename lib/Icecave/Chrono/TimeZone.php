@@ -63,7 +63,6 @@ class TimeZone implements IsoRepresentationInterface
             ?: intval($this->isDst()) - intval($timeZone->isDst());
     }
 
-
     /**
      * @link http://en.wikipedia.org/wiki/ISO_8601
      *

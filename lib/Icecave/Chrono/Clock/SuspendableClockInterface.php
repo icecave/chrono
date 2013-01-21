@@ -1,8 +1,6 @@
 <?php
 namespace Icecave\Chrono\Clock;
 
-use Icecave\Chrono\TypeCheck\TypeCheck;
-
 interface SuspendableClockInterface extends ClockInterface
 {
     /**

@@ -12,7 +12,7 @@ class CalendarTest extends PHPUnit_Framework_TestCase
     {
         $this->assertSame($isLeapYear, Calendar::isLeapYear($year));
     }
-    
+
     public function leapYearProvider()
     {
         return array(

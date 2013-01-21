@@ -58,6 +58,7 @@ class Year extends AbstractInterval implements IsoRepresentationInterface
         if ($this->isLeapYear()) {
             return 366;
         }
+
         return 365;
     }
 

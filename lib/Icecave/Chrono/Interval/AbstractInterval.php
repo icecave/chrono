@@ -40,6 +40,7 @@ abstract class AbstractInterval implements IntervalInterface
      * Check if a given time point is contained within this interval.
      *
      * @param TimePointInterface $timePoint The time point to check.
+     *
      * @return boolean True if this interval contains the given time point; otherwise, false.
      */
     public function contains(TimePointInterface $timePoint)
@@ -54,6 +55,7 @@ abstract class AbstractInterval implements IntervalInterface
      * Check if a given interval is contained within this interval.
      *
      * @param IntervalInterface $interval The interval to check.
+     *
      * @return boolean True if this interval entirely contains the given interval; otherwise, false.
      */
     public function encompasses(IntervalInterface $interval)
@@ -68,6 +70,7 @@ abstract class AbstractInterval implements IntervalInterface
      * Check if a given interval is at least partially contained within this interval.
      *
      * @param IntervalInterface $interval The interval to check.
+     *
      * @return boolean True if this interval intersects the given interval; otherwise, false.
      */
     public function intersects(IntervalInterface $interval)

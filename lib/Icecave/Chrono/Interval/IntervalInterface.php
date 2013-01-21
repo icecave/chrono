@@ -2,7 +2,6 @@
 namespace Icecave\Chrono\Interval;
 
 use Icecave\Chrono\TimePointInterface;
-use Icecave\Chrono\TypeCheck\TypeCheck;
 
 /**
  * An interval represents a stretch of time between two known time points.
@@ -37,6 +36,7 @@ interface IntervalInterface
      * Check if a given time point is contained within this interval.
      *
      * @param TimePointInterface $timePoint The time point to check.
+     *
      * @return boolean True if this interval contains the given time point; otherwise, false.
      */
     public function contains(TimePointInterface $timePoint);
@@ -45,6 +45,7 @@ interface IntervalInterface
      * Check if a given interval is contained within this interval.
      *
      * @param IntervalInterface $interval The interval to check.
+     *
      * @return boolean True if this interval entirely contains the given interval; otherwise, false.
      */
     public function encompasses(IntervalInterface $interval);
@@ -53,6 +54,7 @@ interface IntervalInterface
      * Check if a given interval is at least partially contained within this interval.
      *
      * @param IntervalInterface $interval The interval to check.
+     *
      * @return boolean True if this interval intersects the given interval; otherwise, false.
      */
     public function intersects(IntervalInterface $interval);

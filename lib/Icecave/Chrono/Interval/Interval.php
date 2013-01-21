@@ -11,7 +11,7 @@ class Interval extends AbstractInterval
 {
     /**
      * @param TimePointInterface $start The start of the interval.
-     * @param TimePointInterface $end The start of the interval.
+     * @param TimePointInterface $end   The start of the interval.
      */
     public function __construct(TimePointInterface $start, TimePointInterface $end)
     {

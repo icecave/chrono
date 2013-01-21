@@ -7,12 +7,12 @@ namespace Icecave\Chrono;
 class DateTime
 {
     /**
-     * @param integer $year
-     * @param integer $month
-     * @param integer $day
-     * @param integer $hours
-     * @param integer $minutes
-     * @param integer $seconds
+     * @param integer       $year
+     * @param integer       $month
+     * @param integer       $day
+     * @param integer       $hours
+     * @param integer       $minutes
+     * @param integer       $seconds
      * @param TimeZone|null $timeZone
      */
     public function __construct(
