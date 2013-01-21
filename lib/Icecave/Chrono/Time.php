@@ -1,6 +1,8 @@
 <?php
 namespace Icecave\Chrono;
 
+use Icecave\Chrono\TypeCheck\TypeCheck;
+
 class Time implements IsoRepresentationInterface
 {
     /**
@@ -15,6 +17,8 @@ class Time implements IsoRepresentationInterface
         $seconds = 0,
         TimeZone $timeZone = null
     ) {
+        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
+
         if ($timeZone === null) {
             $timeZone = new TimeZone;
         }
@@ -53,6 +57,7 @@ class Time implements IsoRepresentationInterface
         return $this->isoString();
     }
 
+    private $typeCheck;
     private $hours;
     private $minutes;
     private $seconds;

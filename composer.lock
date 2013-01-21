@@ -1,5 +1,5 @@
 {
-    "hash": "780313dc5f2d028b0d9fe8ba537a5617",
+    "hash": "7c5c8b6723a0d9c3dbe24b072c49a72c",
     "packages": [
 
     ],
@@ -109,22 +109,27 @@
         },
         {
             "name": "eloquent/cosmos",
-            "version": "1.0.1",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "git://github.com/eloquent/cosmos.git",
-                "reference": "1.0.1"
+                "reference": "2.3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/eloquent/cosmos/zipball/1.0.1",
-                "reference": "1.0.1",
+                "url": "https://github.com/eloquent/cosmos/archive/2.3.0.zip",
+                "reference": "2.3.0",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=5.3.0",
+                "eloquent/equality": ">=2.0,<3.0",
+                "icecave/isolator": ">=2.0,<3.0"
             },
-            "time": "2012-08-05 08:53:24",
+            "require-dev": {
+                "icecave/testing": ">=1.0,<2.0"
+            },
+            "time": "2013-01-19 11:33:04",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -142,7 +147,7 @@
                     "homepage": "http://ezzatron.com/"
                 }
             ],
-            "description": "A class name resolver for PHP namespaces.",
+            "description": "A library for representing and manipulating PHP class names.",
             "homepage": "https://github.com/eloquent/cosmos",
             "keywords": [
                 "php",
@@ -202,29 +207,77 @@
             ]
         },
         {
-            "name": "eloquent/typhax",
-            "version": "0.7.1",
+            "name": "eloquent/equality",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
-                "url": "git://github.com/eloquent/typhax.git",
-                "reference": "0.7.1"
+                "url": "https://github.com/eloquent/equality.git",
+                "reference": "2.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/eloquent/typhax/archive/0.7.1.zip",
-                "reference": "0.7.1",
+                "url": "https://github.com/eloquent/equality/archive/2.1.0.zip",
+                "reference": "2.1.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "icecave/testing": ">=1.0,<2.0"
+            },
+            "time": "2013-01-18 02:56:20",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Eloquent\\Equality": "src"
+                }
+            },
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Erin Millard",
+                    "email": "ezzatron@gmail.com",
+                    "homepage": "http://ezzatron.com/"
+                }
+            ],
+            "description": "A better strict comparison for PHP.",
+            "homepage": "https://github.com/eloquent/equality",
+            "keywords": [
+                "object",
+                "equality",
+                "comparison",
+                "strict",
+                "deep"
+            ]
+        },
+        {
+            "name": "eloquent/typhax",
+            "version": "0.8.2",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/eloquent/typhax.git",
+                "reference": "0.8.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/eloquent/typhax/archive/0.8.2.zip",
+                "reference": "0.8.2",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0",
-                "eloquent/cosmos": ">=1,<2",
-                "icecave/visita": "0.1.*",
-                "ext-mbstring": "*"
+                "ext-mbstring": "*",
+                "eloquent/cosmos": ">=2.0,<3.0",
+                "icecave/visita": ">=0.1,<1.0"
             },
             "require-dev": {
-                "phake/phake": "1.*"
+                "icecave/testing": ">=1.0,<2.0"
             },
-            "time": "2013-01-11 01:05:28",
+            "time": "2013-01-19 13:51:39",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -256,25 +309,25 @@
         },
         {
             "name": "eloquent/typhoon",
-            "version": "0.6.0",
+            "version": "0.7.1",
             "source": {
                 "type": "git",
                 "url": "git://github.com/eloquent/typhoon.git",
-                "reference": "0.6.0"
+                "reference": "0.7.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/eloquent/typhoon/archive/0.6.0.zip",
-                "reference": "0.6.0",
+                "url": "https://github.com/eloquent/typhoon/archive/0.7.1.zip",
+                "reference": "0.7.1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0",
                 "eloquent/asplode": ">=1.0,<2.0",
                 "eloquent/blox": ">=1.0,<2.0",
-                "eloquent/cosmos": ">=1.0,<2.0",
+                "eloquent/cosmos": ">=2.0,<3.0",
                 "eloquent/enumeration": ">=3.0,<4.0",
-                "eloquent/typhax": ">=0.7,<1.0",
+                "eloquent/typhax": ">=0.8,<1.0",
                 "icecave/isolator": ">=2.0,<3.0",
                 "icecave/pasta-ast": ">=0.1,<1.0",
                 "icecave/rasta": ">=0.1,<1.0",
@@ -283,11 +336,12 @@
                 "symfony/filesystem": ">=2.0,<3.0"
             },
             "require-dev": {
-                "phake/phake": ">=1.0,<2.0",
                 "eloquent/liberator": ">=1.0,<2.0",
-                "ezzatron/phpunit-extensions": ">=1.0,<2.0"
+                "ezzatron/phpunit-extensions": ">=1.0,<2.0",
+                "icecave/testing": ">=2.0,<3.0",
+                "icecave/woodhouse": "*"
             },
-            "time": "2013-01-11 01:17:04",
+            "time": "2013-01-21 14:06:24",
             "bin": [
                 "bin/typhoon"
             ],

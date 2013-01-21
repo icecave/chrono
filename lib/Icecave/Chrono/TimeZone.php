@@ -70,6 +70,8 @@ class TimeZone implements IsoRepresentationInterface
      */
     public function isoString()
     {
+        $this->typeCheck->isoString(func_get_args());
+
         $seconds = abs($this->offset);
         $hours   = $seconds / 3600;
         $minutes = ($seconds % 3600) / 60;
