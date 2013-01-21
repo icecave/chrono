@@ -182,9 +182,6 @@ abstract class AbstractClock implements SuspendableClockInterface
                 $this->currentLocalTimeInfo(),
                 $this->currentUtcTimeInfo()
             );
-        } else {
-            // coverage
-            strval('foo');
         }
     }
 
@@ -200,16 +197,8 @@ abstract class AbstractClock implements SuspendableClockInterface
     {
         $this->typeCheck->resume(func_get_args());
 
-        if (0 !== $this->suspendCount) {
-            if (0 === --$this->suspendCount) {
-                $this->suspendState = null;
-            } else {
-                // coverage
-                strval('foo');
-            }
-        } else {
-            // coverage
-            strval('foo');
+        if (0 !== $this->suspendCount && 0 === --$this->suspendCount) {
+            $this->suspendState = null;
         }
     }
 
