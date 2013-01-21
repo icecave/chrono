@@ -18,7 +18,7 @@ class TimeZone
         return $this->offset;
     }
 
-    public function isUTC()
+    public function isUtc()
     {
         return $this->offset() === 0
             && !$this->isDst();
@@ -31,8 +31,8 @@ class TimeZone
 
     public function compare(TimeZone $timeZone)
     {
-        return $this->offset() - $timezone->offset()
-            || intval($this->isDst()) - intval($timezone->isDst());
+        return $this->offset() - $timeZone->offset()
+            ?: intval($this->isDst()) - intval($timeZone->isDst());
     }
 
     private $offset;
