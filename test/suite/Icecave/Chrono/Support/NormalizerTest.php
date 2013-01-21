@@ -80,20 +80,6 @@ class NormalizerTest extends PHPUnit_Framework_TestCase
         $this->assertSame($expected, sprintf('%04d-%02d-%02d', $year, $month, $day));
     }
 
-    /**
-     * @dataProvider normalizeDateData
-     */
-    public function testNativePHPNormalization($year, $month, $day, $expected)
-    {
-        // We handle zero year differently to gmmktime.
-        if ($year == 0) {
-            $expected = '2000' . substr($expected, 4);
-        }
-
-        $timestamp = gmmktime(0, 0, 0, $month, $day, $year);
-        $this->assertSame(gmdate('Y-m-d', $timestamp), $expected);
-    }
-
     public function normalizeDateData()
     {
         return array(
