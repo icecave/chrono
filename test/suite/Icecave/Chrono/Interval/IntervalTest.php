@@ -4,7 +4,7 @@ namespace Icecave\Chrono\Interval;
 use Icecave\Chrono\Date;
 use PHPUnit_Framework_TestCase;
 
-class IntervalIntervalTest extends PHPUnit_Framework_TestCase
+class IntervalTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

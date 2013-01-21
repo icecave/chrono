@@ -18,6 +18,8 @@ class Month extends AbstractInterval implements IsoRepresentationInterface
 
         $this->year = $year;
         $this->ordinal = $ordinal;
+
+        parent::__construct();
     }
 
     /**
@@ -67,7 +69,7 @@ class Month extends AbstractInterval implements IsoRepresentationInterface
     {
         $this->typeCheck->numberOfDays(func_get_args());
 
-        Calendar::daysInMonth($this->year()->ordinal(), $this->ordinal());
+        return Calendar::daysInMonth($this->year()->ordinal(), $this->ordinal());
     }
 
     /**
@@ -93,8 +95,6 @@ class Month extends AbstractInterval implements IsoRepresentationInterface
      */
     public function __toString()
     {
-        $this->typeCheck->validateString(func_get_args());
-
         return $this->isoString();
     }
 

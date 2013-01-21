@@ -16,6 +16,8 @@ class Year extends AbstractInterval implements IsoRepresentationInterface
         $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
 
         $this->ordinal = $ordinal;
+
+        parent::__construct();
     }
 
     /**
@@ -91,8 +93,6 @@ class Year extends AbstractInterval implements IsoRepresentationInterface
      */
     public function __toString()
     {
-        $this->typeCheck->validateString(func_get_args());
-
         return $this->isoString();
     }
 
