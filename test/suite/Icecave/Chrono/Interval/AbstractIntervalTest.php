@@ -130,14 +130,6 @@ class AbstractIntervalTest extends PHPUnit_Framework_TestCase
 
     public function testIntersects()
     {
-        /*
-                    A   B   C   D   E
-        Interval 1: *****
-        Interval 2:         *****
-        Interval 3:     *****
-        Interval 4:     *************
-        */
-
         $this->assertTrue($this->_interval1->intersects($this->_interval1));
         $this->assertFalse($this->_interval1->intersects($this->_interval2));
         $this->assertTrue($this->_interval1->intersects($this->_interval3));
