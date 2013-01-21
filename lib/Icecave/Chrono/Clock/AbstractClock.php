@@ -3,10 +3,10 @@ namespace Icecave\Chrono\Clock;
 
 use Icecave\Chrono\Date;
 use Icecave\Chrono\DateTime;
-use Icecave\Chrono\Month;
+use Icecave\Chrono\Interval\Month;
+use Icecave\Chrono\Interval\Year;
 use Icecave\Chrono\Time;
 use Icecave\Chrono\TimeZone;
-use Icecave\Chrono\Year;
 
 abstract class AbstractClock implements ClockInterface
 {
@@ -47,7 +47,7 @@ abstract class AbstractClock implements ClockInterface
     {
         list($seconds, $minutes, $hours, $day, $month, $year) = $this->localTimeInfo();
 
-        return new Month($year, $month);
+        return new Month(new Year($year), $month);
     }
 
     /**
@@ -97,7 +97,7 @@ abstract class AbstractClock implements ClockInterface
     {
         list($seconds, $minutes, $hours, $day, $month, $year) = $this->utcTimeInfo();
 
-        return new Month($year, $month);
+        return new Month(new Year($year), $month);
     }
 
     /**

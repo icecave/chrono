@@ -18,10 +18,10 @@ class SystemClock extends AbstractClock
      */
     public function timeZone()
     {
-        list($seconds, $minutes, $hours, $day, $month, $year, $weekDay, $yearDay, $isDST) = $this->localTimeInfo();
+        list($seconds, $minutes, $hours, $day, $month, $year, $weekDay, $yearDay, $isDst) = $this->localTimeInfo();
         $offset = $this->isolator->date('Z', $this->unixTime());
 
-        return new TimeZone($offset, $isDST ? true : false);
+        return new TimeZone($offset, $isDst ? true : false);
     }
 
     /**
@@ -48,7 +48,7 @@ class SystemClock extends AbstractClock
         $parts   = $this->isolator->gmdate('s,i,H,d,m,Y,w,z', $this->unixTime());
         $parts   = explode(',', $parts);
         $parts   = array_map('intval', $parts);
-        $parts[] = 0; // isDST
+        $parts[] = 0; // isDst
 
         return $parts;
     }

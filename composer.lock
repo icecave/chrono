@@ -1,5 +1,5 @@
 {
-    "hash": "1db3c467642a169894f9ba2b09cfdaa6",
+    "hash": "780313dc5f2d028b0d9fe8ba537a5617",
     "packages": [
 
     ],
@@ -320,6 +320,48 @@
             ]
         },
         {
+            "name": "ezzatron/ci-status-images",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ezzatron/ci-status-images.git",
+                "reference": "1.2.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/ezzatron/ci-status-images/archive/1.2.0.zip",
+                "reference": "1.2.0",
+                "shasum": ""
+            },
+            "time": "2013-01-18 05:57:45",
+            "type": "library",
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Erin Millard",
+                    "email": "ezzatron@gmail.com",
+                    "homepage": "http://ezzatron.com/"
+                }
+            ],
+            "description": "Test coverage percentage and other useful status images for continuous integration systems.",
+            "homepage": "https://github.com/ezzatron/ci-status-images",
+            "keywords": [
+                "image",
+                "github",
+                "ci",
+                "travis",
+                "integration",
+                "continuous",
+                "status",
+                "icon",
+                "button",
+                "label"
+            ]
+        },
+        {
             "name": "icecave/collections",
             "version": "0.5.0",
             "source": {
@@ -569,16 +611,16 @@
         },
         {
             "name": "icecave/testing",
-            "version": "1.0.6",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/IcecaveStudios/testing.git",
-                "reference": "1.0.6"
+                "reference": "2.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/IcecaveStudios/testing/archive/1.0.6.zip",
-                "reference": "1.0.6",
+                "url": "https://github.com/IcecaveStudios/testing/archive/2.0.0.zip",
+                "reference": "2.0.0",
                 "shasum": ""
             },
             "require": {
@@ -586,13 +628,15 @@
             },
             "suggest": {
                 "eloquent/asplode": "Use the asplode error handler instead of PHPUnit's internal error handler.",
-                "eloquent/liberator": "Use liberator for circumventing PHP access modifier restrictions inside tests."
+                "eloquent/liberator": "Use liberator for circumventing PHP access modifier restrictions inside tests.",
+                "icecave/woodhouse": "Publish your code coverage information to GitHub pages."
             },
-            "time": "2013-01-14 05:53:31",
+            "time": "2013-01-19 14:28:21",
             "bin": [
                 "bin/phpunit",
                 "bin/phpunit-coverage",
-                "bin/update-dotfiles"
+                "bin/travis-init",
+                "bin/travis-build"
             ],
             "type": "library",
             "notification-url": "http://packagist.org/downloads/",
@@ -662,6 +706,72 @@
             ]
         },
         {
+            "name": "icecave/woodhouse",
+            "version": "0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/IcecaveStudios/woodhouse.git",
+                "reference": "0.2.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/IcecaveStudios/woodhouse/archive/0.2.0.zip",
+                "reference": "0.2.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "eloquent/asplode": "1.*",
+                "ezzatron/ci-status-images": "1.*",
+                "icecave/isolator": "2.*",
+                "symfony/console": "2.*"
+            },
+            "require-dev": {
+                "eloquent/typhoon": "0.6.*",
+                "eloquent/liberator": "1.*",
+                "icecave/testing": "1.*"
+            },
+            "time": "2013-01-19 14:03:15",
+            "bin": [
+                "bin/woodhouse"
+            ],
+            "type": "library",
+            "extra": {
+                "typhoon": {
+                    "output-path": "lib-typhoon",
+                    "validator-namespace": "Icecave\\Woodhouse\\TypeCheck",
+                    "use-native-callable": false
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Icecave\\Woodhouse": "lib",
+                    "Icecave\\Woodhouse\\TypeCheck": "lib-typhoon"
+                }
+            },
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "James Harris",
+                    "email": "james.harris@icecave.com.au"
+                }
+            ],
+            "description": "Publish your PHPUnit code coverage reports on your GitHub pages.",
+            "homepage": "https://github.com/IcecaveStudios/collections",
+            "keywords": [
+                "phpunit",
+                "code",
+                "github",
+                "Xdebug",
+                "publish",
+                "pages",
+                "coverage"
+            ]
+        },
+        {
             "name": "phake/phake",
             "version": "v1.0.3",
             "source": {
@@ -707,23 +817,23 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.1.6",
+            "version": "v2.1.7",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console",
-                "reference": "v2.1.6"
+                "reference": "v2.1.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Console/archive/v2.1.6.zip",
-                "reference": "v2.1.6",
+                "url": "https://github.com/symfony/Console/archive/v2.1.7.zip",
+                "reference": "v2.1.7",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2012-12-13 17:42:00",
+            "time": "2013-01-17 15:20:05",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -749,23 +859,23 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.1.6",
+            "version": "v2.1.7",
             "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem",
-                "reference": "v2.1.6"
+                "reference": "v2.1.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Filesystem/archive/v2.1.6.zip",
-                "reference": "v2.1.6",
+                "url": "https://github.com/symfony/Filesystem/archive/v2.1.7.zip",
+                "reference": "v2.1.7",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2012-12-11 10:40:22",
+            "time": "2013-01-09 08:51:07",
             "type": "library",
             "autoload": {
                 "psr-0": {
