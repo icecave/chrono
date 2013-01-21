@@ -3,7 +3,7 @@ namespace Icecave\Chrono;
 
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
-class TimeZone
+class TimeZone implements IsoRepresentationInterface
 {
     /**
      * @param integer $offset The offset from UTC in seconds.
@@ -61,6 +61,36 @@ class TimeZone
 
         return $this->offset() - $timeZone->offset()
             ?: intval($this->isDst()) - intval($timeZone->isDst());
+    }
+
+
+    /**
+     * @link http://en.wikipedia.org/wiki/ISO_8601
+     *
+     * @return string A string representing this object in an ISO compatible format ([+-]HH:MM).
+     */
+    public function isoString()
+    {
+        $abs  = abs($this->offset);
+        $hours = intval($abs / 60);
+        $minutes = $abs % 60;
+
+        return sprintf(
+            '%s%02d:%02d',
+            $this->offset > 0 ? '+' : '-',
+            $hours,
+            $minutes
+        );
+    }
+
+    /**
+     * @link http://en.wikipedia.org/wiki/ISO_8601
+     *
+     * @return string A string representing this object in an ISO compatible format ([+-]HH:MM).
+     */
+    public function __toString()
+    {
+        return $this->isoString();
     }
 
     private $typeCheck;

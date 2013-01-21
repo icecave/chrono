@@ -2,10 +2,11 @@
 namespace Icecave\Chrono\Interval;
 
 use Icecave\Chrono\Date;
+use Icecave\Chrono\IsoRepresentationInterface;
 use Icecave\Chrono\Support\Calendar;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
-class Year extends AbstractInterval
+class Year extends AbstractInterval implements IsoRepresentationInterface
 {
     /**
      * @param integer $ordinal The year number.
@@ -70,11 +71,28 @@ class Year extends AbstractInterval
         return Calendar::isLeapYear($this->ordinal());
     }
 
-    public function __toString()
+    /**
+     * @link http://en.wikipedia.org/wiki/ISO_8601
+     *
+     * @return string A string representing this object in an ISO compatible format (YYYY).
+     */
+    public function isoString()
     {
-        $this->typeCheck->validateToString(func_get_args());
+        $this->typeCheck->isoString(func_get_args());
 
         return sprintf('%04d', $this->ordinal());
+    }
+
+    /**
+     * @link http://en.wikipedia.org/wiki/ISO_8601
+     *
+     * @return string A string representing this object in an ISO compatible format (YYYY).
+     */
+    public function __toString()
+    {
+        $this->typeCheck->validateString(func_get_args());
+
+        return $this->isoString();
     }
 
     private $typeCheck;

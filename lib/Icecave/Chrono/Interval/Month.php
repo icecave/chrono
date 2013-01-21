@@ -2,10 +2,11 @@
 namespace Icecave\Chrono\Interval;
 
 use Icecave\Chrono\Date;
+use Icecave\Chrono\IsoRepresentationInterface;
 use Icecave\Chrono\Support\Calendar;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
-class Month extends AbstractInterval
+class Month extends AbstractInterval implements IsoRepresentationInterface
 {
     /**
      * @param Year    $year     The year.
@@ -69,11 +70,32 @@ class Month extends AbstractInterval
         Calendar::daysInMonth($this->year()->ordinal(), $this->ordinal());
     }
 
+    /**
+     * @link http://en.wikipedia.org/wiki/ISO_8601
+     *
+     * @return string A string representing this object in an ISO compatible format (YYYY-MM).
+     */
+    public function isoString()
+    {
+        $this->typeCheck->isoString(func_get_args());
+
+        return sprintf(
+            '%s-%02d',
+            $this->year(),
+            $this->ordinal()
+        );
+    }
+
+    /**
+     * @link http://en.wikipedia.org/wiki/ISO_8601
+     *
+     * @return string A string representing this object in an ISO compatible format (YYYY-MM).
+     */
     public function __toString()
     {
-        $this->typeCheck->validateToString(func_get_args());
+        $this->typeCheck->validateString(func_get_args());
 
-        return sprintf('%s-%02d', $this->year(), $this->ordinal());
+        return $this->isoString();
     }
 
     private $typeCheck;
