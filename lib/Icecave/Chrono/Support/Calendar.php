@@ -1,10 +1,18 @@
 <?php
 namespace Icecave\Chrono\Support;
 
+use Icecave\Chrono\TypeCheck\TypeCheck;
+
 class Calendar
 {
+    /**
+     * @param integer $year
+     * @param integer $month
+     */
     public static function daysInMonth($year, $month)
     {
+        TypeCheck::get(__CLASS__)->daysInMonth(func_get_args());
+
         switch ($month) {
             case 1:
             case 3:
@@ -29,8 +37,13 @@ class Calendar
         return 28;
     }
 
+    /**
+     * @param integer $year
+     */
     public static function isLeapYear($year)
     {
+        TypeCheck::get(__CLASS__)->isLeapYear(func_get_args());
+
         if ($year % 400 === 0) {
             return true;
         } elseif ($year % 100 === 0) {

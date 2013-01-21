@@ -11,13 +11,6 @@ class SystemClockTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         }
     }
 
-    public function timeZone(array $arguments)
-    {
-        if (\count($arguments) > 0) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
-        }
-    }
-
     public function unixTime(array $arguments)
     {
         if (\count($arguments) > 0) {
@@ -25,14 +18,14 @@ class SystemClockTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         }
     }
 
-    public function localTimeInfo(array $arguments)
+    public function currentLocalTimeInfo(array $arguments)
     {
         if (\count($arguments) > 0) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
         }
     }
 
-    public function utcTimeInfo(array $arguments)
+    public function currentUtcTimeInfo(array $arguments)
     {
         if (\count($arguments) > 0) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);

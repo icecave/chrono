@@ -2,6 +2,7 @@
 namespace Icecave\Chrono\Interval;
 
 use Icecave\Chrono\TimePointInterface;
+use Icecave\Chrono\TypeCheck\TypeCheck;
 
 /**
  * An interval represents a stretch of time between two known time points.
@@ -14,6 +15,8 @@ class Interval extends AbstractInterval
      */
     public function __construct(TimePointInterface $start, TimePointInterface $end)
     {
+        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
+
         if ($start->compare($end) > 0) {
             throw new InvalidArgumentException('Start must not be greater than end point.');
         }
@@ -27,6 +30,8 @@ class Interval extends AbstractInterval
      */
     public function start()
     {
+        $this->typeCheck->start(func_get_args());
+
         return $this->start;
     }
 
@@ -35,9 +40,12 @@ class Interval extends AbstractInterval
      */
     public function end()
     {
+        $this->typeCheck->end(func_get_args());
+
         return $this->end;
     }
 
+    private $typeCheck;
     private $start;
     private $end;
 }

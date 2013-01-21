@@ -3,6 +3,7 @@ namespace Icecave\Chrono\Interval;
 
 use Icecave\Chrono\Date;
 use Icecave\Chrono\Support\Calendar;
+use Icecave\Chrono\TypeCheck\TypeCheck;
 
 class Year extends AbstractInterval
 {
@@ -11,6 +12,8 @@ class Year extends AbstractInterval
      */
     public function __construct($ordinal)
     {
+        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
+
         $this->ordinal = $ordinal;
     }
 
@@ -19,6 +22,8 @@ class Year extends AbstractInterval
      */
     public function ordinal()
     {
+        $this->typeCheck->ordinal(func_get_args());
+
         return $this->ordinal;
     }
 
@@ -27,6 +32,8 @@ class Year extends AbstractInterval
      */
     public function start()
     {
+        $this->typeCheck->start(func_get_args());
+
         return new Date($this->ordinal(), 1, 1);
     }
 
@@ -35,6 +42,8 @@ class Year extends AbstractInterval
      */
     public function end()
     {
+        $this->typeCheck->end(func_get_args());
+
         return new Date($this->ordinal(), 12, 31);
     }
 
@@ -43,6 +52,8 @@ class Year extends AbstractInterval
      */
     public function numberOfDays()
     {
+        $this->typeCheck->numberOfDays(func_get_args());
+
         if ($this->isLeapYear()) {
             return 366;
         }
@@ -54,13 +65,18 @@ class Year extends AbstractInterval
      */
     public function isLeapYear()
     {
+        $this->typeCheck->isLeapYear(func_get_args());
+
         return Calendar::isLeapYear($this->ordinal());
     }
 
     public function __toString()
     {
+        $this->typeCheck->validateToString(func_get_args());
+
         return sprintf('%04d', $this->ordinal());
     }
 
+    private $typeCheck;
     private $ordinal;
 }

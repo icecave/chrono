@@ -2,6 +2,7 @@
 namespace Icecave\Chrono\Interval;
 
 use Icecave\Chrono\TimePointInterface;
+use Icecave\Chrono\TypeCheck\TypeCheck;
 
 /**
  * An interval represents a stretch of time between two known time points.
@@ -24,7 +25,7 @@ interface IntervalInterface
     public function isEmpty();
 
     /**
-     * Perform a strcmp style comparison with another interval.
+     * Perform a {@see strcmp} style comparison with another interval.
      *
      * @param IntervalInterface $interval The interval to compare.
      *

@@ -3,6 +3,7 @@ namespace Icecave\Chrono\Clock;
 
 use Icecave\Chrono\TimeZone;
 use Icecave\Isolator\Isolator;
+use Icecave\Chrono\TypeCheck\TypeCheck;
 
 class SystemClock extends AbstractClock
 {
@@ -11,7 +12,11 @@ class SystemClock extends AbstractClock
      */
     public function __construct(Isolator $isolator = null)
     {
+        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
+
         $this->isolator = Isolator::get($isolator);
+
+        parent::__construct();
     }
 
     /**
@@ -19,6 +24,8 @@ class SystemClock extends AbstractClock
      */
     public function unixTime()
     {
+        $this->typeCheck->unixTime(func_get_args());
+
         return $this->isolator->time();
     }
 
@@ -27,6 +34,8 @@ class SystemClock extends AbstractClock
      */
     protected function currentLocalTimeInfo()
     {
+        $this->typeCheck->currentLocalTimeInfo(func_get_args());
+
         $parts = $this->isolator->date('s,i,H,d,m,Y,w,z,I,Z', $this->unixTime());
         $parts = explode(',', $parts);
         $parts = array_map('intval', $parts);
@@ -38,11 +47,14 @@ class SystemClock extends AbstractClock
      */
     protected function currentUtcTimeInfo()
     {
+        $this->typeCheck->currentUtcTimeInfo(func_get_args());
+
         $parts = $this->isolator->gmdate('s,i,H,d,m,Y,w,z,0,0', $this->unixTime());
         $parts = explode(',', $parts);
         $parts = array_map('intval', $parts);
         return $parts;
     }
 
+    private $typeCheck;
     private $isolator;
 }

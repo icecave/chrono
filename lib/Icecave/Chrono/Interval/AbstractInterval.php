@@ -2,19 +2,27 @@
 namespace Icecave\Chrono\Interval;
 
 use Icecave\Chrono\TimePointInterface;
+use Icecave\Chrono\TypeCheck\TypeCheck;
 
 abstract class AbstractInterval implements IntervalInterface
 {
+    public function __construct()
+    {
+        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
+    }
+
     /**
      * @return boolean True if the interval indicates a non-zero duration; otherwise, false.
      */
     public function isEmpty()
     {
+        $this->typeCheck->isEmpty(func_get_args());
+
         return $this->start()->compare($this->end()) === 0;
     }
 
     /**
-     * Perform a strcmp style comparison with another interval.
+     * Perform a {@see strcmp} style comparison with another interval.
      *
      * @param IntervalInterface $interval The interval to compare.
      *
@@ -22,6 +30,8 @@ abstract class AbstractInterval implements IntervalInterface
      */
     public function compare(IntervalInterface $interval)
     {
+        $this->typeCheck->compare(func_get_args());
+
         return $this->start()->compare($interval->start())
             || $this->end()->compare($interval->end());
     }
@@ -34,6 +44,8 @@ abstract class AbstractInterval implements IntervalInterface
      */
     public function contains(TimePointInterface $timePoint)
     {
+        $this->typeCheck->contains(func_get_args());
+
         return $this->start()->compare($timePoint) >= 0
             && $this->end()->compare($timePoint) <= 0;
     }
@@ -46,6 +58,8 @@ abstract class AbstractInterval implements IntervalInterface
      */
     public function encompasses(IntervalInterface $interval)
     {
+        $this->typeCheck->encompasses(func_get_args());
+
         return $this->start()->compare($interval->start()) >= 0
             && $this->end()->compare($interval->end()) <= 0;
     }
@@ -58,7 +72,11 @@ abstract class AbstractInterval implements IntervalInterface
      */
     public function intersects(IntervalInterface $interval)
     {
+        $this->typeCheck->intersects(func_get_args());
+
         return $this->start()->compare($interval->end()) <= 0
             && $this->end()->compare($interval->start()) >= 0;
     }
+
+    private $typeCheck;
 }
