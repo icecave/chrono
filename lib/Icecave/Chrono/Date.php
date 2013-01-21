@@ -90,8 +90,6 @@ class Date implements TimePointInterface
      */
     public function __toString()
     {
-        $this->typeCheck->validateString(func_get_args());
-
         return $this->isoString();
     }
 
