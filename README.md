@@ -44,7 +44,7 @@
 
 ### Getting the current time
 
-In order to get the current time you need to use a [clock](/IcecaveStudios/chrono/blob/master/lib/Icecave/Chrono/Clock/ClockInterface.php). The [System Clock](/IcecaveStudios/chrono/blob/master/lib/Icecave/Chrono/Clock/SystemClock.php) class provides a clock implementation that uses the machine's system clock.
+In order to get the current time you need to use a [clock](/IcecaveStudios/chrono/blob/master/lib/Icecave/Chrono/Clock/ClockInterface.php). The [SystemClock](/IcecaveStudios/chrono/blob/master/lib/Icecave/Chrono/Clock/SystemClock.php) class provides a clock implementation that uses the machine's system clock.
 
 ```php
 use Icecave\Chrono\Clock\SystemClock;
@@ -62,8 +62,9 @@ $today = $clock->localDate();
 $timeOfDay = $clock->localTime();
 ```
 
-Each of the clock methods shown above has a [UTC](http://en.wikipedia.org/wiki/Coordinated_Universal_Time) counterpart, for example to obtain the current date/time in UTC you can use the following code.
+Each of the clock methods shown above has a [UTC](http://en.wikipedia.org/wiki/Coordinated_Universal_Time) counterpart. To obtain the current date/time in UTC you can use the following code:
 
 ```php
 $nowUtc = $clock->utcDateTime();
 ```
+
