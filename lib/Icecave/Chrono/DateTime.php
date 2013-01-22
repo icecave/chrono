@@ -161,6 +161,32 @@ class DateTime implements TimePointInterface, TimeInterface
     }
 
     /**
+     * @return Date The date component of this date/time.
+     */
+    public function date()
+    {
+        return new Date(
+            $this->year(),
+            $this->month(),
+            $this->day(),
+            $this->timeZone()
+        );
+    }
+
+    /**
+     * @return Time The time component of this date/time.
+     */
+    public function time()
+    {
+        return new Time(
+            $this->hours(),
+            $this->minutes(),
+            $this->seconds(),
+            $this->timeZone()
+        );
+    }
+
+    /**
      * Perform a {@see strcmp} style comparison with another time point.
      *
      * @param TimePointInterface $timePoint The time point to compare.
