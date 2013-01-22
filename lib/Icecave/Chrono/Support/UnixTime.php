@@ -8,13 +8,13 @@ class UnixTime
     /**
      * Provides a native PHP implementation of gmmktime.
      *
-     * @param integer       $year
-     * @param integer       $month
-     * @param integer       $day
-     * @param integer       $hours
-     * @param integer       $minutes
-     * @param integer       $seconds
-     * 
+     * @param integer $year
+     * @param integer $month
+     * @param integer $day
+     * @param integer $hours
+     * @param integer $minutes
+     * @param integer $seconds
+     *
      * @return integer
      */
     public static function makeTimestamp($year, $month, $day, $hours, $minutes, $seconds)

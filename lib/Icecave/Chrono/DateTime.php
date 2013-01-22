@@ -10,9 +10,9 @@ use Icecave\Chrono\TypeCheck\TypeCheck;
 class DateTime implements TimePointInterface, TimeInterface
 {
     /**
-     * @param integer $year           The year component of the date.
-     * @param integer $month          The month component of the date.
-     * @param integer $day            The day component of the date.
+     * @param integer       $year     The year component of the date.
+     * @param integer       $month    The month component of the date.
+     * @param integer       $day      The day component of the date.
      * @param integer       $hours    The hours component of the time.
      * @param integer       $minutes  The minutes component of the time.
      * @param integer       $seconds  The seconds component of the time.

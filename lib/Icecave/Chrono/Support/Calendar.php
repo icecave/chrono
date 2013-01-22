@@ -7,7 +7,7 @@ class Calendar
 {
     /**
      * @param integer $year
-     * 
+     *
      * @return integer
      */
     public static function daysInYear($year)
@@ -17,13 +17,14 @@ class Calendar
         if (self::isLeapYear($year)) {
             return 366;
         }
+
         return 365;
     }
 
     /**
      * @param integer $year
      * @param integer $month
-     * 
+     *
      * @return integer
      */
     public static function daysInMonth($year, $month)
@@ -56,7 +57,7 @@ class Calendar
 
     /**
      * @param integer $year
-     * 
+     *
      * @return boolean
      */
     public static function isLeapYear($year)

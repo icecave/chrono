@@ -10,9 +10,9 @@ use Icecave\Chrono\TypeCheck\TypeCheck;
 class Date implements TimePointInterface
 {
     /**
-     * @param integer $year           The year component of the date.
-     * @param integer $month          The month component of the date.
-     * @param integer $day            The day component of the date.
+     * @param integer       $year     The year component of the date.
+     * @param integer       $month    The month component of the date.
+     * @param integer       $day      The day component of the date.
      * @param TimeZone|null $timeZone The time zone of the time, or null to use UTC.
      */
     public function __construct(

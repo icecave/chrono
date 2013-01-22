@@ -53,6 +53,7 @@ class Normalizer
      * @param integer &$value
      * @param integer $min
      * @param integer $max
+     *
      * @return integer The normalized value.
      */
     private static function normalizeOverflow(&$value, $min, $max)
