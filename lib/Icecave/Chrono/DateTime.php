@@ -131,7 +131,8 @@ class DateTime implements TimePointInterface, TimeInterface
             $this->day(),
             $this->hours(),
             $this->minutes(),
-            $this->seconds() + $offset
+            $this->seconds() + $offset,
+            $timeZone
         );
     }
 
