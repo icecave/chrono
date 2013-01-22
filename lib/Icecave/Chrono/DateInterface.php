@@ -4,7 +4,7 @@ namespace Icecave\Chrono;
 /**
  * Base interface for all measures that contain a date.
  */
-interface DateInterface extends Iso8601Interface
+interface DateInterface extends CommonInterface
 {
     /**
      * @return integer The year component of the date.

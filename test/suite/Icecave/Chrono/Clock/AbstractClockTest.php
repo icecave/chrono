@@ -66,7 +66,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
     public function testLocalDate()
     {
         $result = $this->_clock->localDate();
-        $expected = new Date(2013, 11, 20);
+        $expected = new Date(2013, 11, 20, $this->_timeZone);
         $this->assertEquals($expected, $result);
 
         $this->verifyLocalClockSuspended();
