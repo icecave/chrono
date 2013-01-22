@@ -12,6 +12,16 @@ use Icecave\Chrono\TimeZone;
 interface FormatterInterface
 {
     /**
+     * Escape any special characters in the string so that they are not substituted
+     * for date/time components when used as a format specifier.
+     *
+     * @param string $string The string to escape.
+     *
+     * @return string The escaped string.
+     */
+    public function escape($string);
+
+    /**
      * @param Date   $date            The date to format.
      * @param string $formatSpecifier The format of the output string.
      *
