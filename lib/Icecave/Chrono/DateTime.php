@@ -167,6 +167,8 @@ class DateTime implements TimePointInterface, TimeInterface
      */
     public function date()
     {
+        $this->typeCheck->date(func_get_args());
+
         return new Date(
             $this->year(),
             $this->month(),
@@ -180,6 +182,8 @@ class DateTime implements TimePointInterface, TimeInterface
      */
     public function time()
     {
+        $this->typeCheck->time(func_get_args());
+
         return new Time(
             $this->hours(),
             $this->minutes(),
@@ -243,6 +247,8 @@ class DateTime implements TimePointInterface, TimeInterface
      */
     public function format($formatSpecifier, FormatterInterface $formatter = null)
     {
+        $this->typeCheck->format(func_get_args());
+
         if (null === $formatter) {
             $formatter = DefaultFormatter::instance();
         }

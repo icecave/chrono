@@ -123,6 +123,8 @@ class Time implements TimeInterface
      */
     public function on(Date $date)
     {
+        $this->typeCheck->on(func_get_args());
+
         $date = $date->toTimeZone($this->timeZone());
 
         return new DateTime(
@@ -168,6 +170,8 @@ class Time implements TimeInterface
       */
      public function format($formatSpecifier, FormatterInterface $formatter = null)
      {
+         $this->typeCheck->format(func_get_args());
+
          if (null === $formatter) {
              $formatter = DefaultFormatter::instance();
          }

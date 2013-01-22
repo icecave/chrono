@@ -133,6 +133,8 @@ class Date implements TimePointInterface
      */
     public function at(Time $time)
     {
+        $this->typeCheck->at(func_get_args());
+
         $time = $time->toTimeZone($this->timeZone());
 
         return new DateTime(
@@ -198,6 +200,8 @@ class Date implements TimePointInterface
      */
     public function format($formatSpecifier, FormatterInterface $formatter = null)
     {
+        $this->typeCheck->format(func_get_args());
+
         if (null === $formatter) {
             $formatter = DefaultFormatter::instance();
         }

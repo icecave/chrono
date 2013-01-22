@@ -74,6 +74,8 @@ class TimeZone implements Iso8601Interface, FormattableInterface
      */
     public function format($formatSpecifier, FormatterInterface $formatter = null)
     {
+        $this->typeCheck->format(func_get_args());
+
         if (null === $formatter) {
             $formatter = DefaultFormatter::instance();
         }

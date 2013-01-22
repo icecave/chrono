@@ -89,6 +89,16 @@ class TimeTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         }
     }
 
+    public function on(array $arguments)
+    {
+        $argumentCount = \count($arguments);
+        if ($argumentCount < 1) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('date', 0, 'Icecave\\Chrono\\Date');
+        } elseif ($argumentCount > 1) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
+        }
+    }
+
     public function compare(array $arguments)
     {
         $argumentCount = \count($arguments);
@@ -96,6 +106,25 @@ class TimeTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
             throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('time', 0, 'Icecave\\Chrono\\Time');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
+        }
+    }
+
+    public function format(array $arguments)
+    {
+        $argumentCount = \count($arguments);
+        if ($argumentCount < 1) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('formatSpecifier', 0, 'string');
+        } elseif ($argumentCount > 2) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(2, $arguments[2]);
+        }
+        $value = $arguments[0];
+        if (!\is_string($value)) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
+                'formatSpecifier',
+                0,
+                $arguments[0],
+                'string'
+            );
         }
     }
 

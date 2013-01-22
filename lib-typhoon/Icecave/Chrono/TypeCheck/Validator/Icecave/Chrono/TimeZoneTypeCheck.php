@@ -64,6 +64,25 @@ class TimeZoneTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         }
     }
 
+    public function format(array $arguments)
+    {
+        $argumentCount = \count($arguments);
+        if ($argumentCount < 1) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('formatSpecifier', 0, 'string');
+        } elseif ($argumentCount > 2) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(2, $arguments[2]);
+        }
+        $value = $arguments[0];
+        if (!\is_string($value)) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
+                'formatSpecifier',
+                0,
+                $arguments[0],
+                'string'
+            );
+        }
+    }
+
     public function isoString(array $arguments)
     {
         if (\count($arguments) > 0) {
