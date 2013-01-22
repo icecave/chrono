@@ -70,11 +70,18 @@ class Time implements TimeInterface
     {
         $this->typeCheck->toTimeZone(func_get_args());
 
-        $seconds = $this->seconds()
-                 + $timeZone->offset()
-                 - $this->timeZone()->offset();
+        if ($this->timeZone()->compare($timeZone) === 0) {
+            return $this;
+        }
 
-        return new Time($this->hours(), $this->minutes(), $seconds);
+        $offset = $timeZone->offset()
+                - $this->timeZone()->offset();
+
+        return new Time(
+            $this->hours(),
+            $this->minutes(),
+            $this->seconds() + $offset
+        );
     }
 
     /**

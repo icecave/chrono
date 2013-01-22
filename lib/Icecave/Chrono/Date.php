@@ -76,8 +76,12 @@ class Date implements TimePointInterface
     {
         $this->typeCheck->toTimeZone(func_get_args());
 
-        $seconds = $timeZone->offset()
-                 - $this->timeZone()->offset();
+        if ($this->timeZone()->compare($timeZone) === 0) {
+            return $this;
+        }
+
+        $offset = $timeZone->offset()
+                - $this->timeZone()->offset();
 
         return new DateTime(
             $this->year(),
@@ -85,7 +89,7 @@ class Date implements TimePointInterface
             $this->day(),
             0,
             0,
-            $seconds
+            $offset
         );
     }
 
