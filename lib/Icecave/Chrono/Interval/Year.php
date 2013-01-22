@@ -57,11 +57,7 @@ class Year extends AbstractInterval implements Iso8601Interface
     {
         $this->typeCheck->numberOfDays(func_get_args());
 
-        if ($this->isLeapYear()) {
-            return 366;
-        }
-
-        return 365;
+        return Calendar::daysInyear($this->ordinal());
     }
 
     /**
