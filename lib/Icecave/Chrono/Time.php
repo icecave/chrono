@@ -84,8 +84,6 @@ class Time implements TimeInterface
     }
 
     /**
-     * @link http://en.wikipedia.org/wiki/ISO_8601
-     *
      * @return string A string representing this object in an ISO compatible format (HH:MM:SS[+-]HH:MM).
      */
     public function isoString()
@@ -102,8 +100,6 @@ class Time implements TimeInterface
     }
 
     /**
-     * @link http://en.wikipedia.org/wiki/ISO_8601
-     *
      * @return string A string representing this object in an ISO compatible format (HH:MM:SS[+-]HH:MM).
      */
     public function __toString()

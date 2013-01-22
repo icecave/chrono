@@ -1,6 +1,7 @@
 <?php
 namespace Icecave\Chrono;
 
+use Icecave\Chrono\Support\UnixTime;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
 /**
@@ -63,12 +64,25 @@ class Date implements TimePointInterface, DateInterface
     {
         $this->typeCheck->compare(func_get_args());
 
-        return strcmp($this->isoString(), $timePoint->isoString());
+        return $this->unixTime() - $timePoint->unixTime();
     }
 
     /**
-     * @link http://en.wikipedia.org/wiki/ISO_8601
-     *
+     * @return integer The number of seconds since unix epoch (1970-01-01 00:00:00+00:00).
+     */
+    public function unixTime()
+    {
+        return UnixTime::makeTimestamp(
+            $this->year(),
+            $this->month(),
+            $this->day(),
+            0,
+            0,
+            0
+        );
+    }
+
+    /**
      * @return string A string representing this object in an ISO compatible format (YYYY-MM-DD).
      */
     public function isoString()
@@ -84,8 +98,6 @@ class Date implements TimePointInterface, DateInterface
     }
 
     /**
-     * @link http://en.wikipedia.org/wiki/ISO_8601
-     *
      * @return string A string representing this object in an ISO compatible format (YYYY-MM-DD).
      */
     public function __toString()

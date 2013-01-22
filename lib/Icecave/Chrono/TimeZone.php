@@ -64,8 +64,6 @@ class TimeZone implements Iso8601Interface
     }
 
     /**
-     * @link http://en.wikipedia.org/wiki/ISO_8601
-     *
      * @return string A string representing this object in an ISO compatible format ([+-]HH:MM).
      */
     public function isoString()
@@ -85,8 +83,6 @@ class TimeZone implements Iso8601Interface
     }
 
     /**
-     * @link http://en.wikipedia.org/wiki/ISO_8601
-     *
      * @return string A string representing this object in an ISO compatible format ([+-]HH:MM).
      */
     public function __toString()

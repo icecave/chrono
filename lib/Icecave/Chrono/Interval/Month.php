@@ -73,8 +73,6 @@ class Month extends AbstractInterval implements Iso8601Interface
     }
 
     /**
-     * @link http://en.wikipedia.org/wiki/ISO_8601
-     *
      * @return string A string representing this object in an ISO compatible format (YYYY-MM).
      */
     public function isoString()
@@ -89,8 +87,6 @@ class Month extends AbstractInterval implements Iso8601Interface
     }
 
     /**
-     * @link http://en.wikipedia.org/wiki/ISO_8601
-     *
      * @return string A string representing this object in an ISO compatible format (YYYY-MM).
      */
     public function __toString()
