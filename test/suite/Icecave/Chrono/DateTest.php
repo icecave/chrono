@@ -70,6 +70,14 @@ class DateTest extends PHPUnit_Framework_TestCase
         $this->assertSame(1359676800, $this->_date->unixTime());
     }
 
+    public function testUnixTimeWithTimeZone()
+    {
+        $timeZone = new TimeZone(36000, true);
+        $date = new Date(2013, 2, 1, $timeZone);
+
+        $this->assertSame(1359640800, $date->unixTime());
+    }
+
     public function testIsoString()
     {
         $this->assertEquals('2013-02-01', $this->_date->isoString());

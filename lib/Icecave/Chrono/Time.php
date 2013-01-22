@@ -60,6 +60,36 @@ class Time implements TimeInterface
     }
 
     /**
+     * Convert this time to a different timezone.
+     *
+     * @param TimeZone $timeZone The target timezone
+     *
+     * @return Time
+     */
+    public function toTimeZone(TimeZone $timeZone)
+    {
+        $this->typeCheck->toTimeZone(func_get_args());
+
+        $seconds = $this->seconds()
+                 + $timeZone->offset()
+                 - $this->timeZone()->offset();
+
+        return new Time($this->hours(), $this->minutes(), $seconds);
+    }
+
+    /**
+     * Convert this time to the UTC timezone.
+     *
+     * @return Time
+     */
+    public function toUtc()
+    {
+        $this->typeCheck->toUtc(func_get_args());
+
+        return $this->toTimeZone(new TimeZone);
+    }
+
+    /**
      * @return TimeZone The time zone of the time.
      */
     public function timeZone()

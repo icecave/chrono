@@ -6,17 +6,21 @@ namespace Icecave\Chrono;
  */
 interface CommonInterface extends Iso8601Interface
 {
-    // /**
-    //  * @param TimeZone $timeZone
-    //  *
-    //  * @return ComponentInterface
-    //  */
-    // public function toTimeZone(TimeZone $timeZone);
-    // 
-    // /**
-    //  * @return ComponentInterface
-    //  */
-    // public function toUtc();
+    /**
+     * Convert this date/time to a different timezone.
+     *
+     * @param TimeZone $timeZone The target timezone
+     *
+     * @return ComponentInterface
+     */
+    public function toTimeZone(TimeZone $timeZone);
+
+    /**
+     * Convert this date/time to the UTC timezone.
+     *
+     * @return ComponentInterface
+     */
+    public function toUtc();
 
     /**
      * @return TimeZone The time zone of the time point.

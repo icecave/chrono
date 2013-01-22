@@ -64,6 +64,46 @@ class Date implements TimePointInterface
     }
 
     /**
+     * Convert this time to a different timezone.
+     *
+     * Note that this method returns a {@see DateTime} instance, and not a {@see Date}.
+     *
+     * @param TimeZone $timeZone The target timezone
+     *
+     * @return DateTime
+     */
+    public function toTimeZone(TimeZone $timeZone)
+    {
+        $this->typeCheck->toTimeZone(func_get_args());
+
+        $seconds = $timeZone->offset()
+                 - $this->timeZone()->offset();
+
+        return new DateTime(
+            $this->year(),
+            $this->month(),
+            $this->day(),
+            0,
+            0,
+            $seconds
+        );
+    }
+
+    /**
+     * Convert this time to the UTC timezone.
+     *
+     * Note that this method returns a {@see DateTime} instance, and not a {@see Date}.
+     *
+     * @return DateTime
+     */
+    public function toUtc()
+    {
+        $this->typeCheck->toUtc(func_get_args());
+
+        return $this->toTimeZone(new TimeZone);
+    }
+
+    /**
      * @return TimeZone The time zone of the time.
      */
     public function timeZone()
@@ -111,7 +151,7 @@ class Date implements TimePointInterface
             $this->month(),
             $this->day(),
             $this->year()
-        );
+        ) - $this->timeZone()->offset();
     }
 
     /**
