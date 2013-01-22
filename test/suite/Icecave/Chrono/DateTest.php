@@ -1,6 +1,7 @@
 <?php
 namespace Icecave\Chrono;
 
+use Phake;
 use PHPUnit_Framework_TestCase;
 
 class DateTest extends PHPUnit_Framework_TestCase
@@ -25,10 +26,13 @@ class DateTest extends PHPUnit_Framework_TestCase
         $this->assertSame(1, $this->_date->day());
     }
 
-    public function testCompare()
+    public function testCompareSelf()
     {
         $this->assertSame(0, $this->_date->compare($this->_date));
+    }
 
+    public function testCompareDate()
+    {
         $date = new Date(2013, 2, 2);
         $this->assertLessThan(0, $this->_date->compare($date));
         $this->assertGreaterThan(0, $date->compare($this->_date));
@@ -40,6 +44,21 @@ class DateTest extends PHPUnit_Framework_TestCase
         $date = new Date(2014, 2, 1);
         $this->assertLessThan(0, $this->_date->compare($date));
         $this->assertGreaterThan(0, $date->compare($this->_date));
+    }
+
+    public function testCompareOther()
+    {
+        $timePoint = Phake::mock(__NAMESPACE__ . '\TimePointInterface');
+        Phake::when($timePoint)
+            ->unixTime()
+            ->thenReturn(1359676801);
+
+        $this->assertLessThan(0, $this->_date->compare($timePoint));
+    }
+
+    public function testUnixTime()
+    {
+        $this->assertSame(1359676800, $this->_date->unixTime());
     }
 
     public function testIsoString()
