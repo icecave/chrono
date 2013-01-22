@@ -72,13 +72,13 @@ class Date implements TimePointInterface, DateInterface
      */
     public function unixTime()
     {
-        return UnixTime::makeTimestamp(
-            $this->year(),
+        return gmmktime(
+            0,
+            0,
+            0,
             $this->month(),
             $this->day(),
-            0,
-            0,
-            0
+            $this->year()
         );
     }
 
