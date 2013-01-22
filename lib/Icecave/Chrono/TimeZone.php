@@ -1,9 +1,12 @@
 <?php
 namespace Icecave\Chrono;
 
+use Icecave\Chrono\Format\DefaultFormatter;
+use Icecave\Chrono\Format\FormatterInterface;
+use Icecave\Chrono\Format\FormattableInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
-class TimeZone implements Iso8601Interface
+class TimeZone implements Iso8601Interface, FormattableInterface
 {
     /**
      * @param integer $offset The offset from UTC in seconds.
@@ -61,6 +64,21 @@ class TimeZone implements Iso8601Interface
 
         return $this->offset() - $timeZone->offset()
             ?: intval($this->isDst()) - intval($timeZone->isDst());
+    }
+
+    /**
+     * @param string                  $formatSpecifier The format of the output string.
+     * @param FormatterInterface|null $formatter       The formatter to use, or null to use the default.
+     *
+     * @return string The formatted string.
+     */
+    public function format($formatSpecifier, FormatterInterface $formatter = null)
+    {
+        if (null === $formatter) {
+            $formatter = DefaultFormatter::instance();
+        }
+
+        return $formatter->formatTimeZone($this, $formatSpecifier);
     }
 
     /**

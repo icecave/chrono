@@ -1,6 +1,8 @@
 <?php
 namespace Icecave\Chrono;
 
+use Icecave\Chrono\Format\DefaultFormatter;
+use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Support\Normalizer;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
@@ -156,6 +158,21 @@ class Time implements TimeInterface
                  ?: $this->seconds() - $time->seconds()
                  ?: $this->timeZone()->compare($time->timeZone());
          }
+     }
+
+     /**
+      * @param string $formatSpecifier The format of the output string.
+      * @param FormatterInterface|null $formatter The formatter to use, or null to use the default.
+      *
+      * @return string The formatted string.
+      */
+     public function format($formatSpecifier, FormatterInterface $formatter = null)
+     {
+         if (null === $formatter) {
+             $formatter = DefaultFormatter::instance();
+         }
+
+         return $formatter->formatTime($this, $formatSpecifier);
      }
 
     /**

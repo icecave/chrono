@@ -1,6 +1,8 @@
 <?php
 namespace Icecave\Chrono;
 
+use Icecave\Chrono\Format\DefaultFormatter;
+use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Support\Normalizer;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
@@ -186,6 +188,21 @@ class Date implements TimePointInterface
             $this->day(),
             $this->year()
         ) - $this->timeZone()->offset();
+    }
+
+    /**
+     * @param string                  $formatSpecifier The format of the output string.
+     * @param FormatterInterface|null $formatter       The formatter to use, or null to use the default.
+     *
+     * @return string The formatted string.
+     */
+    public function format($formatSpecifier, FormatterInterface $formatter = null)
+    {
+        if (null === $formatter) {
+            $formatter = DefaultFormatter::instance();
+        }
+
+        return $formatter->formatDate($this, $formatSpecifier);
     }
 
     /**

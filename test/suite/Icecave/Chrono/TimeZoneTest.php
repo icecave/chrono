@@ -1,6 +1,8 @@
 <?php
 namespace Icecave\Chrono;
 
+use Eloquent\Liberator\Liberator;
+use Phake;
 use PHPUnit_Framework_TestCase;
 
 class TimeZoneTest extends PHPUnit_Framework_TestCase
@@ -89,6 +91,25 @@ class TimeZoneTest extends PHPUnit_Framework_TestCase
 
         $this->assertGreaterThan(0, $a->compare($b));
         $this->assertLessThan(0, $b->compare($a));
+    }
+
+    public function testFormat()
+    {
+        $formatter = Phake::mock(__NAMESPACE__ . '\Format\FormatterInterface');
+        Liberator::liberateClass(__NAMESPACE__ . '\Format\DefaultFormatter')->instance = $formatter;
+
+        Phake::when($formatter)
+            ->formatTimeZone(Phake::anyParameters())
+            ->thenReturn('<1st>')
+            ->thenReturn('<2nd>');
+
+        $result = $this->_timeZone->format('H:m');
+        $this->assertSame('<1st>', $result);
+
+        $result = $this->_timeZone->format('H:m', $formatter);
+        $this->assertSame('<2nd>', $result);
+
+        Phake::verify($formatter, Phake::times(2))->formatTimeZone($this->_timeZone, 'H:m');
     }
 
     public function testIsoString()

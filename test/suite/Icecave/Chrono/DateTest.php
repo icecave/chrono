@@ -1,6 +1,7 @@
 <?php
 namespace Icecave\Chrono;
 
+use Eloquent\Liberator\Liberator;
 use Phake;
 use PHPUnit_Framework_TestCase;
 
@@ -138,6 +139,25 @@ class DateTest extends PHPUnit_Framework_TestCase
         $date = new Date(2013, 2, 1, $timeZone);
 
         $this->assertSame(1359640800, $date->unixTime());
+    }
+
+    public function testFormat()
+    {
+        $formatter = Phake::mock(__NAMESPACE__ . '\Format\FormatterInterface');
+        Liberator::liberateClass(__NAMESPACE__ . '\Format\DefaultFormatter')->instance = $formatter;
+
+        Phake::when($formatter)
+            ->formatDate(Phake::anyParameters())
+            ->thenReturn('<1st>')
+            ->thenReturn('<2nd>');
+
+        $result = $this->_date->format('Y-m-d');
+        $this->assertSame('<1st>', $result);
+
+        $result = $this->_date->format('Y-m-d', $formatter);
+        $this->assertSame('<2nd>', $result);
+
+        Phake::verify($formatter, Phake::times(2))->formatDate($this->_date, 'Y-m-d');
     }
 
     public function testIsoString()

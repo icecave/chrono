@@ -1,10 +1,12 @@
 <?php
 namespace Icecave\Chrono;
 
+use Icecave\Chrono\Format\FormattableInterface;
+
 /**
  * Base interface for all measures of dates and/or times.
  */
-interface CommonInterface extends Iso8601Interface
+interface CommonInterface extends Iso8601Interface, FormattableInterface
 {
     /**
      * Convert this date/time to a different timezone.
