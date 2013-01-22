@@ -14,6 +14,8 @@ class UnixTime
      * @param integer       $hours
      * @param integer       $minutes
      * @param integer       $seconds
+     * 
+     * @return integer
      */
     public static function makeTimestamp($year, $month, $day, $hours, $minutes, $seconds)
     {
