@@ -3,13 +3,13 @@ namespace Icecave\Chrono;
 
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
-class Time implements IsoRepresentationInterface
+class Time implements RelativeTimePointInterface
 {
     /**
      * @param integer       $hours    The hours component of the time.
      * @param integer       $minutes  The minutes component of the time.
      * @param integer       $seconds  The seconds component of the time.
-     * @param TimeZone|null $timeZone The time zone of the time.
+     * @param TimeZone|null $timeZone The time zone of the time, or null to use UTC.
      */
     public function __construct(
         $hours = 0,
@@ -70,17 +70,17 @@ class Time implements IsoRepresentationInterface
     }
 
     /**
-     * Perform a {@see strcmp} style comparison with another time point.
+     * Perform a {@see strcmp} style comparison with another time.
      *
-     * @param TimePointInterface $timePoint The time point to compare.
+     * @param Time $time The time to compare.
      *
-     * @return integer 0 if $this and $timePoint are equal, <0 if $this < $timePoint, or >0 if $this > $timePoint.
+     * @return integer 0 if $this and $time are equal, <0 if $this < $time, or >0 if $this > $time.
      */
-    public function compare(Time $timePoint)
+    public function compare(Time $time)
     {
         $this->typeCheck->compare(func_get_args());
 
-        return strcmp($this->isoString(), $timePoint->isoString());
+        throw new \Exception('Not implemented.');
     }
 
     /**

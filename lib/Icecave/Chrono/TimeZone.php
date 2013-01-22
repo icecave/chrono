@@ -3,7 +3,7 @@ namespace Icecave\Chrono;
 
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
-class TimeZone implements IsoRepresentationInterface
+class TimeZone implements Iso8601Interface
 {
     /**
      * @param integer $offset The offset from UTC in seconds.

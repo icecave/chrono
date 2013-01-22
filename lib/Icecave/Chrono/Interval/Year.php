@@ -2,11 +2,11 @@
 namespace Icecave\Chrono\Interval;
 
 use Icecave\Chrono\Date;
-use Icecave\Chrono\IsoRepresentationInterface;
+use Icecave\Chrono\Iso8601Interface;
 use Icecave\Chrono\Support\Calendar;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
-class Year extends AbstractInterval implements IsoRepresentationInterface
+class Year extends AbstractInterval implements Iso8601Interface
 {
     /**
      * @param integer $ordinal The year number.

@@ -25,6 +25,15 @@ class DateTest extends PHPUnit_Framework_TestCase
         $this->assertSame(1, $this->_date->day());
     }
 
+    public function testTimeZone()
+    {
+        $this->assertTrue($this->_date->timeZone()->isUtc());
+
+        $timeZone = new TimeZone(36000, true);
+        $date = new Date(2013, 2, 1, $timeZone);
+        $this->assertSame($timeZone, $date->timeZone());
+    }
+
     public function testCompare()
     {
         $this->assertSame(0, $this->_date->compare($this->_date));
