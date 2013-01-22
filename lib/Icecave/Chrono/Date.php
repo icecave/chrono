@@ -121,6 +121,30 @@ class Date implements TimePointInterface
     }
 
     /**
+     * Create a {@see DateTime} instance from this date and the given {@see Time} component.
+     *
+     * The timezone of the time component will be coverted to the timezone of this date.
+     *
+     * @param Time $time The time component.
+     *
+     * @return DateTime A {@see DateTime instance} consiting of this date and the given time component.
+     */
+    public function at(Time $time)
+    {
+        $time = $time->toTimeZone($this->timeZone());
+
+        return new DateTime(
+            $this->year(),
+            $this->month(),
+            $this->day(),
+            $time->hours(),
+            $time->minutes(),
+            $time->seconds(),
+            $this->timeZone()
+        );
+    }
+
+    /**
      * Perform a {@see strcmp} style comparison with another time point.
      *
      * @param TimePointInterface $timePoint The time point to compare.

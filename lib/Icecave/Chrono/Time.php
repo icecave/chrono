@@ -111,6 +111,30 @@ class Time implements TimeInterface
     }
 
     /**
+     * Create a {@see DateTime} instance from this time and the given {@see Date} component.
+     *
+     * The timezone of the date component will be coverted to the timezone of this time.
+     *
+     * @param Date $date The date component.
+     *
+     * @return DateTime A {@see DateTime instance} consiting of this time and the given date component.
+     */
+    public function on(Date $date)
+    {
+        $date = $date->toTimeZone($this->timeZone());
+
+        return new DateTime(
+            $date->year(),
+            $date->month(),
+            $date->day(),
+            $this->hours(),
+            $this->minutes(),
+            $this->seconds(),
+            $this->timeZone()
+        );
+    }
+
+    /**
      * Perform a {@see strcmp} style comparison with another time.
      *
      * @param Time $time The time to compare.

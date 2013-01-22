@@ -66,6 +66,24 @@ class TimeTest extends PHPUnit_Framework_TestCase
         $this->assertSame($timeZone, $time->timeZone());
     }
 
+    public function testOn()
+    {
+        $date = new Date(2013, 2, 1);
+        $result = $this->_time->on($date);
+        $expected = new DateTime(2013, 2, 1, 10, 20, 30);
+
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testOnWithTimeZoneCoversion()
+    {
+        $date = new Date(2013, 2, 1, new TimeZone(36000));
+        $result = $this->_time->on($date);
+        $expected = new DateTime(2013, 1, 31, 10, 20, 30);
+
+        $this->assertEquals($expected, $result);
+    }
+
     public function testCompareSelf()
     {
         $this->assertSame(0, $this->_time->compare($this->_time));
