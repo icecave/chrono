@@ -1,7 +1,6 @@
 <?php
 namespace Icecave\Chrono;
 
-use Phake;
 use PHPUnit_Framework_TestCase;
 
 class TimeTest extends PHPUnit_Framework_TestCase
