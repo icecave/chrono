@@ -44,7 +44,7 @@
 
 ### Getting the current time
 
-In order to get the current time you need to use a [clock](/IcecaveStudios/chrono/blob/master/lib/Icecave/Chrono/Clock/ClockInterface.php). The [SystemClock](/IcecaveStudios/chrono/blob/master/lib/Icecave/Chrono/Clock/SystemClock.php) class provides a clock implementation that uses the machine's system clock.
+In order to get the current time you need to use a [clock](/IcecaveStudios/chrono/blob/master/lib/Icecave/Chrono/Clock/ClockInterface.php). The [SystemClock](/IcecaveStudios/chrono/blob/master/lib/Icecave/Chrono/Clock/SystemClock.php) class provides a clock implementation that uses the machine's current system time and time zone information.
 
 ```php
 use Icecave\Chrono\Clock\SystemClock;
