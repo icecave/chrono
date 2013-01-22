@@ -11,6 +11,12 @@ class DateTest extends PHPUnit_Framework_TestCase
         $this->_date = new Date(2013, 2, 1);
     }
 
+    public function testNormalization()
+    {
+        $date = new Date(2013, 1, 32);
+        $this->assertSame('2013-02-01', $date->isoString());
+    }
+
     public function testYear()
     {
         $this->assertSame(2013, $this->_date->year());

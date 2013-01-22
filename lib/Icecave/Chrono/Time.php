@@ -1,6 +1,7 @@
 <?php
 namespace Icecave\Chrono;
 
+use Icecave\Chrono\Support\Normalizer;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
 class Time implements TimeInterface
@@ -18,6 +19,8 @@ class Time implements TimeInterface
         TimeZone $timeZone = null
     ) {
         $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
+
+        Normalizer::normalizeTime($hours, $minutes, $seconds);
 
         if ($timeZone === null) {
             $timeZone = new TimeZone;
@@ -128,7 +131,7 @@ class Time implements TimeInterface
         $this->typeCheck->isoString(func_get_args());
 
         return sprintf(
-            '%$02d:%02d:%02d',
+            '%02d:%02d:%02d',
             $this->hours(),
             $this->minutes(),
             $this->seconds(),

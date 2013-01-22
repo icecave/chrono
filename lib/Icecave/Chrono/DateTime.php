@@ -1,7 +1,7 @@
 <?php
 namespace Icecave\Chrono;
 
-use Icecave\Chrono\Support\UnixTime;
+use Icecave\Chrono\Support\Normalizer;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
 /**
@@ -28,6 +28,9 @@ class DateTime implements TimePointInterface, TimeInterface
         TimeZone $timeZone = null
     ) {
         $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
+
+        Normalizer::normalizeTime($hours, $minutes, $seconds, $day);
+        Normalizer::normalizeDate($year, $month, $day);
 
         if ($timeZone === null) {
             $timeZone = new TimeZone;
