@@ -7,6 +7,8 @@ class Calendar
 {
     /**
      * @param integer $year
+     * 
+     * @return integer
      */
     public static function daysInYear($year)
     {
@@ -21,6 +23,8 @@ class Calendar
     /**
      * @param integer $year
      * @param integer $month
+     * 
+     * @return integer
      */
     public static function daysInMonth($year, $month)
     {
@@ -52,6 +56,8 @@ class Calendar
 
     /**
      * @param integer $year
+     * 
+     * @return boolean
      */
     public static function isLeapYear($year)
     {
