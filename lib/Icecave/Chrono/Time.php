@@ -83,7 +83,8 @@ class Time implements TimeInterface
         return new Time(
             $this->hours(),
             $this->minutes(),
-            $this->seconds() + $offset
+            $this->seconds() + $offset,
+            $timeZone
         );
     }
 
@@ -116,12 +117,22 @@ class Time implements TimeInterface
      *
      * @return integer 0 if $this and $time are equal, <0 if $this < $time, or >0 if $this > $time.
      */
-    public function compare(Time $time)
-    {
-        $this->typeCheck->compare(func_get_args());
+     public function compare(Time $time)
+     {
+         $this->typeCheck->compare(func_get_args());
 
-        throw new \Exception('Not implemented.');
-    }
+         // Identical ...
+         if ($this === $time) {
+             return 0;
+
+         // Another date ...
+         } else {
+             return $this->hours() - $time->hours()
+                 ?: $this->minutes() - $time->minutes()
+                 ?: $this->seconds() - $time->seconds()
+                 ?: $this->timeZone()->compare($time->timeZone());
+         }
+     }
 
     /**
      * @return string A string representing this object in an ISO compatible format (HH:MM:SS[+-]HH:MM).
@@ -131,7 +142,7 @@ class Time implements TimeInterface
         $this->typeCheck->isoString(func_get_args());
 
         return sprintf(
-            '%02d:%02d:%02d',
+            '%02d:%02d:%02d%s',
             $this->hours(),
             $this->minutes(),
             $this->seconds(),
