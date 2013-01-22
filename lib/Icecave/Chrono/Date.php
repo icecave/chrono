@@ -7,7 +7,7 @@ use Icecave\Chrono\TypeCheck\TypeCheck;
 /**
  * Represents a date.
  */
-class Date implements TimePointInterface, DateInterface
+class Date implements TimePointInterface
 {
     /**
      * @param integer $year  The year component of the date.
@@ -64,7 +64,16 @@ class Date implements TimePointInterface, DateInterface
     {
         $this->typeCheck->compare(func_get_args());
 
-        return $this->unixTime() - $timePoint->unixTime();
+        $cmp = $this->year() - $timePoint->year()
+            ?: $this->month() - $timePoint->month()
+            ?: $this->day() - $timePoint->day();
+
+        // Any TimePoint that provides a time is greater than $this ...
+        if (0 === $cmp && $timePoint instanceof TimeInterface) {
+            return -1;
+        }
+
+        return $cmp;
     }
 
     /**
