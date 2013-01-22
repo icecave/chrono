@@ -62,7 +62,7 @@ $today = $clock->localDate();
 $timeOfDay = $clock->localTime();
 ```
 
-Each of the clock methods shown above has a [UTC](http://en.wikipedia.org/wiki/Coordinated_Universal_Time) counterpart. To obtain the current date/time in UTC you can use the following code:
+Each of the clock methods shown above has a [UTC](http://en.wikipedia.org/wiki/Coordinated_Universal_Time) counterpart. To obtain the current time in UTC you can use the following code:
 
 ```php
 $nowUtc = $clock->utcDateTime();
