@@ -14,8 +14,8 @@ class DateTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
                 throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('month', 1, 'integer');
             }
             throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('day', 2, 'integer');
-        } elseif ($argumentCount > 4) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(4, $arguments[4]);
+        } elseif ($argumentCount > 3) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(3, $arguments[3]);
         }
         $value = $arguments[0];
         if (!\is_int($value)) {
@@ -61,13 +61,6 @@ class DateTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
     }
 
     public function day(array $arguments)
-    {
-        if (\count($arguments) > 0) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
-        }
-    }
-
-    public function timeZone(array $arguments)
     {
         if (\count($arguments) > 0) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);

@@ -6,26 +6,20 @@ use Icecave\Chrono\TypeCheck\TypeCheck;
 /**
  * Represents a date.
  */
-class Date implements TimePointInterface
+class Date implements TimePointInterface, DateInterface
 {
     /**
      * @param integer $year  The year component of the date.
      * @param integer $month The month component of the date.
      * @param integer $day   The day component of the date.
-     * @param TimeZone|null $timeZone The time zone of the date, or null to use UTC.
      */
-    public function __construct($year, $month, $day, TimeZone $timeZone = null)
+    public function __construct($year, $month, $day)
     {
         $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-
-        if ($timeZone === null) {
-            $timeZone = new TimeZone;
-        }
 
         $this->year = $year;
         $this->month = $month;
         $this->day = $day;
-        $this->timeZone = $timeZone;
     }
 
     /**
@@ -56,16 +50,6 @@ class Date implements TimePointInterface
         $this->typeCheck->day(func_get_args());
 
         return $this->day;
-    }
-
-    /**
-     * @return TimeZone The time zone of the time.
-     */
-    public function timeZone()
-    {
-        $this->typeCheck->timeZone(func_get_args());
-
-        return $this->timeZone;
     }
 
     /**
@@ -113,5 +97,4 @@ class Date implements TimePointInterface
     private $year;
     private $month;
     private $day;
-    private $timeZone;
 }

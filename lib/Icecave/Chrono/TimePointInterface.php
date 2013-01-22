@@ -4,7 +4,7 @@ namespace Icecave\Chrono;
 /**
  * Represents a concrete point on the time continuum.
  */
-interface TimePointInterface extends RelativeTimePointInterface
+interface TimePointInterface extends Iso8601Interface
 {
     /**
      * Perform a {@see strcmp} style comparison with another time point.

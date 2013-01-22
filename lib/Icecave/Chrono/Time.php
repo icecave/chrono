@@ -3,7 +3,7 @@ namespace Icecave\Chrono;
 
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
-class Time implements RelativeTimePointInterface
+class Time implements TimeInterface
 {
     /**
      * @param integer       $hours    The hours component of the time.

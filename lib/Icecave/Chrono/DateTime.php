@@ -4,7 +4,7 @@ namespace Icecave\Chrono;
 /**
  * Represents a date/time.
  */
-class DateTime
+class DateTime // implements TimePointInterface , DateInterface, TimeInterface
 {
     /**
      * @param integer       $year

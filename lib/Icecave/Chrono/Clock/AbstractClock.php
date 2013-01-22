@@ -55,7 +55,7 @@ abstract class AbstractClock implements SuspendableClockInterface
 
         list($seconds, $minutes, $hours, $day, $month, $year) = $this->localTimeInfo();
 
-        return new Date($year, $month, $day, $this->timeZone());
+        return new Date($year, $month, $day);
     }
 
     /**
