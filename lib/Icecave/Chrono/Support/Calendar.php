@@ -10,6 +10,8 @@ class Calendar
      */
     public static function daysInYear($year)
     {
+        TypeCheck::get(__CLASS__)->daysInYear(func_get_args());
+
         if (self::isLeapYear($year)) {
             return 366;
         }

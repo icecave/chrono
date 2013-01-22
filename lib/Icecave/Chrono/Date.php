@@ -144,6 +144,8 @@ class Date implements TimePointInterface
      */
     public function unixTime()
     {
+        $this->typeCheck->unixTime(func_get_args());
+
         return gmmktime(
             0,
             0,
