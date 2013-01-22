@@ -37,6 +37,14 @@ class YearTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(366, $this->_year->numberOfDays());
     }
 
+    public function testIsLeapYear()
+    {
+        $year = new Year(2011);
+        $this->assertFalse($year->isLeapYear());
+
+        $this->assertTrue($this->_year->isLeapYear());
+    }
+
     public function testIsoString()
     {
         $this->assertEquals('2012', $this->_year->isoString());
