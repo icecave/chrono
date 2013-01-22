@@ -8,6 +8,18 @@ class CalendarTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider leapYearProvider
      */
+    public function testDaysInYear($year, $isLeapYear)
+    {
+        if ($isLeapYear) {
+            $this->assertSame(366, Calendar::daysInyear($year));
+        } else {
+            $this->assertSame(365, Calendar::daysInyear($year));
+        }
+    }
+
+    /**
+     * @dataProvider leapYearProvider
+     */
     public function testIsLeapYear($year, $isLeapYear)
     {
         $this->assertSame($isLeapYear, Calendar::isLeapYear($year));
