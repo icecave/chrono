@@ -71,6 +71,12 @@ class TimeTest extends PHPUnit_Framework_TestCase
         $this->assertSame(0, $this->_time->compare($this->_time));
     }
 
+    public function testCompareClone()
+    {
+        $time = clone $this->_time;
+        $this->assertSame(0, $this->_time->compare($time));
+    }
+
     public function testCompareTime()
     {
         $time = new Time(10, 20, 31);
@@ -82,6 +88,13 @@ class TimeTest extends PHPUnit_Framework_TestCase
         $this->assertGreaterThan(0, $time->compare($this->_time));
 
         $time = new Time(11, 20, 30);
+        $this->assertLessThan(0, $this->_time->compare($time));
+        $this->assertGreaterThan(0, $time->compare($this->_time));
+    }
+
+    public function testCompareTimeZone()
+    {
+        $time = new Time(10, 20, 30, new TimeZone(36000));
         $this->assertLessThan(0, $this->_time->compare($time));
         $this->assertGreaterThan(0, $time->compare($this->_time));
     }

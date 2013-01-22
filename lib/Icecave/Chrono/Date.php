@@ -140,7 +140,7 @@ class Date implements TimePointInterface
             return $this->year() - $timePoint->year()
                 ?: $this->month() - $timePoint->month()
                 ?: $this->day() - $timePoint->day()
-                ?: $this->timeZone()->compare($time->timeZone());
+                ?: $this->timeZone()->compare($timePoint->timeZone());
         }
 
         // Fallback to timestamp calculation ...

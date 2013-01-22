@@ -86,6 +86,12 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
         $this->assertSame(0, $this->_dateTime->compare($this->_dateTime));
     }
 
+    public function testCompareClone()
+    {
+        $dateTime = clone $this->_dateTime;
+        $this->assertSame(0, $this->_dateTime->compare($dateTime));
+    }
+
     public function testCompareDateTime()
     {
         $dateTime = new DateTime(2013, 2, 1, 10, 20, 31);
@@ -109,6 +115,13 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
         $this->assertGreaterThan(0, $dateTime->compare($this->_dateTime));
 
         $dateTime = new DateTime(2014, 2, 1, 10, 20, 30);
+        $this->assertLessThan(0, $this->_dateTime->compare($dateTime));
+        $this->assertGreaterThan(0, $dateTime->compare($this->_dateTime));
+    }
+
+    public function testCompareTimeZone()
+    {
+        $dateTime = new DateTime(2013, 2, 1, 10, 20, 30, new TimeZone(36000));
         $this->assertLessThan(0, $this->_dateTime->compare($dateTime));
         $this->assertGreaterThan(0, $dateTime->compare($this->_dateTime));
     }

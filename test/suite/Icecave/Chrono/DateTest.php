@@ -71,6 +71,12 @@ class DateTest extends PHPUnit_Framework_TestCase
         $this->assertSame(0, $this->_date->compare($this->_date));
     }
 
+    public function testCompareClone()
+    {
+        $date = clone $this->_date;
+        $this->assertSame(0, $this->_date->compare($date));
+    }
+
     public function testCompareDate()
     {
         $date = new Date(2013, 2, 2);
@@ -82,6 +88,13 @@ class DateTest extends PHPUnit_Framework_TestCase
         $this->assertGreaterThan(0, $date->compare($this->_date));
 
         $date = new Date(2014, 2, 1);
+        $this->assertLessThan(0, $this->_date->compare($date));
+        $this->assertGreaterThan(0, $date->compare($this->_date));
+    }
+
+    public function testCompareTimeZone()
+    {
+        $date = new Date(2013, 2, 1, new TimeZone(36000));
         $this->assertLessThan(0, $this->_date->compare($date));
         $this->assertGreaterThan(0, $date->compare($this->_date));
     }
