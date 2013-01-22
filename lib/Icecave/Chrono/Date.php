@@ -91,7 +91,8 @@ class Date implements TimePointInterface
             $this->day(),
             0,
             0,
-            $offset
+            $offset,
+            $timeZone
         );
     }
 

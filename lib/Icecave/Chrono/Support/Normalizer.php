@@ -59,13 +59,17 @@ class Normalizer
         TypeCheck::get(__CLASS__)->normalizeOverflow(func_get_args());
 
         if ($value < $min) {
-            $overflow = intval($value / $max) - 1;
+            $overflow = 0;
+            while ($value < $min) {
+                --$overflow;
+                $value += $max;
+            }
         } elseif ($value > $max) {
             $overflow = intval($value / $max);
+            $value -= $overflow * $max;
         } else {
             $overflow = 0;
         }
-        $value -= $overflow * $max;
 
         return $overflow;
     }
