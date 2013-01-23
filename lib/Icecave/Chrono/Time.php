@@ -163,6 +163,18 @@ class Time implements TimeInterface
      }
 
      /**
+      * @return integer The total number of seconds since 00:00.
+      */
+     public function totalSeconds()
+     {
+         $this->typeCheck->totalSeconds(func_get_args());
+
+         return $this->hours() * 3600
+              + $this->minutes() * 60
+              + $this->seconds();
+     }
+
+     /**
       * @param string $formatSpecifier The format of the output string.
       * @param FormatterInterface|null $formatter The formatter to use, or null to use the default.
       *

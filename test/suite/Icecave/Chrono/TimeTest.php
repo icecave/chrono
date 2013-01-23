@@ -118,6 +118,11 @@ class TimeTest extends PHPUnit_Framework_TestCase
         $this->assertGreaterThan(0, $time->compare($this->_time));
     }
 
+    public function testTotalSeconds()
+    {
+        $this->assertSame(37230, $this->_time->totalSeconds());
+    }
+
     public function testFormat()
     {
         $formatter = Phake::mock(__NAMESPACE__ . '\Format\FormatterInterface');
