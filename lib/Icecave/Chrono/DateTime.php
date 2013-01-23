@@ -264,7 +264,7 @@ class DateTime implements TimePointInterface, TimeInterface
         $this->typeCheck->isoString(func_get_args());
 
         return sprintf(
-            '%04d-%02d-%02d %02d:%02d:%02d%s',
+            '%04d-%02d-%02dT%02d:%02d:%02d%s',
             $this->year(),
             $this->month(),
             $this->day(),

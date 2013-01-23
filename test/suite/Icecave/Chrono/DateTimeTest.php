@@ -15,7 +15,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     public function testNormalization()
     {
         $time = new DateTime(2013, 1, 32, 10, 20, 70);
-        $this->assertSame('2013-02-01 10:21:10+00:00', $time->isoString());
+        $this->assertSame('2013-02-01T10:21:10+00:00', $time->isoString());
     }
 
     public function testYear()
@@ -54,7 +54,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
         $result = $this->_dateTime->toTimeZone($timeZone);
 
         $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $result);
-        $this->assertSame('2013-02-01 20:20:30+10:00', $result->isoString());
+        $this->assertSame('2013-02-01T20:20:30+10:00', $result->isoString());
     }
 
     public function testToTimeZoneSame()
@@ -70,7 +70,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
         $result = $dateTime->toUtc();
 
         $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $result);
-        $this->assertSame('2013-02-01 00:20:30+00:00', $result->isoString());
+        $this->assertSame('2013-02-01T00:20:30+00:00', $result->isoString());
     }
 
     public function testTimeZone()
@@ -191,7 +191,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
 
     public function testIsoString()
     {
-        $this->assertEquals('2013-02-01 10:20:30+00:00', $this->_dateTime->isoString());
-        $this->assertEquals('2013-02-01 10:20:30+00:00', $this->_dateTime->__toString());
+        $this->assertEquals('2013-02-01T10:20:30+00:00', $this->_dateTime->isoString());
+        $this->assertEquals('2013-02-01T10:20:30+00:00', $this->_dateTime->__toString());
     }
 }

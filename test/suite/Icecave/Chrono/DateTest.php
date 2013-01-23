@@ -39,7 +39,7 @@ class DateTest extends PHPUnit_Framework_TestCase
         $result = $this->_date->toTimeZone($timeZone);
 
         $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $result);
-        $this->assertSame('2013-02-01 10:00:00+10:00', $result->isoString());
+        $this->assertSame('2013-02-01T10:00:00+10:00', $result->isoString());
     }
 
     public function testToTimeZoneSame()
@@ -55,7 +55,7 @@ class DateTest extends PHPUnit_Framework_TestCase
         $result = $date->toUtc();
 
         $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $result);
-        $this->assertSame('2013-01-31 14:00:00+00:00', $result->isoString());
+        $this->assertSame('2013-01-31T14:00:00+00:00', $result->isoString());
     }
 
     public function testTimeZone()
