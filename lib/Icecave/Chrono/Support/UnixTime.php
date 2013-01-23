@@ -21,10 +21,7 @@ class UnixTime
     {
         TypeCheck::get(__CLASS__)->makeTimestamp(func_get_args());
 
-        Normalizer::normalizeTime($hours, $minutes, $seconds, $day);
-        Normalizer::normalizeDate($year, $month, $day);
-
-        $wholeDays  = 0;
+        $wholeDays = Calendar::dayOfYear($year, $month, $day) - 1;
 
         if ($year >= 1970) {
             for ($y = 1970; $y < $year; ++$y) {
@@ -36,13 +33,6 @@ class UnixTime
             }
         }
 
-        $wholeDays += self::$daysAtEndOfMonth[$month - 1];
-        $wholeDays += $day - 1;
-
-        if (Calendar::isLeapYear($year) && $month > 2) {
-            ++$wholeDays;
-        }
-
         $timestamp  = $wholeDays * 86400;
         $timestamp += $hours * 3600;
         $timestamp += $minutes * 60;
@@ -50,20 +40,4 @@ class UnixTime
 
         return $timestamp;
     }
-
-    private static $daysAtEndOfMonth = array(
-        0 => 0,
-        1 => 31,
-        2 => 59,
-        3 => 90,
-        4 => 120,
-        5 => 151,
-        6 => 181,
-        7 => 212,
-        8 => 243,
-        9 => 273,
-        10 => 304,
-        11 => 334,
-        12 => 365,
-    );
 }
