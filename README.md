@@ -34,7 +34,7 @@
 
 * [System Clock](/IcecaveStudios/chrono/blob/master/lib/Icecave/Chrono/Clock/SystemClock.php): A factory for chronological measurements that uses the system clock.
 * [Date](/IcecaveStudios/chrono/blob/master/lib/Icecave/Chrono/Date.php): Represents a date, models the *Time Point* and *Date* concepts.
-* [Time](/IcecaveStudios/chrono/blob/master/lib/Icecave/Chrono/Time.php): Represents a time of day, models the *Time* concept.
+* [Time of Day](/IcecaveStudios/chrono/blob/master/lib/Icecave/Chrono/TimeOfDay.php): Represents a time of day, models the *Time* concept.
 * [Date Time](/IcecaveStudios/chrono/blob/master/lib/Icecave/Chrono/DateTime.php): Represents a time of day on specific date, models the *Time Point*, *Date* and *Time* concepts.
 * [Interval](/IcecaveStudios/chrono/blob/master/lib/Icecave/Chrono/Interval/Interval.php): A span of time between two *Time Points*, models the *Interval* concept.
 * [Month](/IcecaveStudios/chrono/blob/master/lib/Icecave/Chrono/Interval/Month.php): A one month time span, models the *Interval* concept.

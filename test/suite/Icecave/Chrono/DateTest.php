@@ -69,7 +69,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 
     public function testAt()
     {
-        $time = new Time(10, 20, 30);
+        $time = new TimeOfDay(10, 20, 30);
         $result = $this->_date->at($time);
         $expected = new DateTime(2013, 2, 1, 10, 20, 30);
 
@@ -78,7 +78,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 
     public function testAtWithTimeZoneCoversion()
     {
-        $time = new Time(10, 20, 30, new TimeZone(36000));
+        $time = new TimeOfDay(10, 20, 30, new TimeZone(36000));
         $result = $this->_date->at($time);
         $expected = new DateTime(2013, 2, 1, 0, 20, 30);
 

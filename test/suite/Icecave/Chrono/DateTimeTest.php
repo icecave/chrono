@@ -96,7 +96,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $timeZone = new TimeZone(36000);
         $dateTime = new DateTime(2013, 2, 1, 10, 20, 30, $timeZone);
-        $expected = new Time(10, 20, 30, $timeZone);
+        $expected = new TimeOfDay(10, 20, 30, $timeZone);
         $result   = $dateTime->time();
 
         $this->assertEquals($expected, $result);

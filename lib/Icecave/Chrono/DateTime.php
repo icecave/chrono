@@ -178,13 +178,13 @@ class DateTime implements TimePointInterface, TimeInterface
     }
 
     /**
-     * @return Time The time component of this date/time.
+     * @return TimeOfDay The time component of this date/time.
      */
     public function time()
     {
         $this->typeCheck->time(func_get_args());
 
-        return new Time(
+        return new TimeOfDay(
             $this->hours(),
             $this->minutes(),
             $this->seconds(),

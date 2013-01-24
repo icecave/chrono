@@ -51,12 +51,12 @@ class DefaultFormatterTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValida
         }
     }
 
-    public function formatTime(array $arguments)
+    public function formatTimeOfDay(array $arguments)
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 2) {
             if ($argumentCount < 1) {
-                throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('Time', 0, 'Icecave\\Chrono\\Time');
+                throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('time', 0, 'Icecave\\Chrono\\TimeOfDay');
             }
             throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('formatSpecifier', 1, 'string');
         } elseif ($argumentCount > 2) {

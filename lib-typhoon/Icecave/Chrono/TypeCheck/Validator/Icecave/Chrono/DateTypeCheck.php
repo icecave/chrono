@@ -95,7 +95,7 @@ class DateTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('time', 0, 'Icecave\\Chrono\\Time');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('time', 0, 'Icecave\\Chrono\\TimeOfDay');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
         }

@@ -5,7 +5,7 @@ use Icecave\Chrono\Date;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\Interval\Month;
 use Icecave\Chrono\Interval\Year;
-use Icecave\Chrono\Time;
+use Icecave\Chrono\TimeOfDay;
 use Icecave\Chrono\TimeZone;
 use PHPUnit_Framework_TestCase;
 use Phake;
@@ -48,7 +48,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
     public function testLocalTime()
     {
         $result = $this->_clock->localTime();
-        $expected = new Time(13, 20, 10, $this->_timeZone);
+        $expected = new TimeOfDay(13, 20, 10, $this->_timeZone);
         $this->assertEquals($expected, $result);
 
         $this->verifyLocalClockSuspended();
@@ -93,7 +93,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
     public function testUtcTime()
     {
         $result = $this->_clock->utcTime();
-        $expected = new Time(3, 2, 1);
+        $expected = new TimeOfDay(3, 2, 1);
         $this->assertEquals($expected, $result);
 
         $this->verifyUtcClockSuspended();

@@ -4,14 +4,14 @@ namespace Icecave\Chrono\Clock;
 use Icecave\Chrono\Date;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\Month;
-use Icecave\Chrono\Time;
+use Icecave\Chrono\TimeOfDay;
 use Icecave\Chrono\TimeZone;
 use Icecave\Chrono\Year;
 
 interface ClockInterface
 {
     /**
-     * @return Time The current local time.
+     * @return TimeOfDay The current local time.
      */
     public function localTime();
 
@@ -36,7 +36,7 @@ interface ClockInterface
     public function localYear();
 
     /**
-     * @return Time The current UTC time.
+     * @return TimeOfDay The current UTC time.
      */
     public function utcTime();
 

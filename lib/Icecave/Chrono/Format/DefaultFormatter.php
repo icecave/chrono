@@ -2,7 +2,7 @@
 namespace Icecave\Chrono\Format;
 
 use Icecave\Chrono\Date;
-use Icecave\Chrono\Time;
+use Icecave\Chrono\TimeOfDay;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\TimeZone;
 use Icecave\Chrono\TypeCheck\TypeCheck;
@@ -52,14 +52,14 @@ class DefaultFormatter implements FormatterInterface
     }
 
     /**
-     * @param Time   $Time            The time to format.
-     * @param string $formatSpecifier The format of the output string.
+     * @param TimeOfDay $time            The time to format.
+     * @param string    $formatSpecifier The format of the output string.
      *
      * @return string The formatted time.
      */
-    public function formatTime(Time $Time, $formatSpecifier)
+    public function formatTimeOfDay(TimeOfDay $time, $formatSpecifier)
     {
-        $this->typeCheck->formatTime(func_get_args());
+        $this->typeCheck->formatTimeOfDay(func_get_args());
 
         return '';
     }

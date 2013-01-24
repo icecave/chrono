@@ -2,7 +2,7 @@
 namespace Icecave\Chrono\Format;
 
 use Icecave\Chrono\Date;
-use Icecave\Chrono\Time;
+use Icecave\Chrono\TimeOfDay;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\TimeZone;
 
@@ -30,12 +30,12 @@ interface FormatterInterface
     public function formatDate(Date $date, $formatSpecifier);
 
     /**
-     * @param Time   $Time            The time to format.
-     * @param string $formatSpecifier The format of the output string.
+     * @param TimeOfDay $time            The time to format.
+     * @param string    $formatSpecifier The format of the output string.
      *
      * @return string The formatted time.
      */
-    public function formatTime(Time $Time, $formatSpecifier);
+    public function formatTimeOfDay(TimeOfDay $time, $formatSpecifier);
 
     /**
      * @param DateTime $dateTime        The date/time to format.

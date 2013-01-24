@@ -1,9 +1,7 @@
 <?php
 namespace Icecave\Chrono\Clock;
 
-use Icecave\Chrono\Date;
 use Icecave\Chrono\DateTime;
-use Icecave\Chrono\Time;
 use Icecave\Chrono\TimeZone;
 use PHPUnit_Framework_TestCase;
 use Phake;

@@ -6,7 +6,7 @@ use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Support\Normalizer;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
-class Time implements TimeInterface
+class TimeOfDay implements TimeInterface
 {
     /**
      * @param integer       $hours    The hours component of the time.
@@ -69,7 +69,7 @@ class Time implements TimeInterface
      *
      * @param TimeZone $timeZone The target timezone
      *
-     * @return Time
+     * @return TimeOfDay
      */
     public function toTimeZone(TimeZone $timeZone)
     {
@@ -82,7 +82,7 @@ class Time implements TimeInterface
         $offset = $timeZone->offset()
                 - $this->timeZone()->offset();
 
-        return new Time(
+        return new TimeOfDay(
             $this->hours(),
             $this->minutes(),
             $this->seconds() + $offset,
@@ -93,7 +93,7 @@ class Time implements TimeInterface
     /**
      * Convert this time to the UTC timezone.
      *
-     * @return Time
+     * @return TimeOfDay
      */
     public function toUtc()
     {
@@ -141,11 +141,11 @@ class Time implements TimeInterface
     /**
      * Perform a {@see strcmp} style comparison with another time.
      *
-     * @param Time $time The time to compare.
+     * @param TimeOfDay $time The time to compare.
      *
      * @return integer 0 if $this and $time are equal, <0 if $this < $time, or >0 if $this > $time.
      */
-     public function compare(Time $time)
+     public function compare(TimeOfDay $time)
      {
          $this->typeCheck->compare(func_get_args());
 
@@ -188,7 +188,7 @@ class Time implements TimeInterface
              $formatter = DefaultFormatter::instance();
          }
 
-         return $formatter->formatTime($this, $formatSpecifier);
+         return $formatter->formatTimeOfDay($this, $formatSpecifier);
      }
 
     /**

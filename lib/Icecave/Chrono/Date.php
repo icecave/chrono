@@ -123,15 +123,15 @@ class Date implements TimePointInterface
     }
 
     /**
-     * Create a {@see DateTime} instance from this date and the given {@see Time} component.
+     * Create a {@see DateTime} instance from this date and the given {@see TimeOfDay} component.
      *
      * The timezone of the time component will be coverted to the timezone of this date.
      *
-     * @param Time $time The time component.
+     * @param TimeOfDay $time The time component.
      *
      * @return DateTime A {@see DateTime instance} consiting of this date and the given time component.
      */
-    public function at(Time $time)
+    public function at(TimeOfDay $time)
     {
         $this->typeCheck->at(func_get_args());
 

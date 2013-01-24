@@ -5,7 +5,7 @@ use Icecave\Chrono\Date;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\Interval\Month;
 use Icecave\Chrono\Interval\Year;
-use Icecave\Chrono\Time;
+use Icecave\Chrono\TimeOfDay;
 use Icecave\Chrono\TimeZone;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
@@ -17,7 +17,7 @@ abstract class AbstractClock implements SuspendableClockInterface
     }
 
     /**
-     * @return Time The current local time.
+     * @return TimeOfDay The current local time.
      */
     public function localTime()
     {
@@ -27,7 +27,7 @@ abstract class AbstractClock implements SuspendableClockInterface
 
         list($seconds, $minutes, $hours, $day, $month, $year) = $this->localTimeInfo();
 
-        return new Time($hours, $minutes, $seconds, $this->timeZone());
+        return new TimeOfDay($hours, $minutes, $seconds, $this->timeZone());
     }
 
     /**
@@ -87,7 +87,7 @@ abstract class AbstractClock implements SuspendableClockInterface
     }
 
     /**
-     * @return Time The current UTC time.
+     * @return TimeOfDay The current UTC time.
      */
     public function utcTime()
     {
@@ -97,7 +97,7 @@ abstract class AbstractClock implements SuspendableClockInterface
 
         list($seconds, $minutes, $hours, $day, $month, $year) = $this->utcTimeInfo();
 
-        return new Time($hours, $minutes, $seconds);
+        return new TimeOfDay($hours, $minutes, $seconds);
     }
 
     /**

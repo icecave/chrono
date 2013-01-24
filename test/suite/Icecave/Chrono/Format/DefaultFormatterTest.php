@@ -3,7 +3,7 @@ namespace Icecave\Chrono\Format;
 
 use Icecave\Chrono\Date;
 use Icecave\Chrono\DateTime;
-use Icecave\Chrono\Time;
+use Icecave\Chrono\TimeOfDay;
 use Icecave\Chrono\TimeZone;
 use PHPUnit_Framework_TestCase;
 
@@ -17,7 +17,7 @@ class DefaultFormatterTest extends PHPUnit_Framework_TestCase
 
         $this->_timeZone = new TimeZone(36000);
         $this->_date     = new Date(2012, 6, 7, $this->_timeZone);
-        $this->_time     = new Time(9, 8, 7, $this->_timeZone);
+        $this->_time     = new TimeOfDay(9, 8, 7, $this->_timeZone);
         $this->_dateTime = new DateTime(2012, 6, 7, 9, 8, 7, $this->_timeZone);
     }
 
@@ -33,7 +33,7 @@ class DefaultFormatterTest extends PHPUnit_Framework_TestCase
     public function testEscapingIsHonoured()
     {
         // $this->assertSame($this->_specialChars, $this->_formatter->formatDate($this->_date, $this->_specialChars));
-        // $this->assertSame($this->_specialChars, $this->_formatter->formatTime($this->_time, $this->_specialChars));
+        // $this->assertSame($this->_specialChars, $this->_formatter->formatTimeOfDay($this->_time, $this->_specialChars));
         $this->assertSame($this->_specialChars, $this->_formatter->formatDateTime($this->_dateTime, $this->_escapedChars));
         // $this->assertSame($this->_specialChars, $this->_formatter->formatTimeZone($this->_timeZone, $this->_specialChars));
     }
@@ -41,7 +41,7 @@ class DefaultFormatterTest extends PHPUnit_Framework_TestCase
     public function testEscapingOfNonSpecialCharacters()
     {
         // $this->assertSame($this->_specialChars, $this->_formatter->formatDate($this->_date, $this->_specialChars));
-        // $this->assertSame($this->_specialChars, $this->_formatter->formatTime($this->_time, $this->_specialChars));
+        // $this->assertSame($this->_specialChars, $this->_formatter->formatTimeOfDay($this->_time, $this->_specialChars));
         $this->assertSame('X', $this->_formatter->formatDateTime($this->_dateTime, '\X'));
         // $this->assertSame($this->_specialChars, $this->_formatter->formatTimeZone($this->_timeZone, $this->_specialChars));
     }
@@ -49,7 +49,7 @@ class DefaultFormatterTest extends PHPUnit_Framework_TestCase
     public function testEscapingOfBackslash()
     {
         // $this->assertSame($this->_specialChars, $this->_formatter->formatDate($this->_date, $this->_specialChars));
-        // $this->assertSame($this->_specialChars, $this->_formatter->formatTime($this->_time, $this->_specialChars));
+        // $this->assertSame($this->_specialChars, $this->_formatter->formatTimeOfDay($this->_time, $this->_specialChars));
         $this->assertSame('\X', $this->_formatter->formatDateTime($this->_dateTime, '\\\\X'));
         // $this->assertSame($this->_specialChars, $this->_formatter->formatTimeZone($this->_timeZone, $this->_specialChars));
     }
@@ -57,7 +57,7 @@ class DefaultFormatterTest extends PHPUnit_Framework_TestCase
     public function testEscapingBackslashAtEnd()
     {
         // $this->assertSame($this->_specialChars, $this->_formatter->formatDate($this->_date, $this->_specialChars));
-        // $this->assertSame($this->_specialChars, $this->_formatter->formatTime($this->_time, $this->_specialChars));
+        // $this->assertSame($this->_specialChars, $this->_formatter->formatTimeOfDay($this->_time, $this->_specialChars));
         $this->assertSame('X\\', $this->_formatter->formatDateTime($this->_dateTime, 'X\\'));
         // $this->assertSame($this->_specialChars, $this->_formatter->formatTimeZone($this->_timeZone, $this->_specialChars));
     }
@@ -78,9 +78,9 @@ class DefaultFormatterTest extends PHPUnit_Framework_TestCase
     // /**
     //  * @dataProvider timeFormats
     //  */
-    // public function testFormatTime($formatSpecifier, $expected)
+    // public function testFormatTimeOfDay($formatSpecifier, $expected)
     // {
-    //     $this->assertSame($expected, $this->_formatter->formatTime($this->_time, $formatSpecifier));
+    //     $this->assertSame($expected, $this->_formatter->formatTimeOfDay($this->_time, $formatSpecifier));
     // }
     //
     // public function timeFormats()
