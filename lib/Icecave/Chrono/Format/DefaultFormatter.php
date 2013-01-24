@@ -222,7 +222,27 @@ class DefaultFormatter implements FormatterInterface
     {
         $this->typeCheck->formatTimeZone(func_get_args());
 
-        return '';
+        return $this->replace(
+            $formatSpecifier,
+            function ($character) use ($timeZone) {
+                switch ($character) {
+                    case 'e':
+                        break;
+                    case 'I':
+                        return $timeZone->isDst() ? '1' : '0';
+                    case 'O':
+                        return str_replace(':', '', $timeZone->isoString());
+                    case 'P':
+                        return $timeZone->isoString();
+                    case 'T':
+                        break;
+                    case 'Z':
+                        return $timeZone->offset();
+                }
+
+                return $character;
+            }
+        );
     }
 
     /**

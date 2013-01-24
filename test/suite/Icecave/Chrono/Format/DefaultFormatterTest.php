@@ -1,6 +1,7 @@
 <?php
 namespace Icecave\Chrono\Format;
 
+use Eloquent\Liberator\Liberator;
 use Icecave\Chrono\Date;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\TimeOfDay;
@@ -11,6 +12,8 @@ class DefaultFormatterTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        Liberator::liberateClass(__NAMESPACE__ . '\DefaultFormatter')->instance = null;
+
         $this->_formatter = new DefaultFormatter;
         $this->_specialChars = 'dDjlNSwzWFmMntLoYyaABgGhHisueIOPTZcrU';
         $this->_escapedChars = '\\d\\D\\j\\l\\N\\S\\w\\z\\W\\F\\m\\M\\n\\t\\L\\o\\Y\\y\\a\\A\\B\\g\\G\\h\\H\\i\\s\\u\\e\\I\\O\\P\\T\\Z\\c\\r\\U';
@@ -180,16 +183,33 @@ class DefaultFormatterTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    // /**
-    //  * @dataProvider timeFormats
-    //  */
-    // public function testFormatTimeZone($formatSpecifier, $expected)
-    // {
-    //     $this->assertSame($expected, $this->_formatter->formatTimeZone($this->_timeZone, $formatSpecifier));
-    // }
-    //
-    // public function timeZoneFormats()
-    // {
-    //     return array();
-    // }
+    /**
+     * @dataProvider timeZoneFormats
+     */
+    public function testFormatTimeZone($formatSpecifier, $expected)
+    {
+        $timeZone = new TimeZone(34200, true);
+        $this->assertSame($expected, $this->_formatter->formatTimeZone($timeZone, $formatSpecifier));
+    }
+
+    public function timeZoneFormats()
+    {
+        return array(
+            // 'timezone identifier'   => array('e', '???'), // not currently supported
+            'daylight savings'      => array('I', '1'), // need to test DST
+            'timezone offset'       => array('O', '+0930'), // need to test negative
+            'timezone offset colon' => array('P', '+09:30'), // need to test negative
+            // 'timezone abbreviation' => array('T', '???'), // not currently supported
+            'timezone seconds'      => array('Z', '34200'), // need to test negative
+        );
+    }
+
+    public function testInstance()
+    {
+        $a = DefaultFormatter::instance();
+        $b = DefaultFormatter::instance();
+
+        $this->assertInstanceOf(__NAMESPACE__ . '\DefaultFormatter', $a);
+        $this->assertSame($a, $b);
+    }
 }

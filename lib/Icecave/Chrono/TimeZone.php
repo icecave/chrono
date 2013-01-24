@@ -91,8 +91,8 @@ class TimeZone implements Iso8601Interface, FormattableInterface
         $this->typeCheck->isoString(func_get_args());
 
         $seconds = abs($this->offset);
-        $hours   = $seconds / 3600;
         $minutes = ($seconds % 3600) / 60;
+        $hours   = $seconds / 3600;
 
         return sprintf(
             '%s%02d:%02d',
