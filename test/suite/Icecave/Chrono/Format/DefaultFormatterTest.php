@@ -90,18 +90,37 @@ class DefaultFormatterTest extends PHPUnit_Framework_TestCase
         return $formats + $this->dateTimeFormats();
     }
 
-    // /**
-    //  * @dataProvider timeFormats
-    //  */
-    // public function testFormatTimeOfDay($formatSpecifier, $expected)
-    // {
-    //     $this->assertSame($expected, $this->_formatter->formatTimeOfDay($this->_time, $formatSpecifier));
-    // }
-    //
-    // public function timeFormats()
-    // {
-    //     return array();
-    // }
+    /**
+     * @dataProvider timeOfDayFormats
+     */
+    public function testFormatTimeOfDay($formatSpecifier, $expected)
+    {
+        $this->assertSame($expected, $this->_formatter->formatTimeOfDay($this->_time, $formatSpecifier));
+    }
+
+    public function timeOfDayFormats()
+    {
+        return array(
+            'lowercase am/pm'       => array('a', 'am'), // need to test PM
+            'uppercase am/pm'       => array('A', 'AM'),
+            'swatch internet time'  => array('B', '005'),
+
+            'unpadded 12hr hours'   => array('g', '9'), // need to test with PM
+            'unpadded 24hr hours'   => array('G', '9'), // need to test with PM
+            'padded 12hr hours'     => array('h', '09'), // need to test with PM
+            'padded 24hr hours'     => array('H', '09'), // need to test with PM
+            'padded minutes'        => array('i', '08'),
+            'padded seconds'        => array('s', '07'),
+            'microseconds'          => array('u', '0'),
+
+            // 'timezone identifier'   => array('e', '???'), // not currently supported
+            'daylight savings'      => array('I', '0'), // need to test DST
+            'timezone offset'       => array('O', '+1000'), // need to test negative
+            'timezone offset colon' => array('P', '+10:00'), // need to test negative
+            // 'timezone abbreviation' => array('T', '???'), // not currently supported
+            'timezone seconds'      => array('Z', '36000'), // need to test negative
+        );
+    }
 
     /**
      * @dataProvider dateTimeFormats

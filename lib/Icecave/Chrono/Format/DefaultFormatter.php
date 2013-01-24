@@ -63,7 +63,49 @@ class DefaultFormatter implements FormatterInterface
     {
         $this->typeCheck->formatTimeOfDay(func_get_args());
 
-        return '';
+        return $this->replace(
+            $formatSpecifier,
+            function ($character) use ($time) {
+                switch ($character) {
+                    case 'a':
+                        return $time->hours() < 12 ? 'am' : 'pm';
+                    case 'A':
+                        return $time->hours() < 12 ? 'AM' : 'PM';
+                    case 'B':
+                        return sprintf('%03d', ($time->toTimeZone(new TimeZone(3600))->totalSeconds() / 86400) * 1000);
+
+                    case 'g':
+                        return ($h = $time->hours() % 12) ? $h : 12;
+                    case 'G':
+                        return $time->hours();
+                    case 'h':
+                        return sprintf('%02d', ($h = $time->hours() % 12) ? $h : 12);
+                    case 'H':
+                        return sprintf('%02d', $time->hours());
+                    case 'i':
+                        return sprintf('%02d', $time->minutes());
+                    case 's':
+                        return sprintf('%02d', $time->seconds());
+                    case 'u':
+                        return 0;
+
+                    case 'e':
+                        break;
+                    case 'I':
+                        return $time->timeZone()->isDst() ? '1' : '0';
+                    case 'O':
+                        return str_replace(':', '', $time->timeZone()->isoString());
+                    case 'P':
+                        return $time->timeZone()->isoString();
+                    case 'T':
+                        break;
+                    case 'Z':
+                        return $time->timeZone()->offset();
+                }
+
+                return $character;
+            }
+        );
     }
 
     /**
