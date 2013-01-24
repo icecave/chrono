@@ -31,7 +31,11 @@ class DefaultFormatter implements FormatterInterface
     {
         $this->typeCheck->escape(func_get_args());
 
-        return preg_replace(self::SPECIAL_CHARS, '\\\\$0', $string);
+        return preg_replace(
+            '/(?<!\\\\)[' . preg_quote(self::SPECIAL_CHARS, '/') . ']/',
+            '\\\\$0',
+            $string
+        );
     }
 
     /**
@@ -192,7 +196,7 @@ class DefaultFormatter implements FormatterInterface
     }
 
     /**
-     * @param string $formatSpecifier
+     * @param string   $formatSpecifier
      * @param callable $callback
      *
      * @return string
@@ -201,23 +205,39 @@ class DefaultFormatter implements FormatterInterface
     {
         $this->typeCheck->replace(func_get_args());
 
-        $string = preg_replace_callback(
-            self::SPECIAL_CHARS,
-            function (array $match) use ($callback) {
-                $result = $callback($match[0]);
-                if (null === $result) {
-                    return $match[0];
-                }
-                return $result;
-            },
-            $formatSpecifier
-        );
+        $length = strlen($formatSpecifier);
+        $result = '';
+        $escaped = false;
 
-        return preg_replace(self::ESCAPED_CHARS, '$1', $string);
+        for ($index = 0; $index < $length; ++$index) {
+            $char = $formatSpecifier[$index];
+
+            if ($escaped) {
+                $result .= $char;
+                $escaped = false;
+            } elseif ('\\' === $char) {
+                $escaped = true;
+            } elseif (false === strpos(self::SPECIAL_CHARS, $char)) {
+                $result .= $char;
+            } else {
+                $value = $callback($char);
+                if (null === $value) {
+                    $result .= $char;
+                } else {
+                    $result .= $value;
+                }
+            }
+        }
+
+        // Last character was escape character ...
+        if ($escaped) {
+            $result .= '\\';
+        }
+
+        return $result;
     }
 
-    const SPECIAL_CHARS = '/(?<!\\\\)[dDjlNSwzWFmMntLoYyaABgGhHisueIOPTZcrU]/';
-    const ESCAPED_CHARS = '/\\\\([dDjlNSwzWFmMntLoYyaABgGhHisueIOPTZcrU])/';
+    const SPECIAL_CHARS = 'dDjlNSwzWFmMntLoYyaABgGhHisueIOPTZcrU';
 
     private static $instance;
     private $typeCheck;

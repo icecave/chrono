@@ -38,6 +38,30 @@ class DefaultFormatterTest extends PHPUnit_Framework_TestCase
         // $this->assertSame($this->_specialChars, $this->_formatter->formatTimeZone($this->_timeZone, $this->_specialChars));
     }
 
+    public function testEscapingOfNonSpecialCharacters()
+    {
+        // $this->assertSame($this->_specialChars, $this->_formatter->formatDate($this->_date, $this->_specialChars));
+        // $this->assertSame($this->_specialChars, $this->_formatter->formatTime($this->_time, $this->_specialChars));
+        $this->assertSame('X', $this->_formatter->formatDateTime($this->_dateTime, '\X'));
+        // $this->assertSame($this->_specialChars, $this->_formatter->formatTimeZone($this->_timeZone, $this->_specialChars));
+    }
+
+    public function testEscapingOfBackslash()
+    {
+        // $this->assertSame($this->_specialChars, $this->_formatter->formatDate($this->_date, $this->_specialChars));
+        // $this->assertSame($this->_specialChars, $this->_formatter->formatTime($this->_time, $this->_specialChars));
+        $this->assertSame('\X', $this->_formatter->formatDateTime($this->_dateTime, '\\\\X'));
+        // $this->assertSame($this->_specialChars, $this->_formatter->formatTimeZone($this->_timeZone, $this->_specialChars));
+    }
+
+    public function testEscapingBackslashAtEnd()
+    {
+        // $this->assertSame($this->_specialChars, $this->_formatter->formatDate($this->_date, $this->_specialChars));
+        // $this->assertSame($this->_specialChars, $this->_formatter->formatTime($this->_time, $this->_specialChars));
+        $this->assertSame('X\\', $this->_formatter->formatDateTime($this->_dateTime, 'X\\'));
+        // $this->assertSame($this->_specialChars, $this->_formatter->formatTimeZone($this->_timeZone, $this->_specialChars));
+    }
+
     // /**
     //  * @dataProvider dateFormats
     //  */
