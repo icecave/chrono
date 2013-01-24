@@ -48,7 +48,9 @@ class DefaultFormatter implements FormatterInterface
     {
         $this->typeCheck->formatDate(func_get_args());
 
-        return '';
+        $timeOfDay = new TimeOfDay(0, 0, 0, $date->timeZone());
+
+        return $this->formatDateTime($date->at($timeOfDay), $formatSpecifier);
     }
 
     /**
@@ -128,11 +130,11 @@ class DefaultFormatter implements FormatterInterface
                         return sprintf('%03d', ($dateTime->time()->toTimeZone(new TimeZone(3600))->totalSeconds() / 86400) * 1000);
 
                     case 'g':
-                        return $dateTime->hours() % 12;
+                        return ($h = $dateTime->hours() % 12) ? $h : 12;
                     case 'G':
                         return $dateTime->hours();
                     case 'h':
-                        return sprintf('%02d', $dateTime->hours() % 12);
+                        return sprintf('%02d', ($h = $dateTime->hours() % 12) ? $h : 12);
                     case 'H':
                         return sprintf('%02d', $dateTime->hours());
                     case 'i':
@@ -163,7 +165,7 @@ class DefaultFormatter implements FormatterInterface
                         return $dateTime->unixTime();
                 }
 
-                return null;
+                return $character;
             }
         );
     }
@@ -220,12 +222,7 @@ class DefaultFormatter implements FormatterInterface
             } elseif (false === strpos(self::SPECIAL_CHARS, $char)) {
                 $result .= $char;
             } else {
-                $value = $callback($char);
-                if (null === $value) {
-                    $result .= $char;
-                } else {
-                    $result .= $value;
-                }
+                $result .= $callback($char);
             }
         }
 

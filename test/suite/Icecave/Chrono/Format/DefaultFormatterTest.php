@@ -32,49 +32,64 @@ class DefaultFormatterTest extends PHPUnit_Framework_TestCase
 
     public function testEscapingIsHonoured()
     {
-        // $this->assertSame($this->_specialChars, $this->_formatter->formatDate($this->_date, $this->_specialChars));
-        // $this->assertSame($this->_specialChars, $this->_formatter->formatTimeOfDay($this->_time, $this->_specialChars));
+        $this->assertSame($this->_specialChars, $this->_formatter->formatDate($this->_date, $this->_escapedChars));
+        // do timeOfDay
         $this->assertSame($this->_specialChars, $this->_formatter->formatDateTime($this->_dateTime, $this->_escapedChars));
-        // $this->assertSame($this->_specialChars, $this->_formatter->formatTimeZone($this->_timeZone, $this->_specialChars));
+        // do timeZone
     }
 
     public function testEscapingOfNonSpecialCharacters()
     {
-        // $this->assertSame($this->_specialChars, $this->_formatter->formatDate($this->_date, $this->_specialChars));
-        // $this->assertSame($this->_specialChars, $this->_formatter->formatTimeOfDay($this->_time, $this->_specialChars));
+        $this->assertSame('X', $this->_formatter->formatDate($this->_date, '\X'));
+        // do timeOfDay
         $this->assertSame('X', $this->_formatter->formatDateTime($this->_dateTime, '\X'));
-        // $this->assertSame($this->_specialChars, $this->_formatter->formatTimeZone($this->_timeZone, $this->_specialChars));
+        // do timeZone
     }
 
     public function testEscapingOfBackslash()
     {
-        // $this->assertSame($this->_specialChars, $this->_formatter->formatDate($this->_date, $this->_specialChars));
-        // $this->assertSame($this->_specialChars, $this->_formatter->formatTimeOfDay($this->_time, $this->_specialChars));
+        $this->assertSame('\X', $this->_formatter->formatDate($this->_date, '\\\\X'));
+        // do timeOfDay
         $this->assertSame('\X', $this->_formatter->formatDateTime($this->_dateTime, '\\\\X'));
-        // $this->assertSame($this->_specialChars, $this->_formatter->formatTimeZone($this->_timeZone, $this->_specialChars));
+        // do timeZone
     }
 
     public function testEscapingBackslashAtEnd()
     {
-        // $this->assertSame($this->_specialChars, $this->_formatter->formatDate($this->_date, $this->_specialChars));
-        // $this->assertSame($this->_specialChars, $this->_formatter->formatTimeOfDay($this->_time, $this->_specialChars));
+        $this->assertSame('X\\', $this->_formatter->formatDate($this->_date, 'X\\'));
+        // do timeOfDay
         $this->assertSame('X\\', $this->_formatter->formatDateTime($this->_dateTime, 'X\\'));
-        // $this->assertSame($this->_specialChars, $this->_formatter->formatTimeZone($this->_timeZone, $this->_specialChars));
+        // do timeZone
     }
 
-    // /**
-    //  * @dataProvider dateFormats
-    //  */
-    // public function testFormatDate($formatSpecifier, $expected)
-    // {
-    //     $this->assertSame($expected, $this->_formatter->formatDate($this->_date, $formatSpecifier));
-    // }
-    //
-    // public function dateFormats()
-    // {
-    //     return array();
-    // }
-    //
+    /**
+     * @dataProvider dateFormats
+     */
+    public function testFormatDate($formatSpecifier, $expected)
+    {
+        $this->assertSame($expected, $this->_formatter->formatDate($this->_date, $formatSpecifier));
+    }
+
+    public function dateFormats()
+    {
+        $formats =  array(
+            'swatch internet time'  => array('B', '625'),
+
+            'unpadded 12hr hours'   => array('g', '12'),
+            'unpadded 24hr hours'   => array('G', '0'),
+            'padded 12hr hours'     => array('h', '12'),
+            'padded 24hr hours'     => array('H', '00'),
+            'padded minutes'        => array('i', '00'),
+            'padded seconds'        => array('s', '00'),
+
+            'ISO-8601 date'         => array('c', '2012-06-07T00:00:00+10:00'),
+            'RFC-2822 date'         => array('r', 'Thu, 07 Jun 2012 00:00:00 +1000'),
+            'unix time'             => array('U', '1338991200'),
+        );
+
+        return $formats + $this->dateTimeFormats();
+    }
+
     // /**
     //  * @dataProvider timeFormats
     //  */
