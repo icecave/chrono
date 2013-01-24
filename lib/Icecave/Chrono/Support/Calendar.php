@@ -47,11 +47,12 @@ class Calendar
             case 6:
             case 11:
                 return 30;
-                
+
             case 2:
                 if (self::isLeapYear($year)) {
                     return 29;
                 }
+
                 return 28;
         }
 
@@ -85,8 +86,7 @@ class Calendar
     {
         TypeCheck::get(__CLASS__)->monthName(func_get_args());
 
-        switch ($month)
-        {
+        switch ($month) {
             case 1:
                 return 'January';
             case 2:
@@ -125,8 +125,7 @@ class Calendar
     {
         TypeCheck::get(__CLASS__)->monthAbbreviation(func_get_args());
 
-        switch ($month)
-        {
+        switch ($month) {
             case 1:
                 return 'Jan';
             case 2:
@@ -165,8 +164,7 @@ class Calendar
     {
         TypeCheck::get(__CLASS__)->dayName(func_get_args());
 
-        switch ($isoDay)
-        {
+        switch ($isoDay) {
             case 1:
                 return 'Monday';
             case 2:
@@ -195,8 +193,7 @@ class Calendar
     {
         TypeCheck::get(__CLASS__)->dayAbbreviation(func_get_args());
 
-        switch ($isoDay)
-        {
+        switch ($isoDay) {
             case 1:
                 return 'Mon';
             case 2:
@@ -254,7 +251,8 @@ class Calendar
         $centuryValue = function ($j) {
             $i = $j - 17;
             $c = (4 - $i * 2 + ($i + 1) / 4) % 7;
-        	return $c < 0 ? $c + 7 : $c;
+
+            return $c < 0 ? $c + 7 : $c;
         };
 
         $c1 = $centuryValue(intval($year / 100));
@@ -342,6 +340,7 @@ class Calendar
             if (($i - ($doy - $y_leap)) < (4 - $weekday)) {
                 $iy = $y + 1;
                 $iw = 1;
+
                 return array($iy, $iw, $weekday);
             }
         }

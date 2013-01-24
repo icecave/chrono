@@ -241,7 +241,7 @@ class CalendarTest extends PHPUnit_Framework_TestCase
             array(2009, 12, 31, 2009, 53, 4), // ISO year 2009 has 53 weeks, extending the Gregorian year 2009, which starts and ends with Thursday, at both ends with three days. For 2009/2010 the ISO week-numbering year is three days into the next Gregorian year.
             array(2010,  1,  1, 2009, 53, 5),
             array(2010,  1,  2, 2009, 53, 6),
-            array(2010,  1,  3, 2009, 53, 7),     
+            array(2010,  1,  3, 2009, 53, 7),
             array(2012,  1,  1, 2011, 52, 7),
         );
     }
