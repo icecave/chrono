@@ -1,18 +1,18 @@
 # Chrono
 
-[![Build Status](https://secure.travis-ci.org/IcecaveStudios/chrono.png)](http://travis-ci.org/IcecaveStudios/chrono)
-[![Test Coverage](http://icecavestudios.github.com/chrono/coverage-report/coverage.png)](http://icecavestudios.github.com/chrono/coverage-report/index.html)
+[![Build Status](https://api.travis-ci.org/IcecaveStudios/chrono.png)](http://travis-ci.org/IcecaveStudios/chrono)
+[![Test Coverage](http://icecave.com.au/chrono/coverage-report/coverage.png)](http://icecave.com.au/chrono/coverage-report/index.html)
 
 **Chrono** is a set of PHP date and time abstractions that are decoupled from the system clock.
 
 ## Installation
 
-**Chrono** requires PHP 5.3.3 or newer.
+**Chrono** requires PHP 5.3.3 or later.
 
 ### With [Composer](http://getcomposer.org/)
 
 * Add 'icecave/chrono' to the project's composer.json dependencies
-* Run `php composer.phar install`
+* Run `composer install`
 
 ### Bare installation
 
