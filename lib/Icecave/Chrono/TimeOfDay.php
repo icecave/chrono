@@ -5,6 +5,7 @@ use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Support\Normalizer;
 use Icecave\Chrono\TypeCheck\TypeCheck;
+use InvalidArgumentException;
 
 class TimeOfDay implements TimeInterface
 {
@@ -32,6 +33,35 @@ class TimeOfDay implements TimeInterface
         $this->minutes = $minutes;
         $this->seconds = $seconds;
         $this->timeZone = $timeZone;
+    }
+
+    /**
+     * @param string $isoTime A string containing a time in any ISO-8601 compatible format.
+     *
+     * @return TimeOfDay The TimeOfDay constructed from the ISO compatible string and optional time zone.
+     */
+    public static function fromIsoString($isoTime)
+    {
+        TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
+
+        $matches = array();
+        if (preg_match(self::FORMAT_EXTENDED, $isoTime, $matches) === 1 ||
+            preg_match(self::FORMAT_BASIC, $isoTime, $matches) === 1) {
+
+            $hour = intval($matches[1]);
+            $minute = intval($matches[2]);
+            $second = intval($matches[3]);
+
+            if (count($matches) > 4 && strlen($matches[4]) > 0) {
+                $timeZone = TimeZone::fromIsoString($matches[4]);
+            } else {
+                $timeZone = null;
+            }
+        } else {
+            throw new InvalidArgumentException('Invalid ISO time: "' . $isoTime . '".');
+        }
+
+        return new self($hour, $minute, $second, $timeZone);
     }
 
     /**
@@ -214,6 +244,9 @@ class TimeOfDay implements TimeInterface
     {
         return $this->isoString();
     }
+
+    const FORMAT_BASIC    = '/^(\d\d)(\d\d)(\d\d)(.*)$/';
+    const FORMAT_EXTENDED = '/^(\d\d):(\d\d):(\d\d)(.*)$/';
 
     private $typeCheck;
     private $hours;
