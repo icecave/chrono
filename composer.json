@@ -15,10 +15,10 @@
         "php": ">=5.3.3"
     },
     "require-dev": {
-        "icecave/testing": "2.*",
+        "icecave/testing": "~2",
         "icecave/woodhouse": "*",
-        "eloquent/typhoon": "0.7.*",
-        "eloquent/liberator": "1.*"
+        "eloquent/typhoon": "~0.8",
+        "eloquent/liberator": "~1"
     },
     "autoload": {
         "psr-0": {

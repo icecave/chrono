@@ -1,5 +1,5 @@
 {
-    "hash": "b87025ef2118f4afe6944024a7621cf6",
+    "hash": "00e554e76e9d1a07e944b4cc31e7803d",
     "packages": [
 
     ],
@@ -347,28 +347,27 @@
         },
         {
             "name": "eloquent/typhax",
-            "version": "0.8.2",
+            "version": "0.9.0",
             "source": {
                 "type": "git",
                 "url": "git://github.com/eloquent/typhax.git",
-                "reference": "0.8.2"
+                "reference": "0.9.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/eloquent/typhax/archive/0.8.2.zip",
-                "reference": "0.8.2",
+                "url": "https://github.com/eloquent/typhax/archive/0.9.0.zip",
+                "reference": "0.9.0",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0",
                 "ext-mbstring": "*",
-                "eloquent/cosmos": ">=2.0,<3.0",
-                "icecave/visita": ">=0.1,<1.0"
+                "eloquent/cosmos": ">=2.0,<3.0"
             },
             "require-dev": {
                 "icecave/testing": ">=1.0,<2.0"
             },
-            "time": "2013-01-19 13:51:39",
+            "time": "2013-01-24 05:03:32",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -400,16 +399,16 @@
         },
         {
             "name": "eloquent/typhoon",
-            "version": "0.7.1",
+            "version": "0.8.0",
             "source": {
                 "type": "git",
                 "url": "git://github.com/eloquent/typhoon.git",
-                "reference": "0.7.1"
+                "reference": "0.8.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/eloquent/typhoon/archive/0.7.1.zip",
-                "reference": "0.7.1",
+                "url": "https://github.com/eloquent/typhoon/archive/0.8.0.zip",
+                "reference": "0.8.0",
                 "shasum": ""
             },
             "require": {
@@ -418,11 +417,10 @@
                 "eloquent/blox": ">=1.0,<2.0",
                 "eloquent/cosmos": ">=2.0,<3.0",
                 "eloquent/enumeration": ">=3.0,<4.0",
-                "eloquent/typhax": ">=0.8,<1.0",
+                "eloquent/typhax": ">=0.9,<1.0",
                 "icecave/isolator": ">=2.0,<3.0",
                 "icecave/pasta-ast": ">=0.1,<1.0",
                 "icecave/rasta": ">=0.1,<1.0",
-                "icecave/visita": ">=0.1,<1.0",
                 "symfony/console": ">=2.0,<3.0",
                 "symfony/filesystem": ">=2.0,<3.0"
             },
@@ -432,7 +430,7 @@
                 "icecave/testing": ">=2.0,<3.0",
                 "icecave/woodhouse": "*"
             },
-            "time": "2013-01-21 14:06:24",
+            "time": "2013-01-25 01:58:12",
             "bin": [
                 "bin/typhoon"
             ],
@@ -803,51 +801,6 @@
                 "unit",
                 "phake",
                 "coverage"
-            ]
-        },
-        {
-            "name": "icecave/visita",
-            "version": "0.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/IcecaveStudios/visita.git",
-                "reference": "0.1.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/IcecaveStudios/visita/zipball/0.1.0",
-                "reference": "0.1.0",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phake/phake": "1.*"
-            },
-            "time": "2012-08-04 23:35:23",
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Icecave\\Visita": "lib"
-                }
-            },
-            "notification-url": "http://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "James Harris",
-                    "email": "james.harris@icecave.com.au"
-                }
-            ],
-            "description": "A PHP library for assisting with visitor pattern implementations.",
-            "homepage": "https://github.com/IcecaveStudios/visita",
-            "keywords": [
-                "pattern",
-                "design",
-                "visitor"
             ]
         },
         {
