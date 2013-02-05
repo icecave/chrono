@@ -464,21 +464,21 @@
         },
         {
             "name": "ezzatron/ci-status-images",
-            "version": "1.2.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezzatron/ci-status-images.git",
-                "reference": "1.2.0"
+                "reference": "3.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/ezzatron/ci-status-images/archive/1.2.0.zip",
-                "reference": "1.2.0",
+                "url": "https://api.github.com/repos/ezzatron/ci-status-images/zipball/3.0.1",
+                "reference": "3.0.1",
                 "shasum": ""
             },
-            "time": "2013-01-18 05:57:45",
+            "time": "2013-02-01 01:04:18",
             "type": "library",
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -487,6 +487,10 @@
                     "name": "Erin Millard",
                     "email": "ezzatron@gmail.com",
                     "homepage": "http://ezzatron.com/"
+                },
+                {
+                    "name": "James Harris",
+                    "email": "james.harris@icecave.com.au"
                 }
             ],
             "description": "Test coverage percentage and other useful status images for continuous integration systems.",
@@ -754,16 +758,16 @@
         },
         {
             "name": "icecave/testing",
-            "version": "2.0.0",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/IcecaveStudios/testing.git",
-                "reference": "2.0.0"
+                "reference": "2.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/IcecaveStudios/testing/archive/2.0.0.zip",
-                "reference": "2.0.0",
+                "url": "https://api.github.com/repos/IcecaveStudios/testing/zipball/2.1.1",
+                "reference": "2.1.1",
                 "shasum": ""
             },
             "require": {
@@ -774,7 +778,7 @@
                 "eloquent/liberator": "Use liberator for circumventing PHP access modifier restrictions inside tests.",
                 "icecave/woodhouse": "Publish your code coverage information to GitHub pages."
             },
-            "time": "2013-01-19 14:28:21",
+            "time": "2013-02-01 08:39:58",
             "bin": [
                 "bin/phpunit",
                 "bin/phpunit-coverage",
@@ -782,7 +786,7 @@
                 "bin/travis-build"
             ],
             "type": "library",
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -805,31 +809,32 @@
         },
         {
             "name": "icecave/woodhouse",
-            "version": "0.2.0",
+            "version": "0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/IcecaveStudios/woodhouse.git",
-                "reference": "0.2.0"
+                "reference": "0.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/IcecaveStudios/woodhouse/archive/0.2.0.zip",
-                "reference": "0.2.0",
+                "url": "https://api.github.com/repos/IcecaveStudios/woodhouse/zipball/0.3.1",
+                "reference": "0.3.1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
                 "eloquent/asplode": "1.*",
-                "ezzatron/ci-status-images": "1.*",
+                "eloquent/enumeration": ">=3.0,<4.0",
+                "ezzatron/ci-status-images": ">=3.0,<4.0",
                 "icecave/isolator": "2.*",
                 "symfony/console": "2.*"
             },
             "require-dev": {
-                "eloquent/typhoon": "0.6.*",
                 "eloquent/liberator": "1.*",
+                "eloquent/typhoon": "0.8.*",
                 "icecave/testing": "1.*"
             },
-            "time": "2013-01-19 14:03:15",
+            "time": "2013-02-01 06:52:40",
             "bin": [
                 "bin/woodhouse"
             ],
@@ -847,7 +852,7 @@
                     "Icecave\\Woodhouse\\TypeCheck": "lib-typhoon"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -857,7 +862,7 @@
                     "email": "james.harris@icecave.com.au"
                 }
             ],
-            "description": "Publish your PHPUnit code coverage reports on your GitHub pages.",
+            "description": "Publish build artifacts and status images to your GitHub pages.",
             "homepage": "https://github.com/IcecaveStudios/collections",
             "keywords": [
                 "phpunit",
