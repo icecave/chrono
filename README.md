@@ -7,18 +7,7 @@
 
 ## Installation
 
-**Chrono** requires PHP 5.3.3 or later.
-
-### With [Composer](http://getcomposer.org/)
-
-* Add 'icecave/chrono' to the project's composer.json dependencies
-* Run `composer install`
-
-### Bare installation
-
-* Clone from GitHub: `git clone git://github.com/IcecaveStudios/chrono.git`
-* Use a [PSR-0](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md)
-  compatible autoloader (namespace 'Icecave\Chrono' in the 'lib' directory)
+* [Composer](http://getcomposer.org) package [icecave/woodhouse](https://packagist.org/packages/icecave/woodhouse)
 
 ## Concepts
 

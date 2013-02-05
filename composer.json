@@ -1,8 +1,7 @@
 {
     "name": "icecave/chrono",
-    "type": "library",
-    "description": "Dates, times, clocks, and timers.",
-    "keywords": ["time", "date", "clock", "timer", "chrono"],
+    "description": "PHP date and time abstractions that are decoupled from the system clock.",
+    "keywords": ["time", "date", "clock", "timer", "chrono", "iso"],
     "homepage": "https://github.com/IcecaveStudios/chrono",
     "license": "MIT",
     "authors": [
@@ -15,10 +14,10 @@
         "php": ">=5.3.3"
     },
     "require-dev": {
-        "icecave/testing": "~2",
-        "icecave/woodhouse": "*",
         "eloquent/typhoon": "~0.8",
-        "eloquent/liberator": "~1"
+        "eloquent/liberator": "~1",
+        "icecave/testing": "~2",
+        "icecave/woodhouse": "*"
     },
     "autoload": {
         "psr-0": {
