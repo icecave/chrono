@@ -7,7 +7,7 @@
 
 ## Installation
 
-* [Composer](http://getcomposer.org) package [icecave/woodhouse](https://packagist.org/packages/icecave/woodhouse)
+* [Composer](http://getcomposer.org) package [icecave/chrono](https://packagist.org/packages/icecave/chrono)
 
 ## Concepts
 
