@@ -5,6 +5,7 @@ use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Format\FormattableInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
+use InvalidArgumentException;
 
 class TimeZone implements Iso8601Interface, FormattableInterface
 {
@@ -16,8 +17,38 @@ class TimeZone implements Iso8601Interface, FormattableInterface
     {
         $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
 
+        $offset = $offset % 86400;
         $this->offset = intval(round($offset / 60)) * 60;
         $this->isDst = $isDst;
+    }
+
+    /**
+     * @param string  $isoTimeZone A string containing a time zone any ISO-8601 compatible format, with the exception of allowing negative zero's.
+     * @param boolean $isDst       True if the timezone is currently honouring daylight saving time; otheriwse, false.
+     *
+     * @return TimeZone The TimeZone constructed from the ISO compatible string.
+     */
+    public static function fromIsoString($isoTimeZone, $isDst = false)
+    {
+        TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
+
+        $matches = array();
+        if (preg_match(self::FORMAT_UTC, $isoTimeZone, $matches) === 1) {
+            $offset = 0;
+        } elseif (preg_match(self::FORMAT_OFFSET, $isoTimeZone, $matches) === 1) {
+            $sign = trim($matches[1]);
+            $hour = intval($matches[2]);
+            $minute = count($matches) > 4 ? intval($matches[4]) : 0;
+
+            $offset = intval(($hour * 60 * 60) + ($minute * 60));
+            if ($sign === '-') {
+                $offset = -$offset;
+            }
+        } else {
+            throw new InvalidArgumentException('Invalid ISO time zone: "' . $isoTimeZone . '".');
+        }
+
+        return new self($offset, $isDst);
     }
 
     /**
@@ -109,6 +140,9 @@ class TimeZone implements Iso8601Interface, FormattableInterface
     {
         return $this->isoString();
     }
+
+    const FORMAT_UTC    = '/^(Z)$/';
+    const FORMAT_OFFSET = '/^([+-])(\d\d)(:?(\d\d))?$/';
 
     private $typeCheck;
     private $timeZone;

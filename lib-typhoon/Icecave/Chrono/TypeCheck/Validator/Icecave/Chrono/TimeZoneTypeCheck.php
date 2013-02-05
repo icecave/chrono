@@ -33,6 +33,36 @@ class TimeZoneTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         }
     }
 
+    public function fromIsoString(array $arguments)
+    {
+        $argumentCount = \count($arguments);
+        if ($argumentCount < 1) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('isoTimeZone', 0, 'string');
+        } elseif ($argumentCount > 2) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(2, $arguments[2]);
+        }
+        $value = $arguments[0];
+        if (!\is_string($value)) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
+                'isoTimeZone',
+                0,
+                $arguments[0],
+                'string'
+            );
+        }
+        if ($argumentCount > 1) {
+            $value = $arguments[1];
+            if (!\is_bool($value)) {
+                throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
+                    'isDst',
+                    1,
+                    $arguments[1],
+                    'boolean'
+                );
+            }
+        }
+    }
+
     public function offset(array $arguments)
     {
         if (\count($arguments) > 0) {
