@@ -5,6 +5,7 @@ use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Support\Normalizer;
 use Icecave\Chrono\TypeCheck\TypeCheck;
+use InvalidArgumentException;
 
 /**
  * Represents a date/time.
@@ -45,6 +46,39 @@ class DateTime implements TimePointInterface, TimeInterface
         $this->minutes = $minutes;
         $this->seconds = $seconds;
         $this->timeZone = $timeZone;
+    }
+
+    /**
+     * @param string $isoDateTime A string containing a date time in any ISO-8601 compatible format.
+     *
+     * @return DateTime The Date constructed from the ISO compatible string and optional time zone.
+     */
+    public static function fromIsoString($isoDateTime)
+    {
+        TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
+
+        $matches = array();
+        if (preg_match(self::FORMAT_EXTENDED, $isoDateTime, $matches) === 1 ||
+            preg_match(self::FORMAT_BASIC, $isoDateTime, $matches) === 1) {
+
+            $year = intval($matches[1]);
+            $month = intval($matches[2]);
+            $day = intval($matches[3]);
+
+            $hour = intval($matches[4]);
+            $minute = intval($matches[5]);
+            $second = intval($matches[6]);
+
+            if (count($matches) > 7 && strlen($matches[7]) > 0) {
+                $timeZone = TimeZone::fromIsoString($matches[7]);
+            } else {
+                $timeZone = null;
+            }
+        } else {
+            throw new InvalidArgumentException('Invalid ISO date time: "' . $isoDateTime . '".');
+        }
+
+        return new self($year, $month, $day, $hour, $minute, $second, $timeZone);
     }
 
     /**
@@ -257,7 +291,7 @@ class DateTime implements TimePointInterface, TimeInterface
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible format (YYYY-MM-DD).
+     * @return string A string representing this object in an ISO compatible format (YYYY-MM-DDThh:mm:ss[+-]HH:MM).
      */
     public function isoString()
     {
@@ -276,12 +310,15 @@ class DateTime implements TimePointInterface, TimeInterface
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible format (YYYY-MM-DD).
+     * @return string A string representing this object in an ISO compatible format (YYYY-MM-DDThh:mm:ss[+-]HH:MM).
      */
     public function __toString()
     {
         return $this->isoString();
     }
+
+    const FORMAT_BASIC    = '/^(\d\d\d\d)(\d\d)(\d\d)[T| ](\d\d)(\d\d)(\d\d)(.*)$/';
+    const FORMAT_EXTENDED = '/^(\d\d\d\d)-(\d\d)-(\d\d)[T| ](\d\d):(\d\d):(\d\d)(.*)$/';
 
     private $typeCheck;
     private $year;

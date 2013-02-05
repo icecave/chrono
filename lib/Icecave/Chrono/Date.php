@@ -5,6 +5,7 @@ use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Support\Normalizer;
 use Icecave\Chrono\TypeCheck\TypeCheck;
+use InvalidArgumentException;
 
 /**
  * Represents a date.
@@ -35,6 +36,35 @@ class Date implements TimePointInterface
         $this->month = $month;
         $this->day = $day;
         $this->timeZone = $timeZone;
+    }
+
+    /**
+     * @param string $isoDate A string containing a date in any ISO-8601 compatible format.
+     *
+     * @return Date The Date constructed from the ISO compatible string and optional time zone.
+     */
+    public static function fromIsoString($isoDate)
+    {
+        TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
+
+        $matches = array();
+        if (preg_match(self::FORMAT_EXTENDED, $isoDate, $matches) === 1 ||
+            preg_match(self::FORMAT_BASIC, $isoDate, $matches) === 1) {
+
+            $year = intval($matches[1]);
+            $month = intval($matches[2]);
+            $day = intval($matches[3]);
+
+            if (count($matches) > 4 && strlen($matches[4]) > 0) {
+                $timeZone = TimeZone::fromIsoString($matches[4]);
+            } else {
+                $timeZone = null;
+            }
+        } else {
+            throw new InvalidArgumentException('Invalid ISO date: "' . $isoDate . '".');
+        }
+
+        return new self($year, $month, $day, $timeZone);
     }
 
     /**
@@ -231,6 +261,9 @@ class Date implements TimePointInterface
     {
         return $this->isoString();
     }
+
+    const FORMAT_BASIC    = '/^(\d\d\d\d)(\d\d)(\d\d)(.*)$/';
+    const FORMAT_EXTENDED = '/^(\d\d\d\d)-(\d\d)-(\d\d)(.*)$/';
 
     private $typeCheck;
     private $year;

@@ -147,4 +147,92 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('10:20:30+00:00', $this->_time->isoString());
         $this->assertEquals('10:20:30+00:00', $this->_time->__toString());
     }
+
+    /**
+     * @dataProvider validIsoStrings
+     */
+    public function testFromIsoString($isoString, $expected)
+    {
+        $result = TimeOfDay::fromIsoString($isoString);
+        $this->assertSame($expected, $result->isoString());
+    }
+
+    public function validIsoStrings()
+    {
+        return array(
+            'Basic'    => array('102030',   '10:20:30+00:00'),
+            'Extended' => array('10:20:30', '10:20:30+00:00'),
+        );
+    }
+
+    /**
+     * @dataProvider validIsoStringsWithTimeZone
+     */
+    public function testFromIsoStringWithTimeZone($isoString, $expectedString, $expectedTimeZone)
+    {
+        $result = TimeOfDay::fromIsoString($isoString);
+        $this->assertSame($expectedString, $result->isoString());
+        $this->assertEquals($expectedTimeZone, $result->timeZone());
+    }
+
+    public function validIsoStringsWithTimeZone()
+    {
+        $hours = 60 * 60;
+        $minutes = 60;
+
+        $timeZoneUTC = new TimeZone(0);
+        $timeZonePos1100 = new TimeZone(11 * $hours);
+        $timeZonePos1122 = new TimeZone((11 * $hours) + (22 * $minutes));
+        $timeZoneNeg1100 = new TimeZone(-(11 * $hours));
+        $timeZoneNeg1122 = new TimeZone(-((11 * $hours) + (22 * $minutes)));
+
+        return array(
+            'Basic, UTC'               => array('102030Z',        '10:20:30+00:00', $timeZoneUTC),
+            'Basic, positive short'    => array('102030+11',      '10:20:30+11:00', $timeZonePos1100),
+            'Basic, positive long'     => array('102030+1122',    '10:20:30+11:22', $timeZonePos1122),
+            'Basic, negative short'    => array('102030-11',      '10:20:30-11:00', $timeZoneNeg1100),
+            'Basic, negative long'     => array('102030-1122',    '10:20:30-11:22', $timeZoneNeg1122),
+            'Extended, UTC'            => array('10:20:30Z',      '10:20:30+00:00', $timeZoneUTC),
+            'Extended, positive short' => array('10:20:30+11',    '10:20:30+11:00', $timeZonePos1100),
+            'Extended, positive long'  => array('10:20:30+11:22', '10:20:30+11:22', $timeZonePos1122),
+            'Extended, negative short' => array('10:20:30-11',    '10:20:30-11:00', $timeZoneNeg1100),
+            'Extended, negative long'  => array('10:20:30-11:22', '10:20:30-11:22', $timeZoneNeg1122),
+        );
+    }
+
+    /**
+     * @dataProvider invalidIsoStrings
+     */
+    public function testFromIsoStringWithInvalidIsoDateTime($isoString, $expected)
+    {
+        $this->setExpectedException('InvalidArgumentException', $expected);
+        TimeOfDay::fromIsoString($isoString);
+    }
+
+    public function invalidIsoStrings()
+    {
+        return array(
+            'Not enough digits'                  => array('1',          'Invalid ISO time: "1"'),
+            'Not enough digits'                  => array('00000',      'Invalid ISO time: "00:00:0"'),
+            'Not enough digits'                  => array('11223',      'Invalid ISO time: "00:00:0"'),
+            'Not enough digits'                  => array('00:00:0',    'Invalid ISO time: "00:00:0"'),
+            'Not enough digits'                  => array('11:22:3',    'Invalid ISO time: "11:22:3"'),
+            'Too many digits, invalid time zone' => array('1122334',    'Invalid ISO time: "4"'),
+            'Too many digits, invalid time zone' => array('11:22:33:4', 'Invalid ISO time zone: ":4"'),
+            'Missing minute and second'          => array('11',         'Invalid ISO time: "11"'),
+            'Missing second'                     => array('1122',       'Invalid ISO time: "11:22"'),
+            'Missing second'                     => array('11:22',      'Invalid ISO time: "11:22"'),
+            'Unexpected prefix'                  => array('-10:20:30',  'Invalid ISO time: "-10:20:30"'),
+            'Invalid format'                     => array('11:',        'Invalid ISO time: "11:"'),
+            'Invalid format'                     => array('11:22:',     'Invalid ISO time: "11:22:"'),
+            'Invalid letters'                    => array('AABBCC',     'Invalid ISO time: "AABBCC"'),
+            'Invalid letters'                    => array('AA:BB:CC',   'Invalid ISO time: "AA:BB:CC"'),
+            'Invalid letters'                    => array('AA:22:33',   'Invalid ISO time: "AA:22:33"'),
+            'Invalid letters'                    => array('11:BB:33',   'Invalid ISO time: "11:BB:33"'),
+            'Invalid letters'                    => array('11:22:CC',   'Invalid ISO time: "11:22:CC"'),
+            'Invalid separator'                  => array('11-22-33',   'Invalid ISO time: "11-22-33"'),
+            'Missing time'                       => array('+10',        'Invalid ISO time: "+10"'),
+            'Missing time'                       => array('+10:20',     'Invalid ISO time: "+10:20"'),
+        );
+    }
 }
