@@ -7,7 +7,7 @@
 
 ## Installation
 
-* [Composer](http://getcomposer.org) package [icecave/chrono](https://packagist.org/packages/icecave/chrono)
+Available as [Composer](http://getcomposer.org) package [icecave/chrono](https://packagist.org/packages/icecave/chrono).
 
 ## Concepts
 
@@ -56,4 +56,3 @@ Each of the clock methods shown above has a [UTC](http://en.wikipedia.org/wiki/C
 ```php
 $nowUtc = $clock->utcDateTime();
 ```
-
