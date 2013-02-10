@@ -1,7 +1,8 @@
-# Chrono
-
+![Chrono](http://icecave.com.au/assets/img/project-icons/icon-chrono.png)<br>&nbsp;&nbsp;
 [![Build Status](https://api.travis-ci.org/IcecaveStudios/chrono.png)](http://travis-ci.org/IcecaveStudios/chrono)
 [![Test Coverage](http://icecave.com.au/chrono/coverage-report/coverage.png)](http://icecave.com.au/chrono/coverage-report/index.html)
+
+---
 
 **Chrono** is a set of PHP date and time abstractions that are decoupled from the system clock.
 
