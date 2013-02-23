@@ -1,6 +1,7 @@
-![Chrono](http://icecave.com.au/assets/img/project-icons/icon-chrono.png)<br>&nbsp;&nbsp;
-[![Build Status](https://api.travis-ci.org/IcecaveStudios/chrono.png)](http://travis-ci.org/IcecaveStudios/chrono)
-[![Test Coverage](http://icecave.com.au/chrono/coverage-report/coverage.png)](http://icecave.com.au/chrono/coverage-report/index.html)
+# ![Chrono]
+
+[![Build Status]](http://travis-ci.org/IcecaveStudios/chrono)
+[![Test Coverage]](http://icecave.com.au/chrono/artifacts/tests/coverage)
 
 ---
 
@@ -57,3 +58,8 @@ Each of the clock methods shown above has a [UTC](http://en.wikipedia.org/wiki/C
 ```php
 $nowUtc = $clock->utcDateTime();
 ```
+
+<!-- references -->
+[Chrono]: http://icecave.com.au/assets/img/project-icons/icon-chrono.png
+[Build Status]: https://raw.github.com/IcecaveStudios/chrono/gh-pages/artifacts/images/icecave/regular/build-status.png
+[Test Coverage]: https://raw.github.com/IcecaveStudios/chrono/gh-pages/artifacts/images/icecave/regular/coverage.png
