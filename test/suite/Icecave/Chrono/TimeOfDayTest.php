@@ -9,7 +9,7 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->_time = new TimeOfDay(10, 20, 30);
+        $this->time = new TimeOfDay(10, 20, 30);
     }
 
     public function testNormalization()
@@ -20,23 +20,23 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
 
     public function testHours()
     {
-        $this->assertSame(10, $this->_time->hours());
+        $this->assertSame(10, $this->time->hours());
     }
 
     public function testMinutes()
     {
-        $this->assertSame(20, $this->_time->minutes());
+        $this->assertSame(20, $this->time->minutes());
     }
 
     public function testSeconds()
     {
-        $this->assertSame(30, $this->_time->seconds());
+        $this->assertSame(30, $this->time->seconds());
     }
 
     public function testToTimeZone()
     {
         $timeZone = new TimeZone(36000);
-        $result = $this->_time->toTimeZone($timeZone);
+        $result = $this->time->toTimeZone($timeZone);
 
         $this->assertInstanceOf(__NAMESPACE__ . '\TimeOfDay', $result);
         $this->assertSame('20:20:30+10:00', $result->isoString());
@@ -44,8 +44,8 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
 
     public function testToTimeZoneSame()
     {
-        $result = $this->_time->toTimeZone(new TimeZone);
-        $this->assertSame($this->_time, $result);
+        $result = $this->time->toTimeZone(new TimeZone);
+        $this->assertSame($this->time, $result);
     }
 
     public function testToUtc()
@@ -60,7 +60,7 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
 
     public function testTimeZone()
     {
-        $this->assertTrue($this->_time->timeZone()->isUtc());
+        $this->assertTrue($this->time->timeZone()->isUtc());
 
         $timeZone = new TimeZone(36000, true);
         $time = new TimeOfDay(10, 20, 30, $timeZone);
@@ -70,7 +70,7 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
     public function testOn()
     {
         $date = new Date(2013, 2, 1);
-        $result = $this->_time->on($date);
+        $result = $this->time->on($date);
         $expected = new DateTime(2013, 2, 1, 10, 20, 30);
 
         $this->assertEquals($expected, $result);
@@ -79,7 +79,7 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
     public function testOnWithTimeZoneCoversion()
     {
         $date = new Date(2013, 2, 1, new TimeZone(36000));
-        $result = $this->_time->on($date);
+        $result = $this->time->on($date);
         $expected = new DateTime(2013, 1, 31, 10, 20, 30);
 
         $this->assertEquals($expected, $result);
@@ -87,40 +87,40 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
 
     public function testCompareSelf()
     {
-        $this->assertSame(0, $this->_time->compare($this->_time));
+        $this->assertSame(0, $this->time->compare($this->time));
     }
 
     public function testCompareClone()
     {
-        $time = clone $this->_time;
-        $this->assertSame(0, $this->_time->compare($time));
+        $time = clone $this->time;
+        $this->assertSame(0, $this->time->compare($time));
     }
 
     public function testCompareTime()
     {
         $time = new TimeOfDay(10, 20, 31);
-        $this->assertLessThan(0, $this->_time->compare($time));
-        $this->assertGreaterThan(0, $time->compare($this->_time));
+        $this->assertLessThan(0, $this->time->compare($time));
+        $this->assertGreaterThan(0, $time->compare($this->time));
 
         $time = new TimeOfDay(10, 21, 30);
-        $this->assertLessThan(0, $this->_time->compare($time));
-        $this->assertGreaterThan(0, $time->compare($this->_time));
+        $this->assertLessThan(0, $this->time->compare($time));
+        $this->assertGreaterThan(0, $time->compare($this->time));
 
         $time = new TimeOfDay(11, 20, 30);
-        $this->assertLessThan(0, $this->_time->compare($time));
-        $this->assertGreaterThan(0, $time->compare($this->_time));
+        $this->assertLessThan(0, $this->time->compare($time));
+        $this->assertGreaterThan(0, $time->compare($this->time));
     }
 
     public function testCompareTimeZone()
     {
         $time = new TimeOfDay(10, 20, 30, new TimeZone(36000));
-        $this->assertLessThan(0, $this->_time->compare($time));
-        $this->assertGreaterThan(0, $time->compare($this->_time));
+        $this->assertLessThan(0, $this->time->compare($time));
+        $this->assertGreaterThan(0, $time->compare($this->time));
     }
 
     public function testTotalSeconds()
     {
-        $this->assertSame(37230, $this->_time->totalSeconds());
+        $this->assertSame(37230, $this->time->totalSeconds());
     }
 
     public function testFormat()
@@ -133,19 +133,19 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
             ->thenReturn('<1st>')
             ->thenReturn('<2nd>');
 
-        $result = $this->_time->format('H:i:s');
+        $result = $this->time->format('H:i:s');
         $this->assertSame('<1st>', $result);
 
-        $result = $this->_time->format('H:i:s', $formatter);
+        $result = $this->time->format('H:i:s', $formatter);
         $this->assertSame('<2nd>', $result);
 
-        Phake::verify($formatter, Phake::times(2))->formatTimeOfDay($this->_time, 'H:i:s');
+        Phake::verify($formatter, Phake::times(2))->formatTimeOfDay($this->time, 'H:i:s');
     }
 
     public function testIsoString()
     {
-        $this->assertEquals('10:20:30+00:00', $this->_time->isoString());
-        $this->assertEquals('10:20:30+00:00', $this->_time->__toString());
+        $this->assertEquals('10:20:30+00:00', $this->time->isoString());
+        $this->assertEquals('10:20:30+00:00', $this->time->__toString());
     }
 
     /**

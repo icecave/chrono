@@ -14,54 +14,54 @@ class DefaultFormatterTest extends PHPUnit_Framework_TestCase
     {
         Liberator::liberateClass(__NAMESPACE__ . '\DefaultFormatter')->instance = null;
 
-        $this->_formatter = new DefaultFormatter;
-        $this->_specialChars = 'dDjlNSwzWFmMntLoYyaABgGhHisueIOPTZcrU';
-        $this->_escapedChars = '\\d\\D\\j\\l\\N\\S\\w\\z\\W\\F\\m\\M\\n\\t\\L\\o\\Y\\y\\a\\A\\B\\g\\G\\h\\H\\i\\s\\u\\e\\I\\O\\P\\T\\Z\\c\\r\\U';
+        $this->formatter = new DefaultFormatter;
+        $this->specialChars = 'dDjlNSwzWFmMntLoYyaABgGhHisueIOPTZcrU';
+        $this->escapedChars = '\\d\\D\\j\\l\\N\\S\\w\\z\\W\\F\\m\\M\\n\\t\\L\\o\\Y\\y\\a\\A\\B\\g\\G\\h\\H\\i\\s\\u\\e\\I\\O\\P\\T\\Z\\c\\r\\U';
 
-        $this->_timeZone = new TimeZone(36000);
-        $this->_date     = new Date(2012, 6, 7, $this->_timeZone);
-        $this->_time     = new TimeOfDay(9, 8, 7, $this->_timeZone);
-        $this->_dateTime = new DateTime(2012, 6, 7, 9, 8, 7, $this->_timeZone);
+        $this->timeZone = new TimeZone(36000);
+        $this->date     = new Date(2012, 6, 7, $this->timeZone);
+        $this->time     = new TimeOfDay(9, 8, 7, $this->timeZone);
+        $this->dateTime = new DateTime(2012, 6, 7, 9, 8, 7, $this->timeZone);
     }
 
     public function testEscape()
     {
         // Escape special characters ...
-        $this->assertSame($this->_escapedChars, $this->_formatter->escape($this->_specialChars));
+        $this->assertSame($this->escapedChars, $this->formatter->escape($this->specialChars));
 
         // Don't escape already escaped characters ...
-        $this->assertSame($this->_escapedChars, $this->_formatter->escape($this->_escapedChars));
+        $this->assertSame($this->escapedChars, $this->formatter->escape($this->escapedChars));
     }
 
     public function testEscapingIsHonoured()
     {
-        $this->assertSame($this->_specialChars, $this->_formatter->formatDate($this->_date, $this->_escapedChars));
+        $this->assertSame($this->specialChars, $this->formatter->formatDate($this->date, $this->escapedChars));
         // do timeOfDay
-        $this->assertSame($this->_specialChars, $this->_formatter->formatDateTime($this->_dateTime, $this->_escapedChars));
+        $this->assertSame($this->specialChars, $this->formatter->formatDateTime($this->dateTime, $this->escapedChars));
         // do timeZone
     }
 
     public function testEscapingOfNonSpecialCharacters()
     {
-        $this->assertSame('X', $this->_formatter->formatDate($this->_date, '\X'));
+        $this->assertSame('X', $this->formatter->formatDate($this->date, '\X'));
         // do timeOfDay
-        $this->assertSame('X', $this->_formatter->formatDateTime($this->_dateTime, '\X'));
+        $this->assertSame('X', $this->formatter->formatDateTime($this->dateTime, '\X'));
         // do timeZone
     }
 
     public function testEscapingOfBackslash()
     {
-        $this->assertSame('\X', $this->_formatter->formatDate($this->_date, '\\\\X'));
+        $this->assertSame('\X', $this->formatter->formatDate($this->date, '\\\\X'));
         // do timeOfDay
-        $this->assertSame('\X', $this->_formatter->formatDateTime($this->_dateTime, '\\\\X'));
+        $this->assertSame('\X', $this->formatter->formatDateTime($this->dateTime, '\\\\X'));
         // do timeZone
     }
 
     public function testEscapingBackslashAtEnd()
     {
-        $this->assertSame('X\\', $this->_formatter->formatDate($this->_date, 'X\\'));
+        $this->assertSame('X\\', $this->formatter->formatDate($this->date, 'X\\'));
         // do timeOfDay
-        $this->assertSame('X\\', $this->_formatter->formatDateTime($this->_dateTime, 'X\\'));
+        $this->assertSame('X\\', $this->formatter->formatDateTime($this->dateTime, 'X\\'));
         // do timeZone
     }
 
@@ -70,7 +70,7 @@ class DefaultFormatterTest extends PHPUnit_Framework_TestCase
      */
     public function testFormatDate($formatSpecifier, $expected)
     {
-        $this->assertSame($expected, $this->_formatter->formatDate($this->_date, $formatSpecifier));
+        $this->assertSame($expected, $this->formatter->formatDate($this->date, $formatSpecifier));
     }
 
     public function dateFormats()
@@ -98,7 +98,7 @@ class DefaultFormatterTest extends PHPUnit_Framework_TestCase
      */
     public function testFormatTimeOfDay($formatSpecifier, $expected)
     {
-        $this->assertSame($expected, $this->_formatter->formatTimeOfDay($this->_time, $formatSpecifier));
+        $this->assertSame($expected, $this->formatter->formatTimeOfDay($this->time, $formatSpecifier));
     }
 
     public function timeOfDayFormats()
@@ -130,7 +130,7 @@ class DefaultFormatterTest extends PHPUnit_Framework_TestCase
      */
     public function testFormatDateTime($formatSpecifier, $expected)
     {
-        $this->assertSame($expected, $this->_formatter->formatDateTime($this->_dateTime, $formatSpecifier));
+        $this->assertSame($expected, $this->formatter->formatDateTime($this->dateTime, $formatSpecifier));
     }
 
     public function dateTimeFormats()
@@ -189,7 +189,7 @@ class DefaultFormatterTest extends PHPUnit_Framework_TestCase
     public function testFormatTimeZone($formatSpecifier, $expected)
     {
         $timeZone = new TimeZone(34200, true);
-        $this->assertSame($expected, $this->_formatter->formatTimeZone($timeZone, $formatSpecifier));
+        $this->assertSame($expected, $this->formatter->formatTimeZone($timeZone, $formatSpecifier));
     }
 
     public function timeZoneFormats()
