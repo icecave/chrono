@@ -1,29 +1,33 @@
 {
-    "hash": "8e299df2517d2d4dfe904fbf7690e6ff",
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "38be92369be2c4b851875c7454423ac7",
     "packages": [
 
     ],
     "packages-dev": [
         {
             "name": "eloquent/asplode",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eloquent/asplode.git",
-                "reference": "1.0.4"
+                "reference": "1.0.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/eloquent/asplode/zipball/1.0.4",
-                "reference": "1.0.4",
+                "url": "https://api.github.com/repos/eloquent/asplode/zipball/1.0.5",
+                "reference": "1.0.5",
                 "shasum": ""
             },
             "require": {
-                "icecave/isolator": "2.*",
+                "icecave/isolator": ">=2.0,<3.0",
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "phake/phake": "1.*"
+                "icecave/archer": ">=0.2,<1.0"
             },
             "type": "library",
             "autoload": {
@@ -31,7 +35,7 @@
                     "Eloquent\\Asplode": "src"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -53,7 +57,7 @@
                 "handler",
                 "handling"
             ],
-            "time": "2012-08-05 18:24:33"
+            "time": "2013-03-04 08:07:03"
         },
         {
             "name": "eloquent/blox",
@@ -81,7 +85,7 @@
                     "Eloquent\\Blox": "src"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -109,16 +113,16 @@
         },
         {
             "name": "eloquent/cosmos",
-            "version": "2.3.0",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
-                "url": "git://github.com/eloquent/cosmos.git",
-                "reference": "2.3.0"
+                "url": "https://github.com/eloquent/cosmos.git",
+                "reference": "2.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/eloquent/cosmos/archive/2.3.0.zip",
-                "reference": "2.3.0",
+                "url": "https://api.github.com/repos/eloquent/cosmos/zipball/2.3.1",
+                "reference": "2.3.1",
                 "shasum": ""
             },
             "require": {
@@ -127,7 +131,7 @@
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "icecave/testing": ">=1.0,<2.0"
+                "icecave/archer": ">=0.2,<1.0"
             },
             "type": "library",
             "autoload": {
@@ -135,7 +139,7 @@
                     "Eloquent\\Cosmos": "src"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -157,27 +161,27 @@
                 "resolver",
                 "solver"
             ],
-            "time": "2013-01-19 11:33:04"
+            "time": "2013-03-04 09:26:13"
         },
         {
             "name": "eloquent/enumeration",
-            "version": "3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
-                "url": "git://github.com/eloquent/enumeration.git",
-                "reference": "3.0.1"
+                "url": "https://github.com/eloquent/enumeration.git",
+                "reference": "3.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/eloquent/enumeration/zipball/3.0.1",
-                "reference": "3.0.1",
+                "url": "https://api.github.com/repos/eloquent/enumeration/zipball/3.0.2",
+                "reference": "3.0.2",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "phake/phake": "1.*"
+                "icecave/archer": ">=0.2,<1.0"
             },
             "type": "library",
             "autoload": {
@@ -185,7 +189,7 @@
                     "Eloquent\\Enumeration": "src"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -204,27 +208,27 @@
                 "enumeration",
                 "set"
             ],
-            "time": "2012-08-21 01:21:14"
+            "time": "2013-03-04 09:52:52"
         },
         {
             "name": "eloquent/equality",
-            "version": "2.1.0",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eloquent/equality.git",
-                "reference": "2.1.0"
+                "reference": "2.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/eloquent/equality/archive/2.1.0.zip",
-                "reference": "2.1.0",
+                "url": "https://api.github.com/repos/eloquent/equality/zipball/2.1.1",
+                "reference": "2.1.1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "icecave/testing": ">=1.0,<2.0"
+                "icecave/archer": ">=0.2,<1.0"
             },
             "type": "library",
             "autoload": {
@@ -232,7 +236,7 @@
                     "Eloquent\\Equality": "src"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -252,25 +256,28 @@
                 "object",
                 "strict"
             ],
-            "time": "2013-01-18 02:56:20"
+            "time": "2013-03-04 09:38:33"
         },
         {
             "name": "eloquent/liberator",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eloquent/liberator.git",
-                "reference": "1.1.0"
+                "reference": "1.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/eloquent/liberator/zipball/1.1.0",
-                "reference": "1.1.0",
+                "url": "https://api.github.com/repos/eloquent/liberator/zipball/1.1.1",
+                "reference": "1.1.1",
                 "shasum": ""
             },
             "require": {
-                "eloquent/pops": "3.*",
+                "eloquent/pops": ">=3.0,<4.0",
                 "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "icecave/archer": ">=0.2,<1.0"
             },
             "type": "library",
             "autoload": {
@@ -278,7 +285,7 @@
                     "Eloquent\\Liberator": "src"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -300,24 +307,27 @@
                 "proxy",
                 "reflection"
             ],
-            "time": "2012-08-02 06:30:51"
+            "time": "2013-03-03 23:02:47"
         },
         {
             "name": "eloquent/pops",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
-                "url": "git://github.com/eloquent/pops.git",
-                "reference": "3.1.0"
+                "url": "https://github.com/eloquent/pops.git",
+                "reference": "3.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/eloquent/pops/zipball/3.1.0",
-                "reference": "3.1.0",
+                "url": "https://api.github.com/repos/eloquent/pops/zipball/3.1.1",
+                "reference": "3.1.1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "icecave/archer": ">=0.2,<1.0"
             },
             "type": "library",
             "autoload": {
@@ -325,7 +335,7 @@
                     "Eloquent\\Pops": "src"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -343,20 +353,20 @@
                 "object",
                 "proxy"
             ],
-            "time": "2012-08-02 06:17:58"
+            "time": "2013-03-04 10:10:43"
         },
         {
             "name": "eloquent/typhax",
-            "version": "0.9.0",
+            "version": "0.9.1",
             "source": {
                 "type": "git",
-                "url": "git://github.com/eloquent/typhax.git",
-                "reference": "0.9.0"
+                "url": "https://github.com/eloquent/typhax.git",
+                "reference": "0.9.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/eloquent/typhax/archive/0.9.0.zip",
-                "reference": "0.9.0",
+                "url": "https://api.github.com/repos/eloquent/typhax/zipball/0.9.1",
+                "reference": "0.9.1",
                 "shasum": ""
             },
             "require": {
@@ -365,7 +375,7 @@
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "icecave/testing": ">=1.0,<2.0"
+                "icecave/archer": ">=0.2,<1.0"
             },
             "type": "library",
             "autoload": {
@@ -373,7 +383,7 @@
                     "Eloquent\\Typhax": "src"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -395,7 +405,7 @@
                 "syntax",
                 "type"
             ],
-            "time": "2013-01-24 05:03:32"
+            "time": "2013-03-04 10:28:53"
         },
         {
             "name": "eloquent/typhoon",
@@ -439,7 +449,7 @@
                     "Eloquent\\Typhoon": "src"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -463,20 +473,21 @@
         },
         {
             "name": "icecave/archer",
-            "version": "0.2.0",
+            "version": "0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/IcecaveStudios/archer.git",
-                "reference": "0.2.0"
+                "reference": "0.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/IcecaveStudios/archer/zipball/0.2.0",
-                "reference": "0.2.0",
+                "url": "https://api.github.com/repos/IcecaveStudios/archer/zipball/0.3.1",
+                "reference": "0.3.1",
                 "shasum": ""
             },
             "require": {
                 "phake/phake": ">=1.0,<2.0",
+                "php": ">=5.3",
                 "symfony/console": ">=2.0,<3.0",
                 "symfony/process": ">=2.0,<3.0"
             },
@@ -493,7 +504,7 @@
                     "Icecave\\Archer": "lib"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -519,20 +530,20 @@
                 "testing",
                 "unit"
             ],
-            "time": "2013-02-22 05:13:02"
+            "time": "2013-04-30 07:52:53"
         },
         {
             "name": "icecave/collections",
-            "version": "0.5.1",
+            "version": "0.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/IcecaveStudios/collections.git",
-                "reference": "0.5.1"
+                "reference": "0.6.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/IcecaveStudios/collections/zipball/0.5.1",
-                "reference": "0.5.1",
+                "url": "https://api.github.com/repos/IcecaveStudios/collections/zipball/0.6.0",
+                "reference": "0.6.0",
                 "shasum": ""
             },
             "require": {
@@ -541,9 +552,8 @@
             },
             "require-dev": {
                 "eloquent/liberator": ">=1.0,<2.0",
-                "eloquent/typhoon": ">=0.8,<1.0",
-                "icecave/testing": ">=2.0,<3.0",
-                "icecave/woodhouse": "*"
+                "eloquent/typhoon": ">=0.9,<1.0",
+                "icecave/archer": ">=0.2,<1.0"
             },
             "type": "library",
             "extra": {
@@ -559,7 +569,7 @@
                     "Icecave\\Collections\\TypeCheck": "lib-typhoon"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -581,27 +591,27 @@
                 "sequence",
                 "stack"
             ],
-            "time": "2013-02-07 23:46:30"
+            "time": "2013-02-26 04:19:11"
         },
         {
             "name": "icecave/isolator",
-            "version": "2.1.1",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/IcecaveStudios/isolator.git",
-                "reference": "2.1.1"
+                "reference": "2.1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/IcecaveStudios/isolator/archive/2.1.1.zip",
-                "reference": "2.1.1",
+                "url": "https://api.github.com/repos/IcecaveStudios/isolator/zipball/2.1.2",
+                "reference": "2.1.2",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=5.3.3"
             },
             "require-dev": {
-                "icecave/testing": "1.*"
+                "icecave/archer": ">=0.3,<1.0"
             },
             "type": "library",
             "autoload": {
@@ -609,7 +619,7 @@
                     "Icecave\\Isolator": "lib"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -619,7 +629,7 @@
                     "email": "james.harris@icecave.com.au"
                 }
             ],
-            "description": "Mock out calls to built-in PHP functions.",
+            "description": "Isolate PHP tests from the global environment.",
             "homepage": "https://github.com/IcecaveStudios/isolator",
             "keywords": [
                 "fake",
@@ -629,7 +639,7 @@
                 "test",
                 "unit"
             ],
-            "time": "2013-01-14 04:17:36"
+            "time": "2013-04-05 04:37:02"
         },
         {
             "name": "icecave/pasta-ast",
@@ -658,7 +668,7 @@
                     "Icecave\\Pasta\\AST": "lib"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -707,7 +717,7 @@
                     "Icecave\\Rasta": "lib"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -751,7 +761,7 @@
                     "Icecave\\Repr": "lib"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -793,7 +803,7 @@
                     "src"
                 ]
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "include-path": [
                 "src"
             ],
@@ -816,29 +826,34 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.1.7",
+            "version": "v2.2.1",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Console",
-                "reference": "v2.1.7"
+                "url": "https://github.com/symfony/Console.git",
+                "reference": "v2.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/v2.1.7",
-                "reference": "v2.1.7",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/v2.2.1",
+                "reference": "v2.2.1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Component\\Console": ""
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Console\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -854,33 +869,38 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2013-01-17 15:20:05"
+            "time": "2013-03-19 20:48:08"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.1.7",
+            "version": "v2.2.1",
             "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Filesystem",
-                "reference": "v2.1.7"
+                "url": "https://github.com/symfony/Filesystem.git",
+                "reference": "v2.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Filesystem/archive/v2.1.7.zip",
-                "reference": "v2.1.7",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/v2.2.1",
+                "reference": "v2.2.1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Component\\Filesystem": ""
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Filesystem\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -896,33 +916,38 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
-            "time": "2013-01-09 08:51:07"
+            "time": "2013-01-17 15:25:59"
         },
         {
             "name": "symfony/process",
-            "version": "v2.1.7",
+            "version": "v2.2.1",
             "target-dir": "Symfony/Component/Process",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Process",
-                "reference": "v2.1.7"
+                "url": "https://github.com/symfony/Process.git",
+                "reference": "v2.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/v2.1.7",
-                "reference": "v2.1.7",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/v2.2.1",
+                "reference": "v2.2.1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Component\\Process": ""
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Process\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -938,7 +963,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
-            "time": "2013-01-16 09:27:54"
+            "time": "2013-03-23 07:49:54"
         }
     ],
     "aliases": [
@@ -946,6 +971,12 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": [
+
+    ],
+    "platform": {
+        "php": ">=5.3.3"
+    },
+    "platform-dev": [
 
     ]
 }
