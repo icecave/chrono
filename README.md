@@ -34,7 +34,9 @@ Available as [Composer](http://getcomposer.org) package [icecave/chrono](https:/
 
 ### Getting the current time
 
-In order to get the current time you need to use a [clock](/IcecaveStudios/chrono/blob/master/lib/Icecave/Chrono/Clock/ClockInterface.php). Most of the time in production code you will use the [SystemClock](/IcecaveStudios/chrono/blob/master/lib/Icecave/Chrono/Clock/SystemClock.php) class, which uses the machine's current system time and time zone information.
+In order to get the current time you need to use a [clock](lib/Icecave/Chrono/Clock/ClockInterface.php).
+Most of the time in production code you will use the [SystemClock](lib/Icecave/Chrono/Clock/SystemClock.php) class,
+which uses the machine's current system time and time zone information.
 
 ```php
 use Icecave\Chrono\Clock\SystemClock;
@@ -52,10 +54,49 @@ $today = $clock->localDate();
 $timeOfDay = $clock->localTime();
 ```
 
-Each of the clock methods shown above has a [UTC](http://en.wikipedia.org/wiki/Coordinated_Universal_Time) counterpart. To obtain the current time in UTC you can use the following code:
+Each of the clock methods shown above has a [UTC](http://en.wikipedia.org/wiki/Coordinated_Universal_Time) counterpart.
+For example, to obtain the current time in UTC you can use the following code:
 
 ```php
 $nowUtc = $clock->utcDateTime();
+```
+
+### String formatting
+
+To produce a formatted string representing a [Date](lib/Icecave/Chrono/Date.php), [DateTime](lib/Icecave/Chrono/DateTime.php),
+[TimeOfDay](lib/Icecave/Chrono/TimeOfDay.php) or [TimeZone](lib/Icecave/Chrono/TimeZone.php) instance use the `format()` method.
+
+The output is specified using the same format as PHP's [built-in date() function](http://php.net/manual/en/function.date.php).
+
+```php
+$now = $clock->localDateTime();
+$string = $now->format('Y-m-d H:i:s');
+```
+
+Casting the object as a string (or calling `isoString()`) produces an [ISO-8601](http://en.wikipedia.org/wiki/ISO_8601) string representation.
+
+### Unix timestamps
+
+[Date](lib/Icecave/Chrono/Date.php) and [DateTime](lib/Icecave/Chrono/DateTime.php) instances can be produced from unix timestamps
+using the `fromUnixTime()` static method. The unix timestamp can be retreived using `unixTime()`.
+
+```php
+$dateTime = DateTime::fromUnixTime(1367823963);
+$timestamp = $dateTime->unixTime();
+```
+
+### PHP native "DateTime" objects
+
+[Date](lib/Icecave/Chrono/Date.php) and [DateTime](lib/Icecave/Chrono/DateTime.php) instances can be produced from native PHP
+[DateTime](http://php.net/manual/en/class.datetime.php) instances using the `fromNativeDateTime()` static method, and can be
+converted to a native DateTime using `nativeDateTime()`.
+
+```php
+use DateTime as NativeDateTime;
+use Icecave\Chrono\DateTime;
+
+$dateTime = DateTime::fromNativeDateTime(new NativeDateTime);
+$nativeDateTime = $dateTime->nativeDateTime();
 ```
 
 <!-- references -->
