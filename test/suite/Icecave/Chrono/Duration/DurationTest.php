@@ -2,6 +2,7 @@
 namespace Icecave\Chrono\Duration;
 
 use PHPUnit_Framework_TestCase;
+use Phake;
 
 /**
  * @covers Icecave\Chrono\Duration\Duration
@@ -76,5 +77,14 @@ class DurationTest extends PHPUnit_Framework_TestCase
         $this->assertSame(0, $duration1->compare($duration1));
         $this->assertLessThan(0, $duration1->compare($duration2));
         $this->assertGreaterThan(0, $duration2->compare($duration1));
+    }
+
+    public function testResolve()
+    {
+        $timePoint = Phake::mock('Icecave\Chrono\TimePointInterface');
+
+        $this->assertSame(788645, $this->duration->resolve($timePoint));
+
+        Phake::verifyNoInteraction($timePoint);
     }
 }

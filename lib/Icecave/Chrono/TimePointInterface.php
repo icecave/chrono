@@ -26,4 +26,22 @@ interface TimePointInterface extends DateInterface
      * @return NativeDateTime A native PHP DateTime instance representing this time point.
      */
     public function nativeDateTime();
+
+    /**
+     * Add a time span to the time point.
+     *
+     * @param TimeSpanInterface $timeSpan
+     *
+     * @return TimePointInterface
+     */
+    public function add(TimeSpanInterface $timeSpan);
+
+    /**
+     * Add a time span from the time point.
+     *
+     * @param TimeSpanInterface $timeSpan
+     *
+     * @return TimePointInterface
+     */
+    public function subtract(TimeSpanInterface $timeSpan);
 }

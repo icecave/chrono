@@ -164,6 +164,34 @@ class DateTest extends PHPUnit_Framework_TestCase
         $this->assertSame('2013-02-01', $native->format('Y-m-d'));
     }
 
+    public function testAdd()
+    {
+        $duration = Phake::partialMock('Icecave\Chrono\Duration\DurationInterface');
+
+        Phake::when($duration)
+            ->resolve($this->date)
+            ->thenReturn(86400);
+
+        $dateTime = $this->date->add($duration);
+
+        $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $dateTime);
+        $this->assertSame('2013-02-02T00:00:00+00:00', $dateTime->isoString());
+    }
+
+    public function testSubtract()
+    {
+        $duration = Phake::partialMock('Icecave\Chrono\Duration\DurationInterface');
+
+        Phake::when($duration)
+            ->resolve($this->date)
+            ->thenReturn(86400);
+
+        $dateTime = $this->date->subtract($duration);
+
+        $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $dateTime);
+        $this->assertSame('2013-01-31T00:00:00+00:00', $dateTime->isoString());
+    }
+
     public function testFormat()
     {
         $formatter = Phake::mock(__NAMESPACE__ . '\Format\FormatterInterface');

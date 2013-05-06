@@ -1,10 +1,12 @@
 <?php
 namespace Icecave\Chrono\Duration;
 
+use Icecave\Chrono\TimeSpanInterface;
+
 /**
  * A duration represents a concrete amount of time.
  */
-interface DurationInterface
+interface DurationInterface extends TimeSpanInterface
 {
     /**
      * @return integer The number of weeks in the duration.

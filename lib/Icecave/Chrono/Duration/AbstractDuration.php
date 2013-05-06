@@ -1,6 +1,7 @@
 <?php
 namespace Icecave\Chrono\Duration;
 
+use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
 /**
@@ -12,6 +13,7 @@ abstract class AbstractDuration implements DurationInterface
     {
         $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
     }
+
     /**
      * @return integer The number of weeks in the duration.
      */
@@ -114,6 +116,20 @@ abstract class AbstractDuration implements DurationInterface
         $this->typeCheck->compare(func_get_args());
 
         return $this->totalSeconds() - $duration->totalSeconds();
+    }
+
+    /**
+     * Resolve the time span to a total number of seconds, using the given time point as the start of the span.
+     *
+     * @param TimePointInterface $timePoint The start of the time span.
+     *
+     * @return integer The total number of seconds.
+     */
+    public function resolve(TimePointInterface $timePoint)
+    {
+        $this->typeCheck->resolve(func_get_args());
+
+        return $this->totalSeconds();
     }
 
     private $typeCheck;

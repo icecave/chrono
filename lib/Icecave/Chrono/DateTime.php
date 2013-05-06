@@ -327,6 +327,50 @@ class DateTime implements TimePointInterface, TimeInterface
     }
 
     /**
+     * Add a time span to the time point.
+     *
+     * @param TimeSpanInterface $timeSpan
+     *
+     * @return TimePointInterface
+     */
+    public function add(TimeSpanInterface $timeSpan)
+    {
+        $this->typeCheck->add(func_get_args());
+
+        return new self(
+            $this->year(),
+            $this->month(),
+            $this->day(),
+            $this->hours(),
+            $this->minutes(),
+            $this->seconds() + $timeSpan->resolve($this),
+            $this->timeZone()
+        );
+    }
+
+    /**
+     * Add a time span from the time point.
+     *
+     * @param TimeSpanInterface $timeSpan
+     *
+     * @return TimePointInterface
+     */
+    public function subtract(TimeSpanInterface $timeSpan)
+    {
+        $this->typeCheck->subtract(func_get_args());
+
+        return new self(
+            $this->year(),
+            $this->month(),
+            $this->day(),
+            $this->hours(),
+            $this->minutes(),
+            $this->seconds() - $timeSpan->resolve($this),
+            $this->timeZone()
+        );
+    }
+
+    /**
      * @param string                  $formatSpecifier The format of the output string.
      * @param FormatterInterface|null $formatter       The formatter to use, or null to use the default.
      *

@@ -15,8 +15,8 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
 
     public function testNormalization()
     {
-        $time = new DateTime(2013, 1, 32, 10, 20, 70);
-        $this->assertSame('2013-02-01T10:21:10+00:00', $time->isoString());
+        $dateTime = new DateTime(2013, 1, 32, 10, 20, 70);
+        $this->assertSame('2013-02-01T10:21:10+00:00', $dateTime->isoString());
     }
 
     public function testYear()
@@ -202,6 +202,34 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
         $native = $dateTime->nativeDateTime();
         $this->assertInstanceOf('DateTime', $native);
         $this->assertSame('2013-02-01T10:20:30+10:00', $native->format('c'));
+    }
+
+    public function testAdd()
+    {
+        $duration = Phake::partialMock('Icecave\Chrono\Duration\DurationInterface');
+
+        Phake::when($duration)
+            ->resolve($this->dateTime)
+            ->thenReturn(86400);
+
+        $dateTime = $this->dateTime->add($duration);
+
+        $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $dateTime);
+        $this->assertSame('2013-02-02T10:20:30+00:00', $dateTime->isoString());
+    }
+
+    public function testSubtract()
+    {
+        $duration = Phake::partialMock('Icecave\Chrono\Duration\DurationInterface');
+
+        Phake::when($duration)
+            ->resolve($this->dateTime)
+            ->thenReturn(86400);
+
+        $dateTime = $this->dateTime->subtract($duration);
+
+        $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $dateTime);
+        $this->assertSame('2013-01-31T10:20:30+00:00', $dateTime->isoString());
     }
 
     public function testFormat()
