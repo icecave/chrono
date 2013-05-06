@@ -2,6 +2,7 @@
 namespace Icecave\Chrono\Interval;
 
 use Icecave\Chrono\TimePointInterface;
+use Icecave\Chrono\Duration\Duration;
 
 /**
  * An interval represents a stretch of time between two known time points.
@@ -58,4 +59,9 @@ interface IntervalInterface
      * @return boolean True if this interval intersects the given interval; otherwise, false.
      */
     public function intersects(IntervalInterface $interval);
+
+    /**
+     * @return DurationInterface A duration representing the difference between start and end.
+     */
+    public function duration();
 }

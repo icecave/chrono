@@ -1,6 +1,7 @@
 <?php
 namespace Icecave\Chrono\Interval;
 
+use Icecave\Chrono\Duration\Duration;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
@@ -79,6 +80,16 @@ abstract class AbstractInterval implements IntervalInterface
 
         return $this->start()->compare($interval->end()) < 0
             && $this->end()->compare($interval->start()) > 0;
+    }
+
+    /**
+     * @return DurationInterface A duration representing the difference between start and end.
+     */
+    public function duration()
+    {
+        $this->typeCheck->duration(func_get_args());
+
+        return new Duration($this->end()->unixTime() - $this->start()->unixTime());
     }
 
     private $typeCheck;

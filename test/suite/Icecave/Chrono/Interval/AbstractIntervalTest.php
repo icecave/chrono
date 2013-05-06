@@ -120,4 +120,22 @@ class AbstractIntervalTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($this->interval4->intersects($this->interval3));
         $this->assertTrue($this->interval4->intersects($this->interval4));
     }
+
+    public function testDuration()
+    {
+        $interval = $this->createInterval(new Date(2012, 1, 1), new Date(2012, 1, 2));
+        $duration = $interval->duration();
+
+        $this->assertInstanceOf('Icecave\Chrono\Duration\Duration', $duration);
+        $this->assertSame(86400, $duration->totalSeconds());
+    }
+
+    public function testDurationEmptyInterval()
+    {
+        $interval = $this->createInterval(new Date(2012, 1, 1), new Date(2012, 1, 1));
+        $duration = $interval->duration();
+
+        $this->assertInstanceOf('Icecave\Chrono\Duration\Duration', $duration);
+        $this->assertTrue($duration->isEmpty());
+    }
 }

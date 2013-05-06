@@ -57,4 +57,11 @@ class AbstractIntervalTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValida
         }
     }
 
+    public function duration(array $arguments)
+    {
+        if (\count($arguments) > 0) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
+        }
+    }
+
 }
