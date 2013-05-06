@@ -48,7 +48,7 @@ abstract class AbstractInterval implements IntervalInterface
         $this->typeCheck->contains(func_get_args());
 
         return $this->start()->compare($timePoint) <= 0
-            && $this->end()->compare($timePoint) >= 0;
+            && $this->end()->compare($timePoint) > 0;
     }
 
     /**
@@ -77,8 +77,8 @@ abstract class AbstractInterval implements IntervalInterface
     {
         $this->typeCheck->intersects(func_get_args());
 
-        return $this->start()->compare($interval->end()) <= 0
-            && $this->end()->compare($interval->start()) >= 0;
+        return $this->start()->compare($interval->end()) < 0
+            && $this->end()->compare($interval->start()) > 0;
     }
 
     private $typeCheck;

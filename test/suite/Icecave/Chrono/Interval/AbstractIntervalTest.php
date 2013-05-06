@@ -17,92 +17,62 @@ class AbstractIntervalTest extends PHPUnit_Framework_TestCase
         Interval 4:     *************
         */
 
-        $this->interval1 = Phake::partialMock(__NAMESPACE__ . '\AbstractInterval');
-        $this->interval2 = Phake::partialMock(__NAMESPACE__ . '\AbstractInterval');
-        $this->interval3 = Phake::partialMock(__NAMESPACE__ . '\AbstractInterval');
-        $this->interval4 = Phake::partialMock(__NAMESPACE__ . '\AbstractInterval');
-
         $this->pointA = new Date(2012, 1, 1);
+        $this->pointB = new Date(2012, 1, 5);
         $this->pointB = new Date(2012, 1, 5);
         $this->pointC = new Date(2012, 1, 9);
         $this->pointD = new Date(2012, 1, 13);
         $this->pointE = new Date(2012, 1, 17);
 
-        Phake::when($this->interval1)
+        $this->interval1 = $this->createInterval($this->pointA, $this->pointB);
+        $this->interval2 = $this->createInterval($this->pointC, $this->pointD);
+        $this->interval3 = $this->createInterval($this->pointB, $this->pointC);
+        $this->interval4 = $this->createInterval($this->pointB, $this->pointE);
+    }
+
+    public function createInterval($start, $end)
+    {
+        $interval = Phake::partialMock(__NAMESPACE__ . '\AbstractInterval');
+
+        Phake::when($interval)
             ->start()
-            ->thenReturn($this->pointA);
+            ->thenReturn($start);
 
-        Phake::when($this->interval1)
+        Phake::when($interval)
             ->end()
-            ->thenReturn($this->pointB);
+            ->thenReturn($end);
 
-        Phake::when($this->interval2)
-            ->start()
-            ->thenReturn($this->pointC);
-
-        Phake::when($this->interval2)
-            ->end()
-            ->thenReturn($this->pointD);
-
-        Phake::when($this->interval3)
-            ->start()
-            ->thenReturn($this->pointB);
-
-        Phake::when($this->interval3)
-            ->end()
-            ->thenReturn($this->pointC);
-
-        Phake::when($this->interval4)
-            ->start()
-            ->thenReturn($this->pointB);
-
-        Phake::when($this->interval4)
-            ->end()
-            ->thenReturn($this->pointE);
+        return $interval;
     }
 
     public function testIsEmpty()
     {
-        $this->assertFalse($this->interval1->isEmpty());
+        $interval = $this->createInterval(new Date(2012, 1, 1), new Date(2012, 1, 1));
+        $this->assertTrue($interval->isEmpty());
 
-        Phake::when($this->interval1)
-            ->end()
-            ->thenReturn($this->pointA);
-
-        $this->assertTrue($this->interval1->isEmpty());
+        $interval = $this->createInterval(new Date(2012, 1, 1), new Date(2012, 1, 2));
+        $this->assertFalse($interval->isEmpty());
     }
 
     public function testCompare()
     {
-        $this->assertLessThan(0, $this->interval1->compare($this->interval2));
-        $this->assertGreaterThan(0, $this->interval2->compare($this->interval1));
-    }
+        $interval1 = $this->createInterval(new Date(2012, 1, 1), new Date(2012, 1, 2));
+        $interval2 = $this->createInterval(new Date(2012, 1, 1), new Date(2012, 1, 3));
+        $interval3 = $this->createInterval(new Date(2012, 1, 5), new Date(2012, 1, 6));
 
-    public function testCompareSameStart()
-    {
-        Phake::when($this->interval2)
-            ->start()
-            ->thenReturn($this->pointA);
-
-        $this->assertLessThan(0, $this->interval1->compare($this->interval2));
-        $this->assertGreaterThan(0, $this->interval2->compare($this->interval1));
-    }
-
-    public function testCompareSelf()
-    {
-        $this->assertSame(0, $this->interval1->compare($this->interval1));
+        $this->assertSame(0, $interval1->compare($interval1));
+        $this->assertLessThan(0, $interval1->compare($interval2));
+        $this->assertLessThan(0, $interval2->compare($interval3));
+        $this->assertGreaterThan(0, $interval2->compare($interval1));
     }
 
     public function testContains()
     {
-        $this->assertTrue($this->interval1->contains(new Date(2012, 1, 2)));
-        $this->assertFalse($this->interval1->contains($this->pointC));
-    }
+        $interval = $this->createInterval(new Date(2012, 1, 1), new Date(2012, 1, 2));
 
-    public function testContainsEdges()
-    {
-        $this->assertTrue($this->interval1->contains($this->pointA));
-        $this->assertTrue($this->interval1->contains($this->pointB));
+        $this->assertFalse($interval->contains(new Date(2011, 12, 31)));
+        $this->assertTrue($interval->contains(new Date(2012, 1, 1)));
+        $this->assertFalse($interval->contains(new Date(2012, 1, 2)));
     }
 
     public function testEncompasses()
@@ -132,20 +102,20 @@ class AbstractIntervalTest extends PHPUnit_Framework_TestCase
     {
         $this->assertTrue($this->interval1->intersects($this->interval1));
         $this->assertFalse($this->interval1->intersects($this->interval2));
-        $this->assertTrue($this->interval1->intersects($this->interval3));
-        $this->assertTrue($this->interval1->intersects($this->interval4));
+        $this->assertFalse($this->interval1->intersects($this->interval3));
+        $this->assertFalse($this->interval1->intersects($this->interval4));
 
         $this->assertFalse($this->interval2->intersects($this->interval1));
         $this->assertTrue($this->interval2->intersects($this->interval2));
-        $this->assertTrue($this->interval2->intersects($this->interval3));
+        $this->assertFalse($this->interval2->intersects($this->interval3));
         $this->assertTrue($this->interval2->intersects($this->interval4));
 
-        $this->assertTrue($this->interval3->intersects($this->interval1));
-        $this->assertTrue($this->interval3->intersects($this->interval2));
+        $this->assertFalse($this->interval3->intersects($this->interval1));
+        $this->assertFalse($this->interval3->intersects($this->interval2));
         $this->assertTrue($this->interval3->intersects($this->interval3));
         $this->assertTrue($this->interval3->intersects($this->interval4));
 
-        $this->assertTrue($this->interval4->intersects($this->interval1));
+        $this->assertFalse($this->interval4->intersects($this->interval1));
         $this->assertTrue($this->interval4->intersects($this->interval2));
         $this->assertTrue($this->interval4->intersects($this->interval3));
         $this->assertTrue($this->interval4->intersects($this->interval4));

@@ -29,7 +29,7 @@ class MonthTest extends PHPUnit_Framework_TestCase
 
     public function testEnd()
     {
-        $this->assertEquals(new Date(2012, 2, 29), $this->month->end());
+        $this->assertEquals(new Date(2012, 3, 1), $this->month->end());
     }
 
     public function testNumberOfDays()

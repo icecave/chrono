@@ -23,7 +23,7 @@ class YearTest extends PHPUnit_Framework_TestCase
 
     public function testEnd()
     {
-        $this->assertEquals(new Date(2012, 12, 31), $this->year->end());
+        $this->assertEquals(new Date(2013, 1, 1), $this->year->end());
     }
 
     public function testNumberOfDays()
