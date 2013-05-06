@@ -72,6 +72,9 @@ class NormalizerTest extends PHPUnit_Framework_TestCase
             'seconds underflow exact'    => array(10, 25, -60,   '10:24:00',     0),
             'minutes underflow exact'    => array(10, -60, 13,   '09:00:13',     0),
             'hours underflow exact'      => array(-24, 25, 13,   '00:25:13',     -1),
+
+            'seconds overflow hour'      => array(0, 0, 3600,    '01:00:00',     0),
+            'seconds overflow day'       => array(0, 0, 86400,   '00:00:00',     1),
         );
     }
 
