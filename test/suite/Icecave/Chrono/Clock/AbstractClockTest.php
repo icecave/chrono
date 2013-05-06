@@ -14,15 +14,15 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->_clock = Phake::partialMock(__NAMESPACE__ . '\AbstractClock');
+        $this->clock = Phake::partialMock(__NAMESPACE__ . '\AbstractClock');
 
-        $this->_timeZone = new TimeZone(36000, true);
+        $this->timeZone = new TimeZone(36000, true);
 
-        Phake::when($this->_clock)
+        Phake::when($this->clock)
             ->currentLocalTimeInfo()
             ->thenReturn(array(10, 20, 13, 20, 11, 2013, '<unused>', '<unused>', 1, 36000));
 
-        Phake::when($this->_clock)
+        Phake::when($this->clock)
             ->currentUtcTimeInfo()
             ->thenReturn(array(1, 2, 3, 4, 5, 2011, '<unused>', '<unused>', 0, 0)); // Intentially set vastly different from localTimeInfo to catch potential errors.
     }
@@ -30,25 +30,25 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
     public function verifyLocalClockSuspended()
     {
         Phake::inOrder(
-            Phake::verify($this->_clock, Phake::atLeast(1))->suspend(),
-            Phake::verify($this->_clock, Phake::times(1))->currentLocalTimeInfo(),
-            Phake::verify($this->_clock, Phake::atLeast(1))->resume()
+            Phake::verify($this->clock, Phake::atLeast(1))->suspend(),
+            Phake::verify($this->clock, Phake::times(1))->currentLocalTimeInfo(),
+            Phake::verify($this->clock, Phake::atLeast(1))->resume()
         );
     }
 
     public function verifyUtcClockSuspended()
     {
         Phake::inOrder(
-            Phake::verify($this->_clock, Phake::atLeast(1))->suspend(),
-            Phake::verify($this->_clock, Phake::times(1))->currentUtcTimeInfo(),
-            Phake::verify($this->_clock, Phake::atLeast(1))->resume()
+            Phake::verify($this->clock, Phake::atLeast(1))->suspend(),
+            Phake::verify($this->clock, Phake::times(1))->currentUtcTimeInfo(),
+            Phake::verify($this->clock, Phake::atLeast(1))->resume()
         );
     }
 
     public function testLocalTime()
     {
-        $result = $this->_clock->localTime();
-        $expected = new TimeOfDay(13, 20, 10, $this->_timeZone);
+        $result = $this->clock->localTime();
+        $expected = new TimeOfDay(13, 20, 10, $this->timeZone);
         $this->assertEquals($expected, $result);
 
         $this->verifyLocalClockSuspended();
@@ -56,8 +56,8 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
     public function testLocalDateTime()
     {
-        $result = $this->_clock->localDateTime();
-        $expected = new DateTime(2013, 11, 20, 13, 20, 10, $this->_timeZone);
+        $result = $this->clock->localDateTime();
+        $expected = new DateTime(2013, 11, 20, 13, 20, 10, $this->timeZone);
         $this->assertEquals($expected, $result);
 
         $this->verifyLocalClockSuspended();
@@ -65,8 +65,8 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
     public function testLocalDate()
     {
-        $result = $this->_clock->localDate();
-        $expected = new Date(2013, 11, 20, $this->_timeZone);
+        $result = $this->clock->localDate();
+        $expected = new Date(2013, 11, 20, $this->timeZone);
         $this->assertEquals($expected, $result);
 
         $this->verifyLocalClockSuspended();
@@ -74,7 +74,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
     public function testLocalMonth()
     {
-        $result = $this->_clock->localMonth();
+        $result = $this->clock->localMonth();
         $expected = new Month(new Year(2013), 11);
         $this->assertEquals($expected, $result);
 
@@ -83,7 +83,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
     public function testLocalYear()
     {
-        $result = $this->_clock->localYear();
+        $result = $this->clock->localYear();
         $expected = new Year(2013);
         $this->assertEquals($expected, $result);
 
@@ -92,7 +92,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
     public function testUtcTime()
     {
-        $result = $this->_clock->utcTime();
+        $result = $this->clock->utcTime();
         $expected = new TimeOfDay(3, 2, 1);
         $this->assertEquals($expected, $result);
 
@@ -101,7 +101,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
     public function testUtcDateTime()
     {
-        $result = $this->_clock->utcDateTime();
+        $result = $this->clock->utcDateTime();
         $expected = new DateTime(2011, 5, 4, 3, 2, 1);
         $this->assertEquals($expected, $result);
 
@@ -110,7 +110,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
     public function testUtcDate()
     {
-        $result = $this->_clock->utcDate();
+        $result = $this->clock->utcDate();
         $expected = new Date(2011, 5, 4);
         $this->assertEquals($expected, $result);
 
@@ -119,7 +119,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
     public function testUtcMonth()
     {
-        $result = $this->_clock->utcMonth();
+        $result = $this->clock->utcMonth();
         $expected = new Month(new Year(2011), 5);
         $this->assertEquals($expected, $result);
 
@@ -128,7 +128,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
     public function testUtcYear()
     {
-        $result = $this->_clock->utcYear();
+        $result = $this->clock->utcYear();
         $expected = new Year(2011);
         $this->assertEquals($expected, $result);
 
@@ -137,81 +137,81 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
     public function testSuspend()
     {
-        $this->_clock->suspend();
+        $this->clock->suspend();
 
-        $this->assertTrue($this->_clock->isSuspended());
+        $this->assertTrue($this->clock->isSuspended());
 
         // Try localDateTime twice ...
-        $expected = new DateTime(2013, 11, 20, 13, 20, 10, $this->_timeZone);
-        $result = $this->_clock->localDateTime();
+        $expected = new DateTime(2013, 11, 20, 13, 20, 10, $this->timeZone);
+        $result = $this->clock->localDateTime();
         $this->assertEquals($expected, $result);
 
-        $result = $this->_clock->localDateTime();
+        $result = $this->clock->localDateTime();
         $this->assertEquals($expected, $result);
 
         // Only calls implementation once ...
-        Phake::verify($this->_clock, Phake::times(1))->currentLocalTimeInfo();
+        Phake::verify($this->clock, Phake::times(1))->currentLocalTimeInfo();
 
         // Try utcDateTime twice ...
         $expected = new DateTime(2011, 5, 4, 3, 2, 1);
-        $result = $this->_clock->utcDateTime();
+        $result = $this->clock->utcDateTime();
         $this->assertEquals($expected, $result);
 
-        $result = $this->_clock->utcDateTime();
+        $result = $this->clock->utcDateTime();
         $this->assertEquals($expected, $result);
 
         // Only calls implementation once ...
-        Phake::verify($this->_clock, Phake::times(1))->currentUtcTimeInfo();
+        Phake::verify($this->clock, Phake::times(1))->currentUtcTimeInfo();
     }
 
     public function testSuspendStacking()
     {
-        $this->_clock->suspend();
-        $this->assertTrue($this->_clock->isSuspended());
+        $this->clock->suspend();
+        $this->assertTrue($this->clock->isSuspended());
 
-        $this->_clock->suspend();
-        $this->assertTrue($this->_clock->isSuspended());
+        $this->clock->suspend();
+        $this->assertTrue($this->clock->isSuspended());
 
-        $this->_clock->resume();
-        $this->assertTrue($this->_clock->isSuspended());
+        $this->clock->resume();
+        $this->assertTrue($this->clock->isSuspended());
 
-        $this->_clock->resume();
-        $this->assertFalse($this->_clock->isSuspended());
+        $this->clock->resume();
+        $this->assertFalse($this->clock->isSuspended());
     }
 
     public function testResumeWithLocalTime()
     {
-        $this->_clock->resume();
+        $this->clock->resume();
 
-        $this->assertFalse($this->_clock->isSuspended());
+        $this->assertFalse($this->clock->isSuspended());
 
         // Try localDateTime twice ...
-        $expected = new DateTime(2013, 11, 20, 13, 20, 10, $this->_timeZone);
-        $result = $this->_clock->localDateTime();
+        $expected = new DateTime(2013, 11, 20, 13, 20, 10, $this->timeZone);
+        $result = $this->clock->localDateTime();
         $this->assertEquals($expected, $result);
 
-        $result = $this->_clock->localDateTime();
+        $result = $this->clock->localDateTime();
         $this->assertEquals($expected, $result);
 
         // Calls implementation twice ...
-        Phake::verify($this->_clock, Phake::times(2))->currentLocalTimeInfo();
+        Phake::verify($this->clock, Phake::times(2))->currentLocalTimeInfo();
     }
 
     public function testResumeWithUtcTime()
     {
-        $this->_clock->resume();
+        $this->clock->resume();
 
-        $this->assertFalse($this->_clock->isSuspended());
+        $this->assertFalse($this->clock->isSuspended());
 
         // Try utcDateTime twice ...
         $expected = new DateTime(2011, 5, 4, 3, 2, 1);
-        $result = $this->_clock->utcDateTime();
+        $result = $this->clock->utcDateTime();
         $this->assertEquals($expected, $result);
 
-        $result = $this->_clock->utcDateTime();
+        $result = $this->clock->utcDateTime();
         $this->assertEquals($expected, $result);
 
         // Calls implementation twice once ...
-        Phake::verify($this->_clock, Phake::times(2))->currentUtcTimeInfo();
+        Phake::verify($this->clock, Phake::times(2))->currentUtcTimeInfo();
     }
 }

@@ -59,7 +59,7 @@ class Month extends AbstractInterval implements Iso8601Interface
     {
         $this->typeCheck->end(func_get_args());
 
-        return new Date($this->year()->ordinal(), $this->ordinal(), $this->numberOfDays());
+        return new Date($this->year()->ordinal(), $this->ordinal() + 1, 1);
     }
 
     /**

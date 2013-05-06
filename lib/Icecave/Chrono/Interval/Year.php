@@ -47,7 +47,7 @@ class Year extends AbstractInterval implements Iso8601Interface
     {
         $this->typeCheck->end(func_get_args());
 
-        return new Date($this->ordinal(), 12, 31);
+        return new Date($this->ordinal() + 1, 1, 1);
     }
 
     /**

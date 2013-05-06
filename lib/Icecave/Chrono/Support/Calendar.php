@@ -224,13 +224,16 @@ class Calendar
     {
         TypeCheck::get(__CLASS__)->dayOfYear(func_get_args());
 
-        $day += self::$daysAtEndOfMonth[$month - 1];
+        $timestamp = gmmktime(
+            0,
+            0,
+            0,
+            $month,
+            $day,
+            $year
+        );
 
-        if (self::isLeapYear($year) && $month > 2) {
-            ++$day;
-        }
-
-        return $day;
+        return 1 + gmdate('z', $timestamp);
     }
 
     /**
@@ -245,25 +248,20 @@ class Calendar
     {
         TypeCheck::get(__CLASS__)->dayOfWeek(func_get_args());
 
-        $m_table_common = array( -1, 0, 3, 3, 6, 1, 4, 6, 2, 5, 0, 3, 5 ); /* 1 = jan */
-        $m_table_leap   = array( -1, 6, 2, 3, 6, 1, 4, 6, 2, 5, 0, 3, 5 ); /* 1 = jan */
+        $timestamp = gmmktime(
+            0,
+            0,
+            0,
+            $month,
+            $day,
+            $year
+        );
 
-        $centuryValue = function ($j) {
-            $i = $j - 17;
-            $c = (4 - $i * 2 + ($i + 1) / 4) % 7;
-
-            return $c < 0 ? $c + 7 : $c;
-        };
-
-        $c1 = $centuryValue(intval($year / 100));
-        $y1 = $year % 100;
-        $m1 = self::isLeapYear($year) ? $m_table_leap[$month] : $m_table_common[$month];
-        $dow = ($c1 + $y1 + $m1 + ($y1 / 4) + $day) % 7;
-        if ($iso && $dow === 0) {
-            $dow = 7;
+        if ($iso) {
+            return intval(gmdate('N', $timestamp));
         }
 
-        return $dow;
+        return intval(gmdate('w', $timestamp));
     }
 
     /**
@@ -277,9 +275,16 @@ class Calendar
     {
         TypeCheck::get(__CLASS__)->isoWeekNumber(func_get_args());
 
-        list($year, $week) = self::isoWeekDate($year, $month, $day);
+        $timestamp = gmmktime(
+            0,
+            0,
+            0,
+            $month,
+            $day,
+            $year
+        );
 
-        return $week;
+        return intval(gmdate('W', $timestamp));
     }
 
     /**
@@ -293,83 +298,15 @@ class Calendar
     {
         TypeCheck::get(__CLASS__)->isoYearNumber(func_get_args());
 
-        list($year, $week) = self::isoWeekDate($year, $month, $day);
+        $timestamp = gmmktime(
+            0,
+            0,
+            0,
+            $month,
+            $day,
+            $year
+        );
 
-        return $year;
+        return intval(gmdate('o', $timestamp));
     }
-
-    /**
-     * @param integer $y
-     * @param integer $m
-     * @param integer $d
-     *
-     * @return tuple<integer,integer,integer> Year, week, day of week.
-     */
-    private static function isoWeekDate($y, $m, $d)
-    {
-        TypeCheck::get(__CLASS__)->isoWeekDate(func_get_args());
-
-        $iy = null;
-        $iw = null;
-
-        $y_leap = self::isLeapYear($y);
-        $prev_y_leap = self::isLeapYear($y-1);
-        $doy = self::dayOfYear($y, $m, $d);
-        if ($y_leap && $m > 2) {
-            $doy++;
-        }
-        $jan1weekday = self::dayOfWeek($y, 1, 1);
-        $weekday = self::dayOfWeek($y, $m, $d);
-
-        /* Find if Y M D falls in YearNumber Y-1, WeekNumber 52 or 53 */
-        if ($doy <= (8 - $jan1weekday) && $jan1weekday > 4) {
-            $iy = $y - 1;
-            if ($jan1weekday == 5 || ($jan1weekday == 6 && $prev_y_leap)) {
-                $iw = 53;
-            } else {
-                // NEVER GETS EXECUTED ?
-                $iw = 52;
-            }
-        } else {
-            $iy = $y;
-        }
-
-        /* 8. Find if Y M D falls in YearNumber Y+1, WeekNumber 1 */
-        if ($iy == $y) {
-            $i = $y_leap ? 366 : 365;
-            if (($i - ($doy - $y_leap)) < (4 - $weekday)) {
-                $iy = $y + 1;
-                $iw = 1;
-
-                return array($iy, $iw, $weekday);
-            }
-        }
-
-        /* 9. Find if Y M D falls in YearNumber Y, WeekNumber 1 through 53 */
-        if ($iy == $y) {
-            $j = $doy + (7 - $weekday) + ($jan1weekday - 1);
-            $iw = intval($j / 7);
-            if ($jan1weekday > 4) {
-                $iw -= 1;
-            }
-        }
-
-        return array($iy, $iw, $weekday);
-    }
-
-    private static $daysAtEndOfMonth = array(
-        0 => 0,
-        1 => 31,
-        2 => 59,
-        3 => 90,
-        4 => 120,
-        5 => 151,
-        6 => 181,
-        7 => 212,
-        8 => 243,
-        9 => 273,
-        10 => 304,
-        11 => 334,
-        12 => 365,
-    );
 }

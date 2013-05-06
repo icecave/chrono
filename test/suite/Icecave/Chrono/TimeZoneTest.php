@@ -9,7 +9,7 @@ class TimeZoneTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->_timeZone = new TimeZone(36000, false);
+        $this->timeZone = new TimeZone(36000, false);
     }
 
     public function testConstructorDefaults()
@@ -33,7 +33,7 @@ class TimeZoneTest extends PHPUnit_Framework_TestCase
 
     public function testIsUtc()
     {
-        $this->assertFalse($this->_timeZone->isUtc());
+        $this->assertFalse($this->timeZone->isUtc());
 
         $timeZone = new TimeZone(0, true);
         $this->assertFalse($timeZone->isUtc());
@@ -103,19 +103,19 @@ class TimeZoneTest extends PHPUnit_Framework_TestCase
             ->thenReturn('<1st>')
             ->thenReturn('<2nd>');
 
-        $result = $this->_timeZone->format('H:m');
+        $result = $this->timeZone->format('H:m');
         $this->assertSame('<1st>', $result);
 
-        $result = $this->_timeZone->format('H:m', $formatter);
+        $result = $this->timeZone->format('H:m', $formatter);
         $this->assertSame('<2nd>', $result);
 
-        Phake::verify($formatter, Phake::times(2))->formatTimeZone($this->_timeZone, 'H:m');
+        Phake::verify($formatter, Phake::times(2))->formatTimeZone($this->timeZone, 'H:m');
     }
 
     public function testIsoString()
     {
-        $this->assertEquals('+10:00', $this->_timeZone->isoString());
-        $this->assertEquals('+10:00', $this->_timeZone->__toString());
+        $this->assertEquals('+10:00', $this->timeZone->isoString());
+        $this->assertEquals('+10:00', $this->timeZone->__toString());
 
         // UTC must be "positive zero" ...
         $timeZone = new TimeZone;

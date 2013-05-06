@@ -1,6 +1,7 @@
 <?php
 namespace Icecave\Chrono;
 
+use DateTime as NativeDateTime;
 use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Support\Normalizer;
@@ -62,6 +63,48 @@ class TimeOfDay implements TimeInterface
         }
 
         return new self($hour, $minute, $second, $timeZone);
+    }
+
+    /**
+     * @param integer       $unixTime The unix timestamp.
+     * @param TimeZone|null $timeZone The time zone of the time, or null to use UTC.
+     *
+     * @return TimeOfDay The TimeOfDay constructed from the given timestamp and time zone.
+     */
+    public static function fromUnixTime($unixTime, TimeZone $timeZone = null)
+    {
+        TypeCheck::get(__CLASS__)->fromUnixTime(func_get_args());
+
+        if ($timeZone) {
+            $unixTime += $timeZone->offset();
+        }
+
+        $parts = gmdate('H,i,s', $unixTime);
+        $parts = explode(',', $parts);
+        $parts = array_map('intval', $parts);
+
+        list($hour, $minute, $second) = $parts;
+
+        return new self($hour, $minute, $second, $timeZone);
+    }
+
+    /**
+     * @param NativeDateTime $native The native PHP DateTime instance.
+     *
+     * @return TimeOfDay The TimeOfDay constructed from the given instance.
+     */
+    public static function fromNativeDateTime(NativeDateTime $native)
+    {
+        TypeCheck::get(__CLASS__)->fromNativeDateTime(func_get_args());
+
+        $unixTime = $native->getTimestamp();
+        $transitions = $native->getTimezone()->getTransitions($unixTime, $unixTime);
+        $isDst = $transitions && $transitions[0]['isdst'];
+
+        return self::fromUnixTime(
+            $unixTime,
+            new TimeZone($native->getTimezone()->getOffset($native), $isDst)
+        );
     }
 
     /**

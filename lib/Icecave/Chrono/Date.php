@@ -1,6 +1,8 @@
 <?php
 namespace Icecave\Chrono;
 
+use DateTime as NativeDateTime;
+use Icecave\Chrono\Duration\Duration;
 use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Support\Normalizer;
@@ -65,6 +67,36 @@ class Date implements TimePointInterface
         }
 
         return new self($year, $month, $day, $timeZone);
+    }
+
+    /**
+     * @param integer $unixTime The unix timestamp.
+     *
+     * @return Date The Date constructed from the given timestamp.
+     */
+    public static function fromUnixTime($unixTime)
+    {
+        TypeCheck::get(__CLASS__)->fromUnixTime(func_get_args());
+
+        $parts = gmdate('Y,m,d', $unixTime);
+        $parts = explode(',', $parts);
+        $parts = array_map('intval', $parts);
+
+        list($year, $month, $day) = $parts;
+
+        return new self($year, $month, $day);
+    }
+
+    /**
+     * @param NativeDateTime $native The native PHP DateTime instance.
+     *
+     * @return Date The Date constructed from the given instance.
+     */
+    public static function fromNativeDateTime(NativeDateTime $native)
+    {
+        TypeCheck::get(__CLASS__)->fromNativeDateTime(func_get_args());
+
+        return self::fromUnixTime($native->getTimestamp());
     }
 
     /**
@@ -220,6 +252,72 @@ class Date implements TimePointInterface
             $this->day(),
             $this->year()
         ) - $this->timeZone()->offset();
+    }
+
+    /**
+     * @return NativeDateTime A native PHP DateTime instance representing this time point.
+     */
+    public function nativeDateTime()
+    {
+        $this->typeCheck->nativeDateTime(func_get_args());
+
+        return new NativeDateTime($this->isoString());
+    }
+
+    /**
+     * Add a time span to the time point.
+     *
+     * @param TimeSpanInterface $timeSpan
+     *
+     * @return TimePointInterface
+     */
+    public function add(TimeSpanInterface $timeSpan)
+    {
+        $this->typeCheck->add(func_get_args());
+
+        return new DateTime(
+            $this->year(),
+            $this->month(),
+            $this->day(),
+            0,
+            0,
+            $timeSpan->resolve($this)
+        );
+    }
+
+    /**
+     * Add a time span from the time point.
+     *
+     * @param TimeSpanInterface $timeSpan
+     *
+     * @return TimePointInterface
+     */
+    public function subtract(TimeSpanInterface $timeSpan)
+    {
+        $this->typeCheck->subtract(func_get_args());
+
+        return new DateTime(
+            $this->year(),
+            $this->month(),
+            $this->day(),
+            0,
+            0,
+            -$timeSpan->resolve($this)
+        );
+    }
+
+    /**
+     * Calculate the difference between this time point and another, representing the result as a duration.
+     *
+     * @param TimePointInterface $timePoint
+     *
+     * @return Duration
+     */
+    public function differenceAsDuration(TimePointInterface $timePoint)
+    {
+        $this->typeCheck->differenceAsDuration(func_get_args());
+
+        return new Duration($this->unixTime() - $timePoint->unixTime());
     }
 
     /**

@@ -1,6 +1,9 @@
 <?php
 namespace Icecave\Chrono\Clock;
 
+/**
+ * A suspendable clock can be "paused" and "resumed".
+ */
 interface SuspendableClockInterface extends ClockInterface
 {
     /**

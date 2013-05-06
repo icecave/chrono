@@ -1,6 +1,7 @@
 <?php
 namespace Icecave\Chrono;
 
+use DateTime as NativeDateTime;
 use Eloquent\Liberator\Liberator;
 use Phake;
 use PHPUnit_Framework_TestCase;
@@ -9,49 +10,49 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->_dateTime = new DateTime(2013, 2, 1, 10, 20, 30);
+        $this->dateTime = new DateTime(2013, 2, 1, 10, 20, 30);
     }
 
     public function testNormalization()
     {
-        $time = new DateTime(2013, 1, 32, 10, 20, 70);
-        $this->assertSame('2013-02-01T10:21:10+00:00', $time->isoString());
+        $dateTime = new DateTime(2013, 1, 32, 10, 20, 70);
+        $this->assertSame('2013-02-01T10:21:10+00:00', $dateTime->isoString());
     }
 
     public function testYear()
     {
-        $this->assertSame(2013, $this->_dateTime->year());
+        $this->assertSame(2013, $this->dateTime->year());
     }
 
     public function testMonth()
     {
-        $this->assertSame(2, $this->_dateTime->month());
+        $this->assertSame(2, $this->dateTime->month());
     }
 
     public function testDay()
     {
-        $this->assertSame(1, $this->_dateTime->day());
+        $this->assertSame(1, $this->dateTime->day());
     }
 
     public function testHours()
     {
-        $this->assertSame(10, $this->_dateTime->hours());
+        $this->assertSame(10, $this->dateTime->hours());
     }
 
     public function testMinutes()
     {
-        $this->assertSame(20, $this->_dateTime->minutes());
+        $this->assertSame(20, $this->dateTime->minutes());
     }
 
     public function testSeconds()
     {
-        $this->assertSame(30, $this->_dateTime->seconds());
+        $this->assertSame(30, $this->dateTime->seconds());
     }
 
     public function testToTimeZone()
     {
         $timeZone = new TimeZone(36000);
-        $result = $this->_dateTime->toTimeZone($timeZone);
+        $result = $this->dateTime->toTimeZone($timeZone);
 
         $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $result);
         $this->assertSame('2013-02-01T20:20:30+10:00', $result->isoString());
@@ -59,8 +60,8 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
 
     public function testToTimeZoneSame()
     {
-        $result = $this->_dateTime->toTimeZone(new TimeZone);
-        $this->assertSame($this->_dateTime, $result);
+        $result = $this->dateTime->toTimeZone(new TimeZone);
+        $this->assertSame($this->dateTime, $result);
     }
 
     public function testToUtc()
@@ -75,7 +76,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
 
     public function testTimeZone()
     {
-        $this->assertTrue($this->_dateTime->timeZone()->isUtc());
+        $this->assertTrue($this->dateTime->timeZone()->isUtc());
 
         $timeZone = new TimeZone(36000, true);
         $dateTime = new DateTime(2013, 2, 1, 10, 20, 30, $timeZone);
@@ -104,47 +105,47 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
 
     public function testCompareSelf()
     {
-        $this->assertSame(0, $this->_dateTime->compare($this->_dateTime));
+        $this->assertSame(0, $this->dateTime->compare($this->dateTime));
     }
 
     public function testCompareClone()
     {
-        $dateTime = clone $this->_dateTime;
-        $this->assertSame(0, $this->_dateTime->compare($dateTime));
+        $dateTime = clone $this->dateTime;
+        $this->assertSame(0, $this->dateTime->compare($dateTime));
     }
 
     public function testCompareDateTime()
     {
         $dateTime = new DateTime(2013, 2, 1, 10, 20, 31);
-        $this->assertLessThan(0, $this->_dateTime->compare($dateTime));
-        $this->assertGreaterThan(0, $dateTime->compare($this->_dateTime));
+        $this->assertLessThan(0, $this->dateTime->compare($dateTime));
+        $this->assertGreaterThan(0, $dateTime->compare($this->dateTime));
 
         $dateTime = new DateTime(2013, 2, 1, 10, 21, 30);
-        $this->assertLessThan(0, $this->_dateTime->compare($dateTime));
-        $this->assertGreaterThan(0, $dateTime->compare($this->_dateTime));
+        $this->assertLessThan(0, $this->dateTime->compare($dateTime));
+        $this->assertGreaterThan(0, $dateTime->compare($this->dateTime));
 
         $dateTime = new DateTime(2013, 2, 1, 11, 20, 30);
-        $this->assertLessThan(0, $this->_dateTime->compare($dateTime));
-        $this->assertGreaterThan(0, $dateTime->compare($this->_dateTime));
+        $this->assertLessThan(0, $this->dateTime->compare($dateTime));
+        $this->assertGreaterThan(0, $dateTime->compare($this->dateTime));
 
         $dateTime = new DateTime(2013, 2, 2, 10, 20, 30);
-        $this->assertLessThan(0, $this->_dateTime->compare($dateTime));
-        $this->assertGreaterThan(0, $dateTime->compare($this->_dateTime));
+        $this->assertLessThan(0, $this->dateTime->compare($dateTime));
+        $this->assertGreaterThan(0, $dateTime->compare($this->dateTime));
 
         $dateTime = new DateTime(2013, 3, 1, 10, 20, 30);
-        $this->assertLessThan(0, $this->_dateTime->compare($dateTime));
-        $this->assertGreaterThan(0, $dateTime->compare($this->_dateTime));
+        $this->assertLessThan(0, $this->dateTime->compare($dateTime));
+        $this->assertGreaterThan(0, $dateTime->compare($this->dateTime));
 
         $dateTime = new DateTime(2014, 2, 1, 10, 20, 30);
-        $this->assertLessThan(0, $this->_dateTime->compare($dateTime));
-        $this->assertGreaterThan(0, $dateTime->compare($this->_dateTime));
+        $this->assertLessThan(0, $this->dateTime->compare($dateTime));
+        $this->assertGreaterThan(0, $dateTime->compare($this->dateTime));
     }
 
     public function testCompareTimeZone()
     {
         $dateTime = new DateTime(2013, 2, 1, 10, 20, 30, new TimeZone(36000));
-        $this->assertLessThan(0, $this->_dateTime->compare($dateTime));
-        $this->assertGreaterThan(0, $dateTime->compare($this->_dateTime));
+        $this->assertLessThan(0, $this->dateTime->compare($dateTime));
+        $this->assertGreaterThan(0, $dateTime->compare($this->dateTime));
     }
 
     public function testCompareOther()
@@ -154,12 +155,12 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
             ->unixTime()
             ->thenReturn(1359714031);
 
-        $this->assertLessThan(0, $this->_dateTime->compare($timePoint));
+        $this->assertLessThan(0, $this->dateTime->compare($timePoint));
     }
 
     public function testUnixTime()
     {
-        $this->assertSame(1359714030, $this->_dateTime->unixTime());
+        $this->assertSame(1359714030, $this->dateTime->unixTime());
     }
 
     public function testUnixTimeWithTimeZone()
@@ -168,6 +169,76 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
         $dateTime = new DateTime(2013, 2, 1, 10, 20, 30, $timeZone);
 
         $this->assertSame(1359678030, $dateTime->unixTime());
+    }
+
+    public function testFromUnixTime()
+    {
+        $dateTime = DateTime::fromUnixTime(1359714030);
+        $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $dateTime);
+        $this->assertSame('2013-02-01T10:20:30+00:00', $dateTime->isoString());
+    }
+
+    public function testFromUnixTimeWithTimeZone()
+    {
+        $timeZone = new TimeZone(36000, true);
+        $dateTime = DateTime::fromUnixTime(1359714030, $timeZone);
+        $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $dateTime);
+        $this->assertSame('2013-02-01T20:20:30+10:00', $dateTime->isoString());
+    }
+
+    public function testFromNativeDateTime()
+    {
+        $native = new NativeDateTime('2013-02-01T20:20:30+10:00');
+        $dateTime = DateTime::fromNativeDateTime($native);
+        $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $dateTime);
+        $this->assertSame('2013-02-01T20:20:30+10:00', $dateTime->isoString());
+    }
+
+    public function testNativeDateTime()
+    {
+        $timeZone = new TimeZone(36000, true);
+        $dateTime = new DateTime(2013, 2, 1, 10, 20, 30, $timeZone);
+
+        $native = $dateTime->nativeDateTime();
+        $this->assertInstanceOf('DateTime', $native);
+        $this->assertSame('2013-02-01T10:20:30+10:00', $native->format('c'));
+    }
+
+    public function testAdd()
+    {
+        $duration = Phake::partialMock('Icecave\Chrono\Duration\DurationInterface');
+
+        Phake::when($duration)
+            ->resolve($this->dateTime)
+            ->thenReturn(86400);
+
+        $dateTime = $this->dateTime->add($duration);
+
+        $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $dateTime);
+        $this->assertSame('2013-02-02T10:20:30+00:00', $dateTime->isoString());
+    }
+
+    public function testSubtract()
+    {
+        $duration = Phake::partialMock('Icecave\Chrono\Duration\DurationInterface');
+
+        Phake::when($duration)
+            ->resolve($this->dateTime)
+            ->thenReturn(86400);
+
+        $dateTime = $this->dateTime->subtract($duration);
+
+        $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $dateTime);
+        $this->assertSame('2013-01-31T10:20:30+00:00', $dateTime->isoString());
+    }
+
+    public function testDifferenceAsDuration()
+    {
+        $dateTime = new DateTime(2013, 2, 1, 10, 20, 0);
+        $duration = $this->dateTime->differenceAsDuration($dateTime);
+
+        $this->assertInstanceOf('Icecave\Chrono\Duration\Duration', $duration);
+        $this->assertSame(30, $duration->totalSeconds());
     }
 
     public function testFormat()
@@ -180,19 +251,19 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
             ->thenReturn('<1st>')
             ->thenReturn('<2nd>');
 
-        $result = $this->_dateTime->format('Y-m-d H:i:s');
+        $result = $this->dateTime->format('Y-m-d H:i:s');
         $this->assertSame('<1st>', $result);
 
-        $result = $this->_dateTime->format('Y-m-d H:i:s', $formatter);
+        $result = $this->dateTime->format('Y-m-d H:i:s', $formatter);
         $this->assertSame('<2nd>', $result);
 
-        Phake::verify($formatter, Phake::times(2))->formatDateTime($this->_dateTime, 'Y-m-d H:i:s');
+        Phake::verify($formatter, Phake::times(2))->formatDateTime($this->dateTime, 'Y-m-d H:i:s');
     }
 
     public function testIsoString()
     {
-        $this->assertEquals('2013-02-01T10:20:30+00:00', $this->_dateTime->isoString());
-        $this->assertEquals('2013-02-01T10:20:30+00:00', $this->_dateTime->__toString());
+        $this->assertEquals('2013-02-01T10:20:30+00:00', $this->dateTime->isoString());
+        $this->assertEquals('2013-02-01T10:20:30+00:00', $this->dateTime->__toString());
     }
 
     /**

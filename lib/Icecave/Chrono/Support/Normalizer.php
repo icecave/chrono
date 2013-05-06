@@ -29,12 +29,12 @@ class Normalizer
     {
         TypeCheck::get(__CLASS__)->normalizeDate(func_get_args());
 
-        $year += self::normalizeOverflow($month, 1, 12);
+        $year += self::normalizeOverflow($month, 1, 13);
 
         if ($day < 1) {
             while ($day < 1) {
                 --$month;
-                $year += self::normalizeOverflow($month, 1, 12);
+                $year += self::normalizeOverflow($month, 1, 13);
                 $daysInMonth = Calendar::daysInMonth($year, $month);
                 $day += $daysInMonth;
             }
@@ -43,7 +43,7 @@ class Normalizer
             while ($day > $daysInMonth) {
                 ++$month;
                 $day -= $daysInMonth;
-                $year += self::normalizeOverflow($month, 1, 12);
+                $year += self::normalizeOverflow($month, 1, 13);
                 $daysInMonth = Calendar::daysInMonth($year, $month);
             }
         }
@@ -60,15 +60,17 @@ class Normalizer
     {
         TypeCheck::get(__CLASS__)->normalizeOverflow(func_get_args());
 
+        $range = $max - $min;
+
         if ($value < $min) {
             $overflow = 0;
             while ($value < $min) {
                 --$overflow;
-                $value += $max;
+                $value += $range;
             }
-        } elseif ($value > $max) {
-            $overflow = intval($value / $max);
-            $value -= $overflow * $max;
+        } elseif ($value >= $max) {
+            $overflow = intval($value / $range);
+            $value -= $overflow * $range;
         } else {
             $overflow = 0;
         }

@@ -25,8 +25,6 @@ class ScopedSuspension
 
     public function __destruct()
     {
-        $this->typeCheck->validateDestruct(func_get_args());
-
         if ($this->clock) {
             $this->clock->resume();
         }
