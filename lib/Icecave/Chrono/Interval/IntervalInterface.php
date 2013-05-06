@@ -19,7 +19,7 @@ interface IntervalInterface
     public function end();
 
     /**
-     * @return boolean True if the interval indicates a non-zero duration; otherwise, false.
+     * @return boolean True if the interval indicates a zero duration; otherwise, false.
      */
     public function isEmpty();
 
