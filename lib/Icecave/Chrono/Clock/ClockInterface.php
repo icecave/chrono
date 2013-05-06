@@ -8,6 +8,11 @@ use Icecave\Chrono\TimeOfDay;
 use Icecave\Chrono\TimeZone;
 use Icecave\Chrono\Year;
 
+/**
+ * A clock is used to produce date and time measurments.
+ *
+ * In most production code {@see SystemClock} should be used.
+ */
 interface ClockInterface
 {
     /**

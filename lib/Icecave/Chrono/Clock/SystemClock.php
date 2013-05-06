@@ -2,9 +2,12 @@
 namespace Icecave\Chrono\Clock;
 
 use Icecave\Chrono\TimeZone;
-use Icecave\Isolator\Isolator;
 use Icecave\Chrono\TypeCheck\TypeCheck;
+use Icecave\Isolator\Isolator;
 
+/**
+ * A clock that uses the system to obtain real wall-clock date/times.
+ */
 class SystemClock extends AbstractClock
 {
     /**
