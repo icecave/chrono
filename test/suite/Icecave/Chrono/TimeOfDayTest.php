@@ -1,6 +1,7 @@
 <?php
 namespace Icecave\Chrono;
 
+use DateTime as NativeDateTime;
 use Eloquent\Liberator\Liberator;
 use Phake;
 use PHPUnit_Framework_TestCase;
@@ -145,6 +146,7 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
     public function testFromUnixTime()
     {
         $timeOfDay = TimeOfDay::fromUnixTime(1359714030);
+        $this->assertInstanceOf(__NAMESPACE__ . '\TimeOfDay', $timeOfDay);
         $this->assertSame('10:20:30+00:00', $timeOfDay->isoString());
     }
 
@@ -152,6 +154,15 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
     {
         $timeZone = new TimeZone(36000, true);
         $timeOfDay = TimeOfDay::fromUnixTime(1359714030, $timeZone);
+        $this->assertInstanceOf(__NAMESPACE__ . '\TimeOfDay', $timeOfDay);
+        $this->assertSame('20:20:30+10:00', $timeOfDay->isoString());
+    }
+
+    public function testFromNativeDateTime()
+    {
+        $native = new NativeDateTime('2013-02-01T20:20:30+10:00');
+        $timeOfDay = TimeOfDay::fromNativeDateTime($native);
+        $this->assertInstanceOf(__NAMESPACE__ . '\TimeOfDay', $timeOfDay);
         $this->assertSame('20:20:30+10:00', $timeOfDay->isoString());
     }
 

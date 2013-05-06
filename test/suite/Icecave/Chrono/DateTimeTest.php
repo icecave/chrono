@@ -1,6 +1,7 @@
 <?php
 namespace Icecave\Chrono;
 
+use DateTime as NativeDateTime;
 use Eloquent\Liberator\Liberator;
 use Phake;
 use PHPUnit_Framework_TestCase;
@@ -173,6 +174,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     public function testFromUnixTime()
     {
         $dateTime = DateTime::fromUnixTime(1359714030);
+        $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $dateTime);
         $this->assertSame('2013-02-01T10:20:30+00:00', $dateTime->isoString());
     }
 
@@ -180,7 +182,21 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $timeZone = new TimeZone(36000, true);
         $dateTime = DateTime::fromUnixTime(1359714030, $timeZone);
+        $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $dateTime);
         $this->assertSame('2013-02-01T20:20:30+10:00', $dateTime->isoString());
+    }
+
+    public function testFromNativeDateTime()
+    {
+        $native = new NativeDateTime('2013-02-01T20:20:30+10:00');
+        $dateTime = DateTime::fromNativeDateTime($native);
+        $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $dateTime);
+        $this->assertSame('2013-02-01T20:20:30+10:00', $dateTime->isoString());
+    }
+
+    public function testNativeDateTime()
+    {
+
     }
 
     public function testFormat()

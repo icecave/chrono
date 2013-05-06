@@ -82,6 +82,16 @@ class TimeOfDayTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         }
     }
 
+    public function fromNativeDateTime(array $arguments)
+    {
+        $argumentCount = \count($arguments);
+        if ($argumentCount < 1) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('native', 0, 'DateTime');
+        } elseif ($argumentCount > 1) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
+        }
+    }
+
     public function hours(array $arguments)
     {
         if (\count($arguments) > 0) {

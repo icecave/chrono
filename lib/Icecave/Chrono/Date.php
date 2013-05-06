@@ -1,6 +1,7 @@
 <?php
 namespace Icecave\Chrono;
 
+use DateTime as NativeDateTime;
 use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Support\Normalizer;
@@ -83,6 +84,18 @@ class Date implements TimePointInterface
         list($year, $month, $day) = $parts;
 
         return new self($year, $month, $day);
+    }
+
+    /**
+     * @param NativeDateTime $native The native PHP DateTime instance.
+     *
+     * @return Date The Date constructed from the given instance.
+     */
+    public static function fromNativeDateTime(NativeDateTime $native)
+    {
+        TypeCheck::get(__CLASS__)->fromNativeDateTime(func_get_args());
+
+        return self::fromUnixTime($native->getTimestamp());
     }
 
     /**
