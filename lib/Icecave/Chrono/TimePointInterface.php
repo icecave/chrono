@@ -1,6 +1,8 @@
 <?php
 namespace Icecave\Chrono;
 
+use DateTime as NativeDateTime;
+
 /**
  * Represents a concrete point on the time continuum.
  */
@@ -19,4 +21,9 @@ interface TimePointInterface extends DateInterface
      * @return integer The number of seconds since unix epoch (1970-01-01 00:00:00+00:00).
      */
     public function unixTime();
+
+    /**
+     * @return NativeDateTime A native PHP DateTime instance representing this time point.
+     */
+    public function nativeDateTime();
 }

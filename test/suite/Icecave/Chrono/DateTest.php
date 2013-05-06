@@ -157,6 +157,13 @@ class DateTest extends PHPUnit_Framework_TestCase
         $this->assertSame('2013-02-01', $date->isoString());
     }
 
+    public function testNativeDateTime()
+    {
+        $native = $this->date->nativeDateTime();
+        $this->assertInstanceOf('DateTime', $native);
+        $this->assertSame('2013-02-01', $native->format('Y-m-d'));
+    }
+
     public function testFormat()
     {
         $formatter = Phake::mock(__NAMESPACE__ . '\Format\FormatterInterface');

@@ -196,7 +196,12 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
 
     public function testNativeDateTime()
     {
+        $timeZone = new TimeZone(36000, true);
+        $dateTime = new DateTime(2013, 2, 1, 10, 20, 30, $timeZone);
 
+        $native = $dateTime->nativeDateTime();
+        $this->assertInstanceOf('DateTime', $native);
+        $this->assertSame('2013-02-01T10:20:30+10:00', $native->format('c'));
     }
 
     public function testFormat()

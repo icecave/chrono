@@ -317,6 +317,16 @@ class DateTime implements TimePointInterface, TimeInterface
     }
 
     /**
+     * @return NativeDateTime A native PHP DateTime instance representing this time point.
+     */
+    public function nativeDateTime()
+    {
+        $this->typeCheck->nativeDateTime(func_get_args());
+
+        return new NativeDateTime($this->isoString());
+    }
+
+    /**
      * @param string                  $formatSpecifier The format of the output string.
      * @param FormatterInterface|null $formatter       The formatter to use, or null to use the default.
      *
