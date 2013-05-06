@@ -98,6 +98,25 @@ class DateTimeTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         }
     }
 
+    public function fromUnixTime(array $arguments)
+    {
+        $argumentCount = \count($arguments);
+        if ($argumentCount < 1) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('unixTime', 0, 'integer');
+        } elseif ($argumentCount > 2) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(2, $arguments[2]);
+        }
+        $value = $arguments[0];
+        if (!\is_int($value)) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
+                'unixTime',
+                0,
+                $arguments[0],
+                'integer'
+            );
+        }
+    }
+
     public function year(array $arguments)
     {
         if (\count($arguments) > 0) {

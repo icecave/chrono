@@ -170,6 +170,19 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
         $this->assertSame(1359678030, $dateTime->unixTime());
     }
 
+    public function testFromUnixTime()
+    {
+        $dateTime = DateTime::fromUnixTime(1359714030);
+        $this->assertSame('2013-02-01T10:20:30+00:00', $dateTime->isoString());
+    }
+
+    public function testFromUnixTimeWithTimeZone()
+    {
+        $timeZone = new TimeZone(36000, true);
+        $dateTime = DateTime::fromUnixTime(1359714030, $timeZone);
+        $this->assertSame('2013-02-01T20:20:30+10:00', $dateTime->isoString());
+    }
+
     public function testFormat()
     {
         $formatter = Phake::mock(__NAMESPACE__ . '\Format\FormatterInterface');

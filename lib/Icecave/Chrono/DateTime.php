@@ -51,7 +51,7 @@ class DateTime implements TimePointInterface, TimeInterface
     /**
      * @param string $isoDateTime A string containing a date time in any ISO-8601 compatible format.
      *
-     * @return DateTime The Date constructed from the ISO compatible string and optional time zone.
+     * @return DateTime The DateTime constructed from the ISO compatible string and optional time zone.
      */
     public static function fromIsoString($isoDateTime)
     {
@@ -77,6 +77,29 @@ class DateTime implements TimePointInterface, TimeInterface
         } else {
             throw new InvalidArgumentException('Invalid ISO date time: "' . $isoDateTime . '".');
         }
+
+        return new self($year, $month, $day, $hour, $minute, $second, $timeZone);
+    }
+
+    /**
+     * @param integer       $unixTime The unix timestamp.
+     * @param TimeZone|null $timeZone The time zone of the time, or null to use UTC.
+     *
+     * @return DateTime The DateTime constructed from the given timestamp and time zone.
+     */
+    public static function fromUnixTime($unixTime, TimeZone $timeZone = null)
+    {
+        TypeCheck::get(__CLASS__)->fromUnixTime(func_get_args());
+
+        if ($timeZone) {
+            $unixTime += $timeZone->offset();
+        }
+
+        $parts = gmdate('Y,m,d,H,i,s', $unixTime);
+        $parts = explode(',', $parts);
+        $parts = array_map('intval', $parts);
+
+        list($year, $month, $day, $hour, $minute, $second) = $parts;
 
         return new self($year, $month, $day, $hour, $minute, $second, $timeZone);
     }

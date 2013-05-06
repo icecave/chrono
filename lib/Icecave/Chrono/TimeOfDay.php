@@ -65,6 +65,29 @@ class TimeOfDay implements TimeInterface
     }
 
     /**
+     * @param integer       $unixTime The unix timestamp.
+     * @param TimeZone|null $timeZone The time zone of the time, or null to use UTC.
+     *
+     * @return TimeOfDay The TimeOfDay constructed from the given timestamp and time zone.
+     */
+    public static function fromUnixTime($unixTime, TimeZone $timeZone = null)
+    {
+        TypeCheck::get(__CLASS__)->fromUnixTime(func_get_args());
+
+        if ($timeZone) {
+            $unixTime += $timeZone->offset();
+        }
+
+        $parts = gmdate('H,i,s', $unixTime);
+        $parts = explode(',', $parts);
+        $parts = array_map('intval', $parts);
+
+        list($hour, $minute, $second) = $parts;
+
+        return new self($hour, $minute, $second, $timeZone);
+    }
+
+    /**
      * @return integer The hours component of the time.
      */
     public function hours()

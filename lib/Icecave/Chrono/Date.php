@@ -68,6 +68,24 @@ class Date implements TimePointInterface
     }
 
     /**
+     * @param integer $unixTime The unix timestamp.
+     *
+     * @return Date The Date constructed from the given timestamp.
+     */
+    public static function fromUnixTime($unixTime)
+    {
+        TypeCheck::get(__CLASS__)->fromUnixTime(func_get_args());
+
+        $parts = gmdate('Y,m,d', $unixTime);
+        $parts = explode(',', $parts);
+        $parts = array_map('intval', $parts);
+
+        list($year, $month, $day) = $parts;
+
+        return new self($year, $month, $day);
+    }
+
+    /**
      * @return integer The year component of the date.
      */
     public function year()

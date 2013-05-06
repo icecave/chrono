@@ -142,6 +142,19 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
         Phake::verify($formatter, Phake::times(2))->formatTimeOfDay($this->time, 'H:i:s');
     }
 
+    public function testFromUnixTime()
+    {
+        $timeOfDay = TimeOfDay::fromUnixTime(1359714030);
+        $this->assertSame('10:20:30+00:00', $timeOfDay->isoString());
+    }
+
+    public function testFromUnixTimeWithTimeZone()
+    {
+        $timeZone = new TimeZone(36000, true);
+        $timeOfDay = TimeOfDay::fromUnixTime(1359714030, $timeZone);
+        $this->assertSame('20:20:30+10:00', $timeOfDay->isoString());
+    }
+
     public function testIsoString()
     {
         $this->assertEquals('10:20:30+00:00', $this->time->isoString());
