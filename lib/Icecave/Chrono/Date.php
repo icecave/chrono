@@ -2,6 +2,7 @@
 namespace Icecave\Chrono;
 
 use DateTime as NativeDateTime;
+use Icecave\Chrono\Duration\Duration;
 use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Support\Normalizer;
@@ -303,6 +304,20 @@ class Date implements TimePointInterface
             0,
             -$timeSpan->resolve($this)
         );
+    }
+
+    /**
+     * Calculate the difference between this time point and another, representing the result as a duration.
+     *
+     * @param TimePointInterface $timePoint
+     *
+     * @return Duration
+     */
+    public function differenceAsDuration(TimePointInterface $timePoint)
+    {
+        $this->typeCheck->differenceAsDuration(func_get_args());
+
+        return new Duration($this->unixTime() - $timePoint->unixTime());
     }
 
     /**

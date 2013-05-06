@@ -232,6 +232,15 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
         $this->assertSame('2013-01-31T10:20:30+00:00', $dateTime->isoString());
     }
 
+    public function testDifferenceAsDuration()
+    {
+        $dateTime = new DateTime(2013, 2, 1, 10, 20, 0);
+        $duration = $this->dateTime->differenceAsDuration($dateTime);
+
+        $this->assertInstanceOf('Icecave\Chrono\Duration\Duration', $duration);
+        $this->assertSame(30, $duration->totalSeconds());
+    }
+
     public function testFormat()
     {
         $formatter = Phake::mock(__NAMESPACE__ . '\Format\FormatterInterface');
