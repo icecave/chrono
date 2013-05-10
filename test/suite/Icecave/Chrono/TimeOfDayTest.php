@@ -115,8 +115,8 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
     public function testCompareTimeZone()
     {
         $time = new TimeOfDay(10, 20, 30, new TimeZone(36000));
-        $this->assertLessThan(0, $this->time->compare($time));
-        $this->assertGreaterThan(0, $time->compare($this->time));
+        $this->assertLessThan(0, $time->compare($this->time));
+        $this->assertGreaterThan(0, $this->time->compare($time));
     }
 
     public function testTotalSeconds()

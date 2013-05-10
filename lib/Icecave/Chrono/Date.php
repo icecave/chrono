@@ -221,19 +221,6 @@ class Date implements TimePointInterface
     {
         $this->typeCheck->compare(func_get_args());
 
-        // Identical ...
-        if ($this === $timePoint) {
-            return 0;
-
-        // Another date ...
-        } elseif ($timePoint instanceof self) {
-            return $this->year() - $timePoint->year()
-                ?: $this->month() - $timePoint->month()
-                ?: $this->day() - $timePoint->day()
-                ?: $this->timeZone()->compare($timePoint->timeZone());
-        }
-
-        // Fallback to timestamp calculation ...
         return $this->unixTime() - $timePoint->unixTime();
     }
 
