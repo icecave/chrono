@@ -149,16 +149,6 @@ class DateTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         }
     }
 
-    public function compare(array $arguments)
-    {
-        $argumentCount = \count($arguments);
-        if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('timePoint', 0, 'Icecave\\Chrono\\TimePointInterface');
-        } elseif ($argumentCount > 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
-        }
-    }
-
     public function unixTime(array $arguments)
     {
         if (\count($arguments) > 0) {
@@ -212,16 +202,6 @@ class DateTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
     }
 
     public function differenceAsSeconds(array $arguments)
-    {
-        $argumentCount = \count($arguments);
-        if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('timePoint', 0, 'Icecave\\Chrono\\TimePointInterface');
-        } elseif ($argumentCount > 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
-        }
-    }
-
-    public function differenceAsDuration(array $arguments)
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {

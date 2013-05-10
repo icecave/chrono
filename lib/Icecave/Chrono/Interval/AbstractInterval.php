@@ -38,6 +38,78 @@ abstract class AbstractInterval implements IntervalInterface
     }
 
     /**
+     * @param IntervalInterface $interval The interval to compare.
+     *
+     * @return boolean True if $this and $interval are equal.
+     */
+    public function isEqualTo(IntervalInterface $interval)
+    {
+        $this->typeCheck->isEqualTo(func_get_args());
+
+        return $this->compare($interval) === 0;
+    }
+
+    /**
+     * @param IntervalInterface $interval The interval to compare.
+     *
+     * @return boolean True if $this and $interval are not equal.
+     */
+    public function isNotEqualTo(IntervalInterface $interval)
+    {
+        $this->typeCheck->isNotEqualTo(func_get_args());
+
+        return $this->compare($interval) !== 0;
+    }
+
+    /**
+     * @param IntervalInterface $interval The interval to compare.
+     *
+     * @return boolean True if $this > $interval.
+     */
+    public function isGreaterThan(IntervalInterface $interval)
+    {
+        $this->typeCheck->isGreaterThan(func_get_args());
+
+        return $this->compare($interval) > 0;
+    }
+
+    /**
+     * @param IntervalInterface $interval The interval to compare.
+     *
+     * @return boolean True if $this < $interval.
+     */
+    public function isLessThan(IntervalInterface $interval)
+    {
+        $this->typeCheck->isLessThan(func_get_args());
+
+        return $this->compare($interval) < 0;
+    }
+
+    /**
+     * @param IntervalInterface $interval The interval to compare.
+     *
+     * @return boolean True if $this >= $interval.
+     */
+    public function isGreaterThanOrEqualTo(IntervalInterface $interval)
+    {
+        $this->typeCheck->isGreaterThanOrEqualTo(func_get_args());
+
+        return $this->compare($interval) >= 0;
+    }
+
+    /**
+     * @param IntervalInterface $interval The interval to compare.
+     *
+     * @return boolean True if $this <= $interval.
+     */
+    public function isLessThanOrEqualTo(IntervalInterface $interval)
+    {
+        $this->typeCheck->isLessThanOrEqualTo(func_get_args());
+
+        return $this->compare($interval) <= 0;
+    }
+
+    /**
      * Check if a given time point is contained within this interval.
      *
      * @param TimePointInterface $timePoint The time point to check.

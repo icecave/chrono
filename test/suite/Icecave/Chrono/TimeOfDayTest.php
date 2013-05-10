@@ -119,6 +119,72 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
         $this->assertGreaterThan(0, $this->time->compare($time));
     }
 
+    public function testIsEqualTo()
+    {
+        $before = new TimeOfDay(10, 20, 25);
+        $time = new TimeOfDay(10, 20, 30);
+        $after = new TimeOfDay(10, 20, 45);
+
+        $this->assertTrue($time->isEqualTo($time));
+        $this->assertFalse($time->isEqualTo($before));
+        $this->assertFalse($time->isEqualTo($after));
+    }
+
+    public function testIsNotEqualTo()
+    {
+        $before = new TimeOfDay(10, 20, 25);
+        $time = new TimeOfDay(10, 20, 30);
+        $after = new TimeOfDay(10, 20, 45);
+
+        $this->assertFalse($time->isNotEqualTo($time));
+        $this->assertTrue($time->isNotEqualTo($before));
+        $this->assertTrue($time->isNotEqualTo($after));
+    }
+
+    public function testIsGreaterThan()
+    {
+        $before = new TimeOfDay(10, 20, 25);
+        $time = new TimeOfDay(10, 20, 30);
+        $after = new TimeOfDay(10, 20, 45);
+
+        $this->assertFalse($time->isGreaterThan($time));
+        $this->assertTrue($time->isGreaterThan($before));
+        $this->assertFalse($time->isGreaterThan($after));
+    }
+
+    public function testIsLessThan()
+    {
+        $before = new TimeOfDay(10, 20, 25);
+        $time = new TimeOfDay(10, 20, 30);
+        $after = new TimeOfDay(10, 20, 45);
+
+        $this->assertFalse($time->isLessThan($time));
+        $this->assertFalse($time->isLessThan($before));
+        $this->assertTrue($time->isLessThan($after));
+    }
+
+    public function testIsGreaterThanOrEqualTo()
+    {
+        $before = new TimeOfDay(10, 20, 25);
+        $time = new TimeOfDay(10, 20, 30);
+        $after = new TimeOfDay(10, 20, 45);
+
+        $this->assertTrue($time->isGreaterThanOrEqualTo($time));
+        $this->assertTrue($time->isGreaterThanOrEqualTo($before));
+        $this->assertFalse($time->isGreaterThanOrEqualTo($after));
+    }
+
+    public function testIsLessThanOrEqualTo()
+    {
+        $before = new TimeOfDay(10, 20, 25);
+        $time = new TimeOfDay(10, 20, 30);
+        $after = new TimeOfDay(10, 20, 45);
+
+        $this->assertTrue($time->isLessThanOrEqualTo($time));
+        $this->assertFalse($time->isLessThanOrEqualTo($before));
+        $this->assertTrue($time->isLessThanOrEqualTo($after));
+    }
+
     public function testTotalSeconds()
     {
         $this->assertSame(37230, $this->time->totalSeconds());

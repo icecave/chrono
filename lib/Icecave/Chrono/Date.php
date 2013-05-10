@@ -2,7 +2,6 @@
 namespace Icecave\Chrono;
 
 use DateTime as NativeDateTime;
-use Icecave\Chrono\Duration\Duration;
 use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Support\Normalizer;
@@ -12,7 +11,7 @@ use InvalidArgumentException;
 /**
  * Represents a date.
  */
-class Date implements TimePointInterface
+class Date extends AbstractTimePoint
 {
     /**
      * @param integer       $year     The year component of the date.
@@ -38,6 +37,8 @@ class Date implements TimePointInterface
         $this->month = $month;
         $this->day = $day;
         $this->timeZone = $timeZone;
+
+        parent::__construct();
     }
 
     /**
@@ -220,20 +221,6 @@ class Date implements TimePointInterface
             $time->seconds(),
             $this->timeZone()
         );
-    }
-
-    /**
-     * Perform a {@see strcmp} style comparison with another time point.
-     *
-     * @param TimePointInterface $timePoint The time point to compare.
-     *
-     * @return integer 0 if $this and $timePoint are equal, <0 if $this < $timePoint, or >0 if $this > $timePoint.
-     */
-    public function compare(TimePointInterface $timePoint)
-    {
-        $this->typeCheck->compare(func_get_args());
-
-        return $this->unixTime() - $timePoint->unixTime();
     }
 
     /**
