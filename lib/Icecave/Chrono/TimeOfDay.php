@@ -222,17 +222,8 @@ class TimeOfDay implements TimeInterface
      {
          $this->typeCheck->compare(func_get_args());
 
-         // Identical ...
-         if ($this === $time) {
-             return 0;
-
-         // Another date ...
-         } else {
-             return $this->hours() - $time->hours()
-                 ?: $this->minutes() - $time->minutes()
-                 ?: $this->seconds() - $time->seconds()
-                 ?: $this->timeZone()->compare($time->timeZone());
-         }
+         return ($this->totalSeconds() - $this->timeZone()->offset())
+              - ($time->totalSeconds() - $time->timeZone()->offset());
      }
 
      /**

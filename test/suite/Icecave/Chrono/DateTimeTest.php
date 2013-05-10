@@ -144,8 +144,8 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     public function testCompareTimeZone()
     {
         $dateTime = new DateTime(2013, 2, 1, 10, 20, 30, new TimeZone(36000));
-        $this->assertLessThan(0, $this->dateTime->compare($dateTime));
-        $this->assertGreaterThan(0, $dateTime->compare($this->dateTime));
+        $this->assertLessThan(0, $dateTime->compare($this->dateTime));
+        $this->assertGreaterThan(0, $this->dateTime->compare($dateTime));
     }
 
     public function testCompareOther()

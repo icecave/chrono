@@ -281,22 +281,6 @@ class DateTime implements TimePointInterface, TimeInterface
     {
         $this->typeCheck->compare(func_get_args());
 
-        // Identical ...
-        if ($this === $timePoint) {
-            return 0;
-
-        // Another date/time ...
-        } elseif ($timePoint instanceof self) {
-            return $this->year() - $timePoint->year()
-                ?: $this->month() - $timePoint->month()
-                ?: $this->day() - $timePoint->day()
-                ?: $this->hours() - $timePoint->hours()
-                ?: $this->minutes() - $timePoint->minutes()
-                ?: $this->seconds() - $timePoint->seconds()
-                ?: $this->timeZone()->compare($timePoint->timeZone());
-        }
-
-        // Fallback to timestamp calculation ...
         return $this->unixTime() - $timePoint->unixTime();
     }
 
