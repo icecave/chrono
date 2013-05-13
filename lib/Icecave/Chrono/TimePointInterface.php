@@ -2,6 +2,8 @@
 namespace Icecave\Chrono;
 
 use DateTime as NativeDateTime;
+use Icecave\Chrono\TimeSpan\Duration;
+use Icecave\Chrono\TimeSpan\Period;
 use Icecave\Chrono\TimeSpan\TimeSpanInterface;
 
 /**
@@ -110,4 +112,13 @@ interface TimePointInterface extends DateInterface, TimeInterface
      * @return Duration
      */
     public function differenceAsDuration(TimePointInterface $timePoint);
+
+    /**
+     * Calculate the difference between this time point and another, representing the result as a duration.
+     *
+     * @param TimePointInterface $timePoint
+     *
+     * @return Period
+     */
+    public function differenceAsPeriod(TimePointInterface $timePoint);
 }

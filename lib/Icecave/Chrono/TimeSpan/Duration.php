@@ -327,6 +327,41 @@ class Duration implements TimeSpanInterface
         );
     }
 
+    /**
+     * @return string
+     */
+    public function string()
+    {
+        $this->typeCheck->string(func_get_args());
+
+        $chunks = array();
+
+        if ($this->weeks()) {
+            $chunks[] = $this->weeks() . 'w';
+        }
+
+        if ($this->days()) {
+            $chunks[] = $this->days() . 'd';
+        }
+
+        $chunks[] = sprintf(
+            '%02d:%02d:%02d',
+            $this->hours(),
+            $this->minutes(),
+            $this->seconds()
+        );
+
+        return implode(' ', $chunks);
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->string();
+    }
+
     private $typeCheck;
     private $seconds;
 }

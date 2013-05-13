@@ -178,4 +178,10 @@ class DurationTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Icecave\Chrono\TimePointInterface', $result);
         $this->assertSame('2012-01-11T13:24:35+10:00', $result->isoString());
     }
+
+    public function testString()
+    {
+        $this->assertSame('1w 2d 03:04:05', $this->duration->string());
+        $this->assertSame('1w 2d 03:04:05', $this->duration->__toString());
+    }
 }

@@ -8,7 +8,7 @@
 * **[IMPROVED]** `TimePointInterface::add()` and `subtract()` now accept raw seconds as integer, as well as a time span
 * **[FIXED]** Added missing time zone support to `Date::fromNativeDateTime()` and `nativeDateTime()`
 * **[NEW]** Implemented `Period`, a model of `TimeSpanInterface`
-* **[NEW]** Added `TimeSpanInterface::inverse()`, `isEmpty()`, `resolveTo[Duration/Period/Interval/TimePoint]()`
+* **[NEW]** Added `TimeSpanInterface::inverse()`, `isEmpty()`, `__toString()` and `resolveTo***()` methods
 * **[NEW]** Added `TimePointInterface::differenceAsSeconds()` and `differenceAsPeriod()`
 * **[NEW]** Added `is[Not]EqualTo()` and `is[Less/Greater]Than[OrEqualTo]()` to all types with `compare()`
 * **[NEW]** Added `Year::fromTimePoint()` and `Month::fromTimePoint()`

@@ -4,7 +4,6 @@ namespace Icecave\Chrono\TimeSpan;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\Interval\Interval;
 use Icecave\Chrono\Interval\IntervalInterface;
-use Icecave\Chrono\Support\Normalizer;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
@@ -316,6 +315,45 @@ class Period implements TimeSpanInterface
             $timePoint->seconds() + $this->seconds(),
             $timePoint->timeZone()
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function string()
+    {
+        $this->typeCheck->string(func_get_args());
+
+        $chunks = array();
+
+        if ($this->years()) {
+            $chunks[] = $this->years() . 'y';
+        }
+
+        if ($this->months()) {
+            $chunks[] = $this->months() . 'm';
+        }
+
+        if ($this->days()) {
+            $chunks[] = $this->days() . 'd';
+        }
+
+        $chunks[] = sprintf(
+            '%02d:%02d:%02d',
+            $this->hours(),
+            $this->minutes(),
+            $this->seconds()
+        );
+
+        return implode(' ', $chunks);
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->string();
     }
 
     private $typeCheck;

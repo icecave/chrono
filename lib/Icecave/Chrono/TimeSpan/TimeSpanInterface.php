@@ -63,4 +63,14 @@ interface TimeSpanInterface
      * @return TimePointInterface
      */
     public function resolveToTimePoint(TimePointInterface $timePoint);
+
+    /**
+     * @return string
+     */
+    public function string();
+
+    /**
+     * @return string
+     */
+    public function __toString();
 }
