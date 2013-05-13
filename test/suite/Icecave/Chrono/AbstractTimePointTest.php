@@ -85,6 +85,21 @@ class AbstractTimePointTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($this->timePoint->isLessThanOrEqualTo($this->after));
     }
 
+    public function testDifferenceAsSeconds()
+    {
+        Phake::when($this->timePoint)
+            ->unixTime()
+            ->thenReturn(12345);
+
+        Phake::when($this->before)
+            ->unixTime()
+            ->thenReturn(12340);
+
+        $duration = $this->timePoint->differenceAsSeconds($this->before);
+
+        $this->assertSame(5, $duration);
+    }
+
     public function testDifferenceAsDuration()
     {
         Phake::when($this->timePoint)

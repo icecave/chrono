@@ -352,34 +352,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
     }
 
     /**
-     * Calculate the difference between this time point and another in seconds.
-     *
-     * @param TimePointInterface $timePoint
-     *
-     * @return integer
-     */
-    public function differenceAsSeconds(TimePointInterface $timePoint)
-    {
-        $this->typeCheck->differenceAsSeconds(func_get_args());
-
-        return $this->unixTime() - $timePoint->unixTime();
-    }
-
-    /**
-     * Calculate the difference between this time point and another, representing the result as a duration.
-     *
-     * @param TimePointInterface $timePoint
-     *
-     * @return Duration
-     */
-    public function differenceAsDuration(TimePointInterface $timePoint)
-    {
-        $this->typeCheck->differenceAsDuration(func_get_args());
-
-        return new Duration($this->differenceAsSeconds($timePoint));
-    }
-
-    /**
      * @param string                  $formatSpecifier The format of the output string.
      * @param FormatterInterface|null $formatter       The formatter to use, or null to use the default.
      *
