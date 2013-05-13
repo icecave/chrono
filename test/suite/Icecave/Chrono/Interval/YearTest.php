@@ -11,9 +11,9 @@ class YearTest extends PHPUnit_Framework_TestCase
         $this->year = new Year(2012);
     }
 
-    public function testCreateFromDate()
+    public function testCreateFromTimePoint()
     {
-        $year = Year::createFromDate(new Date(2012, 12, 30));
+        $year = Year::createFromTimePoint(new Date(2012, 12, 30));
         $this->assertInstanceOf(__NAMESPACE__ . '\Year', $year);
         $this->assertSame(2012, $year->ordinal());
     }

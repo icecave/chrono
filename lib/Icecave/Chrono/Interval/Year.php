@@ -2,7 +2,7 @@
 namespace Icecave\Chrono\Interval;
 
 use Icecave\Chrono\Date;
-use Icecave\Chrono\DateInterface;
+use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\Iso8601Interface;
 use Icecave\Chrono\Support\Calendar;
 use Icecave\Chrono\TypeCheck\TypeCheck;
@@ -22,15 +22,15 @@ class Year extends AbstractInterval implements Iso8601Interface
     }
 
     /**
-     * @param DateInterface $date The date in time.
+     * @param TimePointInterface $timePoint The time point to create from.
      *
-     * @return Year The Year constructed from the given date.
+     * @return Year The Year constructed from the given time point.
      */
-    public static function createFromDate(DateInterface $date)
+    public static function createFromTimePoint(TimePointInterface $timePoint)
     {
-        TypeCheck::get(__CLASS__)->createFromDate(func_get_args());
+        TypeCheck::get(__CLASS__)->createFromTimePoint(func_get_args());
 
-        return new self($date->year());
+        return new self($timePoint->year());
     }
 
     /**
