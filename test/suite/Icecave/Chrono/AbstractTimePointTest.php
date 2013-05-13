@@ -112,7 +112,7 @@ class AbstractTimePointTest extends PHPUnit_Framework_TestCase
 
         $duration = $this->timePoint->differenceAsDuration($this->before);
 
-        $this->assertInstanceOf('Icecave\Chrono\Duration\Duration', $duration);
+        $this->assertInstanceOf('Icecave\Chrono\TimeSpan\Duration', $duration);
         $this->assertSame(5, $duration->totalSeconds());
     }
 }

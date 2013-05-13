@@ -1,7 +1,7 @@
 <?php
 namespace Icecave\Chrono;
 
-use Icecave\Chrono\Duration\Duration;
+use Icecave\Chrono\TimeSpan\Duration;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
 /**

@@ -206,7 +206,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
 
     public function testAdd()
     {
-        $duration = Phake::partialMock('Icecave\Chrono\TimeSpanInterface');
+        $duration = Phake::partialMock('Icecave\Chrono\TimeSpan\TimeSpanInterface');
 
         Phake::when($duration)
             ->resolve($this->dateTime)
@@ -228,7 +228,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
 
     public function testSubtract()
     {
-        $duration = Phake::partialMock('Icecave\Chrono\TimeSpanInterface');
+        $duration = Phake::partialMock('Icecave\Chrono\TimeSpan\TimeSpanInterface');
 
         Phake::when($duration)
             ->resolve($this->dateTime)
@@ -260,7 +260,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
         $dateTime = new DateTime(2013, 2, 1, 10, 20, 0);
         $duration = $this->dateTime->differenceAsDuration($dateTime);
 
-        $this->assertInstanceOf('Icecave\Chrono\Duration\Duration', $duration);
+        $this->assertInstanceOf('Icecave\Chrono\TimeSpan\Duration', $duration);
         $this->assertSame(30, $duration->totalSeconds());
     }
 

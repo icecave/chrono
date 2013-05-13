@@ -1,13 +1,9 @@
 <?php
-namespace Icecave\Chrono\Duration;
+namespace Icecave\Chrono\TimeSpan;
 
 use PHPUnit_Framework_TestCase;
 use Phake;
 
-/**
- * @covers Icecave\Chrono\Duration\Duration
- * @covers Icecave\Chrono\Duration\AbstractDuration
- */
 class DurationTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()

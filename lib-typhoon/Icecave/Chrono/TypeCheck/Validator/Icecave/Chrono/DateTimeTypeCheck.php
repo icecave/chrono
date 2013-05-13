@@ -225,17 +225,17 @@ class DateTimeTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('timeSpan', 0, 'Icecave\\Chrono\\TimeSpanInterface|integer');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('timeSpan', 0, 'Icecave\\Chrono\\TimeSpan\\TimeSpanInterface|integer');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
         }
         $value = $arguments[0];
-        if (!($value instanceof \Icecave\Chrono\TimeSpanInterface || \is_int($value))) {
+        if (!($value instanceof \Icecave\Chrono\TimeSpan\TimeSpanInterface || \is_int($value))) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
                 'timeSpan',
                 0,
                 $arguments[0],
-                'Icecave\\Chrono\\TimeSpanInterface|integer'
+                'Icecave\\Chrono\\TimeSpan\\TimeSpanInterface|integer'
             );
         }
     }
@@ -244,17 +244,17 @@ class DateTimeTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('timeSpan', 0, 'Icecave\\Chrono\\TimeSpanInterface|integer');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('timeSpan', 0, 'Icecave\\Chrono\\TimeSpan\\TimeSpanInterface|integer');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
         }
         $value = $arguments[0];
-        if (!($value instanceof \Icecave\Chrono\TimeSpanInterface || \is_int($value))) {
+        if (!($value instanceof \Icecave\Chrono\TimeSpan\TimeSpanInterface || \is_int($value))) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
                 'timeSpan',
                 0,
                 $arguments[0],
-                'Icecave\\Chrono\\TimeSpanInterface|integer'
+                'Icecave\\Chrono\\TimeSpan\\TimeSpanInterface|integer'
             );
         }
     }

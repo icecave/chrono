@@ -174,7 +174,7 @@ class AbstractIntervalTest extends PHPUnit_Framework_TestCase
         $interval = $this->createInterval(new Date(2012, 1, 1), new Date(2012, 1, 2));
         $duration = $interval->duration();
 
-        $this->assertInstanceOf('Icecave\Chrono\Duration\Duration', $duration);
+        $this->assertInstanceOf('Icecave\Chrono\TimeSpan\Duration', $duration);
         $this->assertSame(86400, $duration->totalSeconds());
     }
 
@@ -183,7 +183,7 @@ class AbstractIntervalTest extends PHPUnit_Framework_TestCase
         $interval = $this->createInterval(new Date(2012, 1, 1), new Date(2012, 1, 1));
         $duration = $interval->duration();
 
-        $this->assertInstanceOf('Icecave\Chrono\Duration\Duration', $duration);
+        $this->assertInstanceOf('Icecave\Chrono\TimeSpan\Duration', $duration);
         $this->assertTrue($duration->isEmpty());
     }
 }

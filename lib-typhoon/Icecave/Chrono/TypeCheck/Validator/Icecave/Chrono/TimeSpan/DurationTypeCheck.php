@@ -1,12 +1,87 @@
 <?php
-namespace Icecave\Chrono\TypeCheck\Validator\Icecave\Chrono\Duration;
+namespace Icecave\Chrono\TypeCheck\Validator\Icecave\Chrono\TimeSpan;
 
-class AbstractDurationTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
+class DurationTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
 {
     public function validateConstruct(array $arguments)
     {
-        if (\count($arguments) > 0) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
+        $argumentCount = \count($arguments);
+        if ($argumentCount > 1) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
+        }
+        if ($argumentCount > 0) {
+            $value = $arguments[0];
+            if (!\is_int($value)) {
+                throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
+                    'seconds',
+                    0,
+                    $arguments[0],
+                    'integer'
+                );
+            }
+        }
+    }
+
+    public function fromComponents(array $arguments)
+    {
+        $argumentCount = \count($arguments);
+        if ($argumentCount > 5) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(5, $arguments[5]);
+        }
+        if ($argumentCount > 0) {
+            $value = $arguments[0];
+            if (!\is_int($value)) {
+                throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
+                    'weeks',
+                    0,
+                    $arguments[0],
+                    'integer'
+                );
+            }
+        }
+        if ($argumentCount > 1) {
+            $value = $arguments[1];
+            if (!\is_int($value)) {
+                throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
+                    'days',
+                    1,
+                    $arguments[1],
+                    'integer'
+                );
+            }
+        }
+        if ($argumentCount > 2) {
+            $value = $arguments[2];
+            if (!\is_int($value)) {
+                throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
+                    'hours',
+                    2,
+                    $arguments[2],
+                    'integer'
+                );
+            }
+        }
+        if ($argumentCount > 3) {
+            $value = $arguments[3];
+            if (!\is_int($value)) {
+                throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
+                    'minutes',
+                    3,
+                    $arguments[3],
+                    'integer'
+                );
+            }
+        }
+        if ($argumentCount > 4) {
+            $value = $arguments[4];
+            if (!\is_int($value)) {
+                throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
+                    'seconds',
+                    4,
+                    $arguments[4],
+                    'integer'
+                );
+            }
         }
     }
 
@@ -66,6 +141,13 @@ class AbstractDurationTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValida
         }
     }
 
+    public function totalSeconds(array $arguments)
+    {
+        if (\count($arguments) > 0) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
+        }
+    }
+
     public function isEmpty(array $arguments)
     {
         if (\count($arguments) > 0) {
@@ -77,7 +159,7 @@ class AbstractDurationTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValida
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('duration', 0, 'Icecave\\Chrono\\Duration\\DurationInterface');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('duration', 0, 'Icecave\\Chrono\\TimeSpan\\Duration');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
         }
@@ -87,7 +169,7 @@ class AbstractDurationTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValida
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('duration', 0, 'Icecave\\Chrono\\Duration\\DurationInterface');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('duration', 0, 'Icecave\\Chrono\\TimeSpan\\Duration');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
         }
@@ -97,7 +179,7 @@ class AbstractDurationTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValida
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('duration', 0, 'Icecave\\Chrono\\Duration\\DurationInterface');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('duration', 0, 'Icecave\\Chrono\\TimeSpan\\Duration');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
         }
@@ -107,7 +189,7 @@ class AbstractDurationTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValida
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('duration', 0, 'Icecave\\Chrono\\Duration\\DurationInterface');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('duration', 0, 'Icecave\\Chrono\\TimeSpan\\Duration');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
         }
@@ -117,7 +199,7 @@ class AbstractDurationTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValida
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('duration', 0, 'Icecave\\Chrono\\Duration\\DurationInterface');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('duration', 0, 'Icecave\\Chrono\\TimeSpan\\Duration');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
         }
@@ -127,7 +209,7 @@ class AbstractDurationTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValida
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('duration', 0, 'Icecave\\Chrono\\Duration\\DurationInterface');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('duration', 0, 'Icecave\\Chrono\\TimeSpan\\Duration');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
         }
@@ -137,7 +219,7 @@ class AbstractDurationTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValida
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('duration', 0, 'Icecave\\Chrono\\Duration\\DurationInterface');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('duration', 0, 'Icecave\\Chrono\\TimeSpan\\Duration');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
         }

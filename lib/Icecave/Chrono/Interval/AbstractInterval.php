@@ -1,8 +1,8 @@
 <?php
 namespace Icecave\Chrono\Interval;
 
-use Icecave\Chrono\Duration\Duration;
 use Icecave\Chrono\TimePointInterface;
+use Icecave\Chrono\TimeSpan\Duration;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
 abstract class AbstractInterval implements IntervalInterface
@@ -155,7 +155,7 @@ abstract class AbstractInterval implements IntervalInterface
     }
 
     /**
-     * @return DurationInterface A duration representing the difference between start and end.
+     * @return Duration A duration representing the difference between start and end.
      */
     public function duration()
     {

@@ -1,5 +1,7 @@
 <?php
-namespace Icecave\Chrono;
+namespace Icecave\Chrono\TimeSpan;
+
+use Icecave\Chrono\TimePointInterface;
 
 /**
  * A common interface for non-anchored blocks of time (periods and durations).
