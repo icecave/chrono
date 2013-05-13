@@ -266,13 +266,17 @@ class Date implements TimePointInterface
     /**
      * Add a time span to the time point.
      *
-     * @param TimeSpanInterface $timeSpan
+     * @param TimeSpanInterface|integer $timeSpan A time span instance, or an integer representing seconds.
      *
      * @return TimePointInterface
      */
-    public function add(TimeSpanInterface $timeSpan)
+    public function add($timeSpan)
     {
         $this->typeCheck->add(func_get_args());
+
+        if ($timeSpan instanceof TimeSpanInterface) {
+            $timeSpan = $timeSpan->resolve($this);
+        }
 
         return new DateTime(
             $this->year(),
@@ -280,20 +284,24 @@ class Date implements TimePointInterface
             $this->day(),
             0,
             0,
-            $timeSpan->resolve($this)
+            $timeSpan
         );
     }
 
     /**
-     * Add a time span from the time point.
+     * Subtract a time span from the time point.
      *
-     * @param TimeSpanInterface $timeSpan
+     * @param TimeSpanInterface|integer $timeSpan A time span instance, or an integer representing seconds.
      *
      * @return TimePointInterface
      */
-    public function subtract(TimeSpanInterface $timeSpan)
+    public function subtract($timeSpan)
     {
         $this->typeCheck->subtract(func_get_args());
+
+        if ($timeSpan instanceof TimeSpanInterface) {
+            $timeSpan = $timeSpan->resolve($this);
+        }
 
         return new DateTime(
             $this->year(),
@@ -301,7 +309,7 @@ class Date implements TimePointInterface
             $this->day(),
             0,
             0,
-            -$timeSpan->resolve($this)
+            -$timeSpan
         );
     }
 

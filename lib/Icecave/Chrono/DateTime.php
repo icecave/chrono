@@ -314,13 +314,17 @@ class DateTime implements TimePointInterface, TimeInterface
     /**
      * Add a time span to the time point.
      *
-     * @param TimeSpanInterface $timeSpan
+     * @param TimeSpanInterface|integer $timeSpan A time span instance, or an integer representing seconds.
      *
      * @return TimePointInterface
      */
-    public function add(TimeSpanInterface $timeSpan)
+    public function add($timeSpan)
     {
         $this->typeCheck->add(func_get_args());
+
+        if ($timeSpan instanceof TimeSpanInterface) {
+            $timeSpan = $timeSpan->resolve($this);
+        }
 
         return new self(
             $this->year(),
@@ -328,21 +332,25 @@ class DateTime implements TimePointInterface, TimeInterface
             $this->day(),
             $this->hours(),
             $this->minutes(),
-            $this->seconds() + $timeSpan->resolve($this),
+            $this->seconds() + $timeSpan,
             $this->timeZone()
         );
     }
 
     /**
-     * Add a time span from the time point.
+     * Subtract a time span from the time point.
      *
-     * @param TimeSpanInterface $timeSpan
+     * @param TimeSpanInterface|integer $timeSpan A time span instance, or an integer representing seconds.
      *
      * @return TimePointInterface
      */
-    public function subtract(TimeSpanInterface $timeSpan)
+    public function subtract($timeSpan)
     {
         $this->typeCheck->subtract(func_get_args());
+
+        if ($timeSpan instanceof TimeSpanInterface) {
+            $timeSpan = $timeSpan->resolve($this);
+        }
 
         return new self(
             $this->year(),
@@ -350,7 +358,7 @@ class DateTime implements TimePointInterface, TimeInterface
             $this->day(),
             $this->hours(),
             $this->minutes(),
-            $this->seconds() - $timeSpan->resolve($this),
+            $this->seconds() - $timeSpan,
             $this->timeZone()
         );
     }

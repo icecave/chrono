@@ -183,7 +183,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 
     public function testAdd()
     {
-        $duration = Phake::partialMock('Icecave\Chrono\Duration\DurationInterface');
+        $duration = Phake::partialMock('Icecave\Chrono\TimeSpanInterface');
 
         Phake::when($duration)
             ->resolve($this->date)
@@ -195,15 +195,31 @@ class DateTest extends PHPUnit_Framework_TestCase
         $this->assertSame('2013-02-02T00:00:00+00:00', $dateTime->isoString());
     }
 
+    public function testAddWithSeconds()
+    {
+        $dateTime = $this->date->add(86400);
+
+        $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $dateTime);
+        $this->assertSame('2013-02-02T00:00:00+00:00', $dateTime->isoString());
+    }
+
     public function testSubtract()
     {
-        $duration = Phake::partialMock('Icecave\Chrono\Duration\DurationInterface');
+        $duration = Phake::partialMock('Icecave\Chrono\TimeSpanInterface');
 
         Phake::when($duration)
             ->resolve($this->date)
             ->thenReturn(86400);
 
         $dateTime = $this->date->subtract($duration);
+
+        $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $dateTime);
+        $this->assertSame('2013-01-31T00:00:00+00:00', $dateTime->isoString());
+    }
+
+    public function testSubtractWithSeconds()
+    {
+        $dateTime = $this->date->subtract(86400);
 
         $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $dateTime);
         $this->assertSame('2013-01-31T00:00:00+00:00', $dateTime->isoString());

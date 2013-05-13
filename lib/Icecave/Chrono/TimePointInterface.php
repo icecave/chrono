@@ -30,20 +30,20 @@ interface TimePointInterface extends DateInterface
     /**
      * Add a time span to the time point.
      *
-     * @param TimeSpanInterface $timeSpan
+     * @param TimeSpanInterface|integer $timeSpan A time span instance, or an integer representing seconds.
      *
      * @return TimePointInterface
      */
-    public function add(TimeSpanInterface $timeSpan);
+    public function add($timeSpan);
 
     /**
-     * Add a time span from the time point.
+     * Subtract a time span from the time point.
      *
-     * @param TimeSpanInterface $timeSpan
+     * @param TimeSpanInterface|integer $timeSpan A time span instance, or an integer representing seconds.
      *
      * @return TimePointInterface
      */
-    public function subtract(TimeSpanInterface $timeSpan);
+    public function subtract($timeSpan);
 
     /**
      * Calculate the difference between this time point and another, representing the result as a duration.
