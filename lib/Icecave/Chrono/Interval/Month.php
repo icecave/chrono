@@ -28,9 +28,9 @@ class Month extends AbstractInterval implements Iso8601Interface
      *
      * @return Month The Month constructed from the given time point.
      */
-    public static function createFromTimePoint(TimePointInterface $timePoint)
+    public static function fromTimePoint(TimePointInterface $timePoint)
     {
-        TypeCheck::get(__CLASS__)->createFromTimePoint(func_get_args());
+        TypeCheck::get(__CLASS__)->fromTimePoint(func_get_args());
 
         return new self(
             new Year($timePoint->year()),

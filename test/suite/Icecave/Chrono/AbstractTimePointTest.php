@@ -115,4 +115,15 @@ class AbstractTimePointTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Icecave\Chrono\TimeSpan\Duration', $duration);
         $this->assertSame(5, $duration->totalSeconds());
     }
+
+    public function testDifferenceAsPeriod()
+    {
+        $a = DateTime::fromIsoString('2012-01-02T10:20:30+10:00');
+        $b = DateTime::fromIsoString('2013-03-05T14:25:36+10:00');
+
+        $result = $b->differenceAsPeriod($a);
+
+        $this->assertInstanceOf('Icecave\Chrono\TimeSpan\Period', $result);
+        $this->assertSame('1y 2m 3d 04:05:06', $result->string());
+    }
 }

@@ -22,7 +22,7 @@ class YearTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         }
     }
 
-    public function createFromTimePoint(array $arguments)
+    public function fromTimePoint(array $arguments)
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {

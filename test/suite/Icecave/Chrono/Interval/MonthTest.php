@@ -14,7 +14,7 @@ class MonthTest extends PHPUnit_Framework_TestCase
 
     public function testCreateFromTimePoint()
     {
-        $month = Month::createFromTimePoint(new Date(2012, 12, 30));
+        $month = Month::fromTimePoint(new Date(2012, 12, 30));
         $this->assertInstanceOf(__NAMESPACE__ . '\Month', $month);
         $this->assertSame(2012, $month->year()->ordinal());
         $this->assertSame(12, $month->ordinal());

@@ -172,4 +172,10 @@ class PeriodTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Icecave\Chrono\TimePointInterface', $result);
         $this->assertSame('2013-03-05T14:25:36+10:00', $result->isoString());
     }
+
+    public function testString()
+    {
+        $this->assertSame('1y 2m 3d 04:05:06', $this->period->string());
+        $this->assertSame('1y 2m 3d 04:05:06', $this->period->__toString());
+    }
 }

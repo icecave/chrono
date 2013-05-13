@@ -2,6 +2,7 @@
 namespace Icecave\Chrono;
 
 use Icecave\Chrono\TimeSpan\Duration;
+use Icecave\Chrono\TimeSpan\Period;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
 /**
@@ -126,6 +127,29 @@ abstract class AbstractTimePoint implements TimePointInterface
         $this->typeCheck->differenceAsDuration(func_get_args());
 
         return new Duration($this->differenceAsSeconds($timePoint));
+    }
+
+    /**
+     * Calculate the difference between this time point and another, representing the result as a duration.
+     *
+     * @param TimePointInterface $timePoint
+     *
+     * @return Period
+     */
+    public function differenceAsPeriod(TimePointInterface $timePoint)
+    {
+        $this->typeCheck->differenceAsPeriod(func_get_args());
+
+        $timePoint = $timePoint->toTimeZone($this->timeZone());
+
+        return new Period(
+            $this->year() - $timePoint->year(),
+            $this->month() - $timePoint->month(),
+            $this->day() - $timePoint->day(),
+            $this->hours() - $timePoint->hours(),
+            $this->minutes() - $timePoint->minutes(),
+            $this->seconds() - $timePoint->seconds()
+        );
     }
 
     private $typeCheck;
