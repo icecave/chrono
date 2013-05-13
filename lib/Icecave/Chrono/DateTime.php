@@ -311,7 +311,7 @@ class DateTime extends AbstractTimePoint implements TimeInterface
         $this->typeCheck->add(func_get_args());
 
         if ($timeSpan instanceof TimeSpanInterface) {
-            $timeSpan = $timeSpan->resolve($this);
+            return $timeSpan->resolveToTimePoint($this);
         }
 
         return new self(
@@ -337,7 +337,7 @@ class DateTime extends AbstractTimePoint implements TimeInterface
         $this->typeCheck->subtract(func_get_args());
 
         if ($timeSpan instanceof TimeSpanInterface) {
-            $timeSpan = $timeSpan->resolve($this);
+            return $timeSpan->inverse()->resolveToTimePoint($this);
         }
 
         return new self(

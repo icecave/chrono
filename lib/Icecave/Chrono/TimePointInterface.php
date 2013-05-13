@@ -7,7 +7,7 @@ use Icecave\Chrono\TimeSpan\TimeSpanInterface;
 /**
  * Represents a concrete point on the time continuum.
  */
-interface TimePointInterface extends DateInterface
+interface TimePointInterface extends DateInterface, TimeInterface
 {
     /**
      * Perform a {@see strcmp} style comparison with another time point.

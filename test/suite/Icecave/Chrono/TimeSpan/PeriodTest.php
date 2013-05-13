@@ -1,12 +1,10 @@
 <?php
 namespace Icecave\Chrono\TimeSpan;
 
-use Icecave\Chrono\DateTime;
-use Icecave\Chrono\TimeZone;
-use Phake;
 use PHPUnit_Framework_TestCase;
+use Phake;
 
-class DurationTest extends PHPUnit_Framework_TestCase
+class PeriodTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
@@ -123,63 +121,12 @@ class DurationTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($this->duration->isLessThanOrEqualTo($this->after));
     }
 
-    public function testInverse()
-    {
-        $this->assertSame(-788645, $this->duration->inverse()->totalSeconds());
-    }
+    // public function testResolve()
+    // {
+    //     $timePoint = Phake::mock('Icecave\Chrono\TimePointInterface');
 
-    public function testResolveToSeconds()
-    {
-        $timePoint = Phake::mock('Icecave\Chrono\TimePointInterface');
+    //     $this->assertSame(788645, $this->duration->resolve($timePoint));
 
-        $this->assertSame(788645, $this->duration->resolveToSeconds($timePoint));
-
-        Phake::verifyNoInteraction($timePoint);
-    }
-
-    public function testResolveToDuration()
-    {
-        $timePoint = Phake::mock('Icecave\Chrono\TimePointInterface');
-
-        $this->assertSame($this->duration, $this->duration->resolveToDuration($timePoint));
-
-        Phake::verifyNoInteraction($timePoint);
-    }
-
-    public function testResolveToPeriod()
-    {
-        $timePoint = Phake::mock('Icecave\Chrono\TimePointInterface');
-
-        $result = $this->duration->resolveToPeriod($timePoint);
-        $expected = new Period(0, 0, 9, 3, 4, 5);
-
-        $this->assertInstanceOf('Icecave\Chrono\TimeSpan\Period', $result);
-        $this->assertSame(0, $expected->compare($result));
-
-        Phake::verifyNoInteraction($timePoint);
-    }
-
-    public function testResolveToInterval()
-    {
-        $timeZone = new TimeZone(36000);
-        $start = new DateTime(2012, 1, 2, 10, 20, 30, $timeZone);
-        $end   = new DateTime(2012, 1, 2, 10, 20, 30, $timeZone);
-
-        $result = $this->duration->resolveToInterval($start);
-
-        $this->assertInstanceOf('Icecave\Chrono\Interval\IntervalInterface', $result);
-        $this->assertSame('2012-01-02T10:20:30+10:00', $result->start()->isoString());
-        $this->assertSame('2012-01-11T13:24:35+10:00', $result->end()->isoString());
-    }
-
-    public function testResolveToTimePoint()
-    {
-        $timeZone = new TimeZone(36000);
-        $timePoint = new DateTime(2012, 1, 2, 10, 20, 30, $timeZone);
-
-        $result = $this->duration->resolveToTimePoint($timePoint);
-
-        $this->assertInstanceOf('Icecave\Chrono\TimePointInterface', $result);
-        $this->assertSame('2012-01-11T13:24:35+10:00', $result->isoString());
-    }
+    //     Phake::verifyNoInteraction($timePoint);
+    // }
 }
