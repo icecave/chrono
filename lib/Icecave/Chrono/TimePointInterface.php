@@ -46,6 +46,15 @@ interface TimePointInterface extends DateInterface
     public function subtract($timeSpan);
 
     /**
+     * Calculate the difference between this time point and another in seconds.
+     *
+     * @param TimePointInterface $timePoint
+     *
+     * @return integer
+     */
+    public function differenceAsSeconds(TimePointInterface $timePoint);
+
+    /**
      * Calculate the difference between this time point and another, representing the result as a duration.
      *
      * @param TimePointInterface $timePoint

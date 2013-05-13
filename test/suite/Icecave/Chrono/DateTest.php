@@ -225,6 +225,13 @@ class DateTest extends PHPUnit_Framework_TestCase
         $this->assertSame('2013-01-31T00:00:00+00:00', $dateTime->isoString());
     }
 
+    public function testDifferenceAsSeconds()
+    {
+        $date = new Date(2013, 1, 31);
+        $diff = $this->date->differenceAsSeconds($date);
+        $this->assertSame(86400, $diff);
+    }
+
     public function testDifferenceAsDuration()
     {
         $date = new Date(2013, 1, 31);
