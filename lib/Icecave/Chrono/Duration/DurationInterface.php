@@ -66,4 +66,46 @@ interface DurationInterface extends TimeSpanInterface
      * @return integer 0 if $this and $duration are equal, <0 if $this < $duration, or >0 if $this > $duration.
      */
     public function compare(DurationInterface $duration);
+
+    /**
+     * @param DurationInterface $duration The duration to compare.
+     *
+     * @return boolean True if $this and $duration are equal.
+     */
+    public function isEqualTo(DurationInterface $duration);
+
+    /**
+     * @param DurationInterface $duration The duration to compare.
+     *
+     * @return boolean True if $this and $duration are not equal.
+     */
+    public function isNotEqualTo(DurationInterface $duration);
+
+    /**
+     * @param DurationInterface $duration The duration to compare.
+     *
+     * @return boolean True if $this > $duration.
+     */
+    public function isGreaterThan(DurationInterface $duration);
+
+    /**
+     * @param DurationInterface $duration The duration to compare.
+     *
+     * @return boolean True if $this < $duration.
+     */
+    public function isLessThan(DurationInterface $duration);
+
+    /**
+     * @param DurationInterface $duration The duration to compare.
+     *
+     * @return boolean True if $this >= $duration.
+     */
+    public function isGreaterThanOrEqualTo(DurationInterface $duration);
+
+    /**
+     * @param DurationInterface $duration The duration to compare.
+     *
+     * @return boolean True if $this <= $duration.
+     */
+    public function isLessThanOrEqualTo(DurationInterface $duration);
 }

@@ -12,7 +12,7 @@ use InvalidArgumentException;
 /**
  * Represents a date.
  */
-class Date implements TimePointInterface
+class Date extends AbstractTimePoint
 {
     /**
      * @param integer       $year     The year component of the date.
@@ -38,6 +38,8 @@ class Date implements TimePointInterface
         $this->month = $month;
         $this->day = $day;
         $this->timeZone = $timeZone;
+
+        parent::__construct();
     }
 
     /**
@@ -223,20 +225,6 @@ class Date implements TimePointInterface
     }
 
     /**
-     * Perform a {@see strcmp} style comparison with another time point.
-     *
-     * @param TimePointInterface $timePoint The time point to compare.
-     *
-     * @return integer 0 if $this and $timePoint are equal, <0 if $this < $timePoint, or >0 if $this > $timePoint.
-     */
-    public function compare(TimePointInterface $timePoint)
-    {
-        $this->typeCheck->compare(func_get_args());
-
-        return $this->unixTime() - $timePoint->unixTime();
-    }
-
-    /**
      * @return integer The number of seconds since unix epoch (1970-01-01 00:00:00+00:00).
      */
     public function unixTime()
@@ -311,34 +299,6 @@ class Date implements TimePointInterface
             0,
             -$timeSpan
         );
-    }
-
-    /**
-     * Calculate the difference between this time point and another in seconds.
-     *
-     * @param TimePointInterface $timePoint
-     *
-     * @return integer
-     */
-    public function differenceAsSeconds(TimePointInterface $timePoint)
-    {
-        $this->typeCheck->differenceAsSeconds(func_get_args());
-
-        return $this->unixTime() - $timePoint->unixTime();
-    }
-
-    /**
-     * Calculate the difference between this time point and another, representing the result as a duration.
-     *
-     * @param TimePointInterface $timePoint
-     *
-     * @return Duration
-     */
-    public function differenceAsDuration(TimePointInterface $timePoint)
-    {
-        $this->typeCheck->differenceAsDuration(func_get_args());
-
-        return new Duration($this->differenceAsSeconds($timePoint));
     }
 
     /**

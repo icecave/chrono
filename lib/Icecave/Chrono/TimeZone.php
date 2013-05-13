@@ -98,6 +98,78 @@ class TimeZone implements Iso8601Interface, FormattableInterface
     }
 
     /**
+     * @param TimeZone $timeZone The timeZone to compare.
+     *
+     * @return boolean True if $this and $timeZone are equal.
+     */
+    public function isEqualTo(TimeZone $timeZone)
+    {
+        $this->typeCheck->isEqualTo(func_get_args());
+
+        return $this->compare($timeZone) === 0;
+    }
+
+    /**
+     * @param TimeZone $timeZone The timeZone to compare.
+     *
+     * @return boolean True if $this and $timeZone are not equal.
+     */
+    public function isNotEqualTo(TimeZone $timeZone)
+    {
+        $this->typeCheck->isNotEqualTo(func_get_args());
+
+        return $this->compare($timeZone) !== 0;
+    }
+
+    /**
+     * @param TimeZone $timeZone The timeZone to compare.
+     *
+     * @return boolean True if $this > $timeZone.
+     */
+    public function isGreaterThan(TimeZone $timeZone)
+    {
+        $this->typeCheck->isGreaterThan(func_get_args());
+
+        return $this->compare($timeZone) > 0;
+    }
+
+    /**
+     * @param TimeZone $timeZone The timeZone to compare.
+     *
+     * @return boolean True if $this < $timeZone.
+     */
+    public function isLessThan(TimeZone $timeZone)
+    {
+        $this->typeCheck->isLessThan(func_get_args());
+
+        return $this->compare($timeZone) < 0;
+    }
+
+    /**
+     * @param TimeZone $timeZone The timeZone to compare.
+     *
+     * @return boolean True if $this >= $timeZone.
+     */
+    public function isGreaterThanOrEqualTo(TimeZone $timeZone)
+    {
+        $this->typeCheck->isGreaterThanOrEqualTo(func_get_args());
+
+        return $this->compare($timeZone) >= 0;
+    }
+
+    /**
+     * @param TimeZone $timeZone The timeZone to compare.
+     *
+     * @return boolean True if $this <= $timeZone.
+     */
+    public function isLessThanOrEqualTo(TimeZone $timeZone)
+    {
+        $this->typeCheck->isLessThanOrEqualTo(func_get_args());
+
+        return $this->compare($timeZone) <= 0;
+    }
+
+    /**
      * @param string                  $formatSpecifier The format of the output string.
      * @param FormatterInterface|null $formatter       The formatter to use, or null to use the default.
      *
