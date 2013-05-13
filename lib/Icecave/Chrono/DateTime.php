@@ -2,6 +2,7 @@
 namespace Icecave\Chrono;
 
 use DateTime as NativeDateTime;
+use Icecave\Chrono\Duration\Duration;
 use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Support\Normalizer;
