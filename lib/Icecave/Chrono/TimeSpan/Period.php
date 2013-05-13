@@ -41,6 +41,8 @@ class Period implements TimeSpanInterface
      */
     public function years()
     {
+        $this->typeCheck->years(func_get_args());
+
         return $this->years;
     }
 
@@ -49,6 +51,8 @@ class Period implements TimeSpanInterface
      */
     public function months()
     {
+        $this->typeCheck->months(func_get_args());
+
         return $this->months;
     }
 
@@ -57,6 +61,8 @@ class Period implements TimeSpanInterface
      */
     public function days()
     {
+        $this->typeCheck->days(func_get_args());
+
         return $this->days;
     }
 
@@ -65,6 +71,8 @@ class Period implements TimeSpanInterface
      */
     public function hours()
     {
+        $this->typeCheck->hours(func_get_args());
+
         return $this->hours;
     }
 
@@ -73,6 +81,8 @@ class Period implements TimeSpanInterface
      */
     public function minutes()
     {
+        $this->typeCheck->minutes(func_get_args());
+
         return $this->minutes;
     }
 
@@ -81,11 +91,15 @@ class Period implements TimeSpanInterface
      */
     public function seconds()
     {
+        $this->typeCheck->seconds(func_get_args());
+
         return $this->seconds;
     }
 
     public function approximateTotalSeconds()
     {
+        $this->typeCheck->approximateTotalSeconds(func_get_args());
+
         $seconds  = $this->seconds();
         $seconds += $this->minutes() * 60;
         $seconds += $this->hours() * 3600;
@@ -211,6 +225,8 @@ class Period implements TimeSpanInterface
      */
     public function inverse()
     {
+        $this->typeCheck->inverse(func_get_args());
+
         return new self(
             -$this->years(),
             -$this->months(),
@@ -230,6 +246,8 @@ class Period implements TimeSpanInterface
      */
     public function resolveToSeconds(TimePointInterface $timePoint)
     {
+        $this->typeCheck->resolveToSeconds(func_get_args());
+
         return $this->resolveToTimePoint($timePoint)->differenceAsSeconds($timePoint);
     }
 
@@ -242,6 +260,8 @@ class Period implements TimeSpanInterface
      */
     public function resolveToDuration(TimePointInterface $timePoint)
     {
+        $this->typeCheck->resolveToDuration(func_get_args());
+
         return $this->resolveToTimePoint($timePoint)->differenceAsDuration($timePoint);
     }
 
@@ -254,6 +274,8 @@ class Period implements TimeSpanInterface
      */
     public function resolveToPeriod(TimePointInterface $timePoint)
     {
+        $this->typeCheck->resolveToPeriod(func_get_args());
+
         return $this;
     }
 
@@ -266,6 +288,8 @@ class Period implements TimeSpanInterface
      */
     public function resolveToInterval(TimePointInterface $timePoint)
     {
+        $this->typeCheck->resolveToInterval(func_get_args());
+
         return new Interval(
             $timePoint,
             $this->resolveToTimePoint($timePoint)
@@ -281,6 +305,8 @@ class Period implements TimeSpanInterface
      */
     public function resolveToTimePoint(TimePointInterface $timePoint)
     {
+        $this->typeCheck->resolveToTimePoint(func_get_args());
+
         return new DateTime(
             $timePoint->year() + $this->years(),
             $timePoint->month() + $this->months(),

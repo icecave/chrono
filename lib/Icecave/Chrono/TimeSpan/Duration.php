@@ -234,6 +234,8 @@ class Duration implements TimeSpanInterface
      */
     public function inverse()
     {
+        $this->typeCheck->inverse(func_get_args());
+
         return new self(-$this->totalSeconds());
     }
 
@@ -246,6 +248,8 @@ class Duration implements TimeSpanInterface
      */
     public function resolveToSeconds(TimePointInterface $timePoint)
     {
+        $this->typeCheck->resolveToSeconds(func_get_args());
+
         return $this->totalSeconds();
     }
 
@@ -258,6 +262,8 @@ class Duration implements TimeSpanInterface
      */
     public function resolveToDuration(TimePointInterface $timePoint)
     {
+        $this->typeCheck->resolveToDuration(func_get_args());
+
         return $this;
     }
 
@@ -270,6 +276,8 @@ class Duration implements TimeSpanInterface
      */
     public function resolveToPeriod(TimePointInterface $timePoint)
     {
+        $this->typeCheck->resolveToPeriod(func_get_args());
+
         return new Period(
             0,
             0,
@@ -289,6 +297,8 @@ class Duration implements TimeSpanInterface
      */
     public function resolveToInterval(TimePointInterface $timePoint)
     {
+        $this->typeCheck->resolveToInterval(func_get_args());
+
         return new Interval(
             $timePoint,
             $this->resolveToTimePoint($timePoint)
@@ -304,6 +314,8 @@ class Duration implements TimeSpanInterface
      */
     public function resolveToTimePoint(TimePointInterface $timePoint)
     {
+        $this->typeCheck->resolveToTimePoint(func_get_args());
+
         return new DateTime(
             $timePoint->year(),
             $timePoint->month(),
