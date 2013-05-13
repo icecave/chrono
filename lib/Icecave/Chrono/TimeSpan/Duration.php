@@ -1,6 +1,9 @@
 <?php
 namespace Icecave\Chrono\TimeSpan;
 
+use Icecave\Chrono\DateTime;
+use Icecave\Chrono\Interval\Interval;
+use Icecave\Chrono\Interval\IntervalInterface;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
@@ -131,16 +134,6 @@ class Duration implements TimeSpanInterface
     }
 
     /**
-     * @return boolean True if the duration is zero seconds in length; otherwise, false.
-     */
-    public function isEmpty()
-    {
-        $this->typeCheck->isEmpty(func_get_args());
-
-        return 0 === $this->totalSeconds();
-    }
-
-    /**
      * Perform a {@see strcmp} style comparison with another duration.
      *
      * @param Duration $duration The duration to compare.
@@ -227,17 +220,111 @@ class Duration implements TimeSpanInterface
     }
 
     /**
+     * @return boolean True if the duration is zero seconds in length; otherwise, false.
+     */
+    public function isEmpty()
+    {
+        $this->typeCheck->isEmpty(func_get_args());
+
+        return 0 === $this->totalSeconds();
+    }
+
+    /**
+     * @return TimeSpanInterface
+     */
+    public function inverse()
+    {
+        $this->typeCheck->inverse(func_get_args());
+
+        return new self(-$this->totalSeconds());
+    }
+
+    /**
      * Resolve the time span to a total number of seconds, using the given time point as the start of the span.
      *
      * @param TimePointInterface $timePoint The start of the time span.
      *
      * @return integer The total number of seconds.
      */
-    public function resolve(TimePointInterface $timePoint)
+    public function resolveToSeconds(TimePointInterface $timePoint)
     {
-        $this->typeCheck->resolve(func_get_args());
+        $this->typeCheck->resolveToSeconds(func_get_args());
 
         return $this->totalSeconds();
+    }
+
+    /**
+     * Resolve the time span to a {@see Duration}, using the given time point as the start of the span.
+     *
+     * @param TimePointInterface $timePoint The start of the time span.
+     *
+     * @return Duration
+     */
+    public function resolveToDuration(TimePointInterface $timePoint)
+    {
+        $this->typeCheck->resolveToDuration(func_get_args());
+
+        return $this;
+    }
+
+    /**
+     * Resolve the time span to a {@see Period}, using the given time point as the start of the span.
+     *
+     * @param TimePointInterface $timePoint The start of the time span.
+     *
+     * @return Period
+     */
+    public function resolveToPeriod(TimePointInterface $timePoint)
+    {
+        $this->typeCheck->resolveToPeriod(func_get_args());
+
+        return new Period(
+            0,
+            0,
+            $this->totalDays(),
+            $this->hours(),
+            $this->minutes(),
+            $this->seconds()
+        );
+    }
+
+    /**
+     * Resolve the time span an an {@see IntervalInterface} starting at the given time point, with a length equal to this time span.
+     *
+     * @param TimePointInterface $timePoint The start of the interval.
+     *
+     * @return IntervalInterface The end of the time span.
+     */
+    public function resolveToInterval(TimePointInterface $timePoint)
+    {
+        $this->typeCheck->resolveToInterval(func_get_args());
+
+        return new Interval(
+            $timePoint,
+            $this->resolveToTimePoint($timePoint)
+        );
+    }
+
+    /**
+     * Resolve the time span to a time point after the given time point by the length of this span.
+     *
+     * @param TimePointInterface $timePoint The start of the time span.
+     *
+     * @return TimePointInterface
+     */
+    public function resolveToTimePoint(TimePointInterface $timePoint)
+    {
+        $this->typeCheck->resolveToTimePoint(func_get_args());
+
+        return new DateTime(
+            $timePoint->year(),
+            $timePoint->month(),
+            $timePoint->day(),
+            $timePoint->hours(),
+            $timePoint->minutes(),
+            $timePoint->seconds() + $this->totalSeconds(),
+            $timePoint->timeZone()
+        );
     }
 
     private $typeCheck;

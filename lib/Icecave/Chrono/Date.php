@@ -144,6 +144,36 @@ class Date extends AbstractTimePoint
     }
 
     /**
+     * @return integer The hours component of the time.
+     */
+    public function hours()
+    {
+        $this->typeCheck->hours(func_get_args());
+
+        return 0;
+    }
+
+    /**
+     * @return integer The minutes component of the time.
+     */
+    public function minutes()
+    {
+        $this->typeCheck->minutes(func_get_args());
+
+        return 0;
+    }
+
+    /**
+     * @return integer The seconds component of the time.
+     */
+    public function seconds()
+    {
+        $this->typeCheck->seconds(func_get_args());
+
+        return 0;
+    }
+
+    /**
      * Convert this time to a different timezone.
      *
      * Note that this method returns a {@see DateTime} instance, and not a {@see Date}.
@@ -263,7 +293,7 @@ class Date extends AbstractTimePoint
         $this->typeCheck->add(func_get_args());
 
         if ($timeSpan instanceof TimeSpanInterface) {
-            $timeSpan = $timeSpan->resolve($this);
+            return $timeSpan->resolveToTimePoint($this);
         }
 
         return new DateTime(
@@ -288,7 +318,7 @@ class Date extends AbstractTimePoint
         $this->typeCheck->subtract(func_get_args());
 
         if ($timeSpan instanceof TimeSpanInterface) {
-            $timeSpan = $timeSpan->resolve($this);
+            return $timeSpan->inverse()->resolveToTimePoint($this);
         }
 
         return new DateTime(

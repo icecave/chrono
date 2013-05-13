@@ -34,6 +34,13 @@ class DateTest extends PHPUnit_Framework_TestCase
         $this->assertSame(1, $this->date->day());
     }
 
+    public function testTimeInterfaceMethods()
+    {
+        $this->assertSame(0, $this->date->hours());
+        $this->assertSame(0, $this->date->minutes());
+        $this->assertSame(0, $this->date->seconds());
+    }
+
     public function testToTimeZone()
     {
         $timeZone = new TimeZone(36000);
@@ -184,15 +191,15 @@ class DateTest extends PHPUnit_Framework_TestCase
     public function testAdd()
     {
         $duration = Phake::partialMock('Icecave\Chrono\TimeSpan\TimeSpanInterface');
+        $expected = DateTime::fromIsoString('2013-02-02T00:00:00+00:00');
 
         Phake::when($duration)
-            ->resolve($this->date)
-            ->thenReturn(86400);
+            ->resolveToTimePoint($this->date)
+            ->thenReturn($expected);
 
         $dateTime = $this->date->add($duration);
 
-        $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $dateTime);
-        $this->assertSame('2013-02-02T00:00:00+00:00', $dateTime->isoString());
+        $this->assertSame($expected, $dateTime);
     }
 
     public function testAddWithSeconds()
@@ -206,15 +213,21 @@ class DateTest extends PHPUnit_Framework_TestCase
     public function testSubtract()
     {
         $duration = Phake::partialMock('Icecave\Chrono\TimeSpan\TimeSpanInterface');
+        $expected = DateTime::fromIsoString('2013-01-31T00:00:00+00:00');
 
         Phake::when($duration)
-            ->resolve($this->date)
-            ->thenReturn(86400);
+            ->inverse()
+            ->thenReturn($duration);
+
+        Phake::when($duration)
+            ->resolveToTimePoint($this->date)
+            ->thenReturn($expected);
 
         $dateTime = $this->date->subtract($duration);
 
-        $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $dateTime);
-        $this->assertSame('2013-01-31T00:00:00+00:00', $dateTime->isoString());
+        $this->assertSame($expected, $dateTime);
+
+        Phake::verify($duration)->inverse();
     }
 
     public function testSubtractWithSeconds()
