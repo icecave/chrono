@@ -1,132 +1,175 @@
 <?php
 namespace Icecave\Chrono\TimeSpan;
 
-use PHPUnit_Framework_TestCase;
+use Icecave\Chrono\DateTime;
+use Icecave\Chrono\TimeZone;
 use Phake;
+use PHPUnit_Framework_TestCase;
 
 class PeriodTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->duration = Duration::fromComponents(1, 2, 3, 4, 5);
+        $this->period = new Period(1, 2, 3, 4, 5, 6);
 
-        $this->before = Duration::fromComponents(1, 2, 3, 4, 4);
-        $this->same = Duration::fromComponents(1, 2, 3, 4, 5);
-        $this->after = Duration::fromComponents(1, 2, 3, 4, 6);
+        $this->before = new Period(1, 2, 3, 4, 5, 5);
+        $this->same = new Period(1, 2, 3, 4, 5, 6);
+        $this->after = new Period(1, 2, 3, 4, 5, 7);
     }
 
-    public function testWeeks()
+    public function testYears()
     {
-        $this->assertSame(1, $this->duration->weeks());
+        $this->assertSame(1, $this->period->years());
+    }
+
+    public function testMonths()
+    {
+        $this->assertSame(2, $this->period->months());
     }
 
     public function testDays()
     {
-        $this->assertSame(2, $this->duration->days());
+        $this->assertSame(3, $this->period->days());
     }
 
     public function testHours()
     {
-        $this->assertSame(3, $this->duration->hours());
+        $this->assertSame(4, $this->period->hours());
     }
 
     public function testMinutes()
     {
-        $this->assertSame(4, $this->duration->minutes());
+        $this->assertSame(5, $this->period->minutes());
     }
 
     public function testSeconds()
     {
-        $this->assertSame(5, $this->duration->seconds());
+        $this->assertSame(6, $this->period->seconds());
     }
 
-    public function testTotalDays()
+    public function testApproximateTotalSeconds()
     {
-        $this->assertSame(9, $this->duration->totalDays());
-    }
-
-    public function testTotalHours()
-    {
-        $this->assertSame(219, $this->duration->totalHours());
-    }
-
-    public function testTotalMinutes()
-    {
-        $this->assertSame(13144, $this->duration->totalMinutes());
-    }
-
-    public function testTotalSeconds()
-    {
-        $this->assertSame(788645, $this->duration->totalSeconds());
-    }
-
-    public function testIsEmpty()
-    {
-        $this->assertFalse($this->duration->isEmpty());
-
-        $duration = new Duration;
-
-        $this->assertTrue($duration->isEmpty());
+        $this->assertSame(37091106, $this->period->approximateTotalSeconds());
     }
 
     public function testCompare()
     {
-        $duration1 = new Duration(10);
-        $duration2 = new Duration(20);
-
-        $this->assertSame(0, $duration1->compare($duration1));
-        $this->assertLessThan(0, $duration1->compare($duration2));
-        $this->assertGreaterThan(0, $duration2->compare($duration1));
+        $this->assertGreaterThan(0, $this->period->compare($this->before));
+        $this->assertSame(0, $this->period->compare($this->same));
+        $this->assertLessThan(0, $this->period->compare($this->after));
     }
 
     public function testIsEqualTo()
     {
-        $this->assertFalse($this->duration->isEqualTo($this->before));
-        $this->assertTrue($this->duration->isEqualTo($this->same));
-        $this->assertFalse($this->duration->isEqualTo($this->after));
+        $this->assertFalse($this->period->isEqualTo($this->before));
+        $this->assertTrue($this->period->isEqualTo($this->same));
+        $this->assertFalse($this->period->isEqualTo($this->after));
     }
 
     public function testIsNotEqualTo()
     {
-        $this->assertTrue($this->duration->isNotEqualTo($this->before));
-        $this->assertFalse($this->duration->isNotEqualTo($this->same));
-        $this->assertTrue($this->duration->isNotEqualTo($this->after));
+        $this->assertTrue($this->period->isNotEqualTo($this->before));
+        $this->assertFalse($this->period->isNotEqualTo($this->same));
+        $this->assertTrue($this->period->isNotEqualTo($this->after));
     }
 
     public function testIsGreaterThan()
     {
-        $this->assertTrue($this->duration->isGreaterThan($this->before));
-        $this->assertFalse($this->duration->isGreaterThan($this->same));
-        $this->assertFalse($this->duration->isGreaterThan($this->after));
+        $this->assertTrue($this->period->isGreaterThan($this->before));
+        $this->assertFalse($this->period->isGreaterThan($this->same));
+        $this->assertFalse($this->period->isGreaterThan($this->after));
     }
 
     public function testIsLessThan()
     {
-        $this->assertFalse($this->duration->isLessThan($this->before));
-        $this->assertFalse($this->duration->isLessThan($this->same));
-        $this->assertTrue($this->duration->isLessThan($this->after));
+        $this->assertFalse($this->period->isLessThan($this->before));
+        $this->assertFalse($this->period->isLessThan($this->same));
+        $this->assertTrue($this->period->isLessThan($this->after));
     }
 
     public function testIsGreaterThanOrEqualTo()
     {
-        $this->assertTrue($this->duration->isGreaterThanOrEqualTo($this->before));
-        $this->assertTrue($this->duration->isGreaterThanOrEqualTo($this->same));
-        $this->assertFalse($this->duration->isGreaterThanOrEqualTo($this->after));
+        $this->assertTrue($this->period->isGreaterThanOrEqualTo($this->before));
+        $this->assertTrue($this->period->isGreaterThanOrEqualTo($this->same));
+        $this->assertFalse($this->period->isGreaterThanOrEqualTo($this->after));
     }
 
     public function testIsLessThanOrEqualTo()
     {
-        $this->assertFalse($this->duration->isLessThanOrEqualTo($this->before));
-        $this->assertTrue($this->duration->isLessThanOrEqualTo($this->same));
-        $this->assertTrue($this->duration->isLessThanOrEqualTo($this->after));
+        $this->assertFalse($this->period->isLessThanOrEqualTo($this->before));
+        $this->assertTrue($this->period->isLessThanOrEqualTo($this->same));
+        $this->assertTrue($this->period->isLessThanOrEqualTo($this->after));
     }
 
-    // public function testResolve()
-    // {
-    //     $timePoint = Phake::mock('Icecave\Chrono\TimePointInterface');
+    public function testIsEmpty()
+    {
+        $this->assertFalse($this->period->isEmpty());
 
-    //     $this->assertSame(788645, $this->duration->resolve($timePoint));
+        $period = new Period;
 
-    //     Phake::verifyNoInteraction($timePoint);
-    // }
+        $this->assertTrue($period->isEmpty());
+    }
+
+    public function testInverse()
+    {
+        $result = $this->period->inverse();
+
+        $this->assertSame(-1, $result->years());
+        $this->assertSame(-2, $result->months());
+        $this->assertSame(-3, $result->days());
+        $this->assertSame(-4, $result->hours());
+        $this->assertSame(-5, $result->minutes());
+        $this->assertSame(-6, $result->seconds());
+    }
+
+    public function testResolveToSeconds()
+    {
+        $timeZone = new TimeZone(36000);
+        $timePoint = new DateTime(2012, 1, 2, 10, 20, 30, $timeZone);
+
+        $this->assertSame(36993906, $this->period->resolveToSeconds($timePoint));
+    }
+
+    public function testResolveToDuration()
+    {
+        $timeZone = new TimeZone(36000);
+        $timePoint = new DateTime(2012, 1, 2, 10, 20, 30, $timeZone);
+
+        $duration = $this->period->resolveToDuration($timePoint);
+
+        $this->assertInstanceOf('Icecave\Chrono\TimeSpan\Duration', $duration);
+        $this->assertSame(36993906, $duration->totalSeconds());
+    }
+
+    public function testResolveToPeriod()
+    {
+        $timePoint = Phake::mock('Icecave\Chrono\TimePointInterface');
+
+        $this->assertSame($this->period, $this->period->resolveToPeriod($timePoint));
+
+        Phake::verifyNoInteraction($timePoint);
+    }
+
+    public function testResolveToInterval()
+    {
+        $timeZone = new TimeZone(36000);
+        $timePoint = new DateTime(2012, 1, 2, 10, 20, 30, $timeZone);
+
+        $result = $this->period->resolveToInterval($timePoint);
+
+        $this->assertInstanceOf('Icecave\Chrono\Interval\IntervalInterface', $result);
+        $this->assertSame('2012-01-02T10:20:30+10:00', $result->start()->isoString());
+        $this->assertSame('2013-03-05T14:25:36+10:00', $result->end()->isoString());
+    }
+
+    public function testResolveToTimePoint()
+    {
+        $timeZone = new TimeZone(36000);
+        $timePoint = new DateTime(2012, 1, 2, 10, 20, 30, $timeZone);
+
+        $result = $this->period->resolveToTimePoint($timePoint);
+
+        $this->assertInstanceOf('Icecave\Chrono\TimePointInterface', $result);
+        $this->assertSame('2013-03-05T14:25:36+10:00', $result->isoString());
+    }
 }

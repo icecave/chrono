@@ -1,6 +1,7 @@
 <?php
 namespace Icecave\Chrono\TimeSpan;
 
+use Icecave\Chrono\DateTime;
 use Icecave\Chrono\Interval\Interval;
 use Icecave\Chrono\Interval\IntervalInterface;
 use Icecave\Chrono\Support\Normalizer;
@@ -26,8 +27,6 @@ class Period implements TimeSpanInterface
         $seconds = 0
     ) {
         $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-
-        Normalizer::normalizeTime($hours, $minutes, $seconds, $days);
 
         $this->years = $years;
         $this->months = $months;
@@ -116,7 +115,8 @@ class Period implements TimeSpanInterface
             ?: $this->months() - $period->months()
             ?: $this->days() - $period->days()
             ?: $this->hours() - $period->hours()
-            ?: $this->minutes() - $period->minutes();
+            ?: $this->minutes() - $period->minutes()
+            ?: $this->seconds() - $period->seconds();
     }
 
     /**
@@ -230,7 +230,7 @@ class Period implements TimeSpanInterface
      */
     public function resolveToSeconds(TimePointInterface $timePoint)
     {
-        throw new \Exception('Not implemented.');
+        return $this->resolveToTimePoint($timePoint)->differenceAsSeconds($timePoint);
     }
 
     /**
@@ -242,7 +242,7 @@ class Period implements TimeSpanInterface
      */
     public function resolveToDuration(TimePointInterface $timePoint)
     {
-        throw new \Exception('Not implemented.');
+        return $this->resolveToTimePoint($timePoint)->differenceAsDuration($timePoint);
     }
 
     /**
@@ -254,7 +254,7 @@ class Period implements TimeSpanInterface
      */
     public function resolveToPeriod(TimePointInterface $timePoint)
     {
-        throw new \Exception('Not implemented.');
+        return $this;
     }
 
     /**
@@ -266,7 +266,10 @@ class Period implements TimeSpanInterface
      */
     public function resolveToInterval(TimePointInterface $timePoint)
     {
-        throw new \Exception('Not implemented.');
+        return new Interval(
+            $timePoint,
+            $this->resolveToTimePoint($timePoint)
+        );
     }
 
     /**
@@ -278,7 +281,15 @@ class Period implements TimeSpanInterface
      */
     public function resolveToTimePoint(TimePointInterface $timePoint)
     {
-        throw new \Exception('Not implemented.');
+        return new DateTime(
+            $timePoint->year() + $this->years(),
+            $timePoint->month() + $this->months(),
+            $timePoint->day() + $this->days(),
+            $timePoint->hours() + $this->hours(),
+            $timePoint->minutes() + $this->minutes(),
+            $timePoint->seconds() + $this->seconds(),
+            $timePoint->timeZone()
+        );
     }
 
     private $typeCheck;

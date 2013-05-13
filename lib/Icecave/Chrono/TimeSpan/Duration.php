@@ -273,10 +273,10 @@ class Duration implements TimeSpanInterface
         return new Period(
             0,
             0,
-            0,
-            0,
-            0,
-            $this->totalSeconds()
+            $this->totalDays(),
+            $this->hours(),
+            $this->minutes(),
+            $this->seconds()
         );
     }
 

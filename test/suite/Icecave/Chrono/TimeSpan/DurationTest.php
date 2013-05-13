@@ -73,12 +73,9 @@ class DurationTest extends PHPUnit_Framework_TestCase
 
     public function testCompare()
     {
-        $duration1 = new Duration(10);
-        $duration2 = new Duration(20);
-
-        $this->assertSame(0, $duration1->compare($duration1));
-        $this->assertLessThan(0, $duration1->compare($duration2));
-        $this->assertGreaterThan(0, $duration2->compare($duration1));
+        $this->assertGreaterThan(0, $this->duration->compare($this->before));
+        $this->assertSame(0, $this->duration->compare($this->same));
+        $this->assertLessThan(0, $this->duration->compare($this->after));
     }
 
     public function testIsEqualTo()
@@ -162,10 +159,9 @@ class DurationTest extends PHPUnit_Framework_TestCase
     public function testResolveToInterval()
     {
         $timeZone = new TimeZone(36000);
-        $start = new DateTime(2012, 1, 2, 10, 20, 30, $timeZone);
-        $end   = new DateTime(2012, 1, 2, 10, 20, 30, $timeZone);
+        $timePoint = new DateTime(2012, 1, 2, 10, 20, 30, $timeZone);
 
-        $result = $this->duration->resolveToInterval($start);
+        $result = $this->duration->resolveToInterval($timePoint);
 
         $this->assertInstanceOf('Icecave\Chrono\Interval\IntervalInterface', $result);
         $this->assertSame('2012-01-02T10:20:30+10:00', $result->start()->isoString());
