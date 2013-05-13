@@ -70,8 +70,8 @@ class DateTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('unixTime', 0, 'integer');
-        } elseif ($argumentCount > 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
+        } elseif ($argumentCount > 2) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(2, $arguments[2]);
         }
         $value = $arguments[0];
         if (!\is_int($value)) {

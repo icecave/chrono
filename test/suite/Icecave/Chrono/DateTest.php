@@ -149,19 +149,36 @@ class DateTest extends PHPUnit_Framework_TestCase
         $this->assertSame('2013-02-01', $date->isoString());
     }
 
+    public function testFromUnixTimeWithTimeZone()
+    {
+        $timeZone = new TimeZone(36000, true);
+        $date = Date::fromUnixTime(1359714030, $timeZone);
+        $this->assertInstanceOf(__NAMESPACE__ . '\Date', $date);
+        $this->assertSame('2013-02-01T00:00:00+10:00', $date->format('c'));
+    }
+
     public function testFromNativeDateTime()
     {
         $native = new NativeDateTime('2013-02-01T20:20:30+10:00');
         $date = Date::fromNativeDateTime($native);
         $this->assertInstanceOf(__NAMESPACE__ . '\Date', $date);
         $this->assertSame('2013-02-01', $date->isoString());
+        $this->assertSame(36000, $date->timeZone()->offset());
     }
 
     public function testNativeDateTime()
     {
         $native = $this->date->nativeDateTime();
         $this->assertInstanceOf('DateTime', $native);
-        $this->assertSame('2013-02-01', $native->format('Y-m-d'));
+        $this->assertSame('2013-02-01T00:00:00+00:00', $native->format('c'));
+    }
+
+    public function testNativeDateTimeWithTimezone()
+    {
+        $date = new Date(2013, 02, 01, new TimeZone(36000));
+        $native = $date->nativeDateTime();
+        $this->assertInstanceOf('DateTime', $native);
+        $this->assertSame('2013-02-01T00:00:00+10:00', $native->format('c'));
     }
 
     public function testAdd()

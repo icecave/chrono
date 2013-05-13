@@ -70,13 +70,18 @@ class Date implements TimePointInterface
     }
 
     /**
-     * @param integer $unixTime The unix timestamp.
+     * @param integer       $unixTime The unix timestamp.
+     * @param TimeZone|null $timeZone The time zone of the time, or null to use UTC.
      *
-     * @return Date The Date constructed from the given timestamp.
+     * @return DateTime The Date constructed from the given timestamp and time zone.
      */
-    public static function fromUnixTime($unixTime)
+    public static function fromUnixTime($unixTime, TimeZone $timeZone = null)
     {
         TypeCheck::get(__CLASS__)->fromUnixTime(func_get_args());
+
+        if ($timeZone) {
+            $unixTime += $timeZone->offset();
+        }
 
         $parts = gmdate('Y,m,d', $unixTime);
         $parts = explode(',', $parts);
@@ -84,7 +89,7 @@ class Date implements TimePointInterface
 
         list($year, $month, $day) = $parts;
 
-        return new self($year, $month, $day);
+        return new self($year, $month, $day, $timeZone);
     }
 
     /**
@@ -96,7 +101,14 @@ class Date implements TimePointInterface
     {
         TypeCheck::get(__CLASS__)->fromNativeDateTime(func_get_args());
 
-        return self::fromUnixTime($native->getTimestamp());
+        $unixTime = $native->getTimestamp();
+        $transitions = $native->getTimezone()->getTransitions($unixTime, $unixTime);
+        $isDst = $transitions && $transitions[0]['isdst'];
+
+        return self::fromUnixTime(
+            $unixTime,
+            new TimeZone($native->getTimezone()->getOffset($native), $isDst)
+        );
     }
 
     /**
@@ -248,7 +260,7 @@ class Date implements TimePointInterface
     {
         $this->typeCheck->nativeDateTime(func_get_args());
 
-        return new NativeDateTime($this->isoString());
+        return new NativeDateTime($this->format('c'));
     }
 
     /**
