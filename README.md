@@ -15,7 +15,7 @@ Available as [Composer](http://getcomposer.org) package [icecave/chrono](https:/
 * [Time](lib/Icecave/Chrono/TimeInterface.php): A chronological measurement with a time component.
 * [Date](lib/Icecave/Chrono/DateInterface.php): A chronological measurement with a date component.
 * [Time Point](lib/Icecave/Chrono/TimePointInterface.php): A discreet point on the time-continuum.
-* [Time Span](lib/Icecave/Chrono/TimeSpanInterface.php): An un-anchored span of time.
+* [Time Span](lib/Icecave/Chrono/TimeSpan/TimeSpanInterface.php): An un-anchored span of time.
 * [Interval](lib/Icecave/Chrono/Interval/IntervalInterface.php): A span of time between two *Time Points*.
 
 ## Implementations
@@ -27,8 +27,8 @@ Available as [Composer](http://getcomposer.org) package [icecave/chrono](https:/
 * [Interval](lib/Icecave/Chrono/Interval/Interval.php): A span of time between two *Time Points*, models the *Interval* concept.
 * [Month](lib/Icecave/Chrono/Interval/Month.php): A one month time span, models the *Interval* concept.
 * [Year](lib/Icecave/Chrono/Interval/Year.php): A one year time span, models the *Interval* concept.
-* [Duration](lib/Icecave/Chrono/Duration/Duration.php): A span of time measured in seconds, with no specified beginning or end, models the *Time Span* concept.
-* **Period**: A span of time specified in component form (eg: 3 months, 4 days), models the *Time Span* concept.
+* [Duration](lib/Icecave/Chrono/TimeSpan/Duration.php): A span of time measured in seconds, with no specified beginning or end, models the *Time Span* concept.
+* [Period](lib/Icecave/Chrono/TimeSpan/Period.php): A span of time specified in component form (eg: 3 months, 4 days), models the *Time Span* concept.
 
 ## Examples
 
