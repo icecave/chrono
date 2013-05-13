@@ -119,6 +119,78 @@ abstract class AbstractDuration implements DurationInterface
     }
 
     /**
+     * @param DurationInterface $duration The duration to compare.
+     *
+     * @return boolean True if $this and $duration are equal.
+     */
+    public function isEqualTo(DurationInterface $duration)
+    {
+        $this->typeCheck->isEqualTo(func_get_args());
+
+        return $this->compare($duration) === 0;
+    }
+
+    /**
+     * @param DurationInterface $duration The duration to compare.
+     *
+     * @return boolean True if $this and $duration are not equal.
+     */
+    public function isNotEqualTo(DurationInterface $duration)
+    {
+        $this->typeCheck->isNotEqualTo(func_get_args());
+
+        return $this->compare($duration) !== 0;
+    }
+
+    /**
+     * @param DurationInterface $duration The duration to compare.
+     *
+     * @return boolean True if $this > $duration.
+     */
+    public function isGreaterThan(DurationInterface $duration)
+    {
+        $this->typeCheck->isGreaterThan(func_get_args());
+
+        return $this->compare($duration) > 0;
+    }
+
+    /**
+     * @param DurationInterface $duration The duration to compare.
+     *
+     * @return boolean True if $this < $duration.
+     */
+    public function isLessThan(DurationInterface $duration)
+    {
+        $this->typeCheck->isLessThan(func_get_args());
+
+        return $this->compare($duration) < 0;
+    }
+
+    /**
+     * @param DurationInterface $duration The duration to compare.
+     *
+     * @return boolean True if $this >= $duration.
+     */
+    public function isGreaterThanOrEqualTo(DurationInterface $duration)
+    {
+        $this->typeCheck->isGreaterThanOrEqualTo(func_get_args());
+
+        return $this->compare($duration) >= 0;
+    }
+
+    /**
+     * @param DurationInterface $duration The duration to compare.
+     *
+     * @return boolean True if $this <= $duration.
+     */
+    public function isLessThanOrEqualTo(DurationInterface $duration)
+    {
+        $this->typeCheck->isLessThanOrEqualTo(func_get_args());
+
+        return $this->compare($duration) <= 0;
+    }
+
+    /**
      * Resolve the time span to a total number of seconds, using the given time point as the start of the span.
      *
      * @param TimePointInterface $timePoint The start of the time span.
