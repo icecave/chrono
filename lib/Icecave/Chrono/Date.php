@@ -2,17 +2,17 @@
 namespace Icecave\Chrono;
 
 use DateTime as NativeDateTime;
-use Icecave\Chrono\Duration\Duration;
 use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Support\Normalizer;
+use Icecave\Chrono\TimeSpan\TimeSpanInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 use InvalidArgumentException;
 
 /**
  * Represents a date.
  */
-class Date implements TimePointInterface
+class Date extends AbstractTimePoint
 {
     /**
      * @param integer       $year     The year component of the date.
@@ -38,6 +38,8 @@ class Date implements TimePointInterface
         $this->month = $month;
         $this->day = $day;
         $this->timeZone = $timeZone;
+
+        parent::__construct();
     }
 
     /**
@@ -70,13 +72,18 @@ class Date implements TimePointInterface
     }
 
     /**
-     * @param integer $unixTime The unix timestamp.
+     * @param integer       $unixTime The unix timestamp.
+     * @param TimeZone|null $timeZone The time zone of the time, or null to use UTC.
      *
-     * @return Date The Date constructed from the given timestamp.
+     * @return DateTime The Date constructed from the given timestamp and time zone.
      */
-    public static function fromUnixTime($unixTime)
+    public static function fromUnixTime($unixTime, TimeZone $timeZone = null)
     {
         TypeCheck::get(__CLASS__)->fromUnixTime(func_get_args());
+
+        if ($timeZone) {
+            $unixTime += $timeZone->offset();
+        }
 
         $parts = gmdate('Y,m,d', $unixTime);
         $parts = explode(',', $parts);
@@ -84,7 +91,7 @@ class Date implements TimePointInterface
 
         list($year, $month, $day) = $parts;
 
-        return new self($year, $month, $day);
+        return new self($year, $month, $day, $timeZone);
     }
 
     /**
@@ -96,7 +103,14 @@ class Date implements TimePointInterface
     {
         TypeCheck::get(__CLASS__)->fromNativeDateTime(func_get_args());
 
-        return self::fromUnixTime($native->getTimestamp());
+        $unixTime = $native->getTimestamp();
+        $transitions = $native->getTimezone()->getTransitions($unixTime, $unixTime);
+        $isDst = $transitions && $transitions[0]['isdst'];
+
+        return self::fromUnixTime(
+            $unixTime,
+            new TimeZone($native->getTimezone()->getOffset($native), $isDst)
+        );
     }
 
     /**
@@ -127,6 +141,36 @@ class Date implements TimePointInterface
         $this->typeCheck->day(func_get_args());
 
         return $this->day;
+    }
+
+    /**
+     * @return integer The hours component of the time.
+     */
+    public function hours()
+    {
+        $this->typeCheck->hours(func_get_args());
+
+        return 0;
+    }
+
+    /**
+     * @return integer The minutes component of the time.
+     */
+    public function minutes()
+    {
+        $this->typeCheck->minutes(func_get_args());
+
+        return 0;
+    }
+
+    /**
+     * @return integer The seconds component of the time.
+     */
+    public function seconds()
+    {
+        $this->typeCheck->seconds(func_get_args());
+
+        return 0;
     }
 
     /**
@@ -211,20 +255,6 @@ class Date implements TimePointInterface
     }
 
     /**
-     * Perform a {@see strcmp} style comparison with another time point.
-     *
-     * @param TimePointInterface $timePoint The time point to compare.
-     *
-     * @return integer 0 if $this and $timePoint are equal, <0 if $this < $timePoint, or >0 if $this > $timePoint.
-     */
-    public function compare(TimePointInterface $timePoint)
-    {
-        $this->typeCheck->compare(func_get_args());
-
-        return $this->unixTime() - $timePoint->unixTime();
-    }
-
-    /**
      * @return integer The number of seconds since unix epoch (1970-01-01 00:00:00+00:00).
      */
     public function unixTime()
@@ -248,40 +278,48 @@ class Date implements TimePointInterface
     {
         $this->typeCheck->nativeDateTime(func_get_args());
 
-        return new NativeDateTime($this->isoString());
+        return new NativeDateTime($this->format('c'));
     }
 
     /**
      * Add a time span to the time point.
      *
-     * @param TimeSpanInterface $timeSpan
+     * @param TimeSpanInterface|integer $timeSpan A time span instance, or an integer representing seconds.
      *
      * @return TimePointInterface
      */
-    public function add(TimeSpanInterface $timeSpan)
+    public function add($timeSpan)
     {
         $this->typeCheck->add(func_get_args());
 
+        if ($timeSpan instanceof TimeSpanInterface) {
+            return $timeSpan->resolveToTimePoint($this);
+        }
+
         return new DateTime(
             $this->year(),
             $this->month(),
             $this->day(),
             0,
             0,
-            $timeSpan->resolve($this)
+            $timeSpan
         );
     }
 
     /**
-     * Add a time span from the time point.
+     * Subtract a time span from the time point.
      *
-     * @param TimeSpanInterface $timeSpan
+     * @param TimeSpanInterface|integer $timeSpan A time span instance, or an integer representing seconds.
      *
      * @return TimePointInterface
      */
-    public function subtract(TimeSpanInterface $timeSpan)
+    public function subtract($timeSpan)
     {
         $this->typeCheck->subtract(func_get_args());
+
+        if ($timeSpan instanceof TimeSpanInterface) {
+            return $timeSpan->inverse()->resolveToTimePoint($this);
+        }
 
         return new DateTime(
             $this->year(),
@@ -289,22 +327,8 @@ class Date implements TimePointInterface
             $this->day(),
             0,
             0,
-            -$timeSpan->resolve($this)
+            -$timeSpan
         );
-    }
-
-    /**
-     * Calculate the difference between this time point and another, representing the result as a duration.
-     *
-     * @param TimePointInterface $timePoint
-     *
-     * @return Duration
-     */
-    public function differenceAsDuration(TimePointInterface $timePoint)
-    {
-        $this->typeCheck->differenceAsDuration(func_get_args());
-
-        return new Duration($this->unixTime() - $timePoint->unixTime());
     }
 
     /**

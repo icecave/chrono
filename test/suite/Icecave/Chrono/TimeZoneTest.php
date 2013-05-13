@@ -93,6 +93,112 @@ class TimeZoneTest extends PHPUnit_Framework_TestCase
         $this->assertLessThan(0, $b->compare($a));
     }
 
+    public function testIsEqualTo()
+    {
+        $a = new TimeZone(0, false);
+        $b = new TimeZone(0, false);
+        $c = new TimeZone(0, true);
+
+        $this->assertTrue($a->isEqualTo($a));
+        $this->assertTrue($a->isEqualTo($b));
+        $this->assertTrue($b->isEqualTo($a));
+        $this->assertFalse($a->isEqualTo($c));
+
+        $a = new TimeZone(0, true);
+        $b = new TimeZone(0, true);
+        $c = new TimeZone(0, false);
+
+        $this->assertTrue($a->isEqualTo($a));
+        $this->assertTrue($a->isEqualTo($b));
+        $this->assertTrue($b->isEqualTo($a));
+        $this->assertFalse($a->isEqualTo($c));
+    }
+
+    public function testIsNotEqualTo()
+    {
+        $a = new TimeZone(0, false);
+        $b = new TimeZone(0, false);
+        $c = new TimeZone(0, true);
+
+        $this->assertTrue($a->isNotEqualTo($c));
+        $this->assertFalse($a->isNotEqualTo($a));
+        $this->assertFalse($b->isNotEqualTo($a));
+        $this->assertFalse($a->isNotEqualTo($b));
+
+        $a = new TimeZone(0, true);
+        $b = new TimeZone(0, true);
+        $c = new TimeZone(0, false);
+
+        $this->assertTrue($a->isNotEqualTo($c));
+        $this->assertFalse($a->isNotEqualTo($a));
+        $this->assertFalse($b->isNotEqualTo($a));
+        $this->assertFalse($a->isNotEqualTo($b));
+    }
+
+    public function testIsGreaterThan()
+    {
+        $a = new TimeZone(60);
+        $b = new TimeZone(0);
+
+        $this->assertTrue($a->isGreaterThan($b));
+        $this->assertFalse($b->isGreaterThan($a));
+
+        $a = new TimeZone(0, true);
+        $b = new TimeZone(0, false);
+
+        $this->assertTrue($a->isGreaterThan($b));
+        $this->assertFalse($b->isGreaterThan($a));
+    }
+
+    public function testIsLessThan()
+    {
+        $a = new TimeZone(0);
+        $b = new TimeZone(60);
+
+        $this->assertTrue($a->isLessThan($b));
+        $this->assertFalse($b->isLessThan($a));
+
+        $a = new TimeZone(0, false);
+        $b = new TimeZone(0, true);
+
+        $this->assertTrue($a->isLessThan($b));
+        $this->assertFalse($b->isLessThan($a));
+    }
+
+    public function testIsGreaterThanOrEqualTo()
+    {
+        $a = new TimeZone(60);
+        $b = new TimeZone(0);
+
+        $this->assertTrue($a->isGreaterThanOrEqualTo($a));
+        $this->assertTrue($a->isGreaterThanOrEqualTo($b));
+        $this->assertFalse($b->isGreaterThanOrEqualTo($a));
+
+        $a = new TimeZone(0, true);
+        $b = new TimeZone(0, false);
+
+        $this->assertTrue($a->isGreaterThanOrEqualTo($a));
+        $this->assertTrue($a->isGreaterThanOrEqualTo($b));
+        $this->assertFalse($b->isGreaterThanOrEqualTo($a));
+    }
+
+    public function testIsLessThanOrEqualTo()
+    {
+        $a = new TimeZone(0);
+        $b = new TimeZone(60);
+
+        $this->assertTrue($a->isLessThanOrEqualTo($a));
+        $this->assertTrue($a->isLessThanOrEqualTo($b));
+        $this->assertFalse($b->isLessThanOrEqualTo($a));
+
+        $a = new TimeZone(0, false);
+        $b = new TimeZone(0, true);
+
+        $this->assertTrue($a->isLessThanOrEqualTo($a));
+        $this->assertTrue($a->isLessThanOrEqualTo($b));
+        $this->assertFalse($b->isLessThanOrEqualTo($a));
+    }
+
     public function testFormat()
     {
         $formatter = Phake::mock(__NAMESPACE__ . '\Format\FormatterInterface');

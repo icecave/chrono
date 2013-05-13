@@ -2,17 +2,17 @@
 namespace Icecave\Chrono;
 
 use DateTime as NativeDateTime;
-use Icecave\Chrono\Duration\Duration;
 use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Support\Normalizer;
+use Icecave\Chrono\TimeSpan\TimeSpanInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 use InvalidArgumentException;
 
 /**
  * Represents a date/time.
  */
-class DateTime implements TimePointInterface, TimeInterface
+class DateTime extends AbstractTimePoint implements TimeInterface
 {
     /**
      * @param integer       $year     The year component of the date.
@@ -48,6 +48,8 @@ class DateTime implements TimePointInterface, TimeInterface
         $this->minutes = $minutes;
         $this->seconds = $seconds;
         $this->timeZone = $timeZone;
+
+        parent::__construct();
     }
 
     /**
@@ -271,20 +273,6 @@ class DateTime implements TimePointInterface, TimeInterface
     }
 
     /**
-     * Perform a {@see strcmp} style comparison with another time point.
-     *
-     * @param TimePointInterface $timePoint The time point to compare.
-     *
-     * @return integer 0 if $this and $timePoint are equal, <0 if $this < $timePoint, or >0 if $this > $timePoint.
-     */
-    public function compare(TimePointInterface $timePoint)
-    {
-        $this->typeCheck->compare(func_get_args());
-
-        return $this->unixTime() - $timePoint->unixTime();
-    }
-
-    /**
      * @return integer The number of seconds since unix epoch (1970-01-01 00:00:00+00:00).
      */
     public function unixTime()
@@ -314,35 +302,43 @@ class DateTime implements TimePointInterface, TimeInterface
     /**
      * Add a time span to the time point.
      *
-     * @param TimeSpanInterface $timeSpan
+     * @param TimeSpanInterface|integer $timeSpan A time span instance, or an integer representing seconds.
      *
      * @return TimePointInterface
      */
-    public function add(TimeSpanInterface $timeSpan)
+    public function add($timeSpan)
     {
         $this->typeCheck->add(func_get_args());
 
+        if ($timeSpan instanceof TimeSpanInterface) {
+            return $timeSpan->resolveToTimePoint($this);
+        }
+
         return new self(
             $this->year(),
             $this->month(),
             $this->day(),
             $this->hours(),
             $this->minutes(),
-            $this->seconds() + $timeSpan->resolve($this),
+            $this->seconds() + $timeSpan,
             $this->timeZone()
         );
     }
 
     /**
-     * Add a time span from the time point.
+     * Subtract a time span from the time point.
      *
-     * @param TimeSpanInterface $timeSpan
+     * @param TimeSpanInterface|integer $timeSpan A time span instance, or an integer representing seconds.
      *
      * @return TimePointInterface
      */
-    public function subtract(TimeSpanInterface $timeSpan)
+    public function subtract($timeSpan)
     {
         $this->typeCheck->subtract(func_get_args());
+
+        if ($timeSpan instanceof TimeSpanInterface) {
+            return $timeSpan->inverse()->resolveToTimePoint($this);
+        }
 
         return new self(
             $this->year(),
@@ -350,23 +346,9 @@ class DateTime implements TimePointInterface, TimeInterface
             $this->day(),
             $this->hours(),
             $this->minutes(),
-            $this->seconds() - $timeSpan->resolve($this),
+            $this->seconds() - $timeSpan,
             $this->timeZone()
         );
-    }
-
-    /**
-     * Calculate the difference between this time point and another, representing the result as a duration.
-     *
-     * @param TimePointInterface $timePoint
-     *
-     * @return Duration
-     */
-    public function differenceAsDuration(TimePointInterface $timePoint)
-    {
-        $this->typeCheck->differenceAsDuration(func_get_args());
-
-        return new Duration($this->unixTime() - $timePoint->unixTime());
     }
 
     /**

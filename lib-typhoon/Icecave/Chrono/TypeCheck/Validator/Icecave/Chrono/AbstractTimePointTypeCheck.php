@@ -1,16 +1,9 @@
 <?php
-namespace Icecave\Chrono\TypeCheck\Validator\Icecave\Chrono\Interval;
+namespace Icecave\Chrono\TypeCheck\Validator\Icecave\Chrono;
 
-class AbstractIntervalTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
+class AbstractTimePointTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
 {
     public function validateConstruct(array $arguments)
-    {
-        if (\count($arguments) > 0) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
-        }
-    }
-
-    public function isEmpty(array $arguments)
     {
         if (\count($arguments) > 0) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
@@ -21,7 +14,7 @@ class AbstractIntervalTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValida
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('interval', 0, 'Icecave\\Chrono\\Interval\\IntervalInterface');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('timePoint', 0, 'Icecave\\Chrono\\TimePointInterface');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
         }
@@ -31,7 +24,7 @@ class AbstractIntervalTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValida
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('interval', 0, 'Icecave\\Chrono\\Interval\\IntervalInterface');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('timePoint', 0, 'Icecave\\Chrono\\TimePointInterface');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
         }
@@ -41,7 +34,7 @@ class AbstractIntervalTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValida
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('interval', 0, 'Icecave\\Chrono\\Interval\\IntervalInterface');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('timePoint', 0, 'Icecave\\Chrono\\TimePointInterface');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
         }
@@ -51,7 +44,7 @@ class AbstractIntervalTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValida
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('interval', 0, 'Icecave\\Chrono\\Interval\\IntervalInterface');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('timePoint', 0, 'Icecave\\Chrono\\TimePointInterface');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
         }
@@ -61,7 +54,7 @@ class AbstractIntervalTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValida
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('interval', 0, 'Icecave\\Chrono\\Interval\\IntervalInterface');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('timePoint', 0, 'Icecave\\Chrono\\TimePointInterface');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
         }
@@ -71,7 +64,7 @@ class AbstractIntervalTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValida
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('interval', 0, 'Icecave\\Chrono\\Interval\\IntervalInterface');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('timePoint', 0, 'Icecave\\Chrono\\TimePointInterface');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
         }
@@ -81,13 +74,13 @@ class AbstractIntervalTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValida
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('interval', 0, 'Icecave\\Chrono\\Interval\\IntervalInterface');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('timePoint', 0, 'Icecave\\Chrono\\TimePointInterface');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
         }
     }
 
-    public function contains(array $arguments)
+    public function differenceAsSeconds(array $arguments)
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
@@ -97,30 +90,23 @@ class AbstractIntervalTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValida
         }
     }
 
-    public function encompasses(array $arguments)
+    public function differenceAsDuration(array $arguments)
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('interval', 0, 'Icecave\\Chrono\\Interval\\IntervalInterface');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('timePoint', 0, 'Icecave\\Chrono\\TimePointInterface');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
         }
     }
 
-    public function intersects(array $arguments)
+    public function differenceAsPeriod(array $arguments)
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('interval', 0, 'Icecave\\Chrono\\Interval\\IntervalInterface');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('timePoint', 0, 'Icecave\\Chrono\\TimePointInterface');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
-        }
-    }
-
-    public function duration(array $arguments)
-    {
-        if (\count($arguments) > 0) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
         }
     }
 

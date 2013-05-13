@@ -226,6 +226,78 @@ class TimeOfDay implements TimeInterface
               - ($time->totalSeconds() - $time->timeZone()->offset());
      }
 
+    /**
+     * @param TimeOfDay $time The time to compare.
+     *
+     * @return boolean True if $this and $time are equal.
+     */
+    public function isEqualTo(TimeOfDay $time)
+    {
+        $this->typeCheck->isEqualTo(func_get_args());
+
+        return $this->compare($time) === 0;
+    }
+
+    /**
+     * @param TimeOfDay $time The time to compare.
+     *
+     * @return boolean True if $this and $time are not equal.
+     */
+    public function isNotEqualTo(TimeOfDay $time)
+    {
+        $this->typeCheck->isNotEqualTo(func_get_args());
+
+        return $this->compare($time) !== 0;
+    }
+
+    /**
+     * @param TimeOfDay $time The time to compare.
+     *
+     * @return boolean True if $this > $time.
+     */
+    public function isGreaterThan(TimeOfDay $time)
+    {
+        $this->typeCheck->isGreaterThan(func_get_args());
+
+        return $this->compare($time) > 0;
+    }
+
+    /**
+     * @param TimeOfDay $time The time to compare.
+     *
+     * @return boolean True if $this < $time.
+     */
+    public function isLessThan(TimeOfDay $time)
+    {
+        $this->typeCheck->isLessThan(func_get_args());
+
+        return $this->compare($time) < 0;
+    }
+
+    /**
+     * @param TimeOfDay $time The time to compare.
+     *
+     * @return boolean True if $this >= $time.
+     */
+    public function isGreaterThanOrEqualTo(TimeOfDay $time)
+    {
+        $this->typeCheck->isGreaterThanOrEqualTo(func_get_args());
+
+        return $this->compare($time) >= 0;
+    }
+
+    /**
+     * @param TimeOfDay $time The time to compare.
+     *
+     * @return boolean True if $this <= $time.
+     */
+    public function isLessThanOrEqualTo(TimeOfDay $time)
+    {
+        $this->typeCheck->isLessThanOrEqualTo(func_get_args());
+
+        return $this->compare($time) <= 0;
+    }
+
      /**
       * @return integer The total number of seconds since 00:00.
       */

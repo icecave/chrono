@@ -1,8 +1,8 @@
 <?php
 namespace Icecave\Chrono\Interval;
 
-use Icecave\Chrono\Duration\Duration;
 use Icecave\Chrono\TimePointInterface;
+use Icecave\Chrono\TimeSpan\Duration;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
 abstract class AbstractInterval implements IntervalInterface
@@ -35,6 +35,78 @@ abstract class AbstractInterval implements IntervalInterface
 
         return $this->start()->compare($interval->start())
             ?: $this->end()->compare($interval->end());
+    }
+
+    /**
+     * @param IntervalInterface $interval The interval to compare.
+     *
+     * @return boolean True if $this and $interval are equal.
+     */
+    public function isEqualTo(IntervalInterface $interval)
+    {
+        $this->typeCheck->isEqualTo(func_get_args());
+
+        return $this->compare($interval) === 0;
+    }
+
+    /**
+     * @param IntervalInterface $interval The interval to compare.
+     *
+     * @return boolean True if $this and $interval are not equal.
+     */
+    public function isNotEqualTo(IntervalInterface $interval)
+    {
+        $this->typeCheck->isNotEqualTo(func_get_args());
+
+        return $this->compare($interval) !== 0;
+    }
+
+    /**
+     * @param IntervalInterface $interval The interval to compare.
+     *
+     * @return boolean True if $this > $interval.
+     */
+    public function isGreaterThan(IntervalInterface $interval)
+    {
+        $this->typeCheck->isGreaterThan(func_get_args());
+
+        return $this->compare($interval) > 0;
+    }
+
+    /**
+     * @param IntervalInterface $interval The interval to compare.
+     *
+     * @return boolean True if $this < $interval.
+     */
+    public function isLessThan(IntervalInterface $interval)
+    {
+        $this->typeCheck->isLessThan(func_get_args());
+
+        return $this->compare($interval) < 0;
+    }
+
+    /**
+     * @param IntervalInterface $interval The interval to compare.
+     *
+     * @return boolean True if $this >= $interval.
+     */
+    public function isGreaterThanOrEqualTo(IntervalInterface $interval)
+    {
+        $this->typeCheck->isGreaterThanOrEqualTo(func_get_args());
+
+        return $this->compare($interval) >= 0;
+    }
+
+    /**
+     * @param IntervalInterface $interval The interval to compare.
+     *
+     * @return boolean True if $this <= $interval.
+     */
+    public function isLessThanOrEqualTo(IntervalInterface $interval)
+    {
+        $this->typeCheck->isLessThanOrEqualTo(func_get_args());
+
+        return $this->compare($interval) <= 0;
     }
 
     /**
@@ -83,7 +155,7 @@ abstract class AbstractInterval implements IntervalInterface
     }
 
     /**
-     * @return DurationInterface A duration representing the difference between start and end.
+     * @return Duration A duration representing the difference between start and end.
      */
     public function duration()
     {

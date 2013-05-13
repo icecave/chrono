@@ -2,6 +2,7 @@
 namespace Icecave\Chrono\Interval;
 
 use Icecave\Chrono\Date;
+use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\Iso8601Interface;
 use Icecave\Chrono\Support\Calendar;
 use Icecave\Chrono\TypeCheck\TypeCheck;
@@ -20,6 +21,21 @@ class Month extends AbstractInterval implements Iso8601Interface
         $this->ordinal = $ordinal;
 
         parent::__construct();
+    }
+
+    /**
+     * @param TimePointInterface $timePoint The time point to create from.
+     *
+     * @return Month The Month constructed from the given time point.
+     */
+    public static function fromTimePoint(TimePointInterface $timePoint)
+    {
+        TypeCheck::get(__CLASS__)->fromTimePoint(func_get_args());
+
+        return new self(
+            new Year($timePoint->year()),
+            $timePoint->month()
+        );
     }
 
     /**

@@ -2,7 +2,7 @@
 namespace Icecave\Chrono\Interval;
 
 use Icecave\Chrono\TimePointInterface;
-use Icecave\Chrono\Duration\Duration;
+use Icecave\Chrono\TimeSpan\Duration;
 
 /**
  * An interval represents a stretch of time between two known time points.
@@ -34,6 +34,48 @@ interface IntervalInterface
     public function compare(IntervalInterface $interval);
 
     /**
+     * @param IntervalInterface $interval The interval to compare.
+     *
+     * @return boolean True if $this and $interval are equal.
+     */
+    public function isEqualTo(IntervalInterface $interval);
+
+    /**
+     * @param IntervalInterface $interval The interval to compare.
+     *
+     * @return boolean True if $this and $interval are not equal.
+     */
+    public function isNotEqualTo(IntervalInterface $interval);
+
+    /**
+     * @param IntervalInterface $interval The interval to compare.
+     *
+     * @return boolean True if $this > $interval.
+     */
+    public function isGreaterThan(IntervalInterface $interval);
+
+    /**
+     * @param IntervalInterface $interval The interval to compare.
+     *
+     * @return boolean True if $this < $interval.
+     */
+    public function isLessThan(IntervalInterface $interval);
+
+    /**
+     * @param IntervalInterface $interval The interval to compare.
+     *
+     * @return boolean True if $this >= $interval.
+     */
+    public function isGreaterThanOrEqualTo(IntervalInterface $interval);
+
+    /**
+     * @param IntervalInterface $interval The interval to compare.
+     *
+     * @return boolean True if $this <= $interval.
+     */
+    public function isLessThanOrEqualTo(IntervalInterface $interval);
+
+    /**
      * Check if a given time point is contained within this interval.
      *
      * @param TimePointInterface $timePoint The time point to check.
@@ -61,7 +103,7 @@ interface IntervalInterface
     public function intersects(IntervalInterface $interval);
 
     /**
-     * @return DurationInterface A duration representing the difference between start and end.
+     * @return Duration A duration representing the difference between start and end.
      */
     public function duration();
 }

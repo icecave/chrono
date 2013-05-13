@@ -66,6 +66,54 @@ class AbstractIntervalTest extends PHPUnit_Framework_TestCase
         $this->assertGreaterThan(0, $interval2->compare($interval1));
     }
 
+    public function testIsEqualTo()
+    {
+        $this->assertTrue($this->interval1->isEqualTo($this->interval1));
+        $this->assertTrue($this->interval2->isEqualTo($this->interval2));
+        $this->assertFalse($this->interval1->isEqualTo($this->interval2));
+        $this->assertFalse($this->interval1->isEqualTo($this->interval3));
+    }
+
+    public function testIsNotEqualTo()
+    {
+        $this->assertTrue($this->interval1->isNotEqualTo($this->interval2));
+        $this->assertTrue($this->interval1->isNotEqualTo($this->interval3));
+        $this->assertFalse($this->interval1->isNotEqualTo($this->interval1));
+        $this->assertFalse($this->interval2->isNotEqualTo($this->interval2));
+    }
+
+    public function testIsGreaterThan()
+    {
+        $this->assertTrue($this->interval2->isGreaterThan($this->interval1));
+        $this->assertTrue($this->interval3->isGreaterThan($this->interval1));
+        $this->assertFalse($this->interval1->isGreaterThan($this->interval2));
+        $this->assertFalse($this->interval3->isGreaterThan($this->interval2));
+    }
+
+    public function testIsLessThan()
+    {
+        $this->assertTrue($this->interval1->isLessThan($this->interval2));
+        $this->assertTrue($this->interval1->isLessThan($this->interval3));
+        $this->assertFalse($this->interval3->isLessThan($this->interval1));
+        $this->assertFalse($this->interval2->isLessThan($this->interval3));
+    }
+
+    public function testIsGreaterThanOrEqualTo()
+    {
+        $this->assertTrue($this->interval2->isGreaterThanOrEqualTo($this->interval2));
+        $this->assertTrue($this->interval2->isGreaterThanOrEqualTo($this->interval3));
+        $this->assertFalse($this->interval1->isGreaterThanOrEqualTo($this->interval2));
+        $this->assertFalse($this->interval1->isGreaterThanOrEqualTo($this->interval3));
+    }
+
+    public function testIsLessThanOrEqualTo()
+    {
+        $this->assertTrue($this->interval2->isLessThanOrEqualTo($this->interval2));
+        $this->assertTrue($this->interval3->isLessThanOrEqualTo($this->interval2));
+        $this->assertFalse($this->interval2->isLessThanOrEqualTo($this->interval1));
+        $this->assertFalse($this->interval3->isLessThanOrEqualTo($this->interval1));
+    }
+
     public function testContains()
     {
         $interval = $this->createInterval(new Date(2012, 1, 1), new Date(2012, 1, 2));
@@ -126,7 +174,7 @@ class AbstractIntervalTest extends PHPUnit_Framework_TestCase
         $interval = $this->createInterval(new Date(2012, 1, 1), new Date(2012, 1, 2));
         $duration = $interval->duration();
 
-        $this->assertInstanceOf('Icecave\Chrono\Duration\Duration', $duration);
+        $this->assertInstanceOf('Icecave\Chrono\TimeSpan\Duration', $duration);
         $this->assertSame(86400, $duration->totalSeconds());
     }
 
@@ -135,7 +183,7 @@ class AbstractIntervalTest extends PHPUnit_Framework_TestCase
         $interval = $this->createInterval(new Date(2012, 1, 1), new Date(2012, 1, 1));
         $duration = $interval->duration();
 
-        $this->assertInstanceOf('Icecave\Chrono\Duration\Duration', $duration);
+        $this->assertInstanceOf('Icecave\Chrono\TimeSpan\Duration', $duration);
         $this->assertTrue($duration->isEmpty());
     }
 }

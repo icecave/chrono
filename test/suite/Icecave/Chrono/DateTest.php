@@ -34,6 +34,13 @@ class DateTest extends PHPUnit_Framework_TestCase
         $this->assertSame(1, $this->date->day());
     }
 
+    public function testTimeInterfaceMethods()
+    {
+        $this->assertSame(0, $this->date->hours());
+        $this->assertSame(0, $this->date->minutes());
+        $this->assertSame(0, $this->date->seconds());
+    }
+
     public function testToTimeZone()
     {
         $timeZone = new TimeZone(36000);
@@ -149,30 +156,55 @@ class DateTest extends PHPUnit_Framework_TestCase
         $this->assertSame('2013-02-01', $date->isoString());
     }
 
+    public function testFromUnixTimeWithTimeZone()
+    {
+        $timeZone = new TimeZone(36000, true);
+        $date = Date::fromUnixTime(1359714030, $timeZone);
+        $this->assertInstanceOf(__NAMESPACE__ . '\Date', $date);
+        $this->assertSame('2013-02-01T00:00:00+10:00', $date->format('c'));
+    }
+
     public function testFromNativeDateTime()
     {
         $native = new NativeDateTime('2013-02-01T20:20:30+10:00');
         $date = Date::fromNativeDateTime($native);
         $this->assertInstanceOf(__NAMESPACE__ . '\Date', $date);
         $this->assertSame('2013-02-01', $date->isoString());
+        $this->assertSame(36000, $date->timeZone()->offset());
     }
 
     public function testNativeDateTime()
     {
         $native = $this->date->nativeDateTime();
         $this->assertInstanceOf('DateTime', $native);
-        $this->assertSame('2013-02-01', $native->format('Y-m-d'));
+        $this->assertSame('2013-02-01T00:00:00+00:00', $native->format('c'));
+    }
+
+    public function testNativeDateTimeWithTimezone()
+    {
+        $date = new Date(2013, 02, 01, new TimeZone(36000));
+        $native = $date->nativeDateTime();
+        $this->assertInstanceOf('DateTime', $native);
+        $this->assertSame('2013-02-01T00:00:00+10:00', $native->format('c'));
     }
 
     public function testAdd()
     {
-        $duration = Phake::partialMock('Icecave\Chrono\Duration\DurationInterface');
+        $duration = Phake::partialMock('Icecave\Chrono\TimeSpan\TimeSpanInterface');
+        $expected = DateTime::fromIsoString('2013-02-02T00:00:00+00:00');
 
         Phake::when($duration)
-            ->resolve($this->date)
-            ->thenReturn(86400);
+            ->resolveToTimePoint($this->date)
+            ->thenReturn($expected);
 
         $dateTime = $this->date->add($duration);
+
+        $this->assertSame($expected, $dateTime);
+    }
+
+    public function testAddWithSeconds()
+    {
+        $dateTime = $this->date->add(86400);
 
         $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $dateTime);
         $this->assertSame('2013-02-02T00:00:00+00:00', $dateTime->isoString());
@@ -180,16 +212,37 @@ class DateTest extends PHPUnit_Framework_TestCase
 
     public function testSubtract()
     {
-        $duration = Phake::partialMock('Icecave\Chrono\Duration\DurationInterface');
+        $duration = Phake::partialMock('Icecave\Chrono\TimeSpan\TimeSpanInterface');
+        $expected = DateTime::fromIsoString('2013-01-31T00:00:00+00:00');
 
         Phake::when($duration)
-            ->resolve($this->date)
-            ->thenReturn(86400);
+            ->inverse()
+            ->thenReturn($duration);
+
+        Phake::when($duration)
+            ->resolveToTimePoint($this->date)
+            ->thenReturn($expected);
 
         $dateTime = $this->date->subtract($duration);
 
+        $this->assertSame($expected, $dateTime);
+
+        Phake::verify($duration)->inverse();
+    }
+
+    public function testSubtractWithSeconds()
+    {
+        $dateTime = $this->date->subtract(86400);
+
         $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $dateTime);
         $this->assertSame('2013-01-31T00:00:00+00:00', $dateTime->isoString());
+    }
+
+    public function testDifferenceAsSeconds()
+    {
+        $date = new Date(2013, 1, 31);
+        $diff = $this->date->differenceAsSeconds($date);
+        $this->assertSame(86400, $diff);
     }
 
     public function testDifferenceAsDuration()
@@ -197,7 +250,7 @@ class DateTest extends PHPUnit_Framework_TestCase
         $date = new Date(2013, 1, 31);
         $duration = $this->date->differenceAsDuration($date);
 
-        $this->assertInstanceOf('Icecave\Chrono\Duration\Duration', $duration);
+        $this->assertInstanceOf('Icecave\Chrono\TimeSpan\Duration', $duration);
         $this->assertSame(86400, $duration->totalSeconds());
     }
 
