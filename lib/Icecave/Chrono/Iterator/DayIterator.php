@@ -1,6 +1,7 @@
 <?php
 namespace Icecave\Chrono\Iterator;
 
+use Icecave\Chrono\Date;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TimeSpan\Period;
 use Icecave\Chrono\TypeCheck\TypeCheck;
@@ -29,7 +30,14 @@ class DayIterator extends TimeSpanIterator
     {
         $this->typeCheck->current(func_get_args());
 
-        return parent::current()->date();
+        $timePoint = parent::current();
+
+        return new Date(
+            $timePoint->year(),
+            $timePoint->month(),
+            $timePoint->day(),
+            $timePoint->timeZone()
+        );
     }
 
     private $typeCheck;
