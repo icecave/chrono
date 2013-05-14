@@ -3,17 +3,20 @@ namespace Icecave\Chrono\Iterator;
 
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TimeSpan\TimeSpanInterface;
+use Icecave\Chrono\TypeCheck\TypeCheck;
 use Iterator;
 
 class TimeSpanIterator implements Iterator
 {
     /**
-     * @param TimePointInterface $startTime The time to start iterating at.
-     * @param TimeSpanInterface $timeSpan The time span to increment by for each iteration.
-     * @param integer|null $iterations The number of iterations or null to iterate forever.
+     * @param TimePointInterface $startTime  The time to start iterating at.
+     * @param TimeSpanInterface  $timeSpan   The time span to increment by for each iteration.
+     * @param integer|null       $iterations The number of iterations or null to iterate forever.
      */
     public function __construct(TimePointInterface $startTime, TimeSpanInterface $timeSpan, $iterations)
     {
+        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
+
         $this->startTime = $startTime->add(0);
         $this->timeSpan = $timeSpan;
         $this->iterations = $iterations;
@@ -26,6 +29,8 @@ class TimeSpanIterator implements Iterator
      */
     public function current()
     {
+        $this->typeCheck->current(func_get_args());
+
         return $this->value;
     }
 
@@ -34,6 +39,8 @@ class TimeSpanIterator implements Iterator
      */
     public function key()
     {
+        $this->typeCheck->key(func_get_args());
+
         return $this->index;
     }
 
@@ -42,6 +49,8 @@ class TimeSpanIterator implements Iterator
      */
     public function next()
     {
+        $this->typeCheck->next(func_get_args());
+
         ++$this->index;
         $this->value = $this->value->add($this->timeSpan);
     }
@@ -51,6 +60,8 @@ class TimeSpanIterator implements Iterator
      */
     public function rewind()
     {
+        $this->typeCheck->rewind(func_get_args());
+
         $this->index = 0;
         $this->value = $this->startTime;
     }
@@ -60,12 +71,16 @@ class TimeSpanIterator implements Iterator
      */
     public function valid()
     {
+        $this->typeCheck->valid(func_get_args());
+
         if ($this->iterations === null) {
             return true;
         }
+
         return $this->index < $this->iterations;
     }
 
+    private $typeCheck;
     private $startTime;
     private $timeSpan;
     private $iterations;
