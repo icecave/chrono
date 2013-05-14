@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=5.3"
     },
     "require-dev": {
         "eloquent/typhoon": "~0.9",
