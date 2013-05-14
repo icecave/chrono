@@ -22,7 +22,6 @@ class MinuteIterator extends TimeSpanIterator
         );
     }
 
-// should this just use the parent? it only changes to documented return type.
     /**
      * @return DateTime The current iteration date time.
      */
