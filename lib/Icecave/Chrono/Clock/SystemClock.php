@@ -21,33 +21,13 @@ class SystemClock extends AbstractClock
     }
 
     /**
-     * @return integer The current time as a unix timestamp.
-     */
-    public function unixTime()
-    {
-        $this->typeCheck->unixTime(func_get_args());
-
-        return $this->isolator->time();
-    }
-
-    /**
-     * @return float The current time as a unix timestamp, including partial seconds.
-     */
-    public function unixTimeAsFloat()
-    {
-        $this->typeCheck->unixTimeAsFloat(func_get_args());
-
-        return $this->isolator->microtime(true);
-    }
-
-    /**
      * @return array<integer> A tuple containing time information, as per {@see localtime()}, plus the timezone offset in seconds.
      */
     protected function currentLocalTimeInfo()
     {
         $this->typeCheck->currentLocalTimeInfo(func_get_args());
 
-        $parts = $this->isolator->date('s,i,H,d,m,Y,w,z,I,Z', $this->unixTime());
+        $parts = $this->isolator->date('s,i,H,d,m,Y,w,z,I,Z', intval($this->currentUnixTime()));
         $parts = explode(',', $parts);
         $parts = array_map('intval', $parts);
 
@@ -61,11 +41,21 @@ class SystemClock extends AbstractClock
     {
         $this->typeCheck->currentUtcTimeInfo(func_get_args());
 
-        $parts = $this->isolator->gmdate('s,i,H,d,m,Y,w,z,0,0', $this->unixTime());
+        $parts = $this->isolator->gmdate('s,i,H,d,m,Y,w,z,0,0', intval($this->currentUnixTime()));
         $parts = explode(',', $parts);
         $parts = array_map('intval', $parts);
 
         return $parts;
+    }
+
+    /**
+     * @return float The current time as a unix timestamp, including partial seconds.
+     */
+    public function currentUnixTime()
+    {
+        $this->typeCheck->currentUnixTime(func_get_args());
+
+        return $this->isolator->microtime(true);
     }
 
     /**

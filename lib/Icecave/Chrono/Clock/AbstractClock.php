@@ -33,7 +33,7 @@ abstract class AbstractClock implements SuspendableClockInterface
 
         $lock = new ScopedSuspension($this);
 
-        list($seconds, $minutes, $hours, $day, $month, $year) = $this->localTimeInfo();
+        list($seconds, $minutes, $hours, $day, $month, $year) = $this->suspendedLocalTimeInfo();
 
         return new TimeOfDay($hours, $minutes, $seconds, $this->timeZone());
     }
@@ -47,7 +47,7 @@ abstract class AbstractClock implements SuspendableClockInterface
 
         $lock = new ScopedSuspension($this);
 
-        list($seconds, $minutes, $hours, $day, $month, $year) = $this->localTimeInfo();
+        list($seconds, $minutes, $hours, $day, $month, $year) = $this->suspendedLocalTimeInfo();
 
         return new DateTime($year, $month, $day, $hours, $minutes, $seconds, $this->timeZone());
     }
@@ -61,7 +61,7 @@ abstract class AbstractClock implements SuspendableClockInterface
 
         $lock = new ScopedSuspension($this);
 
-        list($seconds, $minutes, $hours, $day, $month, $year) = $this->localTimeInfo();
+        list($seconds, $minutes, $hours, $day, $month, $year) = $this->suspendedLocalTimeInfo();
 
         return new Date($year, $month, $day, $this->timeZone());
     }
@@ -75,7 +75,7 @@ abstract class AbstractClock implements SuspendableClockInterface
 
         $lock = new ScopedSuspension($this);
 
-        list($seconds, $minutes, $hours, $day, $month, $year) = $this->localTimeInfo();
+        list($seconds, $minutes, $hours, $day, $month, $year) = $this->suspendedLocalTimeInfo();
 
         return new Month(new Year($year), $month);
     }
@@ -89,7 +89,7 @@ abstract class AbstractClock implements SuspendableClockInterface
 
         $lock = new ScopedSuspension($this);
 
-        list($seconds, $minutes, $hours, $day, $month, $year) = $this->localTimeInfo();
+        list($seconds, $minutes, $hours, $day, $month, $year) = $this->suspendedLocalTimeInfo();
 
         return new Year($year);
     }
@@ -103,7 +103,7 @@ abstract class AbstractClock implements SuspendableClockInterface
 
         $lock = new ScopedSuspension($this);
 
-        list($seconds, $minutes, $hours, $day, $month, $year) = $this->utcTimeInfo();
+        list($seconds, $minutes, $hours, $day, $month, $year) = $this->suspendedUtcTimeInfo();
 
         return new TimeOfDay($hours, $minutes, $seconds);
     }
@@ -117,7 +117,7 @@ abstract class AbstractClock implements SuspendableClockInterface
 
         $lock = new ScopedSuspension($this);
 
-        list($seconds, $minutes, $hours, $day, $month, $year) = $this->utcTimeInfo();
+        list($seconds, $minutes, $hours, $day, $month, $year) = $this->suspendedUtcTimeInfo();
 
         return new DateTime($year, $month, $day, $hours, $minutes, $seconds);
     }
@@ -131,7 +131,7 @@ abstract class AbstractClock implements SuspendableClockInterface
 
         $lock = new ScopedSuspension($this);
 
-        list($seconds, $minutes, $hours, $day, $month, $year) = $this->utcTimeInfo();
+        list($seconds, $minutes, $hours, $day, $month, $year) = $this->suspendedUtcTimeInfo();
 
         return new Date($year, $month, $day);
     }
@@ -145,7 +145,7 @@ abstract class AbstractClock implements SuspendableClockInterface
 
         $lock = new ScopedSuspension($this);
 
-        list($seconds, $minutes, $hours, $day, $month, $year) = $this->utcTimeInfo();
+        list($seconds, $minutes, $hours, $day, $month, $year) = $this->suspendedUtcTimeInfo();
 
         return new Month(new Year($year), $month);
     }
@@ -159,7 +159,7 @@ abstract class AbstractClock implements SuspendableClockInterface
 
         $lock = new ScopedSuspension($this);
 
-        list($seconds, $minutes, $hours, $day, $month, $year) = $this->utcTimeInfo();
+        list($seconds, $minutes, $hours, $day, $month, $year) = $this->suspendedUtcTimeInfo();
 
         return new Year($year);
     }
@@ -173,9 +173,33 @@ abstract class AbstractClock implements SuspendableClockInterface
 
         $lock = new ScopedSuspension($this);
 
-        list($seconds, $minutes, $hours, $day, $month, $year, $weekDay, $yearDay, $isDst, $offset) = $this->localTimeInfo();
+        list($seconds, $minutes, $hours, $day, $month, $year, $weekDay, $yearDay, $isDst, $offset) = $this->suspendedLocalTimeInfo();
 
         return new TimeZone($offset, $isDst ? true : false);
+    }
+
+    /**
+     * @return integer The current time as a unix timestamp.
+     */
+    public function unixTime()
+    {
+        $this->typeCheck->unixTime(func_get_args());
+
+        $lock = new ScopedSuspension($this);
+
+        return intval($this->suspendedUnixTime());
+    }
+
+    /**
+     * @return float The current time as a unix timestamp, including partial seconds.
+     */
+    public function unixTimeAsFloat()
+    {
+        $this->typeCheck->unixTimeAsFloat(func_get_args());
+
+        $lock = new ScopedSuspension($this);
+
+        return $this->suspendedUnixTime();
     }
 
     /**
@@ -188,7 +212,8 @@ abstract class AbstractClock implements SuspendableClockInterface
         if (1 === ++$this->suspendCount) {
             $this->suspendState = array(
                 $this->currentLocalTimeInfo(),
-                $this->currentUtcTimeInfo()
+                $this->currentUtcTimeInfo(),
+                $this->currentUnixTime()
             );
         }
     }
@@ -275,9 +300,9 @@ abstract class AbstractClock implements SuspendableClockInterface
      *
      * @return array<integer> A tuple containing time information, as per {@see localtime()}.
      */
-    protected function localTimeInfo()
+    protected function suspendedLocalTimeInfo()
     {
-        $this->typeCheck->localTimeInfo(func_get_args());
+        $this->typeCheck->suspendedLocalTimeInfo(func_get_args());
 
         return $this->suspendState[0];
     }
@@ -287,11 +312,23 @@ abstract class AbstractClock implements SuspendableClockInterface
      *
      * @return array<integer> A tuple containing time information, as per {@see localtime()}, but for the UTC timezone.
      */
-    protected function utcTimeInfo()
+    protected function suspendedUtcTimeInfo()
     {
-        $this->typeCheck->utcTimeInfo(func_get_args());
+        $this->typeCheck->suspendedUtcTimeInfo(func_get_args());
 
         return $this->suspendState[1];
+    }
+
+    /**
+     * The clock MUST be suspended before calling this method.
+     *
+     * @return float The time as a unix timestamp, including partial seconds.
+     */
+    protected function suspendedUnixTime()
+    {
+        $this->typeCheck->suspendedUnixTime(func_get_args());
+
+        return $this->suspendState[2];
     }
 
     /**
@@ -307,6 +344,13 @@ abstract class AbstractClock implements SuspendableClockInterface
      * @return array<integer> A tuple containing time information, as per {@see localtime()}, plus the timezone offset in seconds, but for the UTC timezone.
      */
     abstract protected function currentUtcTimeInfo();
+
+    /**
+     * Fetch the current unix timestamp, bypassing suspended state.
+     *
+     * @return float The current time as a unix timestamp, including partial seconds.
+     */
+    abstract protected function currentUnixTime();
 
     /**
      * @param integer $seconds The number of seconds to sleep.

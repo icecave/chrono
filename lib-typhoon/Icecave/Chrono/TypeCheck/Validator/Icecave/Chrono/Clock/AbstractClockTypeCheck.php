@@ -88,6 +88,20 @@ class AbstractClockTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         }
     }
 
+    public function unixTime(array $arguments)
+    {
+        if (\count($arguments) > 0) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
+        }
+    }
+
+    public function unixTimeAsFloat(array $arguments)
+    {
+        if (\count($arguments) > 0) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
+        }
+    }
+
     public function suspend(array $arguments)
     {
         if (\count($arguments) > 0) {
@@ -182,14 +196,21 @@ class AbstractClockTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         }
     }
 
-    public function localTimeInfo(array $arguments)
+    public function suspendedLocalTimeInfo(array $arguments)
     {
         if (\count($arguments) > 0) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
         }
     }
 
-    public function utcTimeInfo(array $arguments)
+    public function suspendedUtcTimeInfo(array $arguments)
+    {
+        if (\count($arguments) > 0) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
+        }
+    }
+
+    public function suspendedUnixTime(array $arguments)
     {
         if (\count($arguments) > 0) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
@@ -204,6 +225,13 @@ class AbstractClockTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
     }
 
     public function currentUtcTimeInfo(array $arguments)
+    {
+        if (\count($arguments) > 0) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
+        }
+    }
+
+    public function currentUnixTime(array $arguments)
     {
         if (\count($arguments) > 0) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);

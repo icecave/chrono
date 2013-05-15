@@ -11,20 +11,6 @@ class SystemClockTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         }
     }
 
-    public function unixTime(array $arguments)
-    {
-        if (\count($arguments) > 0) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
-        }
-    }
-
-    public function unixTimeAsFloat(array $arguments)
-    {
-        if (\count($arguments) > 0) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
-        }
-    }
-
     public function currentLocalTimeInfo(array $arguments)
     {
         if (\count($arguments) > 0) {
@@ -33,6 +19,13 @@ class SystemClockTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
     }
 
     public function currentUtcTimeInfo(array $arguments)
+    {
+        if (\count($arguments) > 0) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
+        }
+    }
+
+    public function currentUnixTime(array $arguments)
     {
         if (\count($arguments) > 0) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);

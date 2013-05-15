@@ -21,6 +21,10 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
         $this->timeZone = new TimeZone(36000, true);
 
         Phake::when($this->clock)
+            ->currentUnixTime()
+            ->thenReturn(1384917020.25);
+
+        Phake::when($this->clock)
             ->currentLocalTimeInfo()
             ->thenReturn(array(10, 20, 13, 20, 11, 2013, '<unused>', '<unused>', 1, 36000));
 
@@ -51,6 +55,15 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
         Phake::inOrder(
             Phake::verify($this->clock, Phake::atLeast(1))->suspend(),
             Phake::verify($this->clock, Phake::times(1))->currentUtcTimeInfo(),
+            Phake::verify($this->clock, Phake::atLeast(1))->resume()
+        );
+    }
+
+    public function verifyUnixTimeClockSuspended()
+    {
+        Phake::inOrder(
+            Phake::verify($this->clock, Phake::atLeast(1))->suspend(),
+            Phake::verify($this->clock, Phake::times(1))->currentUnixTime(),
             Phake::verify($this->clock, Phake::atLeast(1))->resume()
         );
     }
@@ -145,6 +158,20 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
         $this->verifyUtcClockSuspended();
     }
 
+    public function testUnixTime()
+    {
+        $this->assertSame(1384917020, $this->clock->unixTime());
+
+        $this->verifyUnixTimeClockSuspended();
+    }
+
+    public function testUnixTimeAsFloat()
+    {
+        $this->assertSame(1384917020.25, $this->clock->unixTimeAsFloat());
+
+        $this->verifyUnixTimeClockSuspended();
+    }
+
     public function testSuspend()
     {
         $this->clock->suspend();
@@ -228,10 +255,10 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
     public function testSleep()
     {
         Phake::when($this->clock)
-            ->currentLocalTimeInfo()
-            ->thenReturn(array(0, 0, 0, 1, 1, 2012, '<unused>', '<unused>', 1, 36000))
-            ->thenReturn(array(0, 0, 0, 1, 1, 2012, '<unused>', '<unused>', 1, 36000))
-            ->thenReturn(array(10, 0, 0, 1, 1, 2012, '<unused>', '<unused>', 1, 36000));
+            ->localDateTime()
+            ->thenReturn(new DateTime(2012, 1, 1, 0, 0, 0))
+            ->thenReturn(new DateTime(2012, 1, 1, 0, 0, 0))
+            ->thenReturn(new DateTime(2012, 1, 1, 0, 0, 10));
 
         $result = $this->clock->sleep(10);
 
@@ -252,10 +279,10 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
     public function testSleepCheckDrift()
     {
         Phake::when($this->clock)
-            ->currentLocalTimeInfo()
-            ->thenReturn(array(0, 0, 0, 1, 1, 2012, '<unused>', '<unused>', 1, 36000))
-            ->thenReturn(array(0, 0, 0, 1, 1, 2012, '<unused>', '<unused>', 1, 36000))
-            ->thenReturn(array(9, 0, 0, 1, 1, 2012, '<unused>', '<unused>', 1, 36000));
+            ->localDateTime()
+            ->thenReturn(new DateTime(2012, 1, 1, 0, 0, 0))
+            ->thenReturn(new DateTime(2012, 1, 1, 0, 0, 0))
+            ->thenReturn(new DateTime(2012, 1, 1, 0, 0, 9));
 
         $result = $this->clock->sleep(10);
 
@@ -270,12 +297,6 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
             ->doSleep(Phake::anyParameters())
             ->thenReturn(false);
 
-        Phake::when($this->clock)
-            ->currentLocalTimeInfo()
-            ->thenReturn(array(0, 0, 0, 1, 1, 2012, '<unused>', '<unused>', 1, 36000))
-            ->thenReturn(array(0, 0, 0, 1, 1, 2012, '<unused>', '<unused>', 1, 36000))
-            ->thenReturn(array(9, 0, 0, 1, 1, 2012, '<unused>', '<unused>', 1, 36000));
-
         $result = $this->clock->sleep(10);
 
         Phake::verify($this->clock)->doSleep(10);
@@ -289,12 +310,6 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
         Phake::when($this->clock)
             ->doSleep(Phake::anyParameters())
             ->thenReturn(false);
-
-        Phake::when($this->clock)
-            ->currentLocalTimeInfo()
-            ->thenReturn(array(0, 0, 0, 1, 1, 2012, '<unused>', '<unused>', 1, 36000))
-            ->thenReturn(array(0, 0, 0, 1, 1, 2012, '<unused>', '<unused>', 1, 36000))
-            ->thenReturn(array(9, 0, 0, 1, 1, 2012, '<unused>', '<unused>', 1, 36000));
 
         $result = $this->clock->sleep(10, false);
 
@@ -314,12 +329,6 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
             ->doSleep(Phake::anyParameters())
             ->thenReturn(false);
 
-        Phake::when($this->clock)
-            ->currentLocalTimeInfo()
-            ->thenReturn(array(0, 0, 0, 1, 1, 2012, '<unused>', '<unused>', 1, 36000))
-            ->thenReturn(array(0, 0, 0, 1, 1, 2012, '<unused>', '<unused>', 1, 36000))
-            ->thenReturn(array(9, 0, 0, 1, 1, 2012, '<unused>', '<unused>', 1, 36000));
-
         $result = $this->clock->sleep(10);
 
         Phake::verify($this->clock)->doSleep(10);
@@ -336,11 +345,11 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
             ->thenReturn(true);
 
         Phake::when($this->clock)
-            ->currentLocalTimeInfo()
-            ->thenReturn(array(0, 0, 0, 1, 1, 2012, '<unused>', '<unused>', 1, 36000))
-            ->thenReturn(array(0, 0, 0, 1, 1, 2012, '<unused>', '<unused>', 1, 36000))
-            ->thenReturn(array(9, 0, 0, 1, 1, 2012, '<unused>', '<unused>', 1, 36000))
-            ->thenReturn(array(10, 0, 0, 1, 1, 2012, '<unused>', '<unused>', 1, 36000));
+            ->localDateTime()
+            ->thenReturn(new DateTime(2012, 1, 1, 0, 0, 0))
+            ->thenReturn(new DateTime(2012, 1, 1, 0, 0, 0))
+            ->thenReturn(new DateTime(2012, 1, 1, 0, 0, 9))
+            ->thenReturn(new DateTime(2012, 1, 1, 0, 0, 10));
 
         $result = $this->clock->sleep(10, true, true);
 
