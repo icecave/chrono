@@ -5,6 +5,8 @@ use Icecave\Chrono\Date;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\Month;
 use Icecave\Chrono\TimeOfDay;
+use Icecave\Chrono\TimePointInterface;
+use Icecave\Chrono\TimeSpan\TimeSpanInterface;
 use Icecave\Chrono\TimeZone;
 use Icecave\Chrono\Year;
 
@@ -74,4 +76,26 @@ interface ClockInterface
      * @return integer The current time as a unix timestamp.
      */
     public function unixTime();
+
+    /**
+     * Sleep for the given time span.
+     *
+     * @param TimeSpanInterface|integer $timeSpan        A time span instance, or an integer representing seconds.
+     * @param boolean                   $dispatchSignals True to dispatch to signal handlers when sleep is interrupted.
+     * @param boolean                   $restart         True to continue sleeping after interrupt.
+     *
+     * @return boolean True if the sleep completed, false if the sleep was interrupted.
+     */
+    public function sleep($timeSpan, $dispatchSignals = true, $restart = false);
+
+    /**
+     * Sleep until the given time point.
+     *
+     * @param TimePointInterface $timePoint       The the point to sleep until.
+     * @param boolean            $dispatchSignals True to dispatch to signal handlers when sleep is interrupted.
+     * @param boolean            $restart         True to continue sleeping after interrupt.
+     *
+     * @return boolean True if the sleep completed, false if the sleep was interrupted.
+     */
+    public function sleepUntil(TimePointInterface $timePoint, $dispatchSignals = true, $restart = false);
 }

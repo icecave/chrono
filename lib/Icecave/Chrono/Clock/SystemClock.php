@@ -17,9 +17,7 @@ class SystemClock extends AbstractClock
     {
         $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
 
-        $this->isolator = Isolator::get($isolator);
-
-        parent::__construct();
+        parent::__construct($isolator);
     }
 
     /**
@@ -60,6 +58,17 @@ class SystemClock extends AbstractClock
         return $parts;
     }
 
+    /**
+     * @param integer $seconds The number of seconds to sleep.
+     *
+     * @return boolean True if the sleep completed; or false if the sleep was interrupted.
+     */
+    protected function doSleep($seconds)
+    {
+        $this->typeCheck->doSleep(func_get_args());
+
+        return 0 === $this->isolator->sleep($seconds);
+    }
+
     private $typeCheck;
-    private $isolator;
 }
