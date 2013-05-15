@@ -20,6 +20,10 @@ class SystemClockTest extends PHPUnit_Framework_TestCase
             ->thenReturn(1358748637);
 
         Phake::when($this->isolator)
+            ->microtime(true)
+            ->thenReturn(1358748637.25);
+
+        Phake::when($this->isolator)
             ->date('s,i,H,d,m,Y,w,z,I,Z', 1358748637)
             ->thenReturn('37,10,16,21,01,2013,1,20,1,36000');
 
@@ -31,6 +35,11 @@ class SystemClockTest extends PHPUnit_Framework_TestCase
     public function testUnixTime()
     {
         $this->assertSame(1358748637, $this->clock->unixTime());
+    }
+
+    public function testUnixTimeAsFloat()
+    {
+        $this->assertSame(1358748637.25, $this->clock->unixTimeAsFloat());
     }
 
     public function testCurrentLocalTimeInfo()

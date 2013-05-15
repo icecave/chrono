@@ -78,6 +78,11 @@ interface ClockInterface
     public function unixTime();
 
     /**
+     * @return float The current time as a unix timestamp, including partial seconds.
+     */
+    public function unixTimeAsFloat();
+
+    /**
      * Sleep for the given time span.
      *
      * @param TimeSpanInterface|integer $timeSpan        A time span instance, or an integer representing seconds.

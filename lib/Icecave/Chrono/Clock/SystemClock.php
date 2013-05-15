@@ -31,6 +31,16 @@ class SystemClock extends AbstractClock
     }
 
     /**
+     * @return float The current time as a unix timestamp, including partial seconds.
+     */
+    public function unixTimeAsFloat()
+    {
+        $this->typeCheck->unixTimeAsFloat(func_get_args());
+
+        return $this->isolator->microtime(true);
+    }
+
+    /**
      * @return array<integer> A tuple containing time information, as per {@see localtime()}, plus the timezone offset in seconds.
      */
     protected function currentLocalTimeInfo()
