@@ -6,14 +6,22 @@ use Icecave\Chrono\DateTime;
 use Icecave\Chrono\Interval\Month;
 use Icecave\Chrono\Interval\Year;
 use Icecave\Chrono\TimeOfDay;
+use Icecave\Chrono\TimePointInterface;
+use Icecave\Chrono\TimeSpan\TimeSpanInterface;
 use Icecave\Chrono\TimeZone;
 use Icecave\Chrono\TypeCheck\TypeCheck;
+use Icecave\Isolator\Isolator;
 
 abstract class AbstractClock implements SuspendableClockInterface
 {
-    public function __construct()
+    /**
+     * @param Isolator|null $isolator
+     */
+    public function __construct(Isolator $isolator = null)
     {
         $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
+
+        $this->isolator = Isolator::get($isolator);
     }
 
     /**
@@ -213,6 +221,56 @@ abstract class AbstractClock implements SuspendableClockInterface
     }
 
     /**
+     * Sleep for the given time span.
+     *
+     * @param TimeSpanInterface|integer $timeSpan        A time span instance, or an integer representing seconds.
+     * @param boolean                   $dispatchSignals True to dispatch to signal handlers when sleep is interrupted.
+     * @param boolean                   $restart         True to continue sleeping after interrupt.
+     *
+     * @return boolean True if the sleep completed, false if the sleep was interrupted.
+     */
+    public function sleep($timeSpan, $dispatchSignals = true, $restart = false)
+    {
+        $this->typeCheck->sleep(func_get_args());
+
+        $timePoint = $this->localDateTime()->add($timeSpan);
+
+        return $this->sleepUntil($timePoint, $dispatchSignals, $restart);
+    }
+
+    /**
+     * Sleep until the given time point.
+     *
+     * @param TimePointInterface $timePoint       The the point to sleep until.
+     * @param boolean            $dispatchSignals True to dispatch to signal handlers when sleep is interrupted.
+     * @param boolean            $restart         True to continue sleeping after interrupt.
+     *
+     * @return boolean True if the sleep completed, false if the sleep was interrupted.
+     */
+    public function sleepUntil(TimePointInterface $timePoint, $dispatchSignals = true, $restart = false)
+    {
+        $this->typeCheck->sleepUntil(func_get_args());
+
+        if (!$this->isolator->function_exists('pcntl_signal_dispatch')) {
+            $dispatchSignals = false;
+        }
+
+        do {
+            $remaining = $timePoint->differenceAsSeconds($this->localDateTime());
+
+            if ($remaining <= 0) {
+                return true;
+            } elseif ($this->doSleep($remaining)) {
+                return $this->localDateTime()->isGreaterThanOrEqualTo($timePoint);
+            } elseif ($dispatchSignals) {
+                $this->isolator->pcntl_signal_dispatch();
+            }
+        } while ($restart);
+
+        return false;
+    }
+
+    /**
      * The clock MUST be suspended before calling this method.
      *
      * @return array<integer> A tuple containing time information, as per {@see localtime()}.
@@ -250,7 +308,15 @@ abstract class AbstractClock implements SuspendableClockInterface
      */
     abstract protected function currentUtcTimeInfo();
 
+    /**
+     * @param integer $seconds The number of seconds to sleep.
+     *
+     * @return boolean True if the sleep completed; or false if the sleep was interrupted.
+     */
+    abstract protected function doSleep($seconds);
+
     private $typeCheck;
     private $suspendCount = 0;
     private $suspendState = null;
+    protected $isolator;
 }
