@@ -4,13 +4,17 @@ namespace Icecave\Chrono\TimeSpan;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\Interval\Interval;
 use Icecave\Chrono\Interval\IntervalInterface;
+use Icecave\Chrono\Iso8601Interface;
+use Icecave\Chrono\Support\Calendar;
+use Icecave\Chrono\Support\Iso8601;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
+use InvalidArgumentException;
 
 /**
  * A duration represents a concrete amount of time.
  */
-class Duration implements TimeSpanInterface
+class Duration implements TimeSpanInterface, Iso8601Interface
 {
     /**
      * @param integer $seconds The total number of seconds in the duration.
@@ -39,6 +43,40 @@ class Duration implements TimeSpanInterface
         $hours += $days * 24;
         $minutes += $hours * 60;
         $seconds += $minutes * 60;
+
+        return new self($seconds);
+    }
+
+    /**
+     * Standard duration formats:
+     *   PnYnMnDTnHnMnS (zero periods may be ommitted)
+     *   PnW
+     *   P<date>T<time>
+     *
+     * See link for the full specifics on formats.
+     * @link http://en.wikipedia.org/wiki/ISO_8601#Durations
+     *
+     * Note: Decimal fractions are currently not supported.
+     *
+     * @param string $isoString A string containing a duration in any ISO-8601 compatible duration format.
+     *
+     * @return Duration The Duration constructed from the ISO compatible string.
+     */
+    public static function fromIsoString($isoString)
+    {
+        // TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
+
+        $duration = Iso8601::parseDuration($isoString);
+
+        $seconds = Calendar::approximateTotalSeconds(
+            $duration['years'],
+            $duration['months'],
+            0,
+            $duration['days'],
+            $duration['hours'],
+            $duration['minutes'],
+            $duration['seconds']
+        );
 
         return new self($seconds);
     }
@@ -355,11 +393,41 @@ class Duration implements TimeSpanInterface
     }
 
     /**
-     * @return string
+     * @return string A string representing this object in an ISO compatible format (PnYnMnDTnHnMnS).
+     */
+    public function isoString()
+    {
+        // $this->typeCheck->isoString(func_get_args());
+
+        $dateParts = '';
+        if ($this->totalDays() !== 0) {
+            $dateParts .= $this->totalDays() . 'D';
+        }
+
+        $timeParts = '';
+        if ($this->hours() !== 0) {
+            $timeParts .= $this->hours() . 'H';
+        }
+        if ($this->minutes() !== 0) {
+            $timeParts .= $this->minutes() . 'M';
+        }
+        if ($this->seconds() !== 0) {
+            $timeParts .= $this->seconds() . 'S';
+        }
+
+        if (strlen($timeParts) > 0) {
+            $timeParts = 'T' . $timeParts;
+        }
+
+        return 'P' . $dateParts . $timeParts;
+    }
+
+    /**
+     * @return string A string representing this object in an ISO compatible format (PnDTnHnMnS).
      */
     public function __toString()
     {
-        return $this->string();
+        return $this->isoString();
     }
 
     private $typeCheck;

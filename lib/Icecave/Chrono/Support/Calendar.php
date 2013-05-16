@@ -4,7 +4,7 @@ namespace Icecave\Chrono\Support;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 use InvalidArgumentException;
 
-class Calendar
+abstract class Calendar
 {
     /**
      * @param integer $year
@@ -308,5 +308,36 @@ class Calendar
         );
 
         return intval(gmdate('o', $timestamp));
+    }
+
+    /**
+     * @param integer $years   The years in the period.
+     * @param integer $months  The months in the period.
+     * @param integer $weeks   The weeks in the period.
+     * @param integer $days    The days in the period.
+     * @param integer $hours   The hours in the period.
+     * @param integer $minutes The minutes in the period.
+     * @param integer $seconds The seconds in the period.
+     *
+     * @return integer The approximate total seconds in the period.
+     */
+    public static function approximateTotalSeconds($years = 0, $months = 0, $weeks = 0, $days = 0, $hours = 0, $minutes = 0, $seconds = 0)
+    {
+        // TypeCheck::get(__CLASS__)->approximateTotalSeconds(func_get_args());
+
+        $days += $weeks * 7;
+
+        $seconds  = $seconds;
+        $seconds += $minutes * 60;
+        $seconds += $hours * 3600;
+
+        // avg days in year = 365.25
+        // average seconds in year = 365.25 * 86,400 = 31,557,600
+        // average seconds in month = 31,557,600 / 12 = 2,629,800
+        $seconds += $days * 86400;
+        $seconds += $months * 2629800;
+        $seconds += $years * 31557600;
+
+        return $seconds;
     }
 }
