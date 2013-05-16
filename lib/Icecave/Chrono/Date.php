@@ -4,10 +4,10 @@ namespace Icecave\Chrono;
 use DateTime as NativeDateTime;
 use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormatterInterface;
+use Icecave\Chrono\Support\Iso8601;
 use Icecave\Chrono\Support\Normalizer;
 use Icecave\Chrono\TimeSpan\TimeSpanInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
-use InvalidArgumentException;
 
 /**
  * Represents a date.
@@ -43,32 +43,36 @@ class Date extends AbstractTimePoint
     }
 
     /**
-     * @param string $isoDate A string containing a date in any ISO-8601 compatible format.
+     * Standard date formats:
+     *   YYYY-MM-DD
+     *   YYYYMMDD
+     *
+     * @link http://en.wikipedia.org/wiki/ISO_8601#Calendar_dates
+     *
+     * Note: Formats YYYY-MM and YYYYMM for reduced precision are currently not supported.
+     *
+     * @param string $isoString A string containing a date in any ISO-8601 compatible date format.
      *
      * @return Date The Date constructed from the ISO compatible string and optional time zone.
      */
-    public static function fromIsoString($isoDate)
+    public static function fromIsoString($isoString)
     {
         TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
 
-        $matches = array();
-        if (preg_match(self::FORMAT_EXTENDED, $isoDate, $matches) === 1 ||
-            preg_match(self::FORMAT_BASIC, $isoDate, $matches) === 1) {
+        $date = Iso8601::parseDate($isoString);
 
-            $year = intval($matches[1]);
-            $month = intval($matches[2]);
-            $day = intval($matches[3]);
-
-            if (count($matches) > 4 && strlen($matches[4]) > 0) {
-                $timeZone = TimeZone::fromIsoString($matches[4]);
-            } else {
-                $timeZone = null;
-            }
+        if ($date['offset'] !== null) {
+            $timeZone = new TimeZone($date['offset']);
         } else {
-            throw new InvalidArgumentException('Invalid ISO date: "' . $isoDate . '".');
+            $timeZone = null;
         }
 
-        return new self($year, $month, $day, $timeZone);
+        return new self(
+            $date['year'],
+            $date['month'],
+            $date['day'],
+            $timeZone
+        );
     }
 
     /**
@@ -370,9 +374,6 @@ class Date extends AbstractTimePoint
     {
         return $this->isoString();
     }
-
-    const FORMAT_BASIC    = '/^(\d\d\d\d)(\d\d)(\d\d)(.*)$/';
-    const FORMAT_EXTENDED = '/^(\d\d\d\d)-(\d\d)-(\d\d)(.*)$/';
 
     private $typeCheck;
     private $year;

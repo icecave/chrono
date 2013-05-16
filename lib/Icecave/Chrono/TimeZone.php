@@ -4,8 +4,8 @@ namespace Icecave\Chrono;
 use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Format\FormattableInterface;
+use Icecave\Chrono\Support\Iso8601;
 use Icecave\Chrono\TypeCheck\TypeCheck;
-use InvalidArgumentException;
 
 class TimeZone implements Iso8601Interface, FormattableInterface
 {
@@ -23,30 +23,24 @@ class TimeZone implements Iso8601Interface, FormattableInterface
     }
 
     /**
-     * @param string  $isoTimeZone A string containing a time zone any ISO-8601 compatible format, with the exception of allowing negative zero's.
-     * @param boolean $isDst       True if the timezone is currently honouring daylight saving time; otheriwse, false.
+     * Standard time zone formats:
+     *   Z
+     *   +/-hh
+     *   +/-hhmm
+     *   +/-hh:mm
+     *
+     * @link http://en.wikipedia.org/wiki/ISO_8601#Time_zone_designators
+     *
+     * @param string  $isoString A string containing a time zone in any ISO-8601 compatible time zone format, with the exception of allowing negative zero's.
+     * @param boolean $isDst     True if the time zone is currently honouring daylight saving time; otheriwse, false.
      *
      * @return TimeZone The TimeZone constructed from the ISO compatible string.
      */
-    public static function fromIsoString($isoTimeZone, $isDst = false)
+    public static function fromIsoString($isoString, $isDst = false)
     {
         TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
 
-        $matches = array();
-        if (preg_match(self::FORMAT_UTC, $isoTimeZone, $matches) === 1) {
-            $offset = 0;
-        } elseif (preg_match(self::FORMAT_OFFSET, $isoTimeZone, $matches) === 1) {
-            $sign = trim($matches[1]);
-            $hour = intval($matches[2]);
-            $minute = count($matches) > 4 ? intval($matches[4]) : 0;
-
-            $offset = intval(($hour * 60 * 60) + ($minute * 60));
-            if ($sign === '-') {
-                $offset = -$offset;
-            }
-        } else {
-            throw new InvalidArgumentException('Invalid ISO time zone: "' . $isoTimeZone . '".');
-        }
+        $offset = Iso8601::parseTimeZone($isoString);
 
         return new self($offset, $isDst);
     }
@@ -187,7 +181,7 @@ class TimeZone implements Iso8601Interface, FormattableInterface
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible format ([+-]HH:MM).
+     * @return string A string representing this object in an ISO compatible format ([+-]hh:mm).
      */
     public function isoString()
     {
@@ -206,15 +200,12 @@ class TimeZone implements Iso8601Interface, FormattableInterface
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible format ([+-]HH:MM).
+     * @return string A string representing this object in an ISO compatible format ([+-]hh:mm).
      */
     public function __toString()
     {
         return $this->isoString();
     }
-
-    const FORMAT_UTC    = '/^(Z)$/';
-    const FORMAT_OFFSET = '/^([+-])(\d\d)(:?(\d\d))?$/';
 
     private $typeCheck;
     private $timeZone;

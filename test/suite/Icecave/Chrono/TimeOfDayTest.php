@@ -270,7 +270,7 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
         $hours = 60 * 60;
         $minutes = 60;
 
-        $timeZoneUTC = new TimeZone(0);
+        $timeZoneUTC     = new TimeZone(0);
         $timeZonePos1100 = new TimeZone(11 * $hours);
         $timeZonePos1122 = new TimeZone((11 * $hours) + (22 * $minutes));
         $timeZoneNeg1100 = new TimeZone(-(11 * $hours));
@@ -293,7 +293,7 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider invalidIsoStrings
      */
-    public function testFromIsoStringWithInvalidIsoDateTime($isoString, $expected)
+    public function testFromIsoStringWithInvalidIsoTime($isoString, $expected)
     {
         $this->setExpectedException('InvalidArgumentException', $expected);
         TimeOfDay::fromIsoString($isoString);

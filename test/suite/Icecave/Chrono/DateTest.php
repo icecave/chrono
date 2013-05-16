@@ -311,7 +311,7 @@ class DateTest extends PHPUnit_Framework_TestCase
         $hours = 60 * 60;
         $minutes = 60;
 
-        $timeZoneUTC = new TimeZone(0);
+        $timeZoneUTC     = new TimeZone(0);
         $timeZonePos1100 = new TimeZone(11 * $hours);
         $timeZonePos1122 = new TimeZone((11 * $hours) + (22 * $minutes));
         $timeZoneNeg1100 = new TimeZone(-(11 * $hours));

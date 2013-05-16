@@ -323,7 +323,7 @@ abstract class Calendar
      */
     public static function approximateTotalSeconds($years = 0, $months = 0, $weeks = 0, $days = 0, $hours = 0, $minutes = 0, $seconds = 0)
     {
-        // TypeCheck::get(__CLASS__)->approximateTotalSeconds(func_get_args());
+        TypeCheck::get(__CLASS__)->approximateTotalSeconds(func_get_args());
 
         $days += $weeks * 7;
 

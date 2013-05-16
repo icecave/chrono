@@ -6,6 +6,289 @@ use PHPUnit_Framework_TestCase;
 class Iso8601Test extends PHPUnit_Framework_TestCase
 {
     /**
+     * @dataProvider validIsoDateStrings
+     */
+    public function testParseDate($isoString, $expected)
+    {
+        $result = Iso8601::parseDate($isoString);
+        $this->assertSame($expected, $result);
+    }
+
+    public function validIsoDateStrings()
+    {
+        return array(
+            'Basic'    => array('20130201',   array('year' => 2013, 'month' => 2, 'day' => 1, 'offset' => null)),
+            'Extended' => array('2013-02-01', array('year' => 2013, 'month' => 2, 'day' => 1, 'offset' => null)),
+        );
+    }
+
+    /**
+     * @dataProvider validIsoDateStringsWithTimeZone
+     */
+    public function testParseDateWithTimeZone($isoString, $expected)
+    {
+        $result = Iso8601::parseDate($isoString);
+        $this->assertSame($expected, $result);
+    }
+
+    public function validIsoDateStringsWithTimeZone()
+    {
+        $hours = 60 * 60;
+        $minutes = 60;
+
+        $offset1100 = 11 * $hours;
+        $offset1122 = (11 * $hours) + (22 * $minutes);
+
+        return array(
+            'Basic UTC'               => array('20130201Z',        array('year' => 2013, 'month' => 2, 'day' => 1, 'offset' =>  0)),
+            'Basic positive short'    => array('20130201+11',      array('year' => 2013, 'month' => 2, 'day' => 1, 'offset' =>  $offset1100)),
+            'Basic positive long'     => array('20130201+1122',    array('year' => 2013, 'month' => 2, 'day' => 1, 'offset' =>  $offset1122)),
+            'Basic negative short'    => array('20130201-11',      array('year' => 2013, 'month' => 2, 'day' => 1, 'offset' => -$offset1100)),
+            'Basic negative long'     => array('20130201-1122',    array('year' => 2013, 'month' => 2, 'day' => 1, 'offset' => -$offset1122)),
+            'Extended UTC'            => array('2013-02-01Z',      array('year' => 2013, 'month' => 2, 'day' => 1, 'offset' =>  0)),
+            'Extended positive short' => array('2013-02-01+11',    array('year' => 2013, 'month' => 2, 'day' => 1, 'offset' =>  $offset1100)),
+            'Extended positive long'  => array('2013-02-01+11:22', array('year' => 2013, 'month' => 2, 'day' => 1, 'offset' =>  $offset1122)),
+            'Extended negative short' => array('2013-02-01-11',    array('year' => 2013, 'month' => 2, 'day' => 1, 'offset' => -$offset1100)),
+            'Extended negative long'  => array('2013-02-01-11:22', array('year' => 2013, 'month' => 2, 'day' => 1, 'offset' => -$offset1122)),
+        );
+    }
+
+    /**
+     * @dataProvider invalidIsoDateStrings
+     */
+    public function testParseDateWithInvalidIsoDate($isoString, $expected)
+    {
+        $this->setExpectedException('InvalidArgumentException', $expected);
+        Iso8601::parseDate($isoString);
+    }
+
+    public function invalidIsoDateStrings()
+    {
+        return array(
+            'Not enough digits'                  => array('1',            'Invalid ISO date: "1"'),
+            'Not enough digits'                  => array('000000',       'Invalid ISO date: "00-00-00"'),
+            'Not enough digits'                  => array('112233',       'Invalid ISO date: "11-22-33"'),
+            'Not enough digits'                  => array('00-00-00',     'Invalid ISO date: "00-00-00"'),
+            'Not enough digits'                  => array('11-22-33',     'Invalid ISO date: "11-22-33"'),
+            'Too many digits, invalid time zone' => array('111122334',    'Invalid ISO date: "4"'),
+            'Too many digits, invalid time zone' => array('1111-22-33-4', 'Invalid ISO time zone: "-4"'),
+            'Missing month and day'              => array('2013',         'Invalid ISO date: "2013"'),
+            'Missing day'                        => array('201302',       'Invalid ISO date: "201302"'),
+            'Missing day'                        => array('2013-02',      'Invalid ISO date: "2013-02"'),
+            'Unexpected prefix'                  => array('-1111-22-33',  'Invalid ISO date: "-1111-22-33"'),
+            'Invalid format'                     => array('00-00-0000',   'Invalid ISO date: ""'),
+            'Invalid format'                     => array('11-22-3333',   'Invalid ISO date: "11-22-3333"'),
+            'Invalid letters'                    => array('AAAABBCC',     'Invalid ISO date: "AAAABBCC"'),
+            'Invalid letters'                    => array('AABBCC',       'Invalid ISO date: "AABBCC"'),
+            'Invalid letters'                    => array('AAAA-BB-CC',   'Invalid ISO date: "AAAA-BB-CC"'),
+            'Invalid letters'                    => array('AA-BB-CC',     'Invalid ISO date: "AA-BB-CC"'),
+            'Invalid letters'                    => array('AA-BB-CCCC',   'Invalid ISO date: "AA-BB-CCCC"'),
+            'Invalid letters'                    => array('AAAA-01-01',   'Invalid ISO date: "AAAA-01-01"'),
+            'Invalid letters'                    => array('2013-BB-01',   'Invalid ISO date: "2013-BB-01"'),
+            'Invalid letters'                    => array('2013-01-CC',   'Invalid ISO date: "2013-01-CC"'),
+            'Invalid separator'                  => array('2013:02:01',   'Invalid ISO date: "2013:02:01"'),
+            'Missing date'                       => array('+10',          'Invalid ISO date: "+10"'),
+            'Missing date'                       => array('+10:20',       'Invalid ISO date: "+10:20"'),
+        );
+    }
+
+    /**
+     * @dataProvider validIsoTimeStrings
+     */
+    public function testParseTime($isoString, $expected)
+    {
+        $result = Iso8601::parseTime($isoString);
+        $this->assertSame($expected, $result);
+    }
+
+    public function validIsoTimeStrings()
+    {
+        return array(
+            'Basic'    => array('102030',   array('hour' => 10, 'minute' => 20, 'second' => 30, 'offset' => null)),
+            'Extended' => array('10:20:30', array('hour' => 10, 'minute' => 20, 'second' => 30, 'offset' => null)),
+        );
+    }
+
+    /**
+     * @dataProvider validIsoTimeStringsWithTimeZone
+     */
+    public function testParseTimeWithTimeZone($isoString, $expected)
+    {
+        $result = Iso8601::parseTime($isoString);
+        $this->assertSame($expected, $result);
+    }
+
+    public function validIsoTimeStringsWithTimeZone()
+    {
+        $hours = 60 * 60;
+        $minutes = 60;
+
+        $offset1100 = 11 * $hours;
+        $offset1122 = (11 * $hours) + (22 * $minutes);
+
+        return array(
+            'Basic, UTC'               => array('102030Z',        array('hour' => 10, 'minute' => 20, 'second' => 30, 'offset' =>  0)),
+            'Basic, positive short'    => array('102030+11',      array('hour' => 10, 'minute' => 20, 'second' => 30, 'offset' =>  $offset1100)),
+            'Basic, positive long'     => array('102030+1122',    array('hour' => 10, 'minute' => 20, 'second' => 30, 'offset' =>  $offset1122)),
+            'Basic, negative short'    => array('102030-11',      array('hour' => 10, 'minute' => 20, 'second' => 30, 'offset' => -$offset1100)),
+            'Basic, negative long'     => array('102030-1122',    array('hour' => 10, 'minute' => 20, 'second' => 30, 'offset' => -$offset1122)),
+            'Extended, UTC'            => array('10:20:30Z',      array('hour' => 10, 'minute' => 20, 'second' => 30, 'offset' =>  0)),
+            'Extended, positive short' => array('10:20:30+11',    array('hour' => 10, 'minute' => 20, 'second' => 30, 'offset' =>  $offset1100)),
+            'Extended, positive long'  => array('10:20:30+11:22', array('hour' => 10, 'minute' => 20, 'second' => 30, 'offset' =>  $offset1122)),
+            'Extended, negative short' => array('10:20:30-11',    array('hour' => 10, 'minute' => 20, 'second' => 30, 'offset' => -$offset1100)),
+            'Extended, negative long'  => array('10:20:30-11:22', array('hour' => 10, 'minute' => 20, 'second' => 30, 'offset' => -$offset1122)),
+        );
+    }
+
+    /**
+     * @dataProvider invalidIsoTimeStrings
+     */
+    public function testParseTimeWithInvalidIsoTime($isoString, $expected)
+    {
+        $this->setExpectedException('InvalidArgumentException', $expected);
+        Iso8601::parseTime($isoString);
+    }
+
+    public function invalidIsoTimeStrings()
+    {
+        return array(
+            'Not enough digits'                  => array('1',          'Invalid ISO time: "1"'),
+            'Not enough digits'                  => array('00000',      'Invalid ISO time: "00:00:0"'),
+            'Not enough digits'                  => array('11223',      'Invalid ISO time: "00:00:0"'),
+            'Not enough digits'                  => array('00:00:0',    'Invalid ISO time: "00:00:0"'),
+            'Not enough digits'                  => array('11:22:3',    'Invalid ISO time: "11:22:3"'),
+            'Too many digits, invalid time zone' => array('1122334',    'Invalid ISO time: "4"'),
+            'Too many digits, invalid time zone' => array('11:22:33:4', 'Invalid ISO time zone: ":4"'),
+            'Missing minute and second'          => array('11',         'Invalid ISO time: "11"'),
+            'Missing second'                     => array('1122',       'Invalid ISO time: "11:22"'),
+            'Missing second'                     => array('11:22',      'Invalid ISO time: "11:22"'),
+            'Unexpected prefix'                  => array('-10:20:30',  'Invalid ISO time: "-10:20:30"'),
+            'Invalid format'                     => array('11:',        'Invalid ISO time: "11:"'),
+            'Invalid format'                     => array('11:22:',     'Invalid ISO time: "11:22:"'),
+            'Invalid letters'                    => array('AABBCC',     'Invalid ISO time: "AABBCC"'),
+            'Invalid letters'                    => array('AA:BB:CC',   'Invalid ISO time: "AA:BB:CC"'),
+            'Invalid letters'                    => array('AA:22:33',   'Invalid ISO time: "AA:22:33"'),
+            'Invalid letters'                    => array('11:BB:33',   'Invalid ISO time: "11:BB:33"'),
+            'Invalid letters'                    => array('11:22:CC',   'Invalid ISO time: "11:22:CC"'),
+            'Invalid separator'                  => array('11-22-33',   'Invalid ISO time: "11-22-33"'),
+            'Missing time'                       => array('+10',        'Invalid ISO time: "+10"'),
+            'Missing time'                       => array('+10:20',     'Invalid ISO time: "+10:20"'),
+        );
+    }
+
+    /**
+     * @dataProvider validIsoDateTimeStrings
+     */
+    public function testParseDateTime($isoString, $expected)
+    {
+        $result = Iso8601::parseDateTime($isoString);
+        $this->assertSame($expected, $result);
+    }
+
+    public function validIsoDateTimeStrings()
+    {
+        return array(
+            'Basic with T'       => array('20130201T102030',     array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' => null)),
+            'Basic without T'    => array('20130201 102030',     array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' => null)),
+            'Extended with T'    => array('2013-02-01T10:20:30', array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' => null)),
+            'Extended without T' => array('2013-02-01 10:20:30', array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' => null)),
+        );
+    }
+
+    /**
+     * @dataProvider validIsoDateTimeStringsWithTimeZone
+     */
+    public function testParseDateTimeWithTimeZone($isoString, $expected)
+    {
+        $result = Iso8601::parseDateTime($isoString);
+        $this->assertSame($expected, $result);
+    }
+
+    public function validIsoDateTimeStringsWithTimeZone()
+    {
+        $hours = 60 * 60;
+        $minutes = 60;
+
+        $offset1100 = 11 * $hours;
+        $offset1122 = (11 * $hours) + (22 * $minutes);
+
+        return array(
+            'Basic with T, UTC'                  => array('20130201T102030Z',          array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' =>  0)),
+            'Basic with T, positive short'       => array('20130201T102030+11',        array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' =>  $offset1100)),
+            'Basic with T, positive long'        => array('20130201T102030+1122',      array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' =>  $offset1122)),
+            'Basic with T, negative short'       => array('20130201T102030-11',        array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' => -$offset1100)),
+            'Basic with T, negative long'        => array('20130201T102030-1122',      array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' => -$offset1122)),
+            'Extended with T, UTC'               => array('2013-02-01T10:20:30Z',      array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' =>  0)),
+            'Extended with T, positive short'    => array('2013-02-01T10:20:30+11',    array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' =>  $offset1100)),
+            'Extended with T, positive long'     => array('2013-02-01T10:20:30+11:22', array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' =>  $offset1122)),
+            'Extended with T, negative short'    => array('2013-02-01T10:20:30-11',    array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' => -$offset1100)),
+            'Extended with T, negative long'     => array('2013-02-01T10:20:30-11:22', array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' => -$offset1122)),
+            'Basic without T, UTC'               => array('20130201 102030Z',          array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' =>  0)),
+            'Basic without T, positive short'    => array('20130201 102030+11',        array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' =>  $offset1100)),
+            'Basic without T, positive long'     => array('20130201 102030+1122',      array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' =>  $offset1122)),
+            'Basic without T, negative short'    => array('20130201 102030-11',        array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' => -$offset1100)),
+            'Basic without T, negative long'     => array('20130201 102030-1122',      array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' => -$offset1122)),
+            'Extended without T, UTC'            => array('2013-02-01 10:20:30Z',      array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' =>  0)),
+            'Extended without T, positive short' => array('2013-02-01 10:20:30+11',    array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' =>  $offset1100)),
+            'Extended without T, positive long'  => array('2013-02-01 10:20:30+11:22', array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' =>  $offset1122)),
+            'Extended without T, negative short' => array('2013-02-01 10:20:30-11',    array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' => -$offset1100)),
+            'Extended without T, negative long'  => array('2013-02-01 10:20:30-11:22', array('year' => 2013, 'month' => 2, 'day' => 1, 'hour' => 10, 'minute' => 20, 'second' => 30, 'offset' => -$offset1122)),
+        );
+    }
+
+    /**
+     * @dataProvider invalidIsoStrings
+     */
+    public function testFromIsoStringWithInvalidIsoDateTime($isoString, $expected)
+    {
+        $this->setExpectedException('InvalidArgumentException', $expected);
+        Iso8601::parseDateTime($isoString);
+    }
+
+    public function invalidIsoStrings()
+    {
+        return array(
+            'Not enough digits'                  => array('1',                     'Invalid ISO date time: "1"'),
+            'Not enough digits'                  => array('000000T000000',         'Invalid ISO date time: "00-00-00T00:00:00"'),
+            'Not enough digits'                  => array('112233T445566',         'Invalid ISO date time: "11-22-33T00:00:00"'),
+            'Not enough digits'                  => array('00-00-00 00:00:00',     'Invalid ISO date time: "00-00-00 00:00:00"'),
+            'Not enough digits'                  => array('11-22-33 11:22:33',     'Invalid ISO date time: "11-22-33 11:22:33"'),
+            'Too many digits, invalid time zone' => array('11112233T4455667',      'Invalid ISO date time: "7"'),
+            'Too many digits, invalid time zone' => array('1111-22-33T11:22:33:4', 'Invalid ISO time zone: ":4"'),
+            'Missing month and day'              => array('2013',                  'Invalid ISO date time: "2013"'),
+            'Missing day'                        => array('201302',                'Invalid ISO date time: "201302"'),
+            'Missing day'                        => array('2013-02',               'Invalid ISO date time: "2013-02"'),
+            'Missing hour, minute and second'    => array('2013-02-01T',           'Invalid ISO date time: "2013-02-01T"'),
+            'Missing minute'                     => array('20130201 10',           'Invalid ISO date time: "20130201 10"'),
+            'Missing minute'                     => array('2013-02-01T10',         'Invalid ISO date time: "2013-02-01T10"'),
+            'Missing second'                     => array('20130201 1020',         'Invalid ISO date time: "20130201 1020"'),
+            'Missing second'                     => array('2013-02-01T10:20',      'Invalid ISO date time: "2013-02-01T10:20"'),
+            'Unexpected prefix'                  => array('-1111-22-33 10:20:30',  'Invalid ISO date time: "-1111-22-33 10:20:30"'),
+            'Invalid format'                     => array('00-00-0000 00:00:00',   'Invalid ISO date time: ""'),
+            'Invalid format'                     => array('11-22-3333 00:00:00',   'Invalid ISO date time: "11-22-3333 00:00:00"'),
+            'Invalid letters'                    => array('AAAABBCC DDEEFF',       'Invalid ISO date time: "AAAABBCC DDEEFF"'),
+            'Invalid letters'                    => array('AAAABBCCTDDEEFF',       'Invalid ISO date time: "AAAABBCCTDDEEFF"'),
+            'Invalid letters'                    => array('AABBCC DDEEFF',         'Invalid ISO date time: "AABBCC DDEEFF"'),
+            'Invalid letters'                    => array('AAAA-BB-CC',            'Invalid ISO date time: "AAAA-BB-CC"'),
+            'Invalid letters'                    => array('AA-BB-CCTDD:EE:FF',     'Invalid ISO date time: "AA-BB-CCTDD:EE:FF"'),
+            'Invalid letters'                    => array('AA-BB-CCCC DD:EE:FF',   'Invalid ISO date time: "AA-BB-CCCC DD:EE:FF"'),
+            'Invalid letters'                    => array('AAAA-01-01 10:20:30',   'Invalid ISO date time: "AAAA-01-01 10:20:30"'),
+            'Invalid letters'                    => array('2013-BB-01 10:20:30',   'Invalid ISO date time: "2013-BB-01 10:20:30"'),
+            'Invalid letters'                    => array('2013-01-CC 10:20:30',   'Invalid ISO date time: "2013-01-CC 10:20:30"'),
+            'Invalid letters'                    => array('2013-01-01 DD:20:30',   'Invalid ISO date time: "2013-01-01 DD:20:30"'),
+            'Invalid letters'                    => array('2013-01-01 10:EE:30',   'Invalid ISO date time: "2013-01-01 10:EE:30"'),
+            'Invalid letters'                    => array('2013-01-01 10:20:FF',   'Invalid ISO date time: "2013-01-01 10:20:FF"'),
+            'Invalid separator'                  => array('2013:02:01 10-20-30',   'Invalid ISO date time: "2013:02:01 10-20-30"'),
+            'Missing date'                       => array('10:20:30+10',           'Invalid ISO date time: "10:20:30+10"'),
+            'Missing date'                       => array('10:20:30+10:20',        'Invalid ISO date time: "10:20:30+10:20"'),
+            'Missing time'                       => array('2013-02-01+10',         'Invalid ISO date time: "2013-02-01+10"'),
+            'Missing time'                       => array('2013-02-01+10:20',      'Invalid ISO date time: "2013-02-01+10:20"'),
+            'Missing date and time'              => array('+10',                   'Invalid ISO date time: "+10"'),
+            'Missing date and time'              => array('+10:20',                'Invalid ISO date time: "+10:20"'),
+        );
+    }
+
+    /**
      * @dataProvider validIsoDurationStrings
      */
     public function testParseDuration($isoString, $expected)
@@ -113,55 +396,55 @@ class Iso8601Test extends PHPUnit_Framework_TestCase
     public function testParseDurationWithInvalidIsoString($isoString, $expected)
     {
         $this->setExpectedException('InvalidArgumentException', $expected);
-        $result = Iso8601::parseDuration($isoString);
+        Iso8601::parseDuration($isoString);
     }
 
     public function invalidIsoDurationStrings()
     {
         return array(
             // Duration Format - Empty/Zero
-            'Missing P'                                 => array('',                        'Invalid ISO string format: "".'),
-            'Missing P has digit'                       => array('2',                       'Invalid ISO string format: "2".'),
-            'Missing P has digit designator'            => array('D',                       'Invalid ISO string format: "D".'),
-            'Missing P has digit and designator'        => array('2D',                      'Invalid ISO string format: "2D".'),
-            'Missing P has digit and designator dupe'   => array('2D2D',                    'Invalid ISO string format: "2D2D".'),
-            'Missing P has spaces'                      => array(' ',                       'Invalid ISO string format: " ".'),
-            'P with space prefix'                       => array(' P',                      'Invalid ISO string format: " P".'),
-            'P with space postfix'                      => array('P ',                      'Invalid ISO string format: "P ".'),
-            'P with space pre/post fix'                 => array(' P ',                     'Invalid ISO string format: " P ".'),
+            'Missing P'                                 => array('',                        'Invalid ISO duration format: "".'),
+            'Missing P has digit'                       => array('2',                       'Invalid ISO duration format: "2".'),
+            'Missing P has digit designator'            => array('D',                       'Invalid ISO duration format: "D".'),
+            'Missing P has digit and designator'        => array('2D',                      'Invalid ISO duration format: "2D".'),
+            'Missing P has digit and designator dupe'   => array('2D2D',                    'Invalid ISO duration format: "2D2D".'),
+            'Missing P has spaces'                      => array(' ',                       'Invalid ISO duration format: " ".'),
+            'P with space prefix'                       => array(' P',                      'Invalid ISO duration format: " P".'),
+            'P with space postfix'                      => array('P ',                      'Invalid ISO duration format: "P ".'),
+            'P with space pre/post fix'                 => array(' P ',                     'Invalid ISO duration format: " P ".'),
 
             // Duration Format - Misc
-            'Missing period designator'                 => array('P2',                      'Invalid ISO string format: "P2".'),
-            'Duplicate period designator'               => array('P2Y2Y',                   'Invalid ISO string format: "P2Y2Y".'),
-            'Missing T before hours designator'         => array('P2H',                     'Invalid ISO string format: "P2H".'),
-            'Missing T before seconds designator'       => array('P2S',                     'Invalid ISO string format: "P2S".'),
-            'Invalid negative period'                   => array('P-2Y',                    'Invalid ISO string format: "P-2Y".'),
+            'Missing period designator'                 => array('P2',                      'Invalid ISO duration format: "P2".'),
+            'Duplicate period designator'               => array('P2Y2Y',                   'Invalid ISO duration format: "P2Y2Y".'),
+            'Missing T before hours designator'         => array('P2H',                     'Invalid ISO duration format: "P2H".'),
+            'Missing T before seconds designator'       => array('P2S',                     'Invalid ISO duration format: "P2S".'),
+            'Invalid negative period'                   => array('P-2Y',                    'Invalid ISO duration format: "P-2Y".'),
 
             // Date Time Format - Basic
-            'Date time basic missing P'                 => array('00010203T040506',         'Invalid ISO string format: "00010203T040506".'),
-            'Date time basic missing T'                 => array('P00010203 040506',        'Invalid ISO string format: "P00010203 040506".'),
-            'Date time basic missing P and T'           => array('00010203 040506',         'Invalid ISO string format: "00010203 040506".'),
-            'Date time basic space prefix'              => array(' P00010203T040506',       'Invalid ISO string format: " P00010203T040506".'),
-            'Date time basic space postfix'             => array('P00010203T040506 ',       'Invalid ISO string format: "P00010203T040506 ".'),
-            'Date time basic space pre/post fix'        => array(' P00010203T040506 ',      'Invalid ISO string format: " P00010203T040506 ".'),
-            'Date time basic months exceeds moduli'     => array('P00001300T000000',        'Invalid ISO string format: "P00001300T000000".'),
-            'Date time basic days exceeds moduli'       => array('P00000032T000000',        'Invalid ISO string format: "P00000032T000000".'),
-            'Date time basic hours exceeds moduli'      => array('P00000000T250000',        'Invalid ISO string format: "P00000000T250000".'),
-            'Date time basic minutes exceeds moduli'    => array('P00000000T006000',        'Invalid ISO string format: "P00000000T006000".'),
-            'Date time basic seconds exceeds moduli'    => array('P00000000T000060',        'Invalid ISO string format: "P00000000T000060".'),
+            'Date time basic missing P'                 => array('00010203T040506',         'Invalid ISO duration format: "00010203T040506".'),
+            'Date time basic missing T'                 => array('P00010203 040506',        'Invalid ISO duration format: "P00010203 040506".'),
+            'Date time basic missing P and T'           => array('00010203 040506',         'Invalid ISO duration format: "00010203 040506".'),
+            'Date time basic space prefix'              => array(' P00010203T040506',       'Invalid ISO duration format: " P00010203T040506".'),
+            'Date time basic space postfix'             => array('P00010203T040506 ',       'Invalid ISO duration format: "P00010203T040506 ".'),
+            'Date time basic space pre/post fix'        => array(' P00010203T040506 ',      'Invalid ISO duration format: " P00010203T040506 ".'),
+            'Date time basic months exceeds moduli'     => array('P00001300T000000',        'Invalid ISO duration format: "P00001300T000000".'),
+            'Date time basic days exceeds moduli'       => array('P00000032T000000',        'Invalid ISO duration format: "P00000032T000000".'),
+            'Date time basic hours exceeds moduli'      => array('P00000000T250000',        'Invalid ISO duration format: "P00000000T250000".'),
+            'Date time basic minutes exceeds moduli'    => array('P00000000T006000',        'Invalid ISO duration format: "P00000000T006000".'),
+            'Date time basic seconds exceeds moduli'    => array('P00000000T000060',        'Invalid ISO duration format: "P00000000T000060".'),
 
             // Date Time Format - Extended
-            'Date time extended missing P'              => array('0001-02-03T04:05:06',     'Invalid ISO string format: "0001-02-03T04:05:06".'),
-            'Date time extended missing T'              => array('P0001-02-03 04:05:06',    'Invalid ISO string format: "P0001-02-03 04:05:06".'),
-            'Date time extended missing P and T'        => array('0001-02-03 04:05:06',     'Invalid ISO string format: "0001-02-03 04:05:06".'),
-            'Date time extended space prefix'           => array(' P0001-02-03T04:05:06',   'Invalid ISO string format: " P0001-02-03T04:05:06".'),
-            'Date time extended space postfix'          => array('P0001-02-03T04:05:06 ',   'Invalid ISO string format: "P0001-02-03T04:05:06 ".'),
-            'Date time extended space pre/post fix'     => array(' P0001-02-03T04:05:06 ',  'Invalid ISO string format: " P0001-02-03T04:05:06 ".'),
-            'Date time extended months exceeds moduli'  => array('P0000-13-00T00:00:00',    'Invalid ISO string format: "P0000-13-00T00:00:00".'),
-            'Date time extended days exceeds moduli'    => array('P0000-00-32T00:00:00',    'Invalid ISO string format: "P0000-00-32T00:00:00".'),
-            'Date time extended hours exceeds moduli'   => array('P0000-00-00T25:00:00',    'Invalid ISO string format: "P0000-00-00T25:00:00".'),
-            'Date time extended minutes exceeds moduli' => array('P0000-00-00T00:60:00',    'Invalid ISO string format: "P0000-00-00T00:60:00".'),
-            'Date time extended seconds exceeds moduli' => array('P0000-00-00T00:00:60',    'Invalid ISO string format: "P0000-00-00T00:00:60".'),
+            'Date time extended missing P'              => array('0001-02-03T04:05:06',     'Invalid ISO duration format: "0001-02-03T04:05:06".'),
+            'Date time extended missing T'              => array('P0001-02-03 04:05:06',    'Invalid ISO duration format: "P0001-02-03 04:05:06".'),
+            'Date time extended missing P and T'        => array('0001-02-03 04:05:06',     'Invalid ISO duration format: "0001-02-03 04:05:06".'),
+            'Date time extended space prefix'           => array(' P0001-02-03T04:05:06',   'Invalid ISO duration format: " P0001-02-03T04:05:06".'),
+            'Date time extended space postfix'          => array('P0001-02-03T04:05:06 ',   'Invalid ISO duration format: "P0001-02-03T04:05:06 ".'),
+            'Date time extended space pre/post fix'     => array(' P0001-02-03T04:05:06 ',  'Invalid ISO duration format: " P0001-02-03T04:05:06 ".'),
+            'Date time extended months exceeds moduli'  => array('P0000-13-00T00:00:00',    'Invalid ISO duration format: "P0000-13-00T00:00:00".'),
+            'Date time extended days exceeds moduli'    => array('P0000-00-32T00:00:00',    'Invalid ISO duration format: "P0000-00-32T00:00:00".'),
+            'Date time extended hours exceeds moduli'   => array('P0000-00-00T25:00:00',    'Invalid ISO duration format: "P0000-00-00T25:00:00".'),
+            'Date time extended minutes exceeds moduli' => array('P0000-00-00T00:60:00',    'Invalid ISO duration format: "P0000-00-00T00:60:00".'),
+            'Date time extended seconds exceeds moduli' => array('P0000-00-00T00:00:60',    'Invalid ISO duration format: "P0000-00-00T00:00:60".'),
         );
     }
 }

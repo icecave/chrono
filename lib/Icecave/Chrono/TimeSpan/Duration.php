@@ -9,7 +9,6 @@ use Icecave\Chrono\Support\Calendar;
 use Icecave\Chrono\Support\Iso8601;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
-use InvalidArgumentException;
 
 /**
  * A duration represents a concrete amount of time.
@@ -64,7 +63,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface
      */
     public static function fromIsoString($isoString)
     {
-        // TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
+        TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
 
         $duration = Iso8601::parseDuration($isoString);
 
@@ -397,7 +396,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface
      */
     public function isoString()
     {
-        // $this->typeCheck->isoString(func_get_args());
+        $this->typeCheck->isoString(func_get_args());
 
         $dateParts = '';
         if ($this->totalDays() !== 0) {
