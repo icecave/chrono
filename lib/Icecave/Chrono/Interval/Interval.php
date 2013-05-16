@@ -18,7 +18,7 @@ class Interval extends AbstractInterval
     {
         $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
 
-        if ($start->compare($end) > 0) {
+        if ($start->isGreaterThan($end)) {
             throw new InvalidArgumentException('Start point must not be greater than end point.');
         }
 

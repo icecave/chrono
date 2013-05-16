@@ -186,7 +186,7 @@ class Date extends AbstractTimePoint
     {
         $this->typeCheck->toTimeZone(func_get_args());
 
-        if ($this->timeZone()->compare($timeZone) === 0) {
+        if ($this->timeZone()->isEqualTo($timeZone)) {
             return $this;
         }
 
