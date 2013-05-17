@@ -181,26 +181,17 @@ class TimeZone implements Iso8601Interface, FormattableInterface
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible format ([+-]hh:mm).
+     * @return string A string representing this object in an ISO compatible time zone format ([+-]hh:mm).
      */
     public function isoString()
     {
         $this->typeCheck->isoString(func_get_args());
 
-        $seconds = abs($this->offset);
-        $minutes = ($seconds % 3600) / 60;
-        $hours   = $seconds / 3600;
-
-        return sprintf(
-            '%s%02d:%02d',
-            $this->offset >= 0 ? '+' : '-',
-            $hours,
-            $minutes
-        );
+        return Iso8601::formatTimeZone($this->offset());
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible format ([+-]hh:mm).
+     * @return string A string representing this object in an ISO compatible time zone format ([+-]hh:mm).
      */
     public function __toString()
     {

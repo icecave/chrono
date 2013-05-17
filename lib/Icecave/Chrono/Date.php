@@ -353,14 +353,13 @@ class Date extends AbstractTimePoint
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible format (YYYY-MM-DD).
+     * @return string A string representing this object in an ISO compatible date format (YYYY-MM-DD).
      */
     public function isoString()
     {
         $this->typeCheck->isoString(func_get_args());
 
-        return sprintf(
-            '%04d-%02d-%02d',
+        return Iso8601::formatDate(
             $this->year(),
             $this->month(),
             $this->day()
@@ -368,7 +367,7 @@ class Date extends AbstractTimePoint
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible format (YYYY-MM-DD).
+     * @return string A string representing this object in an ISO compatible date format (YYYY-MM-DD).
      */
     public function __toString()
     {

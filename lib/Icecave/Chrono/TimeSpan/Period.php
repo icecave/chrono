@@ -383,43 +383,24 @@ class Period implements TimeSpanInterface, Iso8601Interface
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible format (PnYnMnDTnHnMnS).
+     * @return string A string representing this object in an ISO compatible duration format (PnYnMnDTnHnMnS).
      */
     public function isoString()
     {
         $this->typeCheck->isoString(func_get_args());
 
-        $dateParts = '';
-        if ($this->years() !== 0) {
-            $dateParts .= $this->years() . 'Y';
-        }
-        if ($this->months() !== 0) {
-            $dateParts .= $this->months() . 'M';
-        }
-        if ($this->days() !== 0) {
-            $dateParts .= $this->days() . 'D';
-        }
-
-        $timeParts = '';
-        if ($this->hours() !== 0) {
-            $timeParts .= $this->hours() . 'H';
-        }
-        if ($this->minutes() !== 0) {
-            $timeParts .= $this->minutes() . 'M';
-        }
-        if ($this->seconds() !== 0) {
-            $timeParts .= $this->seconds() . 'S';
-        }
-
-        if (strlen($timeParts) > 0) {
-            $timeParts = 'T' . $timeParts;
-        }
-
-        return 'P' . $dateParts . $timeParts;
+        return Iso8601::formatDuration(
+            $this->years(),
+            $this->months(),
+            $this->days(),
+            $this->hours(),
+            $this->minutes(),
+            $this->seconds()
+        );
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible format (PnYnMnDTnHnMnS).
+     * @return string A string representing this object in an ISO compatible duration format (PnYnMnDTnHnMnS).
      */
     public function __toString()
     {

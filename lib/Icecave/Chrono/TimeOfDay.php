@@ -332,23 +332,22 @@ class TimeOfDay implements TimeInterface
      }
 
     /**
-     * @return string A string representing this object in an ISO compatible format (hh:mm:ss[+-]hh:mm).
+     * @return string A string representing this object in an ISO compatible time format (hh:mm:ss[+-]hh:mm).
      */
     public function isoString()
     {
         $this->typeCheck->isoString(func_get_args());
 
-        return sprintf(
-            '%02d:%02d:%02d%s',
+        return Iso8601::formatTime(
             $this->hours(),
             $this->minutes(),
             $this->seconds(),
-            $this->timeZone()
+            $this->timeZone()->isoString()
         );
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible format (hh:mm:ss[+-]hh:mm).
+     * @return string A string representing this object in an ISO compatible time format (hh:mm:ss[+-]hh:mm).
      */
     public function __toString()
     {

@@ -370,26 +370,25 @@ class DateTime extends AbstractTimePoint implements TimeInterface
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible format (YYYY-MM-DDThh:mm:ss[+-]hh:mm).
+     * @return string A string representing this object in an ISO compatible date time format (YYYY-MM-DDThh:mm:ss[+-]hh:mm).
      */
     public function isoString()
     {
         $this->typeCheck->isoString(func_get_args());
 
-        return sprintf(
-            '%04d-%02d-%02dT%02d:%02d:%02d%s',
+        return Iso8601::formatDateTime(
             $this->year(),
             $this->month(),
             $this->day(),
             $this->hours(),
             $this->minutes(),
             $this->seconds(),
-            $this->timeZone()
+            $this->timeZone()->isoString()
         );
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible format (YYYY-MM-DDThh:mm:ss[+-]hh:mm).
+     * @return string A string representing this object in an ISO compatible date time format (YYYY-MM-DDThh:mm:ss[+-]hh:mm).
      */
     public function __toString()
     {

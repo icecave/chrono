@@ -5,6 +5,84 @@ use PHPUnit_Framework_TestCase;
 
 class Iso8601Test extends PHPUnit_Framework_TestCase
 {
+    public function testFormatDate()
+    {
+        $this->assertSame('2013-02-01', Iso8601::formatDate(2013,  2,  1));
+        $this->assertSame('2013-12-25', Iso8601::formatDate(2013, 12, 25));
+    }
+
+    public function testFormatTime()
+    {
+        $this->assertSame('01:02:03+00:00', Iso8601::formatTime( 1,  2,  3, '+00:00'));
+        $this->assertSame('11:22:33+00:00', Iso8601::formatTime(11, 22, 33, '+00:00'));
+    }
+
+    public function testFormatDateTime()
+    {
+        $this->assertSame('2013-02-01T01:02:03+00:00', Iso8601::formatDateTime(2013,  2,  1,  1,  2,  3, '+00:00'));
+        $this->assertSame('2013-12-25T11:22:33+00:00', Iso8601::formatDateTime(2013, 12, 25, 11, 22, 33, '+00:00'));
+    }
+
+    public function testFormatTimeZone()
+    {
+        $this->assertSame('+00:00', Iso8601::formatTimeZone(    0));
+        $this->assertSame('+00:30', Iso8601::formatTimeZone( 1800));
+        $this->assertSame('+10:00', Iso8601::formatTimeZone(36000));
+        $this->assertSame('+10:30', Iso8601::formatTimeZone(37800));
+
+        $this->assertSame('+00:00', Iso8601::formatTimeZone(    0, false));
+        $this->assertSame('+00:30', Iso8601::formatTimeZone( 1800, false));
+        $this->assertSame('+10:00', Iso8601::formatTimeZone(36000, false));
+        $this->assertSame('+10:30', Iso8601::formatTimeZone(37800, false));
+
+        $this->assertSame('Z',      Iso8601::formatTimeZone(    0, true));
+        $this->assertSame('+00:30', Iso8601::formatTimeZone( 1800, true));
+        $this->assertSame('+10:00', Iso8601::formatTimeZone(36000, true));
+        $this->assertSame('+10:30', Iso8601::formatTimeZone(37800, true));
+
+        $this->assertSame('+00:00', Iso8601::formatTimeZone(    -0));
+        $this->assertSame('-00:30', Iso8601::formatTimeZone( -1800));
+        $this->assertSame('-10:00', Iso8601::formatTimeZone(-36000));
+        $this->assertSame('-10:30', Iso8601::formatTimeZone(-37800));
+
+        $this->assertSame('+00:00', Iso8601::formatTimeZone(    -0, false));
+        $this->assertSame('-00:30', Iso8601::formatTimeZone( -1800, false));
+        $this->assertSame('-10:00', Iso8601::formatTimeZone(-36000, false));
+        $this->assertSame('-10:30', Iso8601::formatTimeZone(-37800, false));
+
+        $this->assertSame('Z',      Iso8601::formatTimeZone(    -0, true));
+        $this->assertSame('-00:30', Iso8601::formatTimeZone( -1800, true));
+        $this->assertSame('-10:00', Iso8601::formatTimeZone(-36000, true));
+        $this->assertSame('-10:30', Iso8601::formatTimeZone(-37800, true));
+    }
+
+    public function testFormatDuration()
+    {
+        $this->assertSame('P',                  Iso8601::formatDuration(0, 0, 0, 0, 0, 0));
+        $this->assertSame('P1Y2M3DT4H5M6S',     Iso8601::formatDuration(1, 2, 3, 4, 5, 6));
+
+        $this->assertSame('P1Y',                Iso8601::formatDuration(1, 0, 0, 0, 0, 0));
+        $this->assertSame('P1M',                Iso8601::formatDuration(0, 1, 0, 0, 0, 0));
+        $this->assertSame('P1D',                Iso8601::formatDuration(0, 0, 1, 0, 0, 0));
+        $this->assertSame('PT1H',               Iso8601::formatDuration(0, 0, 0, 1, 0, 0));
+        $this->assertSame('PT1M',               Iso8601::formatDuration(0, 0, 0, 0, 1, 0));
+        $this->assertSame('PT1S',               Iso8601::formatDuration(0, 0, 0, 0, 0, 1));
+
+        $this->assertSame('P1Y2M',              Iso8601::formatDuration(1, 2, 0, 0, 0, 0));
+        $this->assertSame('P1M2D',              Iso8601::formatDuration(0, 1, 2, 0, 0, 0));
+        $this->assertSame('P1DT2H',             Iso8601::formatDuration(0, 0, 1, 2, 0, 0));
+        $this->assertSame('PT1H2M',             Iso8601::formatDuration(0, 0, 0, 1, 2, 0));
+        $this->assertSame('PT1M2S',             Iso8601::formatDuration(0, 0, 0, 0, 1, 2));
+        $this->assertSame('PT2M1S',             Iso8601::formatDuration(0, 0, 0, 0, 2, 1));
+
+        $this->assertSame('P1Y2MT33S',          Iso8601::formatDuration(1, 2, 0, 0, 0, 33));
+        $this->assertSame('P1M2DT33S',          Iso8601::formatDuration(0, 1, 2, 0, 0, 33));
+        $this->assertSame('P1DT2H33S',          Iso8601::formatDuration(0, 0, 1, 2, 0, 33));
+        $this->assertSame('PT1H2M33S',          Iso8601::formatDuration(0, 0, 0, 1, 2, 33));
+        $this->assertSame('PT1M33S',            Iso8601::formatDuration(0, 0, 0, 0, 1, 33));
+        $this->assertSame('PT2M33S',            Iso8601::formatDuration(0, 0, 0, 0, 2, 33));
+    }
+
     /**
      * @dataProvider validIsoDateStrings
      */

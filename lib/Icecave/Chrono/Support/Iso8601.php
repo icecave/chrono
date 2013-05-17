@@ -5,11 +5,149 @@ use Icecave\Chrono\TypeCheck\TypeCheck;
 use InvalidArgumentException;
 
 /**
+ * ISO-8601 standard parsing and formatting functions.
+ *
  * See link for the full specifics on formats.
  * @link http://en.wikipedia.org/wiki/ISO_8601
  */
 abstract class Iso8601
 {
+    /**
+     * @param integer $year
+     * @param integer $month
+     * @param integer $day
+     *
+     * @return string A string representing this object in an ISO compatible date format (YYYY-MM-DD).
+     */
+    public static function formatDate($year, $month, $day)
+    {
+        TypeCheck::get(__CLASS__)->formatDate(func_get_args());
+
+        return sprintf(
+            '%04d-%02d-%02d',
+            $year,
+            $month,
+            $day
+        );
+    }
+
+    /**
+     * @param integer $hour
+     * @param integer $minute
+     * @param integer $second
+     * @param string  $timeZone Time zone in ISO compatible time zone format.
+     *
+     * @return string A string representing this object in an ISO compatible time format (hh:mm:ss[+-]hh:mm).
+     */
+    public static function formatTime($hour, $minute, $second, $timeZone)
+    {
+        TypeCheck::get(__CLASS__)->formatTime(func_get_args());
+
+        return sprintf(
+            '%02d:%02d:%02d%s',
+            $hour,
+            $minute,
+            $second,
+            $timeZone
+        );
+    }
+
+    /**
+     * @param integer $year
+     * @param integer $month
+     * @param integer $day
+     * @param integer $hour
+     * @param integer $minute
+     * @param integer $second
+     * @param string  $timeZone Time zone in ISO compatible time zone format.
+     *
+     * @return string A string representing this object in an ISO compatible date time format (YYYY-MM-DDThh:mm:ss[+-]hh:mm).
+     */
+    public static function formatDateTime($year, $month, $day, $hour, $minute, $second, $timeZone)
+    {
+        TypeCheck::get(__CLASS__)->formatDateTime(func_get_args());
+
+        return sprintf(
+            '%04d-%02d-%02dT%02d:%02d:%02d%s',
+            $year,
+            $month,
+            $day,
+            $hour,
+            $minute,
+            $second,
+            $timeZone
+        );
+    }
+
+    /**
+     * @param integer $offset     The offset from UTC in seconds.
+     * @param boolean $useZForUTC If offset is 0 then return format as "Z" for UTC Zulu time.
+     *
+     * @return string A string representing this object in an ISO compatible time zone format ([+-]hh:mm|Z).
+     */
+    public static function formatTimeZone($offset, $useZForUTC = false)
+    {
+        TypeCheck::get(__CLASS__)->formatTimeZone(func_get_args());
+
+        if ($useZForUTC && $offset === 0) {
+            return 'Z';
+        }
+
+        $seconds = abs($offset);
+        $minutes = ($seconds % 3600) / 60;
+        $hours   = $seconds / 3600;
+
+        return sprintf(
+            '%s%02d:%02d',
+            $offset >= 0 ? '+' : '-',
+            $hours,
+            $minutes
+        );
+    }
+
+    /**
+     * @param integer $years
+     * @param integer $months
+     * @param integer $days
+     * @param integer $hours
+     * @param integer $minutes
+     * @param integer $seconds
+     *
+     * @return string A string representing this object in an ISO compatible duration format (PnYnMnDTnHnMnS).
+     */
+    public static function formatDuration($years, $months, $days, $hours, $minutes, $seconds)
+    {
+        TypeCheck::get(__CLASS__)->formatDuration(func_get_args());
+
+        $dateParts = '';
+        if ($years !== 0) {
+            $dateParts .= $years . 'Y';
+        }
+        if ($months !== 0) {
+            $dateParts .= $months . 'M';
+        }
+        if ($days !== 0) {
+            $dateParts .= $days . 'D';
+        }
+
+        $timeParts = '';
+        if ($hours !== 0) {
+            $timeParts .= $hours . 'H';
+        }
+        if ($minutes !== 0) {
+            $timeParts .= $minutes . 'M';
+        }
+        if ($seconds !== 0) {
+            $timeParts .= $seconds . 'S';
+        }
+
+        if (strlen($timeParts) > 0) {
+            $timeParts = 'T' . $timeParts;
+        }
+
+        return 'P' . $dateParts . $timeParts;
+    }
+
     /**
      * Standard date formats:
      *   YYYY-MM-DD[timezone]
