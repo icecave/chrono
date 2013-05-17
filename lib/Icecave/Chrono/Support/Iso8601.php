@@ -149,6 +149,222 @@ abstract class Iso8601
     }
 
     /**
+     * @param string $startDateTime Start date time in ISO compatible date time format.
+     * @param string $endDateTime   End date time in ISO compatible date time format.
+     *
+     * @return string A string representing this object in an ISO compatible interval format (YYYY-MM-DDThh:mm:ss[+-]hh:mm/YYYY-MM-DDThh:mm:ss[+-]hh:mm).
+     */
+    public static function formatIntervalDateTimes($startDateTime, $endDateTime)
+    {
+        TypeCheck::get(__CLASS__)->formatIntervalDateTimes(func_get_args());
+
+        return $startDateTime . '/' . $endDateTime;
+    }
+
+    /**
+     * @param integer $startYear
+     * @param integer $startMonth
+     * @param integer $startDay
+     * @param integer $startHour
+     * @param integer $startMinute
+     * @param integer $startSecond
+     * @param string  $startTimeZone Time zone in ISO compatible time zone format.
+     * @param integer $endYear
+     * @param integer $endMonth
+     * @param integer $endDay
+     * @param integer $endHour
+     * @param integer $endMinute
+     * @param integer $endSecond
+     * @param string  $endTimeZone   Time zone in ISO compatible time zone format.
+     *
+     * @return string A string representing this object in an ISO compatible interval format (YYYY-MM-DDThh:mm:ss[+-]hh:mm/YYYY-MM-DDThh:mm:ss[+-]hh:mm).
+     */
+    public static function formatIntervalDateTimeParts(
+        $startYear,
+        $startMonth,
+        $startDay,
+        $startHour,
+        $startMinute,
+        $startSecond,
+        $startTimeZone,
+        $endYear,
+        $endMonth,
+        $endDay,
+        $endHour,
+        $endMinute,
+        $endSecond,
+        $endTimeZone
+    )
+    {
+        TypeCheck::get(__CLASS__)->formatIntervalDateTimeParts(func_get_args());
+
+        $start = self::formatDateTime(
+            $startYear,
+            $startMonth,
+            $startDay,
+            $startHour,
+            $startMinute,
+            $startSecond,
+            $startTimeZone
+        );
+
+        $end = self::formatDateTime(
+            $endYear,
+            $endMonth,
+            $endDay,
+            $endHour,
+            $endMinute,
+            $endSecond,
+            $endTimeZone
+        );
+
+        return self::formatIntervalDateTimes($start, $end);
+    }
+
+    /**
+     * @param string $startDateTime Start date time in ISO compatible date time format.
+     * @param string $duration      Duration in ISO compatible duration format.
+     *
+     * @return string A string representing this object in an ISO compatible interval format (YYYY-MM-DDThh:mm:ss[+-]hh:mm/PnYnMnDTnHnMnS).
+     */
+    public static function formatIntervalDateTimeAndDuration($startDateTime, $duration)
+    {
+        TypeCheck::get(__CLASS__)->formatIntervalDateTimeAndDuration(func_get_args());
+
+        return $startDateTime . '/' . $duration;
+    }
+
+    /**
+     * @param integer $startYear
+     * @param integer $startMonth
+     * @param integer $startDay
+     * @param integer $startHour
+     * @param integer $startMinute
+     * @param integer $startSecond
+     * @param string  $startTimeZone Time zone in ISO compatible time zone format.
+     * @param string  $duration      Duration in ISO compatible duration format.
+     *
+     * @return string A string representing this object in an ISO compatible interval format (YYYY-MM-DDThh:mm:ss[+-]hh:mm/PnYnMnDTnHnMnS).
+     */
+    public static function formatIntervalDateTimePartsAndDuration(
+        $startYear,
+        $startMonth,
+        $startDay,
+        $startHour,
+        $startMinute,
+        $startSecond,
+        $startTimeZone,
+        $duration
+    )
+    {
+        TypeCheck::get(__CLASS__)->formatIntervalDateTimePartsAndDuration(func_get_args());
+
+        $startDateTime = self::formatDateTime(
+            $startYear,
+            $startMonth,
+            $startDay,
+            $startHour,
+            $startMinute,
+            $startSecond,
+            $startTimeZone
+        );
+
+        return self::formatIntervalDateTimeAndDuration($startDateTime, $duration);
+    }
+
+    /**
+     * @param string  $startDateTime   Start date time in ISO compatible date time format.
+     * @param integer $durationYears
+     * @param integer $durationMonths
+     * @param integer $durationDays
+     * @param integer $durationHours
+     * @param integer $durationMinutes
+     * @param integer $durationSeconds
+     *
+     * @return string A string representing this object in an ISO compatible interval format (YYYY-MM-DDThh:mm:ss[+-]hh:mm/PnYnMnDTnHnMnS).
+     */
+    public static function formatIntervalDateTimeAndDurationParts(
+        $startDateTime,
+        $durationYears,
+        $durationMonths,
+        $durationDays,
+        $durationHours,
+        $durationMinutes,
+        $durationSeconds
+    )
+    {
+        TypeCheck::get(__CLASS__)->formatIntervalDateTimeAndDurationParts(func_get_args());
+
+        $duration = self::formatDuration(
+            $durationYears,
+            $durationMonths,
+            $durationDays,
+            $durationHours,
+            $durationMinutes,
+            $durationSeconds
+        );
+
+        return self::formatIntervalDateTimeAndDuration($startDateTime, $duration);
+    }
+
+    /**
+     * @param integer $startYear
+     * @param integer $startMonth
+     * @param integer $startDay
+     * @param integer $startHour
+     * @param integer $startMinute
+     * @param integer $startSecond
+     * @param string  $startTimeZone   Time zone in ISO compatible time zone format.
+     * @param integer $durationYears
+     * @param integer $durationMonths
+     * @param integer $durationDays
+     * @param integer $durationHours
+     * @param integer $durationMinutes
+     * @param integer $durationSeconds
+     *
+     * @return string A string representing this object in an ISO compatible interval format (YYYY-MM-DDThh:mm:ss[+-]hh:mm/PnYnMnDTnHnMnS).
+     */
+    public static function formatIntervalDateTimePartsAndDurationParts(
+        $startYear,
+        $startMonth,
+        $startDay,
+        $startHour,
+        $startMinute,
+        $startSecond,
+        $startTimeZone,
+        $durationYears,
+        $durationMonths,
+        $durationDays,
+        $durationHours,
+        $durationMinutes,
+        $durationSeconds
+    )
+    {
+        TypeCheck::get(__CLASS__)->formatIntervalDateTimePartsAndDurationParts(func_get_args());
+
+        $startDateTime = self::formatDateTime(
+            $startYear,
+            $startMonth,
+            $startDay,
+            $startHour,
+            $startMinute,
+            $startSecond,
+            $startTimeZone
+        );
+
+        $duration = self::formatDuration(
+            $durationYears,
+            $durationMonths,
+            $durationDays,
+            $durationHours,
+            $durationMinutes,
+            $durationSeconds
+        );
+
+        return self::formatIntervalDateTimeAndDuration($startDateTime, $duration);
+    }
+
+    /**
      * Standard date formats:
      *   YYYY-MM-DD[timezone]
      *   YYYYMMDD[timezone]

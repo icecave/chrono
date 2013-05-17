@@ -409,7 +409,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible duration format (PnDTnHnMnS).
+     * @return string A string representing this object in an ISO compatible duration format (PnYnMnDTnHnMnS).
      */
     public function __toString()
     {

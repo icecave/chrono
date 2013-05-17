@@ -83,6 +83,63 @@ class Iso8601Test extends PHPUnit_Framework_TestCase
         $this->assertSame('PT2M33S',            Iso8601::formatDuration(0, 0, 0, 0, 2, 33));
     }
 
+    public function testFormatIntervalDateTimes()
+    {
+        $result = Iso8601::formatIntervalDateTimes('2013-01-01T10:20:30+00:00', '2013-01-30T20:20:30+00:00');
+
+        $this->assertSame('2013-01-01T10:20:30+00:00/2013-01-30T20:20:30+00:00', $result);
+    }
+
+    public function testFormatIntervalDateTimeParts()
+    {
+        $result = Iso8601::formatIntervalDateTimeParts(
+            2013, 1,  1, 10, 20, 30, '+12:34',
+            2013, 1, 30, 20, 20, 30, '+12:34'
+        );
+
+        $this->assertSame('2013-01-01T10:20:30+12:34/2013-01-30T20:20:30+12:34', $result);
+    }
+
+    public function testFormatIntervalDateTimeAndDuration()
+    {
+        $result = Iso8601::formatIntervalDateTimeAndDuration(
+            '2013-01-01T10:20:30+12:34',
+            'P1DT2H'
+        );
+
+        $this->assertSame('2013-01-01T10:20:30+12:34/P1DT2H', $result);
+    }
+
+    public function testFormatIntervalDateTimePartsAndDuration()
+    {
+        $result = Iso8601::formatIntervalDateTimePartsAndDuration(
+            2013, 1,  1, 10, 20, 30, '+12:34',
+            'P1DT2H'
+        );
+
+        $this->assertSame('2013-01-01T10:20:30+12:34/P1DT2H', $result);
+    }
+
+    public function testFormatIntervalDateTimeAndDurationParts()
+    {
+        $result = Iso8601::formatIntervalDateTimeAndDurationParts(
+            '2013-01-01T10:20:30+12:34',
+            1, 2, 3, 4, 5, 6
+        );
+
+        $this->assertSame('2013-01-01T10:20:30+12:34/P1Y2M3DT4H5M6S', $result);
+    }
+
+    public function testFormatIntervalDateTimePartsAndDurationParts()
+    {
+        $result = Iso8601::formatIntervalDateTimePartsAndDurationParts(
+            2013, 1,  1, 10, 20, 30, '+12:34',
+            1, 2, 3, 4, 5, 6
+        );
+
+        $this->assertSame('2013-01-01T10:20:30+12:34/P1Y2M3DT4H5M6S', $result);
+    }
+
     /**
      * @dataProvider validIsoDateStrings
      */

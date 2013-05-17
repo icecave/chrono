@@ -34,6 +34,20 @@ class Year extends AbstractInterval implements Iso8601Interface
     }
 
     /**
+     * @param string $isoString A string containing an interval in any ISO-8601 compatible interval format.
+     *
+     * @return Year The Year constructed from the ISO compatible string and optional time zone.
+     */
+    public static function fromIsoString($isoString)
+    {
+        TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
+
+        // TO DO
+        throw new Exception;
+
+    }
+
+    /**
      * @return integer The year number.
      */
     public function ordinal()

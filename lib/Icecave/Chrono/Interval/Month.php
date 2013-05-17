@@ -39,6 +39,20 @@ class Month extends AbstractInterval implements Iso8601Interface
     }
 
     /**
+     * @param string $isoString A string containing an interval in any ISO-8601 compatible interval format.
+     *
+     * @return Month The Month constructed from the ISO compatible string and optional time zone.
+     */
+    public static function fromIsoString($isoString)
+    {
+        TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
+
+        // TO DO
+        throw new Exception;
+
+    }
+
+    /**
      * @return Year
      */
     public function year()
