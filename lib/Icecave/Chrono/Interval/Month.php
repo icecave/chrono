@@ -5,6 +5,7 @@ use Icecave\Chrono\Date;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\Iso8601Interface;
 use Icecave\Chrono\Support\Calendar;
+use Icecave\Chrono\Support\Iso8601;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
 class Month extends AbstractInterval implements Iso8601Interface
@@ -103,21 +104,20 @@ class Month extends AbstractInterval implements Iso8601Interface
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible format (YYYY-MM).
+     * @return string A string representing this object in an ISO compatible year month format (YYYY-MM).
      */
     public function isoString()
     {
         $this->typeCheck->isoString(func_get_args());
 
-        return sprintf(
-            '%s-%02d',
-            $this->year(),
+        return Iso8601::formatYearMonth(
+            $this->year()->ordinal(),
             $this->ordinal()
         );
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible format (YYYY-MM).
+     * @return string A string representing this object in an ISO compatible year month format (YYYY-MM).
      */
     public function __toString()
     {

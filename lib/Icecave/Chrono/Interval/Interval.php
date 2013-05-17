@@ -1,8 +1,11 @@
 <?php
 namespace Icecave\Chrono\Interval;
 
+use Icecave\Chrono\DateTime;
 use Icecave\Chrono\Iso8601Interface;
+use Icecave\Chrono\Support\Iso8601;
 use Icecave\Chrono\TimePointInterface;
+use Icecave\Chrono\TimeSpan\Period;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 use InvalidArgumentException;
 
@@ -32,15 +35,43 @@ class Interval extends AbstractInterval implements Iso8601Interface
     /**
      * @param string $isoString A string containing an interval in any ISO-8601 compatible interval format.
      *
-     * @return Interval The Interval constructed from the ISO compatible string and optional time zone.
+     * @return Interval The Interval constructed from the ISO compatible string.
      */
     public static function fromIsoString($isoString)
     {
         TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
 
-        // TO DO
-        throw new Exception;
+        list($type, $interval) = Iso8601::parseIntervalStartEnd($isoString, false);
 
+        switch ($type) {
+
+            case 'duration':
+                // This format is not supported.
+                throw new InvalidArgumentException('Invalid ISO interval: "' . $isoString . '".');
+
+            case 'duration,datetime':
+                list($duration, $end) = $interval;
+                $period = Period::fromIsoString($duration);
+                $end = DateTime::fromIsoString($end);
+
+                return $period->inverse()->resolveToInterval($end);
+
+            case 'datetime,duration':
+                list($start, $duration) = $interval;
+                $start = DateTime::fromIsoString($start);
+                $period = Period::fromIsoString($duration);
+
+                return $period->resolveToInterval($start);
+
+            case 'datetime,datetime':
+                list($start, $end) = $interval;
+                $start = DateTime::fromIsoString($start);
+                $end = DateTime::fromIsoString($end);
+
+                return new self($start, $end);
+        }
+
+        throw new InvalidArgumentException('Invalid ISO interval: "' . $isoString . '".');
     }
 
     /**

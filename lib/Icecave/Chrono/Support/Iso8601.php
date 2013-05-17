@@ -14,10 +14,35 @@ abstract class Iso8601
 {
     /**
      * @param integer $year
+     *
+     * @return string A string representing the data in an ISO compatible year format (YYYY).
+     */
+    public static function formatYear($year)
+    {
+        TypeCheck::get(__CLASS__)->formatYear(func_get_args());
+
+        return sprintf('%04d', $year);
+    }
+
+    /**
+     * @param integer $year
+     * @param integer $month
+     *
+     * @return string A string representing the data in an ISO compatible year month format (YYYY-MM).
+     */
+    public static function formatYearMonth($year, $month)
+    {
+        TypeCheck::get(__CLASS__)->formatYearMonth(func_get_args());
+
+        return sprintf('%04d-%02d', $year, $month);
+    }
+
+    /**
+     * @param integer $year
      * @param integer $month
      * @param integer $day
      *
-     * @return string A string representing this object in an ISO compatible date format (YYYY-MM-DD).
+     * @return string A string representing the data in an ISO compatible date format (YYYY-MM-DD).
      */
     public static function formatDate($year, $month, $day)
     {
@@ -37,7 +62,7 @@ abstract class Iso8601
      * @param integer $second
      * @param string  $timeZone Time zone in ISO compatible time zone format.
      *
-     * @return string A string representing this object in an ISO compatible time format (hh:mm:ss[+-]hh:mm).
+     * @return string A string representing the data in an ISO compatible time format (hh:mm:ss[+-]hh:mm).
      */
     public static function formatTime($hour, $minute, $second, $timeZone)
     {
@@ -61,7 +86,7 @@ abstract class Iso8601
      * @param integer $second
      * @param string  $timeZone Time zone in ISO compatible time zone format.
      *
-     * @return string A string representing this object in an ISO compatible date time format (YYYY-MM-DDThh:mm:ss[+-]hh:mm).
+     * @return string A string representing the data in an ISO compatible date time format (YYYY-MM-DDThh:mm:ss[+-]hh:mm).
      */
     public static function formatDateTime($year, $month, $day, $hour, $minute, $second, $timeZone)
     {
@@ -83,7 +108,7 @@ abstract class Iso8601
      * @param integer $offset     The offset from UTC in seconds.
      * @param boolean $useZForUTC If offset is 0 then return format as "Z" for UTC Zulu time.
      *
-     * @return string A string representing this object in an ISO compatible time zone format ([+-]hh:mm|Z).
+     * @return string A string representing the data in an ISO compatible time zone format ([+-]hh:mm|Z).
      */
     public static function formatTimeZone($offset, $useZForUTC = false)
     {
@@ -113,7 +138,7 @@ abstract class Iso8601
      * @param integer $minutes
      * @param integer $seconds
      *
-     * @return string A string representing this object in an ISO compatible duration format (PnYnMnDTnHnMnS).
+     * @return string A string representing the data in an ISO compatible duration format (PnYnMnDTnHnMnS).
      */
     public static function formatDuration($years, $months, $days, $hours, $minutes, $seconds)
     {
@@ -152,7 +177,7 @@ abstract class Iso8601
      * @param string $startDateTime Start date time in ISO compatible date time format.
      * @param string $endDateTime   End date time in ISO compatible date time format.
      *
-     * @return string A string representing this object in an ISO compatible interval format (YYYY-MM-DDThh:mm:ss[+-]hh:mm/YYYY-MM-DDThh:mm:ss[+-]hh:mm).
+     * @return string A string representing the data in an ISO compatible interval format (YYYY-MM-DDThh:mm:ss[+-]hh:mm/YYYY-MM-DDThh:mm:ss[+-]hh:mm).
      */
     public static function formatIntervalDateTimes($startDateTime, $endDateTime)
     {
@@ -177,7 +202,7 @@ abstract class Iso8601
      * @param integer $endSecond
      * @param string  $endTimeZone   Time zone in ISO compatible time zone format.
      *
-     * @return string A string representing this object in an ISO compatible interval format (YYYY-MM-DDThh:mm:ss[+-]hh:mm/YYYY-MM-DDThh:mm:ss[+-]hh:mm).
+     * @return string A string representing the data in an ISO compatible interval format (YYYY-MM-DDThh:mm:ss[+-]hh:mm/YYYY-MM-DDThh:mm:ss[+-]hh:mm).
      */
     public static function formatIntervalDateTimeParts(
         $startYear,
@@ -225,7 +250,7 @@ abstract class Iso8601
      * @param string $startDateTime Start date time in ISO compatible date time format.
      * @param string $duration      Duration in ISO compatible duration format.
      *
-     * @return string A string representing this object in an ISO compatible interval format (YYYY-MM-DDThh:mm:ss[+-]hh:mm/PnYnMnDTnHnMnS).
+     * @return string A string representing the data in an ISO compatible interval format (YYYY-MM-DDThh:mm:ss[+-]hh:mm/PnYnMnDTnHnMnS).
      */
     public static function formatIntervalDateTimeAndDuration($startDateTime, $duration)
     {
@@ -244,7 +269,7 @@ abstract class Iso8601
      * @param string  $startTimeZone Time zone in ISO compatible time zone format.
      * @param string  $duration      Duration in ISO compatible duration format.
      *
-     * @return string A string representing this object in an ISO compatible interval format (YYYY-MM-DDThh:mm:ss[+-]hh:mm/PnYnMnDTnHnMnS).
+     * @return string A string representing the data in an ISO compatible interval format (YYYY-MM-DDThh:mm:ss[+-]hh:mm/PnYnMnDTnHnMnS).
      */
     public static function formatIntervalDateTimePartsAndDuration(
         $startYear,
@@ -281,7 +306,7 @@ abstract class Iso8601
      * @param integer $durationMinutes
      * @param integer $durationSeconds
      *
-     * @return string A string representing this object in an ISO compatible interval format (YYYY-MM-DDThh:mm:ss[+-]hh:mm/PnYnMnDTnHnMnS).
+     * @return string A string representing the data in an ISO compatible interval format (YYYY-MM-DDThh:mm:ss[+-]hh:mm/PnYnMnDTnHnMnS).
      */
     public static function formatIntervalDateTimeAndDurationParts(
         $startDateTime,
@@ -322,7 +347,7 @@ abstract class Iso8601
      * @param integer $durationMinutes
      * @param integer $durationSeconds
      *
-     * @return string A string representing this object in an ISO compatible interval format (YYYY-MM-DDThh:mm:ss[+-]hh:mm/PnYnMnDTnHnMnS).
+     * @return string A string representing the data in an ISO compatible interval format (YYYY-MM-DDThh:mm:ss[+-]hh:mm/PnYnMnDTnHnMnS).
      */
     public static function formatIntervalDateTimePartsAndDurationParts(
         $startYear,
@@ -552,7 +577,7 @@ abstract class Iso8601
         TypeCheck::get(__CLASS__)->parseDuration(func_get_args());
 
         if (!strlen($isoString)) {
-            throw new InvalidArgumentException('Invalid ISO duration format: "' . $isoString . '".');
+            throw new InvalidArgumentException('Invalid ISO duration: "' . $isoString . '".');
         }
 
         $duration = array(
@@ -608,13 +633,93 @@ abstract class Iso8601
                 $duration['minutes'] > 59 ||
                 $duration['seconds'] > 59) {
 
-                throw new InvalidArgumentException('Invalid ISO duration format: "' . $isoString . '".');
+                throw new InvalidArgumentException('Invalid ISO duration: "' . $isoString . '".');
             }
         } else {
-            throw new InvalidArgumentException('Invalid ISO duration format: "' . $isoString . '".');
+            throw new InvalidArgumentException('Invalid ISO duration: "' . $isoString . '".');
         }
 
         return $duration;
+    }
+
+    /**
+     * Standard interval formats:
+     *   <start datetime>/<end datetime>
+     *   <start datetime>/<duration>
+     *   <duration>/<end datetime>
+     *   <duration>
+     *
+     * @link http://en.wikipedia.org/wiki/ISO_8601#Time_intervals
+     *
+     * Note: Duration only format is currently not supported.
+     *
+     * @param string  $isoString     A string containing an interval in any ISO-8601 compatible interval format.
+     * @param boolean $parseSubParts True to parse the sub parts, False to just return the raw strings.
+     *
+     * @return array<string,array<string|array>> A associative array of interval type to interval parts from the ISO compatible string.
+     */
+    public static function parseInterval($isoString, $parseSubParts = false)
+    {
+        TypeCheck::get(__CLASS__)->parseInterval(func_get_args());
+
+        $parts = explode('/', $isoString, 2);
+
+        if (count($parts) === 1) {
+            $part = $parts[0];
+
+            // If only one part, and it begins with P, than its a duration only interval.
+            if (strlen($part) > 0 && $part[0] === 'P') {
+                if ($parseSubParts) {
+                    $part = self::parseDuration($part);
+                }
+
+                return array(
+                    'duration' => $part
+                );
+            }
+
+            throw new InvalidArgumentException('Invalid ISO interval: "' . $isoString . '".');
+        }
+
+        list($firstPart, $secondPart) = $parts;
+
+        if (strlen($firstPart) === 0 && strlen($secondPart) === 0) {
+            throw new InvalidArgumentException('Invalid ISO interval: "' . $isoString . '".');
+        }
+
+        // If $firstPart begins with P, than its a duration/end-datetime interval.
+        if (strlen($firstPart) > 0 && $firstPart[0] === 'P') {
+            if ($parseSubParts) {
+                $firstPart  = self::parseDuration($firstPart);
+                $secondPart = self::parseDateTime($secondPart);
+            }
+
+            return array(
+                'duration,datetime' => array($firstPart, $secondPart)
+            );
+        }
+
+        // If $secondPart begins with P, than its a datetime/duration interval.
+        if (strlen($secondPart) > 0 && $secondPart[0] === 'P') {
+            if ($parseSubParts) {
+                $firstPart  = self::parseDateTime($firstPart);
+                $secondPart = self::parseDuration($secondPart);
+            }
+
+            return array(
+                'datetime,duration' => array($firstPart, $secondPart)
+            );
+        }
+
+        // Only option left is a start-datetime/end-datetime interval.
+        if ($parseSubParts) {
+            $firstPart  = self::parseDateTime($firstPart);
+            $secondPart = self::parseDateTime($secondPart);
+        }
+
+        return array(
+            'datetime,datetime' => array($firstPart, $secondPart)
+        );
     }
 
     const DATE_BASIC    = '/^(\d\d\d\d)(\d\d)(\d\d)(.*)$/';
