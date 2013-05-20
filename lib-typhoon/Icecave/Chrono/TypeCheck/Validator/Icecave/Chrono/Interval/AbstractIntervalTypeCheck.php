@@ -124,4 +124,53 @@ class AbstractIntervalTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValida
         }
     }
 
+    public function period(array $arguments)
+    {
+        if (\count($arguments) > 0) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
+        }
+    }
+
+    public function byYear(array $arguments)
+    {
+        if (\count($arguments) > 0) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
+        }
+    }
+
+    public function byMonth(array $arguments)
+    {
+        if (\count($arguments) > 0) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
+        }
+    }
+
+    public function byDay(array $arguments)
+    {
+        if (\count($arguments) > 0) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
+        }
+    }
+
+    public function byHour(array $arguments)
+    {
+        if (\count($arguments) > 0) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
+        }
+    }
+
+    public function byMinute(array $arguments)
+    {
+        if (\count($arguments) > 0) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
+        }
+    }
+
+    public function bySecond(array $arguments)
+    {
+        if (\count($arguments) > 0) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
+        }
+    }
+
 }

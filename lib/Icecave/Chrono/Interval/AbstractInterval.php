@@ -175,6 +175,8 @@ abstract class AbstractInterval implements IntervalInterface
      */
     public function period()
     {
+        $this->typeCheck->period(func_get_args());
+
         return $this->end()->differenceAsPeriod($this->start());
     }
 
@@ -183,6 +185,8 @@ abstract class AbstractInterval implements IntervalInterface
      */
     public function byYear()
     {
+        $this->typeCheck->byYear(func_get_args());
+
         return new YearIntervalIterator($this);
     }
 
@@ -191,6 +195,8 @@ abstract class AbstractInterval implements IntervalInterface
      */
     public function byMonth()
     {
+        $this->typeCheck->byMonth(func_get_args());
+
         return new MonthIntervalIterator($this);
     }
 
@@ -199,6 +205,8 @@ abstract class AbstractInterval implements IntervalInterface
      */
     public function byDay()
     {
+        $this->typeCheck->byDay(func_get_args());
+
         return new DayIntervalIterator($this);
     }
 
@@ -207,6 +215,8 @@ abstract class AbstractInterval implements IntervalInterface
      */
     public function byHour()
     {
+        $this->typeCheck->byHour(func_get_args());
+
         return new HourIntervalIterator($this);
     }
 
@@ -215,6 +225,8 @@ abstract class AbstractInterval implements IntervalInterface
      */
     public function byMinute()
     {
+        $this->typeCheck->byMinute(func_get_args());
+
         return new MinuteIntervalIterator($this);
     }
 
@@ -223,6 +235,8 @@ abstract class AbstractInterval implements IntervalInterface
      */
     public function bySecond()
     {
+        $this->typeCheck->bySecond(func_get_args());
+
         return new SecondIntervalIterator($this);
     }
 
