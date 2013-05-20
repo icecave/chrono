@@ -97,9 +97,9 @@ class Interval extends AbstractInterval implements Iso8601Interface
     /**
      * @return string A string representing this object in an ISO compatible format (YYYY-MM-DDThh:mm:ss[+-]hh:mm/PnYnMnDTnHnMnS).
      */
-    public function isoStringWithDuration()
+    public function isoStringWithPeriod()
     {
-        $this->typeCheck->isoStringWithDuration(func_get_args());
+        $this->typeCheck->isoStringWithPeriod(func_get_args());
 
         $start = $this->start();
         $start = Iso8601::formatDateTime(
@@ -112,7 +112,7 @@ class Interval extends AbstractInterval implements Iso8601Interface
             $start->timeZone()->isoString()
         );
 
-        return $start . '/' . $this->duration()->isoString();
+        return $start . '/' . $this->period()->isoString();
     }
 
     /**

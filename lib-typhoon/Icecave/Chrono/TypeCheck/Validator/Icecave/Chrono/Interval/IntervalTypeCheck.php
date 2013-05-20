@@ -49,7 +49,7 @@ class IntervalTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         }
     }
 
-    public function isoStringWithDuration(array $arguments)
+    public function isoStringWithPeriod(array $arguments)
     {
         if (\count($arguments) > 0) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
