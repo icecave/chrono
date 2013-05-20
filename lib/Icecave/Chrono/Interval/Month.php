@@ -4,8 +4,8 @@ namespace Icecave\Chrono\Interval;
 use Icecave\Chrono\Date;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\Iso8601Interface;
-use Icecave\Chrono\Support\Calendar;
-use Icecave\Chrono\Support\Iso8601;
+use Icecave\Chrono\Detail\Calendar;
+use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
 class Month extends AbstractInterval implements Iso8601Interface

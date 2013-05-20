@@ -6,8 +6,8 @@ use Icecave\Chrono\TimeOfDay;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\TimeZone;
 use Icecave\Chrono\TypeCheck\TypeCheck;
-use Icecave\Chrono\Support\Calendar;
-use Icecave\Chrono\Support\Ordinal;
+use Icecave\Chrono\Detail\Calendar;
+use Icecave\Chrono\Detail\Ordinal;
 
 /**
  * A string formatter that accets {@see date()} compatible format specifiers.

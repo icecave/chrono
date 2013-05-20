@@ -5,8 +5,8 @@ use Icecave\Chrono\DateTime;
 use Icecave\Chrono\Interval\Interval;
 use Icecave\Chrono\Interval\IntervalInterface;
 use Icecave\Chrono\Iso8601Interface;
-use Icecave\Chrono\Support\Calendar;
-use Icecave\Chrono\Support\Iso8601;
+use Icecave\Chrono\Detail\Calendar;
+use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 

@@ -8,7 +8,7 @@ use PHPUnit_Framework_TestCase;
 
 /**
  * @covers Icecave\Chrono\TimeSpan\Period
- * @covers Icecave\Chrono\Support\Iso8601
+ * @covers Icecave\Chrono\Detail\Iso8601
  */
 class PeriodTest extends PHPUnit_Framework_TestCase
 {

@@ -6,7 +6,7 @@ use PHPUnit_Framework_TestCase;
 
 /**
  * @covers Icecave\Chrono\Interval\Month
- * @covers Icecave\Chrono\Support\Iso8601
+ * @covers Icecave\Chrono\Detail\Iso8601
  */
 class MonthTest extends PHPUnit_Framework_TestCase
 {

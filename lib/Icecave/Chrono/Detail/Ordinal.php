@@ -1,5 +1,5 @@
 <?php
-namespace Icecave\Chrono\Support;
+namespace Icecave\Chrono\Detail;
 
 use Icecave\Chrono\TypeCheck\TypeCheck;
 

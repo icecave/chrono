@@ -8,7 +8,7 @@ use PHPUnit_Framework_TestCase;
 
 /**
  * @covers Icecave\Chrono\DateTime
- * @covers Icecave\Chrono\Support\Iso8601
+ * @covers Icecave\Chrono\Detail\Iso8601
  */
 class DateTimeTest extends PHPUnit_Framework_TestCase
 {

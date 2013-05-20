@@ -1,5 +1,5 @@
 <?php
-namespace Icecave\Chrono\TypeCheck\Validator\Icecave\Chrono\Support;
+namespace Icecave\Chrono\TypeCheck\Validator\Icecave\Chrono\Detail;
 
 class CalendarTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
 {

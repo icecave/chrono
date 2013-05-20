@@ -3,7 +3,7 @@ namespace Icecave\Chrono\Interval;
 
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\Iso8601Interface;
-use Icecave\Chrono\Support\Iso8601;
+use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TimeSpan\Period;
 use Icecave\Chrono\TypeCheck\TypeCheck;

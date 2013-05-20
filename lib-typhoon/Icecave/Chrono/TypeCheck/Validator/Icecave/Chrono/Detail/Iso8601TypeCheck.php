@@ -1,5 +1,5 @@
 <?php
-namespace Icecave\Chrono\TypeCheck\Validator\Icecave\Chrono\Support;
+namespace Icecave\Chrono\TypeCheck\Validator\Icecave\Chrono\Detail;
 
 class Iso8601TypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
 {

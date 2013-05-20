@@ -4,7 +4,7 @@ namespace Icecave\Chrono;
 use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Format\FormattableInterface;
-use Icecave\Chrono\Support\Iso8601;
+use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
 class TimeZone implements Iso8601Interface, FormattableInterface

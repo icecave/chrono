@@ -7,7 +7,7 @@ use PHPUnit_Framework_TestCase;
 
 /**
  * @covers Icecave\Chrono\TimeZone
- * @covers Icecave\Chrono\Support\Iso8601
+ * @covers Icecave\Chrono\Detail\Iso8601
  */
 class TimeZoneTest extends PHPUnit_Framework_TestCase
 {

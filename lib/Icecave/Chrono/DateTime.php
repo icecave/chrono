@@ -4,8 +4,8 @@ namespace Icecave\Chrono;
 use DateTime as NativeDateTime;
 use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormatterInterface;
-use Icecave\Chrono\Support\Iso8601;
-use Icecave\Chrono\Support\Normalizer;
+use Icecave\Chrono\Detail\Iso8601;
+use Icecave\Chrono\Detail\Normalizer;
 use Icecave\Chrono\TimeSpan\TimeSpanInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
