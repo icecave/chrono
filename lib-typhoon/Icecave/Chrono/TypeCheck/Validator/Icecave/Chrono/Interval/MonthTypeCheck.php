@@ -35,6 +35,25 @@ class MonthTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         }
     }
 
+    public function fromIsoString(array $arguments)
+    {
+        $argumentCount = \count($arguments);
+        if ($argumentCount < 1) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('isoString', 0, 'string');
+        } elseif ($argumentCount > 1) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
+        }
+        $value = $arguments[0];
+        if (!\is_string($value)) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
+                'isoString',
+                0,
+                $arguments[0],
+                'string'
+            );
+        }
+    }
+
     public function year(array $arguments)
     {
         if (\count($arguments) > 0) {

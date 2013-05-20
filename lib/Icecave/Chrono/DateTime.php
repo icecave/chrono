@@ -4,10 +4,10 @@ namespace Icecave\Chrono;
 use DateTime as NativeDateTime;
 use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormatterInterface;
+use Icecave\Chrono\Support\Iso8601;
 use Icecave\Chrono\Support\Normalizer;
 use Icecave\Chrono\TimeSpan\TimeSpanInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
-use InvalidArgumentException;
 
 /**
  * Represents a date/time.
@@ -53,36 +53,37 @@ class DateTime extends AbstractTimePoint implements TimeInterface
     }
 
     /**
-     * @param string $isoDateTime A string containing a date time in any ISO-8601 compatible format.
+     * Standard date time formats:
+     *   <date>T<time>[timezone]
+     *   <date> <time>[timezone]
+     *
+     * @link http://en.wikipedia.org/wiki/ISO_8601#Combined_date_and_time_representations
+     *
+     * @param string $isoString A string containing a date time in any ISO-8601 compatible date time format.
      *
      * @return DateTime The DateTime constructed from the ISO compatible string and optional time zone.
      */
-    public static function fromIsoString($isoDateTime)
+    public static function fromIsoString($isoString)
     {
         TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
 
-        $matches = array();
-        if (preg_match(self::FORMAT_EXTENDED, $isoDateTime, $matches) === 1 ||
-            preg_match(self::FORMAT_BASIC, $isoDateTime, $matches) === 1) {
+        $dateTime = Iso8601::parseDateTime($isoString);
 
-            $year = intval($matches[1]);
-            $month = intval($matches[2]);
-            $day = intval($matches[3]);
-
-            $hour = intval($matches[4]);
-            $minute = intval($matches[5]);
-            $second = intval($matches[6]);
-
-            if (count($matches) > 7 && strlen($matches[7]) > 0) {
-                $timeZone = TimeZone::fromIsoString($matches[7]);
-            } else {
-                $timeZone = null;
-            }
+        if ($dateTime['offset'] !== null) {
+            $timeZone = new TimeZone($dateTime['offset']);
         } else {
-            throw new InvalidArgumentException('Invalid ISO date time: "' . $isoDateTime . '".');
+            $timeZone = null;
         }
 
-        return new self($year, $month, $day, $hour, $minute, $second, $timeZone);
+        return new self(
+            $dateTime['year'],
+            $dateTime['month'],
+            $dateTime['day'],
+            $dateTime['hour'],
+            $dateTime['minute'],
+            $dateTime['second'],
+            $timeZone
+        );
     }
 
     /**
@@ -369,34 +370,30 @@ class DateTime extends AbstractTimePoint implements TimeInterface
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible format (YYYY-MM-DDThh:mm:ss[+-]HH:MM).
+     * @return string A string representing this object in an ISO compatible date time format (YYYY-MM-DDThh:mm:ss[+-]hh:mm).
      */
     public function isoString()
     {
         $this->typeCheck->isoString(func_get_args());
 
-        return sprintf(
-            '%04d-%02d-%02dT%02d:%02d:%02d%s',
+        return Iso8601::formatDateTime(
             $this->year(),
             $this->month(),
             $this->day(),
             $this->hours(),
             $this->minutes(),
             $this->seconds(),
-            $this->timeZone()
+            $this->timeZone()->isoString()
         );
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible format (YYYY-MM-DDThh:mm:ss[+-]HH:MM).
+     * @return string A string representing this object in an ISO compatible date time format (YYYY-MM-DDThh:mm:ss[+-]hh:mm).
      */
     public function __toString()
     {
         return $this->isoString();
     }
-
-    const FORMAT_BASIC    = '/^(\d\d\d\d)(\d\d)(\d\d)[T| ](\d\d)(\d\d)(\d\d)(.*)$/';
-    const FORMAT_EXTENDED = '/^(\d\d\d\d)-(\d\d)-(\d\d)[T| ](\d\d):(\d\d):(\d\d)(.*)$/';
 
     private $typeCheck;
     private $year;

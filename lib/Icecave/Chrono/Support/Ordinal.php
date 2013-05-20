@@ -3,7 +3,7 @@ namespace Icecave\Chrono\Support;
 
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
-class Ordinal
+abstract class Ordinal
 {
     /**
      * @param integer $number

@@ -5,6 +5,7 @@ use Icecave\Chrono\Date;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\Iso8601Interface;
 use Icecave\Chrono\Support\Calendar;
+use Icecave\Chrono\Support\Iso8601;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
 class Year extends AbstractInterval implements Iso8601Interface
@@ -31,6 +32,27 @@ class Year extends AbstractInterval implements Iso8601Interface
         TypeCheck::get(__CLASS__)->fromTimePoint(func_get_args());
 
         return new self($timePoint->year());
+    }
+
+    /**
+     * Standard year format:
+     *   YYYY
+     *
+     * @link http://en.wikipedia.org/wiki/ISO_8601#Calendar_dates
+     *
+     * Note: Negative years (BC) are not supported.
+     *
+     * @param string $isoString A string containing a year in any ISO-8601 compatible year format.
+     *
+     * @return Year The Year constructed from the ISO compatible string.
+     */
+    public static function fromIsoString($isoString)
+    {
+        TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
+
+        $year = Iso8601::parseYear($isoString);
+
+        return new self($year);
     }
 
     /**
@@ -84,17 +106,17 @@ class Year extends AbstractInterval implements Iso8601Interface
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible format (YYYY).
+     * @return string A string representing this object in an ISO compatible year format (YYYY).
      */
     public function isoString()
     {
         $this->typeCheck->isoString(func_get_args());
 
-        return sprintf('%04d', $this->ordinal());
+        return Iso8601::formatYear($this->ordinal());
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible format (YYYY).
+     * @return string A string representing this object in an ISO compatible year format (YYYY).
      */
     public function __toString()
     {

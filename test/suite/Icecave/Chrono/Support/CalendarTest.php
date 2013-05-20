@@ -245,4 +245,25 @@ class CalendarTest extends PHPUnit_Framework_TestCase
             array(2012,  1,  1, 2011, 52, 7),
         );
     }
+
+    public function testApproximateTotalSeconds()
+    {
+        $this->assertSame(0,        Calendar::approximateTotalSeconds());
+        $this->assertSame(38995567, Calendar::approximateTotalSeconds(1, 2, 3, 4, 5, 6, 7));
+
+        $this->assertSame(60,       Calendar::approximateTotalSeconds(0, 0, 0, 0, 0, 0, 60));
+        $this->assertSame(60,       Calendar::approximateTotalSeconds(0, 0, 0, 0, 0, 1));
+
+        $this->assertSame(3600,     Calendar::approximateTotalSeconds(0, 0, 0, 0, 0, 60));
+        $this->assertSame(3600,     Calendar::approximateTotalSeconds(0, 0, 0, 0, 1));
+
+        $this->assertSame(86400,    Calendar::approximateTotalSeconds(0, 0, 0, 0, 24));
+        $this->assertSame(86400,    Calendar::approximateTotalSeconds(0, 0, 0, 1));
+
+        $this->assertSame(604800,   Calendar::approximateTotalSeconds(0, 0, 0, 7));
+        $this->assertSame(604800,   Calendar::approximateTotalSeconds(0, 0, 1));
+
+        $this->assertSame(2629800,  Calendar::approximateTotalSeconds(0, 1));
+        $this->assertSame(31557600, Calendar::approximateTotalSeconds(1));
+    }
 }
