@@ -4,6 +4,10 @@ namespace Icecave\Chrono\Interval;
 use Icecave\Chrono\Date;
 use PHPUnit_Framework_TestCase;
 
+/**
+ * @covers Icecave\Chrono\Interval\Year
+ * @covers Icecave\Chrono\Support\Iso8601
+ */
 class YearTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
@@ -56,5 +60,41 @@ class YearTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals('2012', $this->year->isoString());
         $this->assertEquals('2012', $this->year->__toString());
+    }
+
+    /**
+     * @dataProvider validIsoStrings
+     */
+    public function testFromIsoString($isoString, $expected)
+    {
+        $result = Year::fromIsoString($isoString);
+        $this->assertSame($expected, $result->isoString());
+    }
+
+    public function validIsoStrings()
+    {
+        return array(
+            'Year'              => array('2012',    '2012'),
+            'Zero prefix year'  => array('0012',    '0012'),
+        );
+    }
+
+    /**
+     * @dataProvider invalidIsoStrings
+     */
+    public function testFromIsoStringWithInvalidIsoYear($isoString, $expected)
+    {
+        $this->setExpectedException('InvalidArgumentException', $expected);
+        Year::fromIsoString($isoString);
+    }
+
+    public function invalidIsoStrings()
+    {
+        return array(
+            'Empty'                 => array('',        'Invalid ISO year: ""'),
+            'Not enough digits'     => array('1',       'Invalid ISO year: "1"'),
+            'Not enough digits'     => array('12',      'Invalid ISO year: "12"'),
+            'Not enough digits'     => array('123',     'Invalid ISO year: "123"'),
+        );
     }
 }

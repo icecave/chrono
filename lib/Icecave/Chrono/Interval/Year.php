@@ -35,17 +35,24 @@ class Year extends AbstractInterval implements Iso8601Interface
     }
 
     /**
-     * @param string $isoString A string containing an interval in any ISO-8601 compatible interval format.
+     * Standard year format:
+     *   YYYY
      *
-     * @return Year The Year constructed from the ISO compatible string and optional time zone.
+     * @link http://en.wikipedia.org/wiki/ISO_8601#Calendar_dates
+     *
+     * Note: Negative years (BC) are not supported.
+     *
+     * @param string $isoString A string containing a year in any ISO-8601 compatible year format.
+     *
+     * @return Year The Year constructed from the ISO compatible string.
      */
     public static function fromIsoString($isoString)
     {
         TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
 
-        // TO DO
-        throw new Exception;
+        $year = Iso8601::parseYear($isoString);
 
+        return new self($year);
     }
 
     /**

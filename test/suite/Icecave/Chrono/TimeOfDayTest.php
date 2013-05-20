@@ -6,6 +6,10 @@ use Eloquent\Liberator\Liberator;
 use Phake;
 use PHPUnit_Framework_TestCase;
 
+/**
+ * @covers Icecave\Chrono\TimeOfDay
+ * @covers Icecave\Chrono\Support\Iso8601
+ */
 class TimeOfDayTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
@@ -321,6 +325,7 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
             'Invalid letters'                    => array('11:BB:33',   'Invalid ISO time: "11:BB:33"'),
             'Invalid letters'                    => array('11:22:CC',   'Invalid ISO time: "11:22:CC"'),
             'Invalid separator'                  => array('11-22-33',   'Invalid ISO time: "11-22-33"'),
+            'Invalid separator'                  => array('11/22/33',   'Invalid ISO time: "11/22/33"'),
             'Missing time'                       => array('+10',        'Invalid ISO time: "+10"'),
             'Missing time'                       => array('+10:20',     'Invalid ISO time: "+10:20"'),
         );

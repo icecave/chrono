@@ -33,6 +33,16 @@ class Interval extends AbstractInterval implements Iso8601Interface
     }
 
     /**
+     * Standard interval formats:
+     *   <start datetime>/<end datetime>
+     *   <start datetime>/<duration>
+     *   <duration>/<end datetime>
+     *   <duration>
+     *
+     * @link http://en.wikipedia.org/wiki/ISO_8601#Time_intervals
+     *
+     * Note: Duration only format is not supported.
+     *
      * @param string $isoString A string containing an interval in any ISO-8601 compatible interval format.
      *
      * @return Interval The Interval constructed from the ISO compatible string.
@@ -41,37 +51,27 @@ class Interval extends AbstractInterval implements Iso8601Interface
     {
         TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
 
-        list($type, $interval) = Iso8601::parseIntervalStartEnd($isoString, false);
+        $result = Iso8601::parseInterval($isoString);
+        $type = $result['type'];
+        $interval = $result['interval'];
 
-        switch ($type) {
-
-            case 'duration':
-                // This format is not supported.
-                throw new InvalidArgumentException('Invalid ISO interval: "' . $isoString . '".');
-
-            case 'duration,datetime':
-                list($duration, $end) = $interval;
-                $period = Period::fromIsoString($duration);
-                $end = DateTime::fromIsoString($end);
-
-                return $period->inverse()->resolveToInterval($end);
-
-            case 'datetime,duration':
-                list($start, $duration) = $interval;
-                $start = DateTime::fromIsoString($start);
-                $period = Period::fromIsoString($duration);
-
-                return $period->resolveToInterval($start);
-
-            case 'datetime,datetime':
-                list($start, $end) = $interval;
-                $start = DateTime::fromIsoString($start);
-                $end = DateTime::fromIsoString($end);
-
-                return new self($start, $end);
+        if ($type === 'duration/datetime') {
+            list($duration, $end) = $interval;
+            $period = Period::fromIsoString($duration);
+            $end = DateTime::fromIsoString($end);
+            $start = $period->inverse()->resolveToTimePoint($end);
+        } elseif ($type === 'datetime/duration') {
+            list($start, $duration) = $interval;
+            $start = DateTime::fromIsoString($start);
+            $period = Period::fromIsoString($duration);
+            $end = $period->resolveToTimePoint($start);
+        } else {
+            list($start, $end) = $interval;
+            $start = DateTime::fromIsoString($start);
+            $end = DateTime::fromIsoString($end);
         }
 
-        throw new InvalidArgumentException('Invalid ISO interval: "' . $isoString . '".');
+        return new self($start, $end);
     }
 
     /**
@@ -95,50 +95,24 @@ class Interval extends AbstractInterval implements Iso8601Interface
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible format (YYYY-MM-DDThh:mm:ss[+-]hh:mm/YYYY-MM-DDThh:mm:ss[+-]hh:mm).
-     */
-    public function isoStringDateTimes()
-    {
-        $this->typeCheck->isoStringDateTimes(func_get_args());
-
-        $start = $this->start();
-        $end = $this->end();
-
-        return Iso8601::formatIntervalDateTimesParts(
-            $start->year(),
-            $start->month(),
-            $start->day(),
-            $start->hours(),
-            $start->minutes(),
-            $start->seconds(),
-            $start->timeZone()->isoString(),
-            $end->year(),
-            $end->month(),
-            $end->day(),
-            $end->hours(),
-            $end->minutes(),
-            $end->seconds(),
-            $end->timeZone()->isoString()
-        );
-    }
-
-    /**
      * @return string A string representing this object in an ISO compatible format (YYYY-MM-DDThh:mm:ss[+-]hh:mm/PnYnMnDTnHnMnS).
      */
-    public function isoStringDateTimeAndDuration()
+    public function isoStringWithDuration()
     {
-        $this->typeCheck->isoStringDateTimeAndDuration(func_get_args());
+        $this->typeCheck->isoStringWithDuration(func_get_args());
 
-        return Iso8601::formatIntervalDateTimePartsAndDuration(
+        $start = $this->start();
+        $start = Iso8601::formatDateTime(
             $start->year(),
             $start->month(),
             $start->day(),
             $start->hours(),
             $start->minutes(),
             $start->seconds(),
-            $start->timeZone()->isoString(),
-            $this->duration()->isoString()
+            $start->timeZone()->isoString()
         );
+
+        return $start . '/' . $this->duration()->isoString();
     }
 
     /**
@@ -148,7 +122,29 @@ class Interval extends AbstractInterval implements Iso8601Interface
     {
         $this->typeCheck->isoString(func_get_args());
 
-        return $this->isoStringDateTimes();
+        $start = $this->start();
+        $start = Iso8601::formatDateTime(
+            $start->year(),
+            $start->month(),
+            $start->day(),
+            $start->hours(),
+            $start->minutes(),
+            $start->seconds(),
+            $start->timeZone()->isoString()
+        );
+
+        $end = $this->end();
+        $end = Iso8601::formatDateTime(
+            $end->year(),
+            $end->month(),
+            $end->day(),
+            $end->hours(),
+            $end->minutes(),
+            $end->seconds(),
+            $end->timeZone()->isoString()
+        );
+
+        return $start . '/' . $end;
     }
 
     /**

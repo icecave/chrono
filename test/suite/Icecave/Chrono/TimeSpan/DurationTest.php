@@ -6,6 +6,10 @@ use Icecave\Chrono\TimeZone;
 use Phake;
 use PHPUnit_Framework_TestCase;
 
+/**
+ * @covers Icecave\Chrono\TimeSpan\Duration
+ * @covers Icecave\Chrono\Support\Iso8601
+ */
 class DurationTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
@@ -203,22 +207,17 @@ class DurationTest extends PHPUnit_Framework_TestCase
     {
         return array(
             // Duration Format - Empty/Zero
-            'Empty'                                     => array('P',                       'P'),
-            'Empty with T'                              => array('PT',                      'P'),
-            'Zero years ending with T'                  => array('P0YT',                    'P'),
-            'Zero months ending with T'                 => array('P0MT',                    'P'),
-            'Zero days ending with T'                   => array('P0DT',                    'P'),
-            'Zero weeks'                                => array('P0W',                     'P'),
-            'Zero years'                                => array('P0Y',                     'P'),
-            'Zero months'                               => array('P0M',                     'P'),
-            'Zero days'                                 => array('P0D',                     'P'),
-            'Zero hours'                                => array('PT0H',                    'P'),
-            'Zero minutes'                              => array('PT0M',                    'P'),
-            'Zero seconds'                              => array('PT0S',                    'P'),
-            'Zero YMD'                                  => array('P0Y0M0D',                 'P'),
-            'Zero HMS'                                  => array('PT0H0M0S',                'P'),
-            'Zero YMD HMS'                              => array('P0Y0M0DT0H0M0S',          'P'),
-            'Zero months and minutes'                   => array('P0MT0M',                  'P'),
+            'Zero weeks'                                => array('P0W',                     'PT0S'),
+            'Zero years'                                => array('P0Y',                     'PT0S'),
+            'Zero months'                               => array('P0M',                     'PT0S'),
+            'Zero days'                                 => array('P0D',                     'PT0S'),
+            'Zero hours'                                => array('PT0H',                    'PT0S'),
+            'Zero minutes'                              => array('PT0M',                    'PT0S'),
+            'Zero seconds'                              => array('PT0S',                    'PT0S'),
+            'Zero YMD'                                  => array('P0Y0M0D',                 'PT0S'),
+            'Zero HMS'                                  => array('PT0H0M0S',                'PT0S'),
+            'Zero YMD HMS'                              => array('P0Y0M0DT0H0M0S',          'PT0S'),
+            'Zero months and minutes'                   => array('P0MT0M',                  'PT0S'),
 
             // Duration Format - Weeks
             'Weeks 1'                                   => array('P1W',                     'P7D'),
@@ -233,9 +232,6 @@ class DurationTest extends PHPUnit_Framework_TestCase
             'Hours single digit'                         => array('PT2H',                   'PT2H'),
             'Minutes single digit'                       => array('PT2M',                   'PT2M'),
             'Seconds single digit'                       => array('PT2S',                   'PT2S'),
-            'Years single digit ending T'                => array('P2YT',                   'P730DT12H'),
-            'Months single digit ending T'               => array('P2MT',                   'P60DT21H'),
-            'Days single digit ending T'                 => array('P2DT',                   'P2D'),
 
             // Duration Format - Double digit
             'Years double digit'                         => array('P12Y',                   'P4383D'),
@@ -244,9 +240,6 @@ class DurationTest extends PHPUnit_Framework_TestCase
             'Hours double digit'                         => array('PT12H',                  'PT12H'),
             'Minutes double digit'                       => array('PT12M',                  'PT12M'),
             'Seconds double digit'                       => array('PT12S',                  'PT12S'),
-            'Years double digit ending T'                => array('P12YT',                  'P4383D'),
-            'Months double digit ending T'               => array('P12MT',                  'P365DT6H'),
-            'Days double digit ending T'                 => array('P12DT',                  'P12D'),
 
             // Duration Format - Single digit with zero prefix
             'Years single digit zero prefix'             => array('P05Y',                   'P1826DT6H'),
@@ -255,9 +248,6 @@ class DurationTest extends PHPUnit_Framework_TestCase
             'Hours single digit zero prefix'             => array('PT05H',                  'PT5H'),
             'Minutes single digit zero prefix'           => array('PT05M',                  'PT5M'),
             'Seconds single digit zero prefix'           => array('PT05S',                  'PT5S'),
-            'Years single digit zero prefix ending T'    => array('P05YT',                  'P1826DT6H'),
-            'Months single digit zero prefix ending T'   => array('P05MT',                  'P152DT4H30M'),
-            'Days single digit zero prefix ending T'     => array('P05DT',                  'P5D'),
 
             // Duration Format - Double digit with zero prefix
             'Years double digit zero prefix'             => array('P012Y',                  'P4383D'),
@@ -266,9 +256,6 @@ class DurationTest extends PHPUnit_Framework_TestCase
             'Hours double digit zero prefix'             => array('PT012H',                 'PT12H'),
             'Minutes double digit zero prefix'           => array('PT012M',                 'PT12M'),
             'Seconds double digit zero prefix'           => array('PT012S',                 'PT12S'),
-            'Years double digit zero prefix ending T'    => array('P012YT',                 'P4383D'),
-            'Months double digit zero prefix ending T'   => array('P012MT',                 'P365DT6H'),
-            'Days double digit zero prefix ending T'     => array('P012DT',                 'P12D'),
 
             // Duration Format - Multiple periods
             'Years and months'                          => array('P2Y3M',                   'P821DT19H30M'),
@@ -280,13 +267,12 @@ class DurationTest extends PHPUnit_Framework_TestCase
 
             // Duration Format - Full periods
             'Full YMD'                                  => array('P1Y2M3D',                 'P429DT3H'),
-            'Full YMD ending with T'                    => array('P1Y2M3DT',                'P429DT3H'),
             'Full HMS'                                  => array('PT4H5M6S',                'PT4H5M6S'),
             'Full YMD HMS'                              => array('P1Y2M3DT4H5M6S',          'P429DT7H5M6S'),
 
             // Date Time Format - Misc
-            'Date time basic all zero'                  => array('P00000000T000000',        'P'),
-            'Date time extended all zero'               => array('P0000-00-00T00:00:00',    'P'),
+            'Date time basic all zero'                  => array('P00000000T000000',        'PT0S'),
+            'Date time extended all zero'               => array('P0000-00-00T00:00:00',    'PT0S'),
             'Date time basic'                           => array('P00010203T040506',        'P429DT7H5M6S'),
             'Date time extended'                        => array('P0001-02-03T04:05:06',    'P429DT7H5M6S'),
         );
@@ -311,6 +297,8 @@ class DurationTest extends PHPUnit_Framework_TestCase
             'Missing P has digit and designator'        => array('2D',                      'Invalid ISO duration: "2D".'),
             'Missing P has digit and designator dupe'   => array('2D2D',                    'Invalid ISO duration: "2D2D".'),
             'Missing P has spaces'                      => array(' ',                       'Invalid ISO duration: " ".'),
+            'Empty P'                                   => array('P',                       'Invalid ISO duration: "P".'),
+            'Empty P with ending T'                     => array('PT',                      'Invalid ISO duration: "PT".'),
             'P with space prefix'                       => array(' P',                      'Invalid ISO duration: " P".'),
             'P with space postfix'                      => array('P ',                      'Invalid ISO duration: "P ".'),
             'P with space pre/post fix'                 => array(' P ',                     'Invalid ISO duration: " P ".'),
@@ -324,6 +312,15 @@ class DurationTest extends PHPUnit_Framework_TestCase
             'Years after T time marker'                 => array('PT2Y',                    'Invalid ISO duration: "PT2Y".'),
             'Days after T time marker'                  => array('PT2D',                    'Invalid ISO duration: "PT2D".'),
             'Years and days after T time marker'        => array('PT1Y2M3D',                'Invalid ISO duration: "PT1Y2M3D".'),
+            'Zero period ends with T'                   => array('P0YT',                    'Invalid ISO duration: "P0YT".'),
+            'Double digit zero ends with T'             => array('P00YT',                   'Invalid ISO duration: "P00YT".'),
+            'Double digit ends with T'                  => array('P10YT',                   'Invalid ISO duration: "P10YT".'),
+            'Year ends with T'                          => array('P1YT',                    'Invalid ISO duration: "P1YT".'),
+            'Month ends with T'                         => array('P1MT',                    'Invalid ISO duration: "P1MT".'),
+            'Day ends with T'                           => array('P1DT',                    'Invalid ISO duration: "P1DT".'),
+            'Multiple periods ends with T'              => array('P1Y1MT',                  'Invalid ISO duration: "P1Y1MT".'),
+            'Multiple periods ends with T'              => array('P1M1DT',                  'Invalid ISO duration: "P1M1DT".'),
+            'Multiple periods ends with T'              => array('P1Y1DT',                  'Invalid ISO duration: "P1Y1DT".'),
 
             // Date Time Format - Basic
             'Date time basic missing P'                 => array('00010203T040506',         'Invalid ISO duration: "00010203T040506".'),
@@ -352,5 +349,4 @@ class DurationTest extends PHPUnit_Framework_TestCase
             'Date time extended seconds exceeds moduli' => array('P0000-00-00T00:00:60',    'Invalid ISO duration: "P0000-00-00T00:00:60".'),
         );
     }
-
 }
