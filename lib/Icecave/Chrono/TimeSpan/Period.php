@@ -4,10 +4,13 @@ namespace Icecave\Chrono\TimeSpan;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\Interval\Interval;
 use Icecave\Chrono\Interval\IntervalInterface;
+use Icecave\Chrono\Iso8601Interface;
+use Icecave\Chrono\Support\Calendar;
+use Icecave\Chrono\Support\Iso8601;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
-class Period implements TimeSpanInterface
+class Period implements TimeSpanInterface, Iso8601Interface
 {
     /**
      * @param integer $years   The years in the period.
@@ -33,6 +36,37 @@ class Period implements TimeSpanInterface
         $this->hours = $hours;
         $this->minutes = $minutes;
         $this->seconds = $seconds;
+    }
+
+    /**
+     * Standard duration formats:
+     *   PnYnMnDTnHnMnS (zero periods may be ommitted)
+     *   PnW
+     *   P<date>T<time>
+     *
+     * See link for the full specifics on formats.
+     * @link http://en.wikipedia.org/wiki/ISO_8601#Durations
+     *
+     * Note: Decimal fractions are currently not supported.
+     *
+     * @param string $isoString A string containing a period in any ISO-8601 compatible duration format.
+     *
+     * @return Period The Period constructed from the ISO compatible string.
+     */
+    public static function fromIsoString($isoString)
+    {
+        TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
+
+        $duration = Iso8601::parseDuration($isoString);
+
+        return new self(
+            $duration['years'],
+            $duration['months'],
+            $duration['days'],
+            $duration['hours'],
+            $duration['minutes'],
+            $duration['seconds']
+        );
     }
 
     /**
@@ -95,22 +129,22 @@ class Period implements TimeSpanInterface
         return $this->seconds;
     }
 
+    /**
+     * @return integer The approximate total seconds in the period.
+     */
     public function approximateTotalSeconds()
     {
         $this->typeCheck->approximateTotalSeconds(func_get_args());
 
-        $seconds  = $this->seconds();
-        $seconds += $this->minutes() * 60;
-        $seconds += $this->hours() * 3600;
-
-        // avg days in year = 365.25
-        // average seconds in year = 365.25 * 86,400 = 31,557,600
-        // average seconds in month = 31,557,600 / 12 = 2,629,800
-        $seconds += $this->days() * 86400;
-        $seconds += $this->months() * 2629800;
-        $seconds += $this->years() * 31557600;
-
-        return $seconds;
+        return Calendar::approximateTotalSeconds(
+            $this->years(),
+            $this->months(),
+            0,
+            $this->days(),
+            $this->hours(),
+            $this->minutes(),
+            $this->seconds()
+        );
     }
 
     /**
@@ -349,11 +383,28 @@ class Period implements TimeSpanInterface
     }
 
     /**
-     * @return string
+     * @return string A string representing this object in an ISO compatible duration format (PnYnMnDTnHnMnS).
+     */
+    public function isoString()
+    {
+        $this->typeCheck->isoString(func_get_args());
+
+        return Iso8601::formatDuration(
+            $this->years(),
+            $this->months(),
+            $this->days(),
+            $this->hours(),
+            $this->minutes(),
+            $this->seconds()
+        );
+    }
+
+    /**
+     * @return string A string representing this object in an ISO compatible duration format (PnYnMnDTnHnMnS).
      */
     public function __toString()
     {
-        return $this->string();
+        return $this->isoString();
     }
 
     private $typeCheck;

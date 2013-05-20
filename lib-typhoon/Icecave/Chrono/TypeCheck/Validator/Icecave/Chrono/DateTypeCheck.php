@@ -50,14 +50,14 @@ class DateTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('isoDate', 0, 'string');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('isoString', 0, 'string');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
         }
         $value = $arguments[0];
         if (!\is_string($value)) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
-                'isoDate',
+                'isoString',
                 0,
                 $arguments[0],
                 'string'

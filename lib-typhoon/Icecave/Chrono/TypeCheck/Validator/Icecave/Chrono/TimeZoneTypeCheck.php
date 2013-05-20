@@ -37,14 +37,14 @@ class TimeZoneTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('isoTimeZone', 0, 'string');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('isoString', 0, 'string');
         } elseif ($argumentCount > 2) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(2, $arguments[2]);
         }
         $value = $arguments[0];
         if (!\is_string($value)) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
-                'isoTimeZone',
+                'isoString',
                 0,
                 $arguments[0],
                 'string'

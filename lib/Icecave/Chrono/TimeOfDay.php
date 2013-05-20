@@ -4,9 +4,9 @@ namespace Icecave\Chrono;
 use DateTime as NativeDateTime;
 use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormatterInterface;
+use Icecave\Chrono\Support\Iso8601;
 use Icecave\Chrono\Support\Normalizer;
 use Icecave\Chrono\TypeCheck\TypeCheck;
-use InvalidArgumentException;
 
 class TimeOfDay implements TimeInterface
 {
@@ -37,32 +37,36 @@ class TimeOfDay implements TimeInterface
     }
 
     /**
-     * @param string $isoTime A string containing a time in any ISO-8601 compatible format.
+     * Standard time formats:
+     *   hh:mm:ss[timezone]
+     *   hhmmss[timezone]
+     *
+     * @link http://en.wikipedia.org/wiki/ISO_8601#Times
+     *
+     * Note: Formats hh:mm and hhmm for reduced precision are currently not supported.
+     *
+     * @param string $isoString A string containing a time in any ISO-8601 compatible time format.
      *
      * @return TimeOfDay The TimeOfDay constructed from the ISO compatible string and optional time zone.
      */
-    public static function fromIsoString($isoTime)
+    public static function fromIsoString($isoString)
     {
         TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
 
-        $matches = array();
-        if (preg_match(self::FORMAT_EXTENDED, $isoTime, $matches) === 1 ||
-            preg_match(self::FORMAT_BASIC, $isoTime, $matches) === 1) {
+        $time = Iso8601::parseTime($isoString);
 
-            $hour = intval($matches[1]);
-            $minute = intval($matches[2]);
-            $second = intval($matches[3]);
-
-            if (count($matches) > 4 && strlen($matches[4]) > 0) {
-                $timeZone = TimeZone::fromIsoString($matches[4]);
-            } else {
-                $timeZone = null;
-            }
+        if ($time['offset'] !== null) {
+            $timeZone = new TimeZone($time['offset']);
         } else {
-            throw new InvalidArgumentException('Invalid ISO time: "' . $isoTime . '".');
+            $timeZone = null;
         }
 
-        return new self($hour, $minute, $second, $timeZone);
+        return new self(
+            $time['hour'],
+            $time['minute'],
+            $time['second'],
+            $timeZone
+        );
     }
 
     /**
@@ -328,31 +332,27 @@ class TimeOfDay implements TimeInterface
      }
 
     /**
-     * @return string A string representing this object in an ISO compatible format (HH:MM:SS[+-]HH:MM).
+     * @return string A string representing this object in an ISO compatible time format (hh:mm:ss[+-]hh:mm).
      */
     public function isoString()
     {
         $this->typeCheck->isoString(func_get_args());
 
-        return sprintf(
-            '%02d:%02d:%02d%s',
+        return Iso8601::formatTime(
             $this->hours(),
             $this->minutes(),
             $this->seconds(),
-            $this->timeZone()
+            $this->timeZone()->isoString()
         );
     }
 
     /**
-     * @return string A string representing this object in an ISO compatible format (HH:MM:SS[+-]HH:MM).
+     * @return string A string representing this object in an ISO compatible time format (hh:mm:ss[+-]hh:mm).
      */
     public function __toString()
     {
         return $this->isoString();
     }
-
-    const FORMAT_BASIC    = '/^(\d\d)(\d\d)(\d\d)(.*)$/';
-    const FORMAT_EXTENDED = '/^(\d\d):(\d\d):(\d\d)(.*)$/';
 
     private $typeCheck;
     private $hours;

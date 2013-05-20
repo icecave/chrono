@@ -6,6 +6,10 @@ use Eloquent\Liberator\Liberator;
 use Phake;
 use PHPUnit_Framework_TestCase;
 
+/**
+ * @covers Icecave\Chrono\Date
+ * @covers Icecave\Chrono\Support\Iso8601
+ */
 class DateTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
@@ -311,7 +315,7 @@ class DateTest extends PHPUnit_Framework_TestCase
         $hours = 60 * 60;
         $minutes = 60;
 
-        $timeZoneUTC = new TimeZone(0);
+        $timeZoneUTC     = new TimeZone(0);
         $timeZonePos1100 = new TimeZone(11 * $hours);
         $timeZonePos1122 = new TimeZone((11 * $hours) + (22 * $minutes));
         $timeZoneNeg1100 = new TimeZone(-(11 * $hours));
@@ -365,6 +369,7 @@ class DateTest extends PHPUnit_Framework_TestCase
             'Invalid letters'                    => array('2013-BB-01',   'Invalid ISO date: "2013-BB-01"'),
             'Invalid letters'                    => array('2013-01-CC',   'Invalid ISO date: "2013-01-CC"'),
             'Invalid separator'                  => array('2013:02:01',   'Invalid ISO date: "2013:02:01"'),
+            'Invalid separator'                  => array('2013/02/01',   'Invalid ISO date: "2013/02/01"'),
             'Missing date'                       => array('+10',          'Invalid ISO date: "+10"'),
             'Missing date'                       => array('+10:20',       'Invalid ISO date: "+10:20"'),
         );

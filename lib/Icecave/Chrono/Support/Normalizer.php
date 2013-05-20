@@ -3,7 +3,7 @@ namespace Icecave\Chrono\Support;
 
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
-class Normalizer
+abstract class Normalizer
 {
     /**
      * @param integer &$hours
