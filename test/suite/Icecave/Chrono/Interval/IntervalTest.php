@@ -45,9 +45,9 @@ class IntervalTest extends PHPUnit_Framework_TestCase
         $this->assertSame('2012-01-01T00:00:00+00:00/2012-01-05T00:00:00+00:00', $this->interval->__toString());
     }
 
-    public function testIsoStringWithDuration()
+    public function testIsoStringWithPeriod()
     {
-        $this->assertSame('2012-01-01T00:00:00+00:00/P4D', $this->interval->isoStringWithDuration());
+        $this->assertSame('2012-01-01T00:00:00+00:00/P4D', $this->interval->isoStringWithPeriod());
     }
 
     /**
