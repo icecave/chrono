@@ -3,6 +3,7 @@ namespace Icecave\Chrono\Interval;
 
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TimeSpan\Duration;
+use Icecave\Chrono\TimeSpan\Period;
 
 /**
  * An interval represents a stretch of time between two known time points.
@@ -106,4 +107,39 @@ interface IntervalInterface
      * @return Duration A duration representing the difference between start and end.
      */
     public function duration();
+
+    /**
+     * @return Period A period representing the difference between start and end.
+     */
+    public function period();
+
+    /**
+     * @return Iterator An iterator that yields each year in the interval.
+     */
+    public function byYear();
+
+    /**
+     * @return Iterator An iterator that yields each month in the interval.
+     */
+    public function byMonth();
+
+    /**
+     * @return Iterator An iterator that yields each day in the interval.
+     */
+    public function byDay();
+
+    /**
+     * @return Iterator An iterator that yields each hour in the interval.
+     */
+    public function byHour();
+
+    /**
+     * @return Iterator An iterator that yields each minute in the interval.
+     */
+    public function byMinute();
+
+    /**
+     * @return Iterator An iterator that yields each second in the interval.
+     */
+    public function bySecond();
 }

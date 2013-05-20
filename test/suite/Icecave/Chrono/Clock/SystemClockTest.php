@@ -3,7 +3,6 @@ namespace Icecave\Chrono\Clock;
 
 use Eloquent\Liberator\Liberator;
 use Icecave\Chrono\DateTime;
-use Icecave\Chrono\TimeZone;
 use Icecave\Isolator\Isolator;
 use Phake;
 use PHPUnit_Framework_TestCase;

@@ -1,6 +1,12 @@
 <?php
 namespace Icecave\Chrono\Interval;
 
+use Icecave\Chrono\Iterator\DayIntervalIterator;
+use Icecave\Chrono\Iterator\HourIntervalIterator;
+use Icecave\Chrono\Iterator\MinuteIntervalIterator;
+use Icecave\Chrono\Iterator\MonthIntervalIterator;
+use Icecave\Chrono\Iterator\SecondIntervalIterator;
+use Icecave\Chrono\Iterator\YearIntervalIterator;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TimeSpan\Duration;
 use Icecave\Chrono\TypeCheck\TypeCheck;
@@ -161,7 +167,63 @@ abstract class AbstractInterval implements IntervalInterface
     {
         $this->typeCheck->duration(func_get_args());
 
-        return new Duration($this->end()->unixTime() - $this->start()->unixTime());
+        return $this->end()->differenceAsDuration($this->start());
+    }
+
+    /**
+     * @return Period A period representing the difference between start and end.
+     */
+    public function period()
+    {
+        return $this->end()->differenceAsPeriod($this->start());
+    }
+
+    /**
+     * @return Iterator An iterator that yields each year in the interval.
+     */
+    public function byYear()
+    {
+        return new YearIntervalIterator($this);
+    }
+
+    /**
+     * @return Iterator An iterator that yields each month in the interval.
+     */
+    public function byMonth()
+    {
+        return new MonthIntervalIterator($this);
+    }
+
+    /**
+     * @return Iterator An iterator that yields each day in the interval.
+     */
+    public function byDay()
+    {
+        return new DayIntervalIterator($this);
+    }
+
+    /**
+     * @return Iterator An iterator that yields each hour in the interval.
+     */
+    public function byHour()
+    {
+        return new HourIntervalIterator($this);
+    }
+
+    /**
+     * @return Iterator An iterator that yields each minute in the interval.
+     */
+    public function byMinute()
+    {
+        return new MinuteIntervalIterator($this);
+    }
+
+    /**
+     * @return Iterator An iterator that yields each second in the interval.
+     */
+    public function bySecond()
+    {
+        return new SecondIntervalIterator($this);
     }
 
     private $typeCheck;
