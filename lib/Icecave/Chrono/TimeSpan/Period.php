@@ -1,6 +1,7 @@
 <?php
 namespace Icecave\Chrono\TimeSpan;
 
+use DateInterval;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\Interval\Interval;
 use Icecave\Chrono\Interval\IntervalInterface;
@@ -67,6 +68,31 @@ class Period implements TimeSpanInterface, Iso8601Interface
             $duration['minutes'],
             $duration['seconds']
         );
+    }
+
+    /**
+     * @param DateInterval $dateInterval The native PHP DateInterval.
+     *
+     * @return Period The Period constructed from the native PHP DateInterval.
+     */
+    public static function fromNativeDateInterval(DateInterval $dateInterval)
+    {
+        TypeCheck::get(__CLASS__)->fromNativeDateInterval(func_get_args());
+
+        $period = new self(
+            $dateInterval->y,
+            $dateInterval->m,
+            $dateInterval->d,
+            $dateInterval->h,
+            $dateInterval->i,
+            $dateInterval->s
+        );
+
+        if ($dateInterval->invert) {
+            return $period->inverse();
+        }
+
+        return $period;
     }
 
     /**
@@ -352,6 +378,16 @@ class Period implements TimeSpanInterface, Iso8601Interface
             $timePoint->seconds() + $this->seconds(),
             $timePoint->timeZone()
         );
+    }
+
+    /**
+     * @return DateInterval A native PHP DateInterval instance representing this span.
+     */
+    public function nativeDateInterval()
+    {
+        $this->typeCheck->nativeDateInterval(func_get_args());
+
+        return new DateInterval($this->isoString());
     }
 
     /**
