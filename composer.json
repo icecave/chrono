@@ -7,7 +7,12 @@
     "authors": [
         {
             "name": "James Harris",
-            "email": "james.harris@icecave.com.au"
+            "email": "james.harris@icecave.com.au",
+            "homepage": "https://github.com/jmalloc"
+        },
+        {
+            "name": "Kevin Millar",
+            "email": "koden.km@gmail.com"
         }
     ],
     "require": {
