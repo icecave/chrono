@@ -1,6 +1,7 @@
 <?php
 namespace Icecave\Chrono\TimeSpan;
 
+use DateInterval;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\Interval\IntervalInterface;
 
@@ -63,6 +64,11 @@ interface TimeSpanInterface
      * @return TimePointInterface
      */
     public function resolveToTimePoint(TimePointInterface $timePoint);
+
+    /**
+     * @return DateInterval A native PHP DateInterval instance representing this span.
+     */
+    public function nativeDateInterval();
 
     /**
      * @return string
