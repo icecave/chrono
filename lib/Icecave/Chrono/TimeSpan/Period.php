@@ -323,10 +323,13 @@ class Period implements TimeSpanInterface, Iso8601Interface
     {
         $this->typeCheck->resolveToInterval(func_get_args());
 
-        return new Interval(
-            $timePoint,
-            $this->resolveToTimePoint($timePoint)
-        );
+        $end = $this->resolveToTimePoint($timePoint);
+
+        if ($end->isLessThan($timePoint)) {
+            return new Interval($end, $timePoint);
+        }
+
+        return new Interval($timePoint, $end);
     }
 
     /**

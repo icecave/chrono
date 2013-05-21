@@ -172,6 +172,18 @@ class DurationTest extends PHPUnit_Framework_TestCase
         $this->assertSame('2012-01-11T13:24:35+10:00', $result->end()->isoString());
     }
 
+    public function testResolveToIntervalInverse()
+    {
+        $duration = new Duration(-10);
+        $timePoint = new DateTime(2012, 1, 2, 0, 0, 0);
+
+        $result = $duration->resolveToInterval($timePoint);
+
+        $this->assertInstanceOf('Icecave\Chrono\Interval\IntervalInterface', $result);
+        $this->assertSame('2012-01-01T23:59:50+00:00', $result->start()->isoString());
+        $this->assertSame('2012-01-02T00:00:00+00:00', $result->end()->isoString());
+    }
+
     public function testResolveToTimePoint()
     {
         $timeZone = new TimeZone(36000);
