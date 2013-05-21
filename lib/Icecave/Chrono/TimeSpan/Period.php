@@ -71,6 +71,31 @@ class Period implements TimeSpanInterface, Iso8601Interface
     }
 
     /**
+     * @param DateInterval $dateInterval The native PHP DateInterval.
+     *
+     * @return Period The Period constructed from the native PHP DateInterval.
+     */
+    public static function fromNativeDateInterval(DateInterval $dateInterval)
+    {
+        TypeCheck::get(__CLASS__)->fromNativeDateInterval(func_get_args());
+
+        $period = new self(
+            $dateInterval->y,
+            $dateInterval->m,
+            $dateInterval->d,
+            $dateInterval->h,
+            $dateInterval->i,
+            $dateInterval->s
+        );
+
+        if ($dateInterval->invert) {
+            return $period->inverse();
+        }
+
+        return $period;
+    }
+
+    /**
      * @return integer The number of years in the period.
      */
     public function years()

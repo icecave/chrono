@@ -10,6 +10,7 @@ use Icecave\Chrono\Detail\Calendar;
 use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
+use InvalidArgumentException;
 
 /**
  * A duration represents a concrete amount of time.
@@ -79,6 +80,34 @@ class Duration implements TimeSpanInterface, Iso8601Interface
         );
 
         return new self($seconds);
+    }
+
+    /**
+     * @param DateInterval $dateInterval The native PHP DateInterval.
+     *
+     * @return Duration The Duration constructed from the native PHP DateInterval.
+     */
+    public static function fromNativeDateInterval(DateInterval $dateInterval)
+    {
+        TypeCheck::get(__CLASS__)->fromNativeDateInterval(func_get_args());
+
+        if ($dateInterval->y !== 0 || $dateInterval->m !== 0) {
+            throw new InvalidArgumentException('Duration\'s can not be created from date intervals containing years or months.');
+        }
+
+        $duration = self::fromComponents(
+            0,
+            $dateInterval->d,
+            $dateInterval->h,
+            $dateInterval->i,
+            $dateInterval->s
+        );
+
+        if ($dateInterval->invert) {
+            return $duration->inverse();
+        }
+
+        return $duration;
     }
 
     /**

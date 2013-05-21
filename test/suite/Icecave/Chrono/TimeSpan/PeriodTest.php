@@ -1,6 +1,7 @@
 <?php
 namespace Icecave\Chrono\TimeSpan;
 
+use DateInterval;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\TimeZone;
 use Phake;
@@ -286,7 +287,7 @@ class PeriodTest extends PHPUnit_Framework_TestCase
     public function testFromIsoStringWithInvalidIsoString($isoString, $expected)
     {
         $this->setExpectedException('InvalidArgumentException', $expected);
-        $result = Period::fromIsoString($isoString);
+        Period::fromIsoString($isoString);
     }
 
     public function invalidIsoStrings()
@@ -348,5 +349,33 @@ class PeriodTest extends PHPUnit_Framework_TestCase
             'Date time extended minutes exceeds moduli' => array('P0000-00-00T00:60:00',    'Invalid ISO duration: "P0000-00-00T00:60:00".'),
             'Date time extended seconds exceeds moduli' => array('P0000-00-00T00:00:60',    'Invalid ISO duration: "P0000-00-00T00:00:60".'),
         );
+    }
+
+    public function testFromNativeDateInterval()
+    {
+        $native = new DateInterval('P1Y2M3DT4H5M6S');
+        $result = Period::fromNativeDateInterval($native);
+
+        $this->assertSame(1, $result->years());
+        $this->assertSame(2, $result->months());
+        $this->assertSame(3, $result->days());
+        $this->assertSame(4, $result->hours());
+        $this->assertSame(5, $result->minutes());
+        $this->assertSame(6, $result->seconds());
+    }
+
+    public function testFromNativeDateIntervalWithInvert()
+    {
+        $native = new DateInterval('P1Y2M3DT4H5M6S');
+        $native->invert = 1;
+
+        $result = Period::fromNativeDateInterval($native);
+
+        $this->assertSame(-1, $result->years());
+        $this->assertSame(-2, $result->months());
+        $this->assertSame(-3, $result->days());
+        $this->assertSame(-4, $result->hours());
+        $this->assertSame(-5, $result->minutes());
+        $this->assertSame(-6, $result->seconds());
     }
 }
