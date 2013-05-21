@@ -183,6 +183,14 @@ class DurationTest extends PHPUnit_Framework_TestCase
         $this->assertSame('2012-01-11T13:24:35+10:00', $result->isoString());
     }
 
+    public function testNativeDateInterval()
+    {
+        $duration = Duration::fromIsoString('P1Y2M3DT4H5M6S');
+        $native = $duration->nativeDateInterval();
+
+        $this->assertSame($native->format('P%dDT%hH%iM%sS'), $duration->isoString());
+    }
+
     public function testString()
     {
         $this->assertSame('1w 2d 03:04:05', $this->duration->string());
