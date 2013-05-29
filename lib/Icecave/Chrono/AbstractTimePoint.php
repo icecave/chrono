@@ -4,11 +4,13 @@ namespace Icecave\Chrono;
 use Icecave\Chrono\TimeSpan\Duration;
 use Icecave\Chrono\TimeSpan\Period;
 use Icecave\Chrono\TypeCheck\TypeCheck;
+use Icecave\Parity\AbstractComparable;
+use Icecave\Parity\Exception\NotComparableException;
 
 /**
  * Represents a concrete point on the time continuum.
  */
-abstract class AbstractTimePoint implements TimePointInterface
+abstract class AbstractTimePoint extends AbstractComparable implements TimePointInterface
 {
     public function __construct()
     {
@@ -16,89 +18,47 @@ abstract class AbstractTimePoint implements TimePointInterface
     }
 
     /**
-     * Perform a {@see strcmp} style comparison with another time point.
+     * Check if $this is able to be compared to another value.
      *
-     * @param TimePointInterface $timePoint The time point to compare.
+     * A return value of false indicates that calling $this->compare($value)
+     * will throw an exception.
      *
-     * @return integer 0 if $this and $timePoint are equal, <0 if $this < $timePoint, or >0 if $this > $timePoint.
+     * @param mixed $value The value to compare.
+     *
+     * @return boolean True if $this can be compared to $value.
      */
-    public function compare(TimePointInterface $timePoint)
+    public function canCompare($value)
+    {
+        $this->typeCheck->canCompare(func_get_args());
+
+        return $value instanceof TimePointInterface;
+    }
+
+    /**
+     * Compare this object with another value, yielding a result according to the following table:
+     *
+     * +--------------------+---------------+
+     * | Condition          | Result        |
+     * +--------------------+---------------+
+     * | $this == $value    | $result === 0 |
+     * | $this < $value     | $result < 0   |
+     * | $this > $value     | $result > 0   |
+     * +--------------------+---------------+
+     *
+     * @param mixed $timePoint The time point to compare.
+     *
+     * @return integer                0 if $this and $timePoint are equal, <0 if $this < $timePoint, or >0 if $this > $timePoint.
+     * @throws NotComparableException Indicates that the implementation does not know how to compare $this to $timePoint.
+     */
+    public function compare($timePoint)
     {
         $this->typeCheck->compare(func_get_args());
 
+        if (!$this->canCompare($timePoint)) {
+            throw new NotComparableException($this, $timePoint);
+        }
+
         return $this->unixTime() - $timePoint->unixTime();
-    }
-
-    /**
-     * @param TimePointInterface $timePoint The time point to compare.
-     *
-     * @return boolean True if $this and $timePoint are equal.
-     */
-    public function isEqualTo(TimePointInterface $timePoint)
-    {
-        $this->typeCheck->isEqualTo(func_get_args());
-
-        return $this->compare($timePoint) === 0;
-    }
-
-    /**
-     * @param TimePointInterface $timePoint The time point to compare.
-     *
-     * @return boolean True if $this and $timePoint are not equal.
-     */
-    public function isNotEqualTo(TimePointInterface $timePoint)
-    {
-        $this->typeCheck->isNotEqualTo(func_get_args());
-
-        return $this->compare($timePoint) !== 0;
-    }
-
-    /**
-     * @param TimePointInterface $timePoint The time point to compare.
-     *
-     * @return boolean True if $this > $timePoint.
-     */
-    public function isGreaterThan(TimePointInterface $timePoint)
-    {
-        $this->typeCheck->isGreaterThan(func_get_args());
-
-        return $this->compare($timePoint) > 0;
-    }
-
-    /**
-     * @param TimePointInterface $timePoint The time point to compare.
-     *
-     * @return boolean True if $this < $timePoint.
-     */
-    public function isLessThan(TimePointInterface $timePoint)
-    {
-        $this->typeCheck->isLessThan(func_get_args());
-
-        return $this->compare($timePoint) < 0;
-    }
-
-    /**
-     * @param TimePointInterface $timePoint The time point to compare.
-     *
-     * @return boolean True if $this >= $timePoint.
-     */
-    public function isGreaterThanOrEqualTo(TimePointInterface $timePoint)
-    {
-        $this->typeCheck->isGreaterThanOrEqualTo(func_get_args());
-
-        return $this->compare($timePoint) >= 0;
-    }
-
-    /**
-     * @param TimePointInterface $timePoint The time point to compare.
-     *
-     * @return boolean True if $this <= $timePoint.
-     */
-    public function isLessThanOrEqualTo(TimePointInterface $timePoint)
-    {
-        $this->typeCheck->isLessThanOrEqualTo(func_get_args());
-
-        return $this->compare($timePoint) <= 0;
     }
 
     /**

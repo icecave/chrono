@@ -4,11 +4,13 @@ namespace Icecave\Chrono\Interval;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TimeSpan\Duration;
 use Icecave\Chrono\TimeSpan\Period;
+use Icecave\Parity\ExtendedComparableInterface;
+use Icecave\Parity\RestrictedComparableInterface;
 
 /**
  * An interval represents a stretch of time between two known time points.
  */
-interface IntervalInterface
+interface IntervalInterface extends ExtendedComparableInterface, RestrictedComparableInterface
 {
     /**
      * @return TimePointInterface The start of the interval.
@@ -24,57 +26,6 @@ interface IntervalInterface
      * @return boolean True if the interval indicates a zero duration; otherwise, false.
      */
     public function isEmpty();
-
-    /**
-     * Perform a {@see strcmp} style comparison with another interval.
-     *
-     * @param IntervalInterface $interval The interval to compare.
-     *
-     * @return integer 0 if $this and $interval are equal, <0 if $this < $interval, or >0 if $this > $interval.
-     */
-    public function compare(IntervalInterface $interval);
-
-    /**
-     * @param IntervalInterface $interval The interval to compare.
-     *
-     * @return boolean True if $this and $interval are equal.
-     */
-    public function isEqualTo(IntervalInterface $interval);
-
-    /**
-     * @param IntervalInterface $interval The interval to compare.
-     *
-     * @return boolean True if $this and $interval are not equal.
-     */
-    public function isNotEqualTo(IntervalInterface $interval);
-
-    /**
-     * @param IntervalInterface $interval The interval to compare.
-     *
-     * @return boolean True if $this > $interval.
-     */
-    public function isGreaterThan(IntervalInterface $interval);
-
-    /**
-     * @param IntervalInterface $interval The interval to compare.
-     *
-     * @return boolean True if $this < $interval.
-     */
-    public function isLessThan(IntervalInterface $interval);
-
-    /**
-     * @param IntervalInterface $interval The interval to compare.
-     *
-     * @return boolean True if $this >= $interval.
-     */
-    public function isGreaterThanOrEqualTo(IntervalInterface $interval);
-
-    /**
-     * @param IntervalInterface $interval The interval to compare.
-     *
-     * @return boolean True if $this <= $interval.
-     */
-    public function isLessThanOrEqualTo(IntervalInterface $interval);
 
     /**
      * Check if a given time point is contained within this interval.

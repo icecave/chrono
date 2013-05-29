@@ -52,6 +52,12 @@ class TimeZoneTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($timeZone->isUtc());
     }
 
+    public function testCompareWithNotComparableException()
+    {
+        $this->setExpectedException('Icecave\Parity\Exception\NotComparableException');
+        $this->timeZone->compare('foo');
+    }
+
     public function testCompareEquals()
     {
         $a = new TimeZone(0, false);

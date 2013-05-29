@@ -90,6 +90,12 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
+    public function testCompareWithNotComparableException()
+    {
+        $this->setExpectedException('Icecave\Parity\Exception\NotComparableException');
+        $this->time->compare('foo');
+    }
+
     public function testCompareSelf()
     {
         $this->assertSame(0, $this->time->compare($this->time));

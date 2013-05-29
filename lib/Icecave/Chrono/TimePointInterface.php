@@ -5,63 +5,14 @@ use DateTime as NativeDateTime;
 use Icecave\Chrono\TimeSpan\Duration;
 use Icecave\Chrono\TimeSpan\Period;
 use Icecave\Chrono\TimeSpan\TimeSpanInterface;
+use Icecave\Parity\ExtendedComparableInterface;
+use Icecave\Parity\RestrictedComparableInterface;
 
 /**
  * Represents a concrete point on the time continuum.
  */
-interface TimePointInterface extends DateInterface, TimeInterface
+interface TimePointInterface extends DateInterface, TimeInterface, ExtendedComparableInterface, RestrictedComparableInterface
 {
-    /**
-     * Perform a {@see strcmp} style comparison with another time point.
-     *
-     * @param TimePointInterface $timePoint The time point to compare.
-     *
-     * @return integer 0 if $this and $timePoint are equal, <0 if $this < $timePoint, or >0 if $this > $timePoint.
-     */
-    public function compare(TimePointInterface $timePoint);
-
-    /**
-     * @param TimePointInterface $timePoint The time point to compare.
-     *
-     * @return boolean True if $this and $timePoint are equal.
-     */
-    public function isEqualTo(TimePointInterface $timePoint);
-
-    /**
-     * @param TimePointInterface $timePoint The time point to compare.
-     *
-     * @return boolean True if $this and $timePoint are not equal.
-     */
-    public function isNotEqualTo(TimePointInterface $timePoint);
-
-    /**
-     * @param TimePointInterface $timePoint The time point to compare.
-     *
-     * @return boolean True if $this > $timePoint.
-     */
-    public function isGreaterThan(TimePointInterface $timePoint);
-
-    /**
-     * @param TimePointInterface $timePoint The time point to compare.
-     *
-     * @return boolean True if $this < $timePoint.
-     */
-    public function isLessThan(TimePointInterface $timePoint);
-
-    /**
-     * @param TimePointInterface $timePoint The time point to compare.
-     *
-     * @return boolean True if $this >= $timePoint.
-     */
-    public function isGreaterThanOrEqualTo(TimePointInterface $timePoint);
-
-    /**
-     * @param TimePointInterface $timePoint The time point to compare.
-     *
-     * @return boolean True if $this <= $timePoint.
-     */
-    public function isLessThanOrEqualTo(TimePointInterface $timePoint);
-
     /**
      * @return integer The number of seconds since unix epoch (1970-01-01 00:00:00+00:00).
      */
