@@ -57,6 +57,12 @@ class PeriodTest extends PHPUnit_Framework_TestCase
         $this->assertSame(37091106, $this->period->approximateTotalSeconds());
     }
 
+    public function testCompareWithNotComparableException()
+    {
+        $this->setExpectedException('Icecave\Parity\Exception\NotComparableException');
+        $this->period->compare('foo');
+    }
+
     public function testCompare()
     {
         $this->assertGreaterThan(0, $this->period->compare($this->before));
