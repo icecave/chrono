@@ -6,8 +6,11 @@ use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Format\FormattableInterface;
 use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\TypeCheck\TypeCheck;
+use Icecave\Parity\AbstractComparable;
+use Icecave\Parity\Exception\NotComparableException;
+use Icecave\Parity\RestrictedComparableInterface;
 
-class TimeZone implements Iso8601Interface, FormattableInterface
+class TimeZone extends AbstractComparable implements Iso8601Interface, FormattableInterface, RestrictedComparableInterface
 {
     /**
      * @param integer $offset The offset from UTC in seconds.
@@ -77,90 +80,48 @@ class TimeZone implements Iso8601Interface, FormattableInterface
     }
 
     /**
-     * Perform a {@see strcmp} style comparison with another timezone.
+     * Check if $this is able to be compared to another value.
      *
-     * @param TimeZone $timeZone The timezone to compare.
+     * A return value of false indicates that calling $this->compare($value)
+     * will throw an exception.
      *
-     * @return integer 0 if $this and $timeZone are equal, <0 if $this < $timeZone, or >0 if $this > $timeZone.
+     * @param mixed $value The value to compare.
+     *
+     * @return boolean True if $this can be compared to $value.
      */
-    public function compare(TimeZone $timeZone)
+    public function canCompare($value)
+    {
+        $this->typeCheck->canCompare(func_get_args());
+
+        return $value instanceof TimeZone;
+    }
+
+    /**
+     * Compare this object with another value, yielding a result according to the following table:
+     *
+     * +--------------------+---------------+
+     * | Condition          | Result        |
+     * +--------------------+---------------+
+     * | $this == $value    | $result === 0 |
+     * | $this < $value     | $result < 0   |
+     * | $this > $value     | $result > 0   |
+     * +--------------------+---------------+
+     *
+     * @param mixed $timeZone The timezone to compare.
+     *
+     * @return integer                0 if $this and $timeZone are equal, <0 if $this < $timeZone, or >0 if $this > $timeZone.
+     * @throws NotComparableException Indicates that the implementation does not know how to compare $this to $timeZone.
+     */
+    public function compare($timeZone)
     {
         $this->typeCheck->compare(func_get_args());
 
+        if (!$this->canCompare($timeZone)) {
+            throw new NotComparableException($this, $timeZone);
+        }
+
         return $this->offset() - $timeZone->offset()
             ?: intval($this->isDst()) - intval($timeZone->isDst());
-    }
-
-    /**
-     * @param TimeZone $timeZone The timeZone to compare.
-     *
-     * @return boolean True if $this and $timeZone are equal.
-     */
-    public function isEqualTo(TimeZone $timeZone)
-    {
-        $this->typeCheck->isEqualTo(func_get_args());
-
-        return $this->compare($timeZone) === 0;
-    }
-
-    /**
-     * @param TimeZone $timeZone The timeZone to compare.
-     *
-     * @return boolean True if $this and $timeZone are not equal.
-     */
-    public function isNotEqualTo(TimeZone $timeZone)
-    {
-        $this->typeCheck->isNotEqualTo(func_get_args());
-
-        return $this->compare($timeZone) !== 0;
-    }
-
-    /**
-     * @param TimeZone $timeZone The timeZone to compare.
-     *
-     * @return boolean True if $this > $timeZone.
-     */
-    public function isGreaterThan(TimeZone $timeZone)
-    {
-        $this->typeCheck->isGreaterThan(func_get_args());
-
-        return $this->compare($timeZone) > 0;
-    }
-
-    /**
-     * @param TimeZone $timeZone The timeZone to compare.
-     *
-     * @return boolean True if $this < $timeZone.
-     */
-    public function isLessThan(TimeZone $timeZone)
-    {
-        $this->typeCheck->isLessThan(func_get_args());
-
-        return $this->compare($timeZone) < 0;
-    }
-
-    /**
-     * @param TimeZone $timeZone The timeZone to compare.
-     *
-     * @return boolean True if $this >= $timeZone.
-     */
-    public function isGreaterThanOrEqualTo(TimeZone $timeZone)
-    {
-        $this->typeCheck->isGreaterThanOrEqualTo(func_get_args());
-
-        return $this->compare($timeZone) >= 0;
-    }
-
-    /**
-     * @param TimeZone $timeZone The timeZone to compare.
-     *
-     * @return boolean True if $this <= $timeZone.
-     */
-    public function isLessThanOrEqualTo(TimeZone $timeZone)
-    {
-        $this->typeCheck->isLessThanOrEqualTo(func_get_args());
-
-        return $this->compare($timeZone) <= 0;
     }
 
     /**

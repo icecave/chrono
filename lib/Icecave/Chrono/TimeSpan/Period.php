@@ -10,8 +10,11 @@ use Icecave\Chrono\Detail\Calendar;
 use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
+use Icecave\Parity\AbstractComparable;
+use Icecave\Parity\Exception\NotComparableException;
+use Icecave\Parity\RestrictedComparableInterface;
 
-class Period implements TimeSpanInterface, Iso8601Interface
+class Period extends AbstractComparable implements TimeSpanInterface, Iso8601Interface, RestrictedComparableInterface
 {
     /**
      * @param integer $years   The years in the period.
@@ -174,15 +177,45 @@ class Period implements TimeSpanInterface, Iso8601Interface
     }
 
     /**
-     * Perform a {@see strcmp} style comparison with another duration.
+     * Check if $this is able to be compared to another value.
      *
-     * @param Period $period The period to compare.
+     * A return value of false indicates that calling $this->compare($value)
+     * will throw an exception.
      *
-     * @return integer 0 if $this and $period are equal, <0 if $this < $period, or >0 if $this > $period.
+     * @param mixed $value The value to compare.
+     *
+     * @return boolean True if $this can be compared to $value.
      */
-    public function compare(Period $period)
+    public function canCompare($value)
+    {
+        $this->typeCheck->canCompare(func_get_args());
+
+        return $value instanceof Period;
+    }
+
+    /**
+     * Compare this object with another value, yielding a result according to the following table:
+     *
+     * +--------------------+---------------+
+     * | Condition          | Result        |
+     * +--------------------+---------------+
+     * | $this == $value    | $result === 0 |
+     * | $this < $value     | $result < 0   |
+     * | $this > $value     | $result > 0   |
+     * +--------------------+---------------+
+     *
+     * @param mixed $period The period to compare.
+     *
+     * @return integer                0 if $this and $period are equal, <0 if $this < $period, or >0 if $this > $period.
+     * @throws NotComparableException Indicates that the implementation does not know how to compare $this to $period.
+     */
+    public function compare($period)
     {
         $this->typeCheck->compare(func_get_args());
+
+        if (!$this->canCompare($period)) {
+            throw new NotComparableException($this, $period);
+        }
 
         return $this->years() - $period->years()
             ?: $this->months() - $period->months()
@@ -190,78 +223,6 @@ class Period implements TimeSpanInterface, Iso8601Interface
             ?: $this->hours() - $period->hours()
             ?: $this->minutes() - $period->minutes()
             ?: $this->seconds() - $period->seconds();
-    }
-
-    /**
-     * @param Period $period The period to compare.
-     *
-     * @return boolean True if $this and $period are equal.
-     */
-    public function isEqualTo(Period $period)
-    {
-        $this->typeCheck->isEqualTo(func_get_args());
-
-        return $this->compare($period) === 0;
-    }
-
-    /**
-     * @param Period $period The period to compare.
-     *
-     * @return boolean True if $this and $period are not equal.
-     */
-    public function isNotEqualTo(Period $period)
-    {
-        $this->typeCheck->isNotEqualTo(func_get_args());
-
-        return $this->compare($period) !== 0;
-    }
-
-    /**
-     * @param Period $period The period to compare.
-     *
-     * @return boolean True if $this > $period.
-     */
-    public function isGreaterThan(Period $period)
-    {
-        $this->typeCheck->isGreaterThan(func_get_args());
-
-        return $this->compare($period) > 0;
-    }
-
-    /**
-     * @param Period $period The period to compare.
-     *
-     * @return boolean True if $this < $period.
-     */
-    public function isLessThan(Period $period)
-    {
-        $this->typeCheck->isLessThan(func_get_args());
-
-        return $this->compare($period) < 0;
-    }
-
-    /**
-     * @param Period $period The period to compare.
-     *
-     * @return boolean True if $this >= $period.
-     */
-    public function isGreaterThanOrEqualTo(Period $period)
-    {
-        $this->typeCheck->isGreaterThanOrEqualTo(func_get_args());
-
-        return $this->compare($period) >= 0;
-    }
-
-    /**
-     * @param Period $period The period to compare.
-     *
-     * @return boolean True if $this <= $period.
-     */
-    public function isLessThanOrEqualTo(Period $period)
-    {
-        $this->typeCheck->isLessThanOrEqualTo(func_get_args());
-
-        return $this->compare($period) <= 0;
     }
 
     /**

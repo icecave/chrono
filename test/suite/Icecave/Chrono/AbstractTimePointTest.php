@@ -31,6 +31,12 @@ class AbstractTimePointTest extends PHPUnit_Framework_TestCase
             ->thenReturn(99);
     }
 
+    public function testCompareWithNotComparableException()
+    {
+        $this->setExpectedException('Icecave\Parity\Exception\NotComparableException');
+        $this->timePoint->compare('foo');
+    }
+
     public function testCompare()
     {
         $this->assertLessThan(0, $this->before->compare($this->timePoint));

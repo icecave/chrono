@@ -7,8 +7,11 @@ use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\Detail\Normalizer;
 use Icecave\Chrono\TypeCheck\TypeCheck;
+use Icecave\Parity\AbstractComparable;
+use Icecave\Parity\Exception\NotComparableException;
+use Icecave\Parity\RestrictedComparableInterface;
 
-class TimeOfDay implements TimeInterface
+class TimeOfDay extends AbstractComparable implements TimeInterface, RestrictedComparableInterface
 {
     /**
      * @param integer       $hours    The hours component of the time.
@@ -216,91 +219,49 @@ class TimeOfDay implements TimeInterface
     }
 
     /**
-     * Perform a {@see strcmp} style comparison with another time.
+     * Check if $this is able to be compared to another value.
      *
-     * @param TimeOfDay $time The time to compare.
+     * A return value of false indicates that calling $this->compare($value)
+     * will throw an exception.
      *
-     * @return integer 0 if $this and $time are equal, <0 if $this < $time, or >0 if $this > $time.
+     * @param mixed $value The value to compare.
+     *
+     * @return boolean True if $this can be compared to $value.
      */
-     public function compare(TimeOfDay $time)
+    public function canCompare($value)
+    {
+        $this->typeCheck->canCompare(func_get_args());
+
+        return $value instanceof TimeOfDay;
+    }
+
+    /**
+     * Compare this object with another value, yielding a result according to the following table:
+     *
+     * +--------------------+---------------+
+     * | Condition          | Result        |
+     * +--------------------+---------------+
+     * | $this == $value    | $result === 0 |
+     * | $this < $value     | $result < 0   |
+     * | $this > $value     | $result > 0   |
+     * +--------------------+---------------+
+     *
+     * @param mixed $time The time to compare.
+     *
+     * @return integer                0 if $this and $time are equal, <0 if $this < $time, or >0 if $this > $time.
+     * @throws NotComparableException Indicates that the implementation does not know how to compare $this to $time.
+     */
+     public function compare($time)
      {
          $this->typeCheck->compare(func_get_args());
+
+        if (!$this->canCompare($time)) {
+            throw new NotComparableException($this, $time);
+        }
 
          return ($this->totalSeconds() - $this->timeZone()->offset())
               - ($time->totalSeconds() - $time->timeZone()->offset());
      }
-
-    /**
-     * @param TimeOfDay $time The time to compare.
-     *
-     * @return boolean True if $this and $time are equal.
-     */
-    public function isEqualTo(TimeOfDay $time)
-    {
-        $this->typeCheck->isEqualTo(func_get_args());
-
-        return $this->compare($time) === 0;
-    }
-
-    /**
-     * @param TimeOfDay $time The time to compare.
-     *
-     * @return boolean True if $this and $time are not equal.
-     */
-    public function isNotEqualTo(TimeOfDay $time)
-    {
-        $this->typeCheck->isNotEqualTo(func_get_args());
-
-        return $this->compare($time) !== 0;
-    }
-
-    /**
-     * @param TimeOfDay $time The time to compare.
-     *
-     * @return boolean True if $this > $time.
-     */
-    public function isGreaterThan(TimeOfDay $time)
-    {
-        $this->typeCheck->isGreaterThan(func_get_args());
-
-        return $this->compare($time) > 0;
-    }
-
-    /**
-     * @param TimeOfDay $time The time to compare.
-     *
-     * @return boolean True if $this < $time.
-     */
-    public function isLessThan(TimeOfDay $time)
-    {
-        $this->typeCheck->isLessThan(func_get_args());
-
-        return $this->compare($time) < 0;
-    }
-
-    /**
-     * @param TimeOfDay $time The time to compare.
-     *
-     * @return boolean True if $this >= $time.
-     */
-    public function isGreaterThanOrEqualTo(TimeOfDay $time)
-    {
-        $this->typeCheck->isGreaterThanOrEqualTo(func_get_args());
-
-        return $this->compare($time) >= 0;
-    }
-
-    /**
-     * @param TimeOfDay $time The time to compare.
-     *
-     * @return boolean True if $this <= $time.
-     */
-    public function isLessThanOrEqualTo(TimeOfDay $time)
-    {
-        $this->typeCheck->isLessThanOrEqualTo(func_get_args());
-
-        return $this->compare($time) <= 0;
-    }
 
      /**
       * @return integer The total number of seconds since 00:00.

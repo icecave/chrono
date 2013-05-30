@@ -76,6 +76,12 @@ class DurationTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($duration->isEmpty());
     }
 
+    public function testCompareWithNotComparableException()
+    {
+        $this->setExpectedException('Icecave\Parity\Exception\NotComparableException');
+        $this->duration->compare('foo');
+    }
+
     public function testCompare()
     {
         $this->assertGreaterThan(0, $this->duration->compare($this->before));

@@ -55,6 +55,12 @@ class AbstractIntervalTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($interval->isEmpty());
     }
 
+    public function testCompareWithNotComparableException()
+    {
+        $this->setExpectedException('Icecave\Parity\Exception\NotComparableException');
+        $this->interval1->compare('foo');
+    }
+
     public function testCompare()
     {
         $interval1 = $this->createInterval(new Date(2012, 1, 1), new Date(2012, 1, 2));

@@ -10,8 +10,10 @@ use Icecave\Chrono\Iterator\YearIntervalIterator;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TimeSpan\Duration;
 use Icecave\Chrono\TypeCheck\TypeCheck;
+use Icecave\Parity\AbstractComparable;
+use Icecave\Parity\Exception\NotComparableException;
 
-abstract class AbstractInterval implements IntervalInterface
+abstract class AbstractInterval extends AbstractComparable implements IntervalInterface
 {
     public function __construct()
     {
@@ -29,90 +31,48 @@ abstract class AbstractInterval implements IntervalInterface
     }
 
     /**
-     * Perform a {@see strcmp} style comparison with another interval.
+     * Check if $this is able to be compared to another value.
      *
-     * @param IntervalInterface $interval The interval to compare.
+     * A return value of false indicates that calling $this->compare($value)
+     * will throw an exception.
      *
-     * @return integer 0 if $this and $interval are equal, <0 if $this < $interval, or >0 if $this > $interval.
+     * @param mixed $value The value to compare.
+     *
+     * @return boolean True if $this can be compared to $value.
      */
-    public function compare(IntervalInterface $interval)
+    public function canCompare($value)
+    {
+        $this->typeCheck->canCompare(func_get_args());
+
+        return $value instanceof IntervalInterface;
+    }
+
+    /**
+     * Compare this object with another value, yielding a result according to the following table:
+     *
+     * +--------------------+---------------+
+     * | Condition          | Result        |
+     * +--------------------+---------------+
+     * | $this == $value    | $result === 0 |
+     * | $this < $value     | $result < 0   |
+     * | $this > $value     | $result > 0   |
+     * +--------------------+---------------+
+     *
+     * @param mixed $interval The interval to compare.
+     *
+     * @return integer                0 if $this and $interval are equal, <0 if $this < $interval, or >0 if $this > $interval.
+     * @throws NotComparableException Indicates that the implementation does not know how to compare $this to $value.
+     */
+    public function compare($interval)
     {
         $this->typeCheck->compare(func_get_args());
 
+        if (!$this->canCompare($interval)) {
+            throw new NotComparableException($this, $interval);
+        }
+
         return $this->start()->compare($interval->start())
             ?: $this->end()->compare($interval->end());
-    }
-
-    /**
-     * @param IntervalInterface $interval The interval to compare.
-     *
-     * @return boolean True if $this and $interval are equal.
-     */
-    public function isEqualTo(IntervalInterface $interval)
-    {
-        $this->typeCheck->isEqualTo(func_get_args());
-
-        return $this->compare($interval) === 0;
-    }
-
-    /**
-     * @param IntervalInterface $interval The interval to compare.
-     *
-     * @return boolean True if $this and $interval are not equal.
-     */
-    public function isNotEqualTo(IntervalInterface $interval)
-    {
-        $this->typeCheck->isNotEqualTo(func_get_args());
-
-        return $this->compare($interval) !== 0;
-    }
-
-    /**
-     * @param IntervalInterface $interval The interval to compare.
-     *
-     * @return boolean True if $this > $interval.
-     */
-    public function isGreaterThan(IntervalInterface $interval)
-    {
-        $this->typeCheck->isGreaterThan(func_get_args());
-
-        return $this->compare($interval) > 0;
-    }
-
-    /**
-     * @param IntervalInterface $interval The interval to compare.
-     *
-     * @return boolean True if $this < $interval.
-     */
-    public function isLessThan(IntervalInterface $interval)
-    {
-        $this->typeCheck->isLessThan(func_get_args());
-
-        return $this->compare($interval) < 0;
-    }
-
-    /**
-     * @param IntervalInterface $interval The interval to compare.
-     *
-     * @return boolean True if $this >= $interval.
-     */
-    public function isGreaterThanOrEqualTo(IntervalInterface $interval)
-    {
-        $this->typeCheck->isGreaterThanOrEqualTo(func_get_args());
-
-        return $this->compare($interval) >= 0;
-    }
-
-    /**
-     * @param IntervalInterface $interval The interval to compare.
-     *
-     * @return boolean True if $this <= $interval.
-     */
-    public function isLessThanOrEqualTo(IntervalInterface $interval)
-    {
-        $this->typeCheck->isLessThanOrEqualTo(func_get_args());
-
-        return $this->compare($interval) <= 0;
     }
 
     /**

@@ -10,12 +10,15 @@ use Icecave\Chrono\Detail\Calendar;
 use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
+use Icecave\Parity\AbstractComparable;
+use Icecave\Parity\Exception\NotComparableException;
+use Icecave\Parity\RestrictedComparableInterface;
 use InvalidArgumentException;
 
 /**
  * A duration represents a concrete amount of time.
  */
-class Duration implements TimeSpanInterface, Iso8601Interface
+class Duration extends AbstractComparable implements TimeSpanInterface, Iso8601Interface, RestrictedComparableInterface
 {
     /**
      * @param integer $seconds The total number of seconds in the duration.
@@ -201,89 +204,47 @@ class Duration implements TimeSpanInterface, Iso8601Interface
     }
 
     /**
-     * Perform a {@see strcmp} style comparison with another duration.
+     * Check if $this is able to be compared to another value.
      *
-     * @param Duration $duration The duration to compare.
+     * A return value of false indicates that calling $this->compare($value)
+     * will throw an exception.
      *
-     * @return integer 0 if $this and $duration are equal, <0 if $this < $duration, or >0 if $this > $duration.
+     * @param mixed $value The value to compare.
+     *
+     * @return boolean True if $this can be compared to $value.
      */
-    public function compare(Duration $duration)
+    public function canCompare($value)
+    {
+        $this->typeCheck->canCompare(func_get_args());
+
+        return $value instanceof Duration;
+    }
+
+    /**
+     * Compare this object with another value, yielding a result according to the following table:
+     *
+     * +--------------------+---------------+
+     * | Condition          | Result        |
+     * +--------------------+---------------+
+     * | $this == $value    | $result === 0 |
+     * | $this < $value     | $result < 0   |
+     * | $this > $value     | $result > 0   |
+     * +--------------------+---------------+
+     *
+     * @param mixed $duration The duration to compare.
+     *
+     * @return integer                0 if $this and $duration are equal, <0 if $this < $duration, or >0 if $this > $duration.
+     * @throws NotComparableException Indicates that the implementation does not know how to compare $this to $duration.
+     */
+    public function compare($duration)
     {
         $this->typeCheck->compare(func_get_args());
 
+        if (!$this->canCompare($duration)) {
+            throw new NotComparableException($this, $duration);
+        }
+
         return $this->totalSeconds() - $duration->totalSeconds();
-    }
-
-    /**
-     * @param Duration $duration The duration to compare.
-     *
-     * @return boolean True if $this and $duration are equal.
-     */
-    public function isEqualTo(Duration $duration)
-    {
-        $this->typeCheck->isEqualTo(func_get_args());
-
-        return $this->compare($duration) === 0;
-    }
-
-    /**
-     * @param Duration $duration The duration to compare.
-     *
-     * @return boolean True if $this and $duration are not equal.
-     */
-    public function isNotEqualTo(Duration $duration)
-    {
-        $this->typeCheck->isNotEqualTo(func_get_args());
-
-        return $this->compare($duration) !== 0;
-    }
-
-    /**
-     * @param Duration $duration The duration to compare.
-     *
-     * @return boolean True if $this > $duration.
-     */
-    public function isGreaterThan(Duration $duration)
-    {
-        $this->typeCheck->isGreaterThan(func_get_args());
-
-        return $this->compare($duration) > 0;
-    }
-
-    /**
-     * @param Duration $duration The duration to compare.
-     *
-     * @return boolean True if $this < $duration.
-     */
-    public function isLessThan(Duration $duration)
-    {
-        $this->typeCheck->isLessThan(func_get_args());
-
-        return $this->compare($duration) < 0;
-    }
-
-    /**
-     * @param Duration $duration The duration to compare.
-     *
-     * @return boolean True if $this >= $duration.
-     */
-    public function isGreaterThanOrEqualTo(Duration $duration)
-    {
-        $this->typeCheck->isGreaterThanOrEqualTo(func_get_args());
-
-        return $this->compare($duration) >= 0;
-    }
-
-    /**
-     * @param Duration $duration The duration to compare.
-     *
-     * @return boolean True if $this <= $duration.
-     */
-    public function isLessThanOrEqualTo(Duration $duration)
-    {
-        $this->typeCheck->isLessThanOrEqualTo(func_get_args());
-
-        return $this->compare($duration) <= 0;
     }
 
     /**
