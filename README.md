@@ -3,11 +3,20 @@
 [![Build Status]](http://travis-ci.org/IcecaveStudios/chrono)
 [![Test Coverage]](http://icecave.com.au/chrono/artifacts/tests/coverage)
 
-**Chrono** is a set of PHP date and time abstractions that are decoupled from the system clock.
+**Chrono** is a PHP date & time library that is decoupled from the system clock.
 
-## Installation
+Many date & time operations in the core PHP libraries require access to system resources such as the current wall time
+and timezone databases. **Chrono** provides a set of date & time classes that are completely decoupled from the system
+and hence behave consistently regardless of system settings (such as the
+[date.timezone INI directive](http://www.php.net/manual/en/datetime.configuration.php#ini.date.timezone)).
 
-Available as [Composer](http://getcomposer.org) package [icecave/chrono](https://packagist.org/packages/icecave/chrono).
+A [SystemClock](lib/Icecave/Chrono/Clock/SystemClock.php) instance must be explicitly constructed before any global
+date & time operations are used. Classes that require use of a clock may take a [ClockInterface](lib/Icecave/Chrono/Clock/ClockInterface.php)
+as a [dependency](http://en.wikipedia.org/wiki/Dependency_injection), improving decoupling and testability of code that
+makes use of date & time operations.
+
+* Install via [Composer](http://getcomposer.org) package [icecave/chrono](https://packagist.org/packages/icecave/chrono)
+* Read the [API documentation](http://icecavestudios.github.io/chrono/artifacts/documentation/api/)
 
 ## Concepts
 
