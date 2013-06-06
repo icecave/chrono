@@ -1,7 +1,7 @@
 # Chrono
 
 [![Build Status]](http://travis-ci.org/IcecaveStudios/chrono)
-[![Test Coverage]](http://icecave.com.au/chrono/artifacts/tests/coverage)
+[![Test Coverage]](http://icecavestudios.github.io/chrono/artifacts/tests/coverage)
 
 **Chrono** is a PHP date & time library that is decoupled from the system clock.
 

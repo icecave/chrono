@@ -1,6 +1,6 @@
 {
     "name": "icecave/chrono",
-    "description": "PHP date and time abstractions that are decoupled from the system clock.",
+    "description": "A date & time library that is decoupled from the system clock.",
     "keywords": ["time", "date", "clock", "timer", "chrono", "iso"],
     "homepage": "https://github.com/IcecaveStudios/chrono",
     "license": "MIT",
