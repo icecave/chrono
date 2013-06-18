@@ -40,9 +40,9 @@ class DateTest extends PHPUnit_Framework_TestCase
 
     public function testTimeInterfaceMethods()
     {
-        $this->assertSame(0, $this->date->hours());
-        $this->assertSame(0, $this->date->minutes());
-        $this->assertSame(0, $this->date->seconds());
+        $this->assertSame(0, $this->date->hour());
+        $this->assertSame(0, $this->date->minute());
+        $this->assertSame(0, $this->date->second());
     }
 
     public function testToTimeZone()

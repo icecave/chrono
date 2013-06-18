@@ -106,9 +106,9 @@ abstract class AbstractTimePoint extends AbstractComparable implements TimePoint
             $this->year() - $timePoint->year(),
             $this->month() - $timePoint->month(),
             $this->day() - $timePoint->day(),
-            $this->hours() - $timePoint->hours(),
-            $this->minutes() - $timePoint->minutes(),
-            $this->seconds() - $timePoint->seconds()
+            $this->hour() - $timePoint->hour(),
+            $this->minute() - $timePoint->minute(),
+            $this->second() - $timePoint->second()
         );
     }
 

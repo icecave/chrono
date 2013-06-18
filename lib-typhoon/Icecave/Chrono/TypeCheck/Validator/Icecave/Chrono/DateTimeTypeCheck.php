@@ -48,7 +48,7 @@ class DateTimeTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
             $value = $arguments[3];
             if (!\is_int($value)) {
                 throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
-                    'hours',
+                    'hour',
                     3,
                     $arguments[3],
                     'integer'
@@ -59,7 +59,7 @@ class DateTimeTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
             $value = $arguments[4];
             if (!\is_int($value)) {
                 throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
-                    'minutes',
+                    'minute',
                     4,
                     $arguments[4],
                     'integer'
@@ -70,7 +70,7 @@ class DateTimeTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
             $value = $arguments[5];
             if (!\is_int($value)) {
                 throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
-                    'seconds',
+                    'second',
                     5,
                     $arguments[5],
                     'integer'
@@ -148,21 +148,21 @@ class DateTimeTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         }
     }
 
-    public function hours(array $arguments)
+    public function hour(array $arguments)
     {
         if (\count($arguments) > 0) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
         }
     }
 
-    public function minutes(array $arguments)
+    public function minute(array $arguments)
     {
         if (\count($arguments) > 0) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
         }
     }
 
-    public function seconds(array $arguments)
+    public function second(array $arguments)
     {
         if (\count($arguments) > 0) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);

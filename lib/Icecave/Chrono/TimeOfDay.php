@@ -14,28 +14,28 @@ use Icecave\Parity\RestrictedComparableInterface;
 class TimeOfDay extends AbstractComparable implements TimeInterface, RestrictedComparableInterface
 {
     /**
-     * @param integer       $hours    The hours component of the time.
-     * @param integer       $minutes  The minutes component of the time.
-     * @param integer       $seconds  The seconds component of the time.
+     * @param integer       $hour    The hour component of the time.
+     * @param integer       $minute  The minute component of the time.
+     * @param integer       $second  The second component of the time.
      * @param TimeZone|null $timeZone The time zone of the time, or null to use UTC.
      */
     public function __construct(
-        $hours = 0,
-        $minutes = 0,
-        $seconds = 0,
+        $hour = 0,
+        $minute = 0,
+        $second = 0,
         TimeZone $timeZone = null
     ) {
         $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
 
-        Normalizer::normalizeTime($hours, $minutes, $seconds);
+        Normalizer::normalizeTime($hour, $minute, $second);
 
         if ($timeZone === null) {
             $timeZone = new TimeZone;
         }
 
-        $this->hours = $hours;
-        $this->minutes = $minutes;
-        $this->seconds = $seconds;
+        $this->hour = $hour;
+        $this->minute = $minute;
+        $this->second = $second;
         $this->timeZone = $timeZone;
     }
 
@@ -115,33 +115,33 @@ class TimeOfDay extends AbstractComparable implements TimeInterface, RestrictedC
     }
 
     /**
-     * @return integer The hours component of the time.
+     * @return integer The hour component of the time.
      */
-    public function hours()
+    public function hour()
     {
-        $this->typeCheck->hours(func_get_args());
+        $this->typeCheck->hour(func_get_args());
 
-        return $this->hours;
+        return $this->hour;
     }
 
     /**
-     * @return integer The minutes component of the time.
+     * @return integer The minute component of the time.
      */
-    public function minutes()
+    public function minute()
     {
-        $this->typeCheck->minutes(func_get_args());
+        $this->typeCheck->minute(func_get_args());
 
-        return $this->minutes;
+        return $this->minute;
     }
 
     /**
-     * @return integer The seconds component of the time.
+     * @return integer The second component of the time.
      */
-    public function seconds()
+    public function second()
     {
-        $this->typeCheck->seconds(func_get_args());
+        $this->typeCheck->second(func_get_args());
 
-        return $this->seconds;
+        return $this->second;
     }
 
     /**
@@ -163,9 +163,9 @@ class TimeOfDay extends AbstractComparable implements TimeInterface, RestrictedC
                 - $this->timeZone()->offset();
 
         return new TimeOfDay(
-            $this->hours(),
-            $this->minutes(),
-            $this->seconds() + $offset,
+            $this->hour(),
+            $this->minute(),
+            $this->second() + $offset,
             $timeZone
         );
     }
@@ -211,9 +211,9 @@ class TimeOfDay extends AbstractComparable implements TimeInterface, RestrictedC
             $date->year(),
             $date->month(),
             $date->day(),
-            $this->hours(),
-            $this->minutes(),
-            $this->seconds(),
+            $this->hour(),
+            $this->minute(),
+            $this->second(),
             $this->timeZone()
         );
     }
@@ -270,9 +270,9 @@ class TimeOfDay extends AbstractComparable implements TimeInterface, RestrictedC
      {
          $this->typeCheck->totalSeconds(func_get_args());
 
-         return $this->hours() * 3600
-              + $this->minutes() * 60
-              + $this->seconds();
+         return $this->hour() * 3600
+              + $this->minute() * 60
+              + $this->second();
      }
 
      /**
@@ -300,9 +300,9 @@ class TimeOfDay extends AbstractComparable implements TimeInterface, RestrictedC
         $this->typeCheck->isoString(func_get_args());
 
         return Iso8601::formatTime(
-            $this->hours(),
-            $this->minutes(),
-            $this->seconds(),
+            $this->hour(),
+            $this->minute(),
+            $this->second(),
             $this->timeZone()->isoString()
         );
     }
@@ -316,8 +316,8 @@ class TimeOfDay extends AbstractComparable implements TimeInterface, RestrictedC
     }
 
     private $typeCheck;
-    private $hours;
-    private $minutes;
-    private $seconds;
+    private $hour;
+    private $minute;
+    private $second;
     private $timeZone;
 }

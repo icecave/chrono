@@ -7,17 +7,17 @@ namespace Icecave\Chrono;
 interface TimeInterface extends CommonInterface
 {
     /**
-     * @return integer The hours component of the time.
+     * @return integer The hour component of the time.
      */
-    public function hours();
+    public function hour();
 
     /**
-     * @return integer The minutes component of the time.
+     * @return integer The minute component of the time.
      */
-    public function minutes();
+    public function minute();
 
     /**
-     * @return integer The seconds component of the time.
+     * @return integer The second component of the time.
      */
-    public function seconds();
+    public function second();
 }

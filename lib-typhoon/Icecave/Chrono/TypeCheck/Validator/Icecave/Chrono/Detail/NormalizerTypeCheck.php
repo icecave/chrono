@@ -8,19 +8,19 @@ class NormalizerTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         $argumentCount = \count($arguments);
         if ($argumentCount < 3) {
             if ($argumentCount < 1) {
-                throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('hours', 0, 'integer');
+                throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('hour', 0, 'integer');
             }
             if ($argumentCount < 2) {
-                throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('minutes', 1, 'integer');
+                throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('minute', 1, 'integer');
             }
-            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('seconds', 2, 'integer');
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('second', 2, 'integer');
         } elseif ($argumentCount > 4) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(4, $arguments[4]);
         }
         $value = $arguments[0];
         if (!\is_int($value)) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
-                'hours',
+                'hour',
                 0,
                 $arguments[0],
                 'integer'
@@ -29,7 +29,7 @@ class NormalizerTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         $value = $arguments[1];
         if (!\is_int($value)) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
-                'minutes',
+                'minute',
                 1,
                 $arguments[1],
                 'integer'
@@ -38,7 +38,7 @@ class NormalizerTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         $value = $arguments[2];
         if (!\is_int($value)) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
-                'seconds',
+                'second',
                 2,
                 $arguments[2],
                 'integer'
@@ -48,7 +48,7 @@ class NormalizerTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
             $value = $arguments[3];
             if (!\is_int($value)) {
                 throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
-                    'days',
+                    'day',
                     3,
                     $arguments[3],
                     'integer'

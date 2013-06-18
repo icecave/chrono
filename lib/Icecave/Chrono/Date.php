@@ -148,31 +148,31 @@ class Date extends AbstractTimePoint
     }
 
     /**
-     * @return integer The hours component of the time.
+     * @return integer The hour component of the time.
      */
-    public function hours()
+    public function hour()
     {
-        $this->typeCheck->hours(func_get_args());
+        $this->typeCheck->hour(func_get_args());
 
         return 0;
     }
 
     /**
-     * @return integer The minutes component of the time.
+     * @return integer The minute component of the time.
      */
-    public function minutes()
+    public function minute()
     {
-        $this->typeCheck->minutes(func_get_args());
+        $this->typeCheck->minute(func_get_args());
 
         return 0;
     }
 
     /**
-     * @return integer The seconds component of the time.
+     * @return integer The second component of the time.
      */
-    public function seconds()
+    public function second()
     {
-        $this->typeCheck->seconds(func_get_args());
+        $this->typeCheck->second(func_get_args());
 
         return 0;
     }
@@ -251,9 +251,9 @@ class Date extends AbstractTimePoint
             $this->year(),
             $this->month(),
             $this->day(),
-            $time->hours(),
-            $time->minutes(),
-            $time->seconds(),
+            $time->hour(),
+            $time->minute(),
+            $time->second(),
             $this->timeZone()
         );
     }

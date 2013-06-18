@@ -36,9 +36,9 @@ class MinuteIterator extends TimeSpanIterator
             $timePoint->year(),
             $timePoint->month(),
             $timePoint->day(),
-            $timePoint->hours(),
-            $timePoint->minutes(),
-            $timePoint->seconds(),
+            $timePoint->hour(),
+            $timePoint->minute(),
+            $timePoint->second(),
             $timePoint->timeZone()
         );
     }
