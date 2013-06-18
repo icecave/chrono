@@ -6,18 +6,18 @@ use Icecave\Chrono\TypeCheck\TypeCheck;
 abstract class Normalizer
 {
     /**
-     * @param integer &$hours
-     * @param integer &$minutes
-     * @param integer &$seconds
-     * @param integer &$days
+     * @param integer &$hour
+     * @param integer &$minute
+     * @param integer &$second
+     * @param integer &$day
      */
-    public static function normalizeTime(&$hours, &$minutes, &$seconds, &$days = 0)
+    public static function normalizeTime(&$hour, &$minute, &$second, &$day = 0)
     {
         TypeCheck::get(__CLASS__)->normalizeTime(func_get_args());
 
-        $minutes += self::normalizeOverflow($seconds, 0, 60);
-        $hours   += self::normalizeOverflow($minutes, 0, 60);
-        $days    += self::normalizeOverflow($hours,   0, 24);
+        $minute += self::normalizeOverflow($second, 0, 60);
+        $hour   += self::normalizeOverflow($minute, 0, 60);
+        $day    += self::normalizeOverflow($hour,   0, 24);
     }
 
     /**

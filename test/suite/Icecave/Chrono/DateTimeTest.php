@@ -38,19 +38,19 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
         $this->assertSame(1, $this->dateTime->day());
     }
 
-    public function testHours()
+    public function testHour()
     {
-        $this->assertSame(10, $this->dateTime->hours());
+        $this->assertSame(10, $this->dateTime->hour());
     }
 
-    public function testMinutes()
+    public function testMinute()
     {
-        $this->assertSame(20, $this->dateTime->minutes());
+        $this->assertSame(20, $this->dateTime->minute());
     }
 
-    public function testSeconds()
+    public function testSecond()
     {
-        $this->assertSame(30, $this->dateTime->seconds());
+        $this->assertSame(30, $this->dateTime->second());
     }
 
     public function testToTimeZone()

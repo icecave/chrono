@@ -334,9 +334,9 @@ class Period extends AbstractComparable implements TimeSpanInterface, Iso8601Int
             $timePoint->year() + $this->years(),
             $timePoint->month() + $this->months(),
             $timePoint->day() + $this->days(),
-            $timePoint->hours() + $this->hours(),
-            $timePoint->minutes() + $this->minutes(),
-            $timePoint->seconds() + $this->seconds(),
+            $timePoint->hour() + $this->hours(),
+            $timePoint->minute() + $this->minutes(),
+            $timePoint->second() + $this->seconds(),
             $timePoint->timeZone()
         );
     }

@@ -18,23 +18,23 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      * @param integer       $year     The year component of the date.
      * @param integer       $month    The month component of the date.
      * @param integer       $day      The day component of the date.
-     * @param integer       $hours    The hours component of the time.
-     * @param integer       $minutes  The minutes component of the time.
-     * @param integer       $seconds  The seconds component of the time.
+     * @param integer       $hour     The hour component of the time.
+     * @param integer       $minute   The minute component of the time.
+     * @param integer       $second   The second component of the time.
      * @param TimeZone|null $timeZone The time zone of the time, or null to use UTC.
      */
     public function __construct(
         $year,
         $month,
         $day,
-        $hours = 0,
-        $minutes = 0,
-        $seconds = 0,
+        $hour = 0,
+        $minute = 0,
+        $second = 0,
         TimeZone $timeZone = null
     ) {
         $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
 
-        Normalizer::normalizeTime($hours, $minutes, $seconds, $day);
+        Normalizer::normalizeTime($hour, $minute, $second, $day);
         Normalizer::normalizeDate($year, $month, $day);
 
         if ($timeZone === null) {
@@ -44,9 +44,9 @@ class DateTime extends AbstractTimePoint implements TimeInterface
         $this->year = $year;
         $this->month = $month;
         $this->day = $day;
-        $this->hours = $hours;
-        $this->minutes = $minutes;
-        $this->seconds = $seconds;
+        $this->hour = $hour;
+        $this->minute = $minute;
+        $this->second = $second;
         $this->timeZone = $timeZone;
 
         parent::__construct();
@@ -159,33 +159,33 @@ class DateTime extends AbstractTimePoint implements TimeInterface
     }
 
     /**
-     * @return integer The hours component of the time.
+     * @return integer The hour component of the time.
      */
-    public function hours()
+    public function hour()
     {
-        $this->typeCheck->hours(func_get_args());
+        $this->typeCheck->hour(func_get_args());
 
-        return $this->hours;
+        return $this->hour;
     }
 
     /**
-     * @return integer The minutes component of the time.
+     * @return integer The minute component of the time.
      */
-    public function minutes()
+    public function minute()
     {
-        $this->typeCheck->minutes(func_get_args());
+        $this->typeCheck->minute(func_get_args());
 
-        return $this->minutes;
+        return $this->minute;
     }
 
     /**
-     * @return integer The seconds component of the time.
+     * @return integer The second component of the time.
      */
-    public function seconds()
+    public function second()
     {
-        $this->typeCheck->seconds(func_get_args());
+        $this->typeCheck->second(func_get_args());
 
-        return $this->seconds;
+        return $this->second;
     }
 
     /**
@@ -212,9 +212,9 @@ class DateTime extends AbstractTimePoint implements TimeInterface
             $this->year(),
             $this->month(),
             $this->day(),
-            $this->hours(),
-            $this->minutes(),
-            $this->seconds() + $offset,
+            $this->hour(),
+            $this->minute(),
+            $this->second() + $offset,
             $timeZone
         );
     }
@@ -266,9 +266,9 @@ class DateTime extends AbstractTimePoint implements TimeInterface
         $this->typeCheck->time(func_get_args());
 
         return new TimeOfDay(
-            $this->hours(),
-            $this->minutes(),
-            $this->seconds(),
+            $this->hour(),
+            $this->minute(),
+            $this->second(),
             $this->timeZone()
         );
     }
@@ -281,9 +281,9 @@ class DateTime extends AbstractTimePoint implements TimeInterface
         $this->typeCheck->unixTime(func_get_args());
 
         return gmmktime(
-            $this->hours(),
-            $this->minutes(),
-            $this->seconds(),
+            $this->hour(),
+            $this->minute(),
+            $this->second(),
             $this->month(),
             $this->day(),
             $this->year()
@@ -319,9 +319,9 @@ class DateTime extends AbstractTimePoint implements TimeInterface
             $this->year(),
             $this->month(),
             $this->day(),
-            $this->hours(),
-            $this->minutes(),
-            $this->seconds() + $timeSpan,
+            $this->hour(),
+            $this->minute(),
+            $this->second() + $timeSpan,
             $this->timeZone()
         );
     }
@@ -345,9 +345,9 @@ class DateTime extends AbstractTimePoint implements TimeInterface
             $this->year(),
             $this->month(),
             $this->day(),
-            $this->hours(),
-            $this->minutes(),
-            $this->seconds() - $timeSpan,
+            $this->hour(),
+            $this->minute(),
+            $this->second() - $timeSpan,
             $this->timeZone()
         );
     }
@@ -380,9 +380,9 @@ class DateTime extends AbstractTimePoint implements TimeInterface
             $this->year(),
             $this->month(),
             $this->day(),
-            $this->hours(),
-            $this->minutes(),
-            $this->seconds(),
+            $this->hour(),
+            $this->minute(),
+            $this->second(),
             $this->timeZone()->isoString()
         );
     }
@@ -399,8 +399,8 @@ class DateTime extends AbstractTimePoint implements TimeInterface
     private $year;
     private $month;
     private $day;
-    private $hours;
-    private $minutes;
-    private $seconds;
+    private $hour;
+    private $minute;
+    private $second;
     private $timeZone;
 }

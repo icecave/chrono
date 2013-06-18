@@ -115,21 +115,21 @@ class DateTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         }
     }
 
-    public function hours(array $arguments)
+    public function hour(array $arguments)
     {
         if (\count($arguments) > 0) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
         }
     }
 
-    public function minutes(array $arguments)
+    public function minute(array $arguments)
     {
         if (\count($arguments) > 0) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
         }
     }
 
-    public function seconds(array $arguments)
+    public function second(array $arguments)
     {
         if (\count($arguments) > 0) {
             throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
