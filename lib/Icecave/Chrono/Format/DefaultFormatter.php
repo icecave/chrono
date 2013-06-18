@@ -68,24 +68,24 @@ class DefaultFormatter implements FormatterInterface
             function ($character) use ($time) {
                 switch ($character) {
                     case 'a':
-                        return $time->hours() < 12 ? 'am' : 'pm';
+                        return $time->hour() < 12 ? 'am' : 'pm';
                     case 'A':
-                        return $time->hours() < 12 ? 'AM' : 'PM';
+                        return $time->hour() < 12 ? 'AM' : 'PM';
                     case 'B':
                         return sprintf('%03d', ($time->toTimeZone(new TimeZone(3600))->totalSeconds() / 86400) * 1000);
 
                     case 'g':
-                        return ($h = $time->hours() % 12) ? $h : 12;
+                        return ($h = $time->hour() % 12) ? $h : 12;
                     case 'G':
-                        return $time->hours();
+                        return $time->hour();
                     case 'h':
-                        return sprintf('%02d', ($h = $time->hours() % 12) ? $h : 12);
+                        return sprintf('%02d', ($h = $time->hour() % 12) ? $h : 12);
                     case 'H':
-                        return sprintf('%02d', $time->hours());
+                        return sprintf('%02d', $time->hour());
                     case 'i':
-                        return sprintf('%02d', $time->minutes());
+                        return sprintf('%02d', $time->minute());
                     case 's':
-                        return sprintf('%02d', $time->seconds());
+                        return sprintf('%02d', $time->second());
                     case 'u':
                         return 0;
 
@@ -165,24 +165,24 @@ class DefaultFormatter implements FormatterInterface
                         return substr($dateTime->year(), -2);
 
                     case 'a':
-                        return $dateTime->hours() < 12 ? 'am' : 'pm';
+                        return $dateTime->hour() < 12 ? 'am' : 'pm';
                     case 'A':
-                        return $dateTime->hours() < 12 ? 'AM' : 'PM';
+                        return $dateTime->hour() < 12 ? 'AM' : 'PM';
                     case 'B':
                         return sprintf('%03d', ($dateTime->time()->toTimeZone(new TimeZone(3600))->totalSeconds() / 86400) * 1000);
 
                     case 'g':
-                        return ($h = $dateTime->hours() % 12) ? $h : 12;
+                        return ($h = $dateTime->hour() % 12) ? $h : 12;
                     case 'G':
-                        return $dateTime->hours();
+                        return $dateTime->hour();
                     case 'h':
-                        return sprintf('%02d', ($h = $dateTime->hours() % 12) ? $h : 12);
+                        return sprintf('%02d', ($h = $dateTime->hour() % 12) ? $h : 12);
                     case 'H':
-                        return sprintf('%02d', $dateTime->hours());
+                        return sprintf('%02d', $dateTime->hour());
                     case 'i':
-                        return sprintf('%02d', $dateTime->minutes());
+                        return sprintf('%02d', $dateTime->minute());
                     case 's':
-                        return sprintf('%02d', $dateTime->seconds());
+                        return sprintf('%02d', $dateTime->second());
                     case 'u':
                         return 0;
 

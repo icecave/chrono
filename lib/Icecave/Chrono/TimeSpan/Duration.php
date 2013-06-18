@@ -351,9 +351,9 @@ class Duration extends AbstractComparable implements TimeSpanInterface, Iso8601I
             $timePoint->year(),
             $timePoint->month(),
             $timePoint->day(),
-            $timePoint->hours(),
-            $timePoint->minutes(),
-            $timePoint->seconds() + $this->totalSeconds(),
+            $timePoint->hour(),
+            $timePoint->minute(),
+            $timePoint->second() + $this->totalSeconds(),
             $timePoint->timeZone()
         );
     }

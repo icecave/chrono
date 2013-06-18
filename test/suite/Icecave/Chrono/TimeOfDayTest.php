@@ -23,19 +23,19 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
         $this->assertSame('10:21:10+00:00', $time->isoString());
     }
 
-    public function testHours()
+    public function testHour()
     {
-        $this->assertSame(10, $this->time->hours());
+        $this->assertSame(10, $this->time->hour());
     }
 
-    public function testMinutes()
+    public function testMinute()
     {
-        $this->assertSame(20, $this->time->minutes());
+        $this->assertSame(20, $this->time->minute());
     }
 
-    public function testSeconds()
+    public function testSecond()
     {
-        $this->assertSame(30, $this->time->seconds());
+        $this->assertSame(30, $this->time->second());
     }
 
     public function testToTimeZone()

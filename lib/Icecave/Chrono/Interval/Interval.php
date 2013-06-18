@@ -106,9 +106,9 @@ class Interval extends AbstractInterval implements Iso8601Interface
             $start->year(),
             $start->month(),
             $start->day(),
-            $start->hours(),
-            $start->minutes(),
-            $start->seconds(),
+            $start->hour(),
+            $start->minute(),
+            $start->second(),
             $start->timeZone()->isoString()
         );
 
@@ -127,9 +127,9 @@ class Interval extends AbstractInterval implements Iso8601Interface
             $start->year(),
             $start->month(),
             $start->day(),
-            $start->hours(),
-            $start->minutes(),
-            $start->seconds(),
+            $start->hour(),
+            $start->minute(),
+            $start->second(),
             $start->timeZone()->isoString()
         );
 
@@ -138,9 +138,9 @@ class Interval extends AbstractInterval implements Iso8601Interface
             $end->year(),
             $end->month(),
             $end->day(),
-            $end->hours(),
-            $end->minutes(),
-            $end->seconds(),
+            $end->hour(),
+            $end->minute(),
+            $end->second(),
             $end->timeZone()->isoString()
         );
 
