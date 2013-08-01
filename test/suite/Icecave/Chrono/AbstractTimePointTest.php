@@ -132,4 +132,46 @@ class AbstractTimePointTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Icecave\Chrono\TimeSpan\Period', $result);
         $this->assertSame('1y 2m 3d 04:05:06', $result->string());
     }
+
+    /**
+     * @dataProvider isoDaysOfWeek()
+     */
+    public function testIsoDayOfWeek(DateInterface $date, $expected)
+    {
+        $this->assertSame($expected, $date->isoDayOfWeek());
+    }
+
+    public function isoDaysOfWeek()
+    {
+        return array(
+            array(new Date(2013, 8,  5),   1),
+            array(new Date(2013, 8,  6),   2),
+            array(new Date(2013, 8,  7),   3),
+            array(new Date(2013, 8,  8),   4),
+            array(new Date(2013, 8,  9),   5),
+            array(new Date(2013, 8, 10),   6),
+            array(new Date(2013, 8, 11),   7),
+        );
+    }
+
+    /**
+     * @dataProvider numericDaysOfWeek()
+     */
+    public function testNumericDayOfWeek(DateInterface $date, $expected)
+    {
+        $this->assertSame($expected, $date->numericDayOfWeek());
+    }
+
+    public function numericDaysOfWeek()
+    {
+        return array(
+            array(new Date(2013, 8,  5),   1),
+            array(new Date(2013, 8,  6),   2),
+            array(new Date(2013, 8,  7),   3),
+            array(new Date(2013, 8,  8),   4),
+            array(new Date(2013, 8,  9),   5),
+            array(new Date(2013, 8, 10),   6),
+            array(new Date(2013, 8, 11),   0),
+        );
+    }
 }
