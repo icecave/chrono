@@ -1,6 +1,7 @@
 <?php
 namespace Icecave\Chrono;
 
+use Icecave\Chrono\Detail\Calendar;
 use Icecave\Chrono\TimeSpan\Duration;
 use Icecave\Chrono\TimeSpan\Period;
 use Icecave\Chrono\TypeCheck\TypeCheck;
@@ -110,6 +111,24 @@ abstract class AbstractTimePoint extends AbstractComparable implements TimePoint
             $this->minute() - $timePoint->minute(),
             $this->second() - $timePoint->second()
         );
+    }
+
+    /**
+     * @return integer ISO-8601 numeric representation of the day of the week, 1 (for Monday) through 7 (for Sunday).
+     */
+    public function isoDayOfWeek() {
+        $this->typeCheck->isoDayOfWeek(func_get_args());
+
+        return Calendar::dayOfWeek($this->year(), $this->month(), $this->day(), true);
+    }
+
+    /**
+     * @return integer Numeric representation of the day of the week, 0 (for Sunday) through 6 (for Saturday).
+     */
+    public function numericDayOfWeek() {
+        $this->typeCheck->numericDayOfWeek(func_get_args());
+
+        return Calendar::dayOfWeek($this->year(), $this->month(), $this->day(), false);
     }
 
     private $typeCheck;
