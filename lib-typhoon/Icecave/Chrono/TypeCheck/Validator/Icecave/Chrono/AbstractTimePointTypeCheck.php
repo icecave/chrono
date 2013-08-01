@@ -60,4 +60,18 @@ class AbstractTimePointTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValid
         }
     }
 
+    public function isoDayOfWeek(array $arguments)
+    {
+        if (\count($arguments) > 0) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
+        }
+    }
+
+    public function numericDayOfWeek(array $arguments)
+    {
+        if (\count($arguments) > 0) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
+        }
+    }
+
 }
