@@ -16,6 +16,7 @@ if ($token = getenv('ARCHER_TOKEN')) {
         'github.com' => $token
     );
     $composerFlags = '--prefer-dist';
+    passthru('curl -s -i -H "Authorization: token $ARCHER_TOKEN" https://api.github.com | grep "^X-RateLimit"');
 } else {
     $composerFlags = '--prefer-source';
 }
@@ -26,6 +27,8 @@ if (!is_dir($dir)) {
     mkdir($dir, 0755, true);
 }
 file_put_contents($file, json_encode($config));
+
+passthru('composer self-update --no-interaction');
 
 $exitCode = 0;
 passthru('composer install --dev --no-progress --no-interaction --ansi ' . $composerFlags, $exitCode);

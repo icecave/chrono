@@ -17,22 +17,22 @@
     ],
     "require": {
         "php": ">=5.3",
-        "icecave/parity": "~0.1"
+        "icecave/parity": "~0.1.0"
     },
     "require-dev": {
-        "eloquent/typhoon": "~0.9",
+        "eloquent/typhoon": "~0.9.0",
         "eloquent/liberator": "~1",
-        "icecave/archer": "~0.4"
+        "icecave/archer": "~1"
     },
     "autoload": {
         "psr-0": {
-            "Icecave\\Chrono": "lib",
-            "Icecave\\Chrono\\TypeCheck": "lib-typhoon"
+            "Icecave\\Chrono": "src",
+            "Icecave\\Chrono\\TypeCheck": "src-typhoon"
         }
     },
     "extra": {
         "typhoon": {
-            "output-path": "lib-typhoon",
+            "output-path": "src-typhoon",
             "validator-namespace": "Icecave\\Chrono\\TypeCheck",
             "use-native-callable": false
         }
