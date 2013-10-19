@@ -14,9 +14,9 @@ use Icecave\Parity\RestrictedComparableInterface;
 class TimeOfDay extends AbstractComparable implements TimeInterface, RestrictedComparableInterface
 {
     /**
-     * @param integer       $hour    The hour component of the time.
-     * @param integer       $minute  The minute component of the time.
-     * @param integer       $second  The second component of the time.
+     * @param integer       $hour     The hour component of the time.
+     * @param integer       $minute   The minute component of the time.
+     * @param integer       $second   The second component of the time.
      * @param TimeZone|null $timeZone The time zone of the time, or null to use UTC.
      */
     public function __construct(
