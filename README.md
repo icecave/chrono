@@ -6,18 +6,22 @@
 
 **Chrono** is a PHP date & time library that is decoupled from the system clock.
 
-Many date & time operations in the core PHP libraries require access to system resources such as the current wall time
-and timezone databases. **Chrono** provides a set of date & time classes that are completely decoupled from the system
-and hence behave consistently regardless of system settings (such as the
+* Install via [Composer](http://getcomposer.org) package [icecave/chrono](https://packagist.org/packages/icecave/chrono)
+* Read the [API documentation](http://icecavestudios.github.io/chrono/artifacts/documentation/api/)
+
+## Rationale
+
+Many date & time operations in the core PHP libraries require access to system state such as the current wall time, or
+resources such as timezone databases. These hard-wire dependencies can make it very difficult to write well-abstracted
+and testable code when dealing with time-sensitive operations.
+
+**Chrono** provides a set of date & time classes that are completely decoupled from the system and hence behave
+consistently, regardless of system state and configuration (such as the
 [date.timezone INI directive](http://www.php.net/manual/en/datetime.configuration.php#ini.date.timezone)).
 
 A [SystemClock](src/Icecave/Chrono/Clock/SystemClock.php) instance must be explicitly constructed before any global
 date & time operations are used. Classes that require use of a clock may take a [ClockInterface](src/Icecave/Chrono/Clock/ClockInterface.php)
-as a [dependency](http://en.wikipedia.org/wiki/Dependency_injection), improving decoupling and testability of code that
-makes use of date & time operations.
-
-* Install via [Composer](http://getcomposer.org) package [icecave/chrono](https://packagist.org/packages/icecave/chrono)
-* Read the [API documentation](http://icecavestudios.github.io/chrono/artifacts/documentation/api/)
+as a [dependency](http://en.wikipedia.org/wiki/Dependency_injection), improving decoupling and testability.
 
 ## Concepts
 
