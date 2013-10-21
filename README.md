@@ -78,7 +78,8 @@ $nowUtc = $clock->utcDateTime();
 ### String formatting
 
 To produce a formatted string representing a [Date](src/Icecave/Chrono/Date.php), [DateTime](src/Icecave/Chrono/DateTime.php),
-[TimeOfDay](src/Icecave/Chrono/TimeOfDay.php) or [TimeZone](src/Icecave/Chrono/TimeZone.php) instance use the `format()` method.
+[TimeOfDay](src/Icecave/Chrono/TimeOfDay.php) or [TimeZone](src/Icecave/Chrono/TimeZone.php) instance use the `format()`
+method.
 
 The output is specified using the same format as PHP's [built-in date() function](http://php.net/manual/en/function.date.php).
 
@@ -87,12 +88,13 @@ $now = $clock->localDateTime();
 $string = $now->format('Y-m-d H:i:s');
 ```
 
-Casting the object as a string (or calling `isoString()`) produces an [ISO-8601](http://en.wikipedia.org/wiki/ISO_8601) string representation.
+Casting the object as a string (or calling `isoString()`) produces an [ISO-8601](http://en.wikipedia.org/wiki/ISO_8601)
+string representation.
 
 ### Unix timestamps
 
-[Date](src/Icecave/Chrono/Date.php) and [DateTime](src/Icecave/Chrono/DateTime.php) instances can be produced from unix timestamps
-using the `fromUnixTime()` static method. The unix timestamp can be retreived using `unixTime()`.
+[Date](src/Icecave/Chrono/Date.php) and [DateTime](src/Icecave/Chrono/DateTime.php) instances can be produced from unix
+timestamps using the `fromUnixTime()` static method. The unix timestamp can be retreived using `unixTime()`.
 
 ```php
 $dateTime = DateTime::fromUnixTime(1367823963);
@@ -101,9 +103,9 @@ $timestamp = $dateTime->unixTime();
 
 ### PHP native "DateTime" objects
 
-[Date](src/Icecave/Chrono/Date.php) and [DateTime](src/Icecave/Chrono/DateTime.php) instances can be produced from native PHP
-[DateTime](http://php.net/manual/en/class.datetime.php) instances using the `fromNativeDateTime()` static method, and can be
-converted to a native DateTime using `nativeDateTime()`.
+[Date](src/Icecave/Chrono/Date.php) and [DateTime](src/Icecave/Chrono/DateTime.php) instances can be produced from
+native PHP [DateTime](http://php.net/manual/en/class.datetime.php) instances using the `fromNativeDateTime()` static
+method, and can be converted to a native DateTime using `nativeDateTime()`.
 
 ```php
 use DateTime as NativeDateTime;
