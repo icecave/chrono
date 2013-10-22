@@ -18,7 +18,7 @@
     ],
     "require": {
         "php": ">=5.3",
-        "icecave/parity": "~0.1.0"
+        "icecave/parity": "~1@dev"
     },
     "require-dev": {
         "eloquent/typhoon": "~0.9.0",

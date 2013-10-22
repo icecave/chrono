@@ -10,11 +10,11 @@ use Icecave\Chrono\Detail\Calendar;
 use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
-use Icecave\Parity\AbstractComparable;
+use Icecave\Parity\AbstractExtendedComparable;
 use Icecave\Parity\Exception\NotComparableException;
 use Icecave\Parity\RestrictedComparableInterface;
 
-class Period extends AbstractComparable implements TimeSpanInterface, Iso8601Interface, RestrictedComparableInterface
+class Period extends AbstractExtendedComparable implements TimeSpanInterface, Iso8601Interface, RestrictedComparableInterface
 {
     /**
      * @param integer $years   The years in the period.

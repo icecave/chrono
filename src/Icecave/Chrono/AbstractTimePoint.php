@@ -5,13 +5,13 @@ use Icecave\Chrono\Detail\Calendar;
 use Icecave\Chrono\TimeSpan\Duration;
 use Icecave\Chrono\TimeSpan\Period;
 use Icecave\Chrono\TypeCheck\TypeCheck;
-use Icecave\Parity\AbstractComparable;
+use Icecave\Parity\AbstractExtendedComparable;
 use Icecave\Parity\Exception\NotComparableException;
 
 /**
  * Represents a concrete point on the time continuum.
  */
-abstract class AbstractTimePoint extends AbstractComparable implements TimePointInterface
+abstract class AbstractTimePoint extends AbstractExtendedComparable implements TimePointInterface
 {
     public function __construct()
     {

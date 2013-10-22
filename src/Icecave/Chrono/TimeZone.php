@@ -1,16 +1,16 @@
 <?php
 namespace Icecave\Chrono;
 
-use Icecave\Chrono\Format\DefaultFormatter;
-use Icecave\Chrono\Format\FormatterInterface;
-use Icecave\Chrono\Format\FormattableInterface;
 use Icecave\Chrono\Detail\Iso8601;
+use Icecave\Chrono\Format\DefaultFormatter;
+use Icecave\Chrono\Format\FormattableInterface;
+use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
-use Icecave\Parity\AbstractComparable;
+use Icecave\Parity\AbstractExtendedComparable;
 use Icecave\Parity\Exception\NotComparableException;
 use Icecave\Parity\RestrictedComparableInterface;
 
-class TimeZone extends AbstractComparable implements Iso8601Interface, FormattableInterface, RestrictedComparableInterface
+class TimeZone extends AbstractExtendedComparable implements Iso8601Interface, FormattableInterface, RestrictedComparableInterface
 {
     /**
      * @param integer $offset The offset from UTC in seconds.

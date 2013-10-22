@@ -2,16 +2,16 @@
 namespace Icecave\Chrono;
 
 use DateTime as NativeDateTime;
-use Icecave\Chrono\Format\DefaultFormatter;
-use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\Detail\Normalizer;
+use Icecave\Chrono\Format\DefaultFormatter;
+use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
-use Icecave\Parity\AbstractComparable;
+use Icecave\Parity\AbstractExtendedComparable;
 use Icecave\Parity\Exception\NotComparableException;
 use Icecave\Parity\RestrictedComparableInterface;
 
-class TimeOfDay extends AbstractComparable implements TimeInterface, RestrictedComparableInterface
+class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, RestrictedComparableInterface
 {
     /**
      * @param integer       $hour     The hour component of the time.

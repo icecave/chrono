@@ -3,14 +3,14 @@ namespace Icecave\Chrono\TimeSpan;
 
 use DateInterval;
 use Icecave\Chrono\DateTime;
+use Icecave\Chrono\Detail\Calendar;
+use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\Interval\Interval;
 use Icecave\Chrono\Interval\IntervalInterface;
 use Icecave\Chrono\Iso8601Interface;
-use Icecave\Chrono\Detail\Calendar;
-use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
-use Icecave\Parity\AbstractComparable;
+use Icecave\Parity\AbstractExtendedComparable;
 use Icecave\Parity\Exception\NotComparableException;
 use Icecave\Parity\RestrictedComparableInterface;
 use InvalidArgumentException;
@@ -18,7 +18,7 @@ use InvalidArgumentException;
 /**
  * A duration represents a concrete amount of time.
  */
-class Duration extends AbstractComparable implements TimeSpanInterface, Iso8601Interface, RestrictedComparableInterface
+class Duration extends AbstractExtendedComparable implements TimeSpanInterface, Iso8601Interface, RestrictedComparableInterface
 {
     /**
      * @param integer $seconds The total number of seconds in the duration.
