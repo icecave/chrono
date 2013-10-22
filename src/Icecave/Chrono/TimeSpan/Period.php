@@ -3,18 +3,18 @@ namespace Icecave\Chrono\TimeSpan;
 
 use DateInterval;
 use Icecave\Chrono\DateTime;
+use Icecave\Chrono\Detail\Calendar;
+use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\Interval\Interval;
 use Icecave\Chrono\Interval\IntervalInterface;
 use Icecave\Chrono\Iso8601Interface;
-use Icecave\Chrono\Detail\Calendar;
-use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 use Icecave\Parity\AbstractExtendedComparable;
 use Icecave\Parity\Exception\NotComparableException;
-use Icecave\Parity\RestrictedComparableInterface;
+use Icecave\Parity\SubClassComparableInterface;
 
-class Period extends AbstractExtendedComparable implements TimeSpanInterface, Iso8601Interface, RestrictedComparableInterface
+class Period extends AbstractExtendedComparable implements TimeSpanInterface, Iso8601Interface, SubClassComparableInterface
 {
     /**
      * @param integer $years   The years in the period.
@@ -177,23 +177,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
     }
 
     /**
-     * Check if $this is able to be compared to another value.
-     *
-     * A return value of false indicates that calling $this->compare($value)
-     * will throw an exception.
-     *
-     * @param mixed $value The value to compare.
-     *
-     * @return boolean True if $this can be compared to $value.
-     */
-    public function canCompare($value)
-    {
-        $this->typeCheck->canCompare(func_get_args());
-
-        return $value instanceof Period;
-    }
-
-    /**
      * Compare this object with another value, yielding a result according to the following table:
      *
      * +--------------------+---------------+
@@ -213,7 +196,7 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
     {
         $this->typeCheck->compare(func_get_args());
 
-        if (!$this->canCompare($period)) {
+        if (!$period instanceof Period) {
             throw new NotComparableException($this, $period);
         }
 

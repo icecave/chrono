@@ -12,13 +12,13 @@ use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 use Icecave\Parity\AbstractExtendedComparable;
 use Icecave\Parity\Exception\NotComparableException;
-use Icecave\Parity\RestrictedComparableInterface;
+use Icecave\Parity\SubClassComparableInterface;
 use InvalidArgumentException;
 
 /**
  * A duration represents a concrete amount of time.
  */
-class Duration extends AbstractExtendedComparable implements TimeSpanInterface, Iso8601Interface, RestrictedComparableInterface
+class Duration extends AbstractExtendedComparable implements TimeSpanInterface, Iso8601Interface, SubClassComparableInterface
 {
     /**
      * @param integer $seconds The total number of seconds in the duration.
@@ -204,23 +204,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
     }
 
     /**
-     * Check if $this is able to be compared to another value.
-     *
-     * A return value of false indicates that calling $this->compare($value)
-     * will throw an exception.
-     *
-     * @param mixed $value The value to compare.
-     *
-     * @return boolean True if $this can be compared to $value.
-     */
-    public function canCompare($value)
-    {
-        $this->typeCheck->canCompare(func_get_args());
-
-        return $value instanceof Duration;
-    }
-
-    /**
      * Compare this object with another value, yielding a result according to the following table:
      *
      * +--------------------+---------------+
@@ -240,7 +223,7 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
     {
         $this->typeCheck->compare(func_get_args());
 
-        if (!$this->canCompare($duration)) {
+        if (!$duration instanceof Duration) {
             throw new NotComparableException($this, $duration);
         }
 

@@ -7,16 +7,16 @@
     "packages": [
         {
             "name": "icecave/parity",
-            "version": "1.0.0-alpha.1",
+            "version": "1.0.0-alpha.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/IcecaveStudios/parity.git",
-                "reference": "036b6d8844ac75d99fbc4882cf3aeb30332a369d"
+                "reference": "afbb6763df67d7cfbafcc23de7d9224bb88adbd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/IcecaveStudios/parity/zipball/036b6d8844ac75d99fbc4882cf3aeb30332a369d",
-                "reference": "036b6d8844ac75d99fbc4882cf3aeb30332a369d",
+                "url": "https://api.github.com/repos/IcecaveStudios/parity/zipball/afbb6763df67d7cfbafcc23de7d9224bb88adbd6",
+                "reference": "afbb6763df67d7cfbafcc23de7d9224bb88adbd6",
                 "shasum": ""
             },
             "require": {
@@ -68,7 +68,7 @@
                 "sort",
                 "sorting"
             ],
-            "time": "2013-10-20 08:30:16"
+            "time": "2013-10-22 02:31:56"
         },
         {
             "name": "icecave/repr",
