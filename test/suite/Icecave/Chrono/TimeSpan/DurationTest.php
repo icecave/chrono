@@ -210,6 +210,38 @@ class DurationTest extends PHPUnit_Framework_TestCase
         $this->assertSame($native->format('P%dDT%hH%iM%sS'), $duration->isoString());
     }
 
+    public function testAdd()
+    {
+        $duration1 = new Duration(10);
+        $duration2 = new Duration(20);
+
+        $this->assertEquals(new Duration(30), $duration1->add($duration2));
+    }
+
+    public function testAddWithInteger()
+    {
+        $duration1 = new Duration(10);
+        $duration2 = 20;
+
+        $this->assertEquals(new Duration(30), $duration1->add($duration2));
+    }
+
+    public function testSubtract()
+    {
+        $duration1 = new Duration(10);
+        $duration2 = new Duration(20);
+
+        $this->assertEquals(new Duration(-10), $duration1->subtract($duration2));
+    }
+
+    public function testSubtractWithInteger()
+    {
+        $duration1 = new Duration(10);
+        $duration2 = 20;
+
+        $this->assertEquals(new Duration(-10), $duration1->subtract($duration2));
+    }
+
     public function testString()
     {
         $this->assertSame('1w 2d 03:04:05', $this->duration->string());

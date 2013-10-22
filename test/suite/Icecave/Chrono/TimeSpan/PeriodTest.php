@@ -204,6 +204,54 @@ class PeriodTest extends PHPUnit_Framework_TestCase
         $this->assertSame($native->format('P%yY%mM%dDT%hH%iM%sS'), $period->isoString());
     }
 
+    public function testAdd()
+    {
+        $period1 = new Period(1, 2, 3, 4, 5, 6);
+        $period2 = new Period(2, 3, 4, 5, 6, 7);
+
+        $this->assertEquals(new Period(3, 5, 7, 9, 11, 13), $period1->add($period2));
+    }
+
+    public function testAddWithPeriod()
+    {
+        $period1 = new Period(1, 2, 3, 4, 5, 6);
+        $period2 = new Duration(86400 + 3600 + 60 + 1);
+
+        $this->assertEquals(new Period(1, 2, 4, 5, 6, 7), $period1->add($period2));
+    }
+
+    public function testAddWithInteger()
+    {
+        $period1 = new Period(1, 2, 3, 4, 5, 6);
+        $period2 = 86400 + 3600 + 60 + 1;
+
+        $this->assertEquals(new Period(1, 2, 4, 5, 6, 7), $period1->add($period2));
+    }
+
+    public function testSubtract()
+    {
+        $period1 = new Period(3, 5, 7, 9, 11, 13);
+        $period2 = new Period(2, 3, 4, 5, 6, 7);
+
+        $this->assertEquals(new Period(1, 2, 3, 4, 5, 6), $period1->subtract($period2));
+    }
+
+    public function testSubtractWithDuration()
+    {
+        $period1 = new Period(3, 5, 7, 9, 11, 13);
+        $period2 = new Duration(86400 + 3600 + 60 + 1);
+
+        $this->assertEquals(new Period(3, 5, 6, 8, 10, 12), $period1->subtract($period2));
+    }
+
+    public function testSubtractWithInteger()
+    {
+        $period1 = new Period(3, 5, 7, 9, 11, 13);
+        $period2 = 86400 + 3600 + 60 + 1;
+
+        $this->assertEquals(new Period(3, 5, 6, 8, 10, 12), $period1->subtract($period2));
+    }
+
     public function testString()
     {
         $this->assertSame('1y 2m 3d 04:05:06', $this->period->string());

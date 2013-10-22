@@ -352,6 +352,42 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
     }
 
     /**
+     * Add another duration to this duration.
+     *
+     * @param Duration|integer $duration The duration to add.
+     *
+     * @return Duration
+     */
+    public function add($duration)
+    {
+        $this->typeCheck->add(func_get_args());
+
+        if ($duration instanceof Duration) {
+            $duration = $duration->totalSeconds();
+        }
+
+        return new Duration($this->totalSeconds() + $duration);
+    }
+
+    /**
+     * Subtruct another duration from this duration.
+     *
+     * @param Duration|integer $duration The duration to subtract.
+     *
+     * @return Duration
+     */
+    public function subtract($duration)
+    {
+        $this->typeCheck->subtract(func_get_args());
+
+        if ($duration instanceof Duration) {
+            $duration = $duration->totalSeconds();
+        }
+
+        return new Duration($this->totalSeconds() - $duration);
+    }
+
+    /**
      * @return string
      */
     public function string()

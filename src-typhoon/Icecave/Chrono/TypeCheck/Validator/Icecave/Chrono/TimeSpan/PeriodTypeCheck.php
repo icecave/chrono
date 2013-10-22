@@ -236,6 +236,44 @@ class PeriodTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         }
     }
 
+    public function add(array $arguments)
+    {
+        $argumentCount = \count($arguments);
+        if ($argumentCount < 1) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('period', 0, 'Icecave\\Chrono\\TimeSpan\\Period|Icecave\\Chrono\\TimeSpan\\Duration|integer');
+        } elseif ($argumentCount > 1) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
+        }
+        $value = $arguments[0];
+        if (!($value instanceof \Icecave\Chrono\TimeSpan\Period || $value instanceof \Icecave\Chrono\TimeSpan\Duration || \is_int($value))) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
+                'period',
+                0,
+                $arguments[0],
+                'Icecave\\Chrono\\TimeSpan\\Period|Icecave\\Chrono\\TimeSpan\\Duration|integer'
+            );
+        }
+    }
+
+    public function subtract(array $arguments)
+    {
+        $argumentCount = \count($arguments);
+        if ($argumentCount < 1) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\MissingArgumentException('period', 0, 'Icecave\\Chrono\\TimeSpan\\Period|Icecave\\Chrono\\TimeSpan\\Duration|integer');
+        } elseif ($argumentCount > 1) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
+        }
+        $value = $arguments[0];
+        if (!($value instanceof \Icecave\Chrono\TimeSpan\Period || $value instanceof \Icecave\Chrono\TimeSpan\Duration || \is_int($value))) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentValueException(
+                'period',
+                0,
+                $arguments[0],
+                'Icecave\\Chrono\\TimeSpan\\Period|Icecave\\Chrono\\TimeSpan\\Duration|integer'
+            );
+        }
+    }
+
     public function string(array $arguments)
     {
         if (\count($arguments) > 0) {

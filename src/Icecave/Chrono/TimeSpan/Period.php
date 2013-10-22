@@ -335,6 +335,102 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
     }
 
     /**
+     * Add another period or duration to this period.
+     *
+     * @param Period|Duration|integer $period The period to add.
+     *
+     * @return Period
+     */
+    public function add($period)
+    {
+        $this->typeCheck->add(func_get_args());
+
+        $years = $this->years();
+        $months = $this->months();
+        $days = $this->days();
+        $hours = $this->hours();
+        $minutes = $this->minutes();
+        $seconds = $this->seconds();
+
+        if ($period instanceof Period) {
+            $years += $period->years();
+            $months += $period->months();
+            $days += $period->days();
+            $hours += $period->hours();
+            $minutes += $period->minutes();
+            $seconds += $period->seconds();
+        } elseif ($period instanceof Duration) {
+            $days += $period->totalDays();
+            $hours += $period->hours();
+            $minutes += $period->minutes();
+            $seconds += $period->seconds();
+        } else {
+            $period = new Duration($period);
+            $days += $period->totalDays();
+            $hours += $period->hours();
+            $minutes += $period->minutes();
+            $seconds += $period->seconds();
+        }
+
+        return new Period(
+            $years,
+            $months,
+            $days,
+            $hours,
+            $minutes,
+            $seconds
+        );
+    }
+
+    /**
+     * Subtruct another period or duration from this period.
+     *
+     * @param Period|Duration|integer $period The period to subtract.
+     *
+     * @return Period
+     */
+    public function subtract($period)
+    {
+        $this->typeCheck->subtract(func_get_args());
+
+        $years = $this->years();
+        $months = $this->months();
+        $days = $this->days();
+        $hours = $this->hours();
+        $minutes = $this->minutes();
+        $seconds = $this->seconds();
+
+        if ($period instanceof Period) {
+            $years -= $period->years();
+            $months -= $period->months();
+            $days -= $period->days();
+            $hours -= $period->hours();
+            $minutes -= $period->minutes();
+            $seconds -= $period->seconds();
+        } elseif ($period instanceof Duration) {
+            $days -= $period->totalDays();
+            $hours -= $period->hours();
+            $minutes -= $period->minutes();
+            $seconds -= $period->seconds();
+        } else {
+            $period = new Duration($period);
+            $days -= $period->totalDays();
+            $hours -= $period->hours();
+            $minutes -= $period->minutes();
+            $seconds -= $period->seconds();
+        }
+
+        return new Period(
+            $years,
+            $months,
+            $days,
+            $hours,
+            $minutes,
+            $seconds
+        );
+    }
+
+    /**
      * @return string
      */
     public function string()
