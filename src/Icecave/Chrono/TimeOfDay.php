@@ -2,16 +2,16 @@
 namespace Icecave\Chrono;
 
 use DateTime as NativeDateTime;
-use Icecave\Chrono\Format\DefaultFormatter;
-use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\Detail\Normalizer;
+use Icecave\Chrono\Format\DefaultFormatter;
+use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\TypeCheck\TypeCheck;
-use Icecave\Parity\AbstractComparable;
+use Icecave\Parity\AbstractExtendedComparable;
 use Icecave\Parity\Exception\NotComparableException;
-use Icecave\Parity\RestrictedComparableInterface;
+use Icecave\Parity\SubClassComparableInterface;
 
-class TimeOfDay extends AbstractComparable implements TimeInterface, RestrictedComparableInterface
+class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, SubClassComparableInterface
 {
     /**
      * @param integer       $hour     The hour component of the time.
@@ -219,23 +219,6 @@ class TimeOfDay extends AbstractComparable implements TimeInterface, RestrictedC
     }
 
     /**
-     * Check if $this is able to be compared to another value.
-     *
-     * A return value of false indicates that calling $this->compare($value)
-     * will throw an exception.
-     *
-     * @param mixed $value The value to compare.
-     *
-     * @return boolean True if $this can be compared to $value.
-     */
-    public function canCompare($value)
-    {
-        $this->typeCheck->canCompare(func_get_args());
-
-        return $value instanceof TimeOfDay;
-    }
-
-    /**
      * Compare this object with another value, yielding a result according to the following table:
      *
      * +--------------------+---------------+
@@ -255,7 +238,7 @@ class TimeOfDay extends AbstractComparable implements TimeInterface, RestrictedC
      {
          $this->typeCheck->compare(func_get_args());
 
-        if (!$this->canCompare($time)) {
+        if (!$time instanceof TimeOfDay) {
             throw new NotComparableException($this, $time);
         }
 

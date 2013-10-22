@@ -3,42 +3,46 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "8e02506e02bf76e40b463d72d84dfe32",
+    "hash": "9b5c5ef61a453a6378d382d3c8e1ac8e",
     "packages": [
         {
             "name": "icecave/parity",
-            "version": "0.1.0",
+            "version": "1.0.0-alpha.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/IcecaveStudios/parity.git",
-                "reference": "0.1.0"
+                "reference": "afbb6763df67d7cfbafcc23de7d9224bb88adbd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/IcecaveStudios/parity/zipball/0.1.0",
-                "reference": "0.1.0",
+                "url": "https://api.github.com/repos/IcecaveStudios/parity/zipball/afbb6763df67d7cfbafcc23de7d9224bb88adbd6",
+                "reference": "afbb6763df67d7cfbafcc23de7d9224bb88adbd6",
                 "shasum": ""
             },
             "require": {
-                "icecave/repr": ">=1.0,<2.0",
+                "icecave/repr": "~1",
                 "php": ">=5.3"
             },
             "require-dev": {
-                "eloquent/typhoon": ">=0.9,<1.0",
-                "icecave/archer": ">=0.3,<1.0"
+                "eloquent/liberator": "~1",
+                "eloquent/typhoon": "~0.9.0",
+                "icecave/archer": "~1"
+            },
+            "suggest": {
+                "eloquent/asplode": "Drop-in exception-based error handling."
             },
             "type": "library",
             "extra": {
                 "typhoon": {
-                    "output-path": "lib-typhoon",
+                    "output-path": "src-typhoon",
                     "validator-namespace": "Icecave\\Parity\\TypeCheck",
                     "use-native-callable": false
                 }
             },
             "autoload": {
                 "psr-0": {
-                    "Icecave\\Parity": "lib",
-                    "Icecave\\Parity\\TypeCheck": "lib-typhoon"
+                    "Icecave\\Parity": "src",
+                    "Icecave\\Parity\\TypeCheck": "src-typhoon"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -52,7 +56,7 @@
                     "homepage": "https://github.com/jmalloc"
                 }
             ],
-            "description": "A comparator library for PHP.",
+            "description": "A customizable deep comparison library.",
             "homepage": "https://github.com/IcecaveStudios/parity",
             "keywords": [
                 "compare",
@@ -64,7 +68,7 @@
                 "sort",
                 "sorting"
             ],
-            "time": "2013-05-29 08:00:22"
+            "time": "2013-10-22 02:31:56"
         },
         {
             "name": "icecave/repr",
@@ -801,42 +805,39 @@
         },
         {
             "name": "icecave/collections",
-            "version": "0.8.0",
+            "version": "0.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/IcecaveStudios/collections.git",
-                "reference": "c12f606057b91c956a5af4ae7bdd7a13fdbedcd9"
+                "reference": "b36f5d1d148ba772753feaae1cee252c706d718c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/IcecaveStudios/collections/zipball/c12f606057b91c956a5af4ae7bdd7a13fdbedcd9",
-                "reference": "c12f606057b91c956a5af4ae7bdd7a13fdbedcd9",
+                "url": "https://api.github.com/repos/IcecaveStudios/collections/zipball/b36f5d1d148ba772753feaae1cee252c706d718c",
+                "reference": "b36f5d1d148ba772753feaae1cee252c706d718c",
                 "shasum": ""
             },
             "require": {
-                "ext-mbstring": "*",
-                "icecave/parity": "~0.1.0",
                 "icecave/repr": "~1",
-                "php": ">=5.3"
+                "php": ">=5.3.3"
             },
             "require-dev": {
                 "eloquent/liberator": "~1",
-                "eloquent/typhoon": "~0.9.0",
-                "ezzatron/phpunit-extensions": "~1",
-                "icecave/archer": "~1"
+                "eloquent/typhoon": "~0.9",
+                "icecave/archer": "~0.2"
             },
             "type": "library",
             "extra": {
                 "typhoon": {
-                    "output-path": "src-typhoon",
+                    "output-path": "lib-typhoon",
                     "validator-namespace": "Icecave\\Collections\\TypeCheck",
                     "use-native-callable": false
                 }
             },
             "autoload": {
                 "psr-0": {
-                    "Icecave\\Collections": "src",
-                    "Icecave\\Collections\\TypeCheck": "src-typhoon"
+                    "Icecave\\Collections": "lib",
+                    "Icecave\\Collections\\TypeCheck": "lib-typhoon"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -850,7 +851,7 @@
                     "homepage": "https://github.com/jmalloc"
                 }
             ],
-            "description": "A PHP collection library loosely inspired by the .NET runtime and the C++ STL.",
+            "description": "A set of PHP collection types loosely inspired by the .NET runtime and the C++ STL.",
             "homepage": "https://github.com/IcecaveStudios/collections",
             "keywords": [
                 "array",
@@ -862,7 +863,7 @@
                 "sequence",
                 "stack"
             ],
-            "time": "2013-09-23 04:36:07"
+            "time": "2013-02-26 04:19:11"
         },
         {
             "name": "icecave/isolator",
@@ -1748,9 +1749,9 @@
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
+    "stability-flags": {
+        "icecave/parity": 20
+    },
     "platform": {
         "php": ">=5.3"
     },

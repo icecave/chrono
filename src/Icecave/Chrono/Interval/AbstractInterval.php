@@ -10,10 +10,10 @@ use Icecave\Chrono\Iterator\YearIntervalIterator;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TimeSpan\Duration;
 use Icecave\Chrono\TypeCheck\TypeCheck;
-use Icecave\Parity\AbstractComparable;
+use Icecave\Parity\AbstractExtendedComparable;
 use Icecave\Parity\Exception\NotComparableException;
 
-abstract class AbstractInterval extends AbstractComparable implements IntervalInterface
+abstract class AbstractInterval extends AbstractExtendedComparable implements IntervalInterface
 {
     public function __construct()
     {
