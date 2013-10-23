@@ -5,7 +5,10 @@ use Icecave\Chrono\Clock\ClockInterface;
 use Icecave\Chrono\Clock\SystemClock;
 use Icecave\Chrono\TypeCheck\TypeCheck;
 
-class Timer
+/**
+ * A re-usable timer.
+ */
+class Timer implements TimerInterface
 {
     /**
      * @param ClockInterface|null $clock The clock to use, or null to use the system clock.
@@ -24,6 +27,8 @@ class Timer
     }
 
     /**
+     * Fetch the clock used for time measurements.
+     *
      * @return ClockInterface
      */
     public function clock()
@@ -34,9 +39,11 @@ class Timer
     }
 
     /**
+     * Check if the timer is currently running.
+     *
      * @return boolean True if the timer is running; otherwise, false.
      */
-    public function isRunning()
+     public function isRunning()
     {
         $this->typeCheck->isRunning(func_get_args());
 
@@ -45,6 +52,8 @@ class Timer
     }
 
     /**
+     * Check if the timer has been stopped.
+     *
      * @return boolean True if the timer is was running and has since been stopped; otherwise, false.
      */
     public function isStopped()
@@ -55,6 +64,8 @@ class Timer
     }
 
     /**
+     * True if the timer has been reset, and is ready to be started again.
+     *
      * @return boolean True if the timer has been reset; otherwise, false.
      */
     public function isReset()
@@ -66,7 +77,7 @@ class Timer
     }
 
     /**
-     * Reset the timer.
+     * Stop and reset the timer.
      */
     public function reset()
     {
@@ -77,7 +88,9 @@ class Timer
     }
 
     /**
-     * Start the timer if it is not already running.
+     * Start the timer.
+     *
+     * Performs no action if the timer is already running.
      */
     public function start()
     {
@@ -92,7 +105,7 @@ class Timer
     /**
      * Stop the timer if it is running.
      *
-     * @return float The number of seconds the timer has been running since {@see Timer::start()} was called.
+     * @return float The total number of seconds the timer has been running.
      */
     public function stop()
     {
@@ -111,9 +124,9 @@ class Timer
      * If the timer is not running it will be started.
      *
      * If the timer is stopped it will be re-started, {@see Timer::elapsed()} will
-     * not include the length of time during which the timer was paused.
+     * not include the length of time during which the timer was stopped.
      *
-     * @return float The number of seconds the timer has been running since {@see Timer::start()} was called.
+     * @return float The total number of seconds the timer has been running.
      */
     public function resume()
     {
@@ -133,7 +146,9 @@ class Timer
     }
 
     /**
-     * @return float The number of seconds the timer has been running since {@see Timer::start()} was called.
+     * Fetch the number of seconds the timer has been running.
+     *
+     * @return float The total number of seconds the timer has been running.
      */
     public function elapsed()
     {
