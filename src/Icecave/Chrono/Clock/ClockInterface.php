@@ -6,6 +6,7 @@ use Icecave\Chrono\DateTime;
 use Icecave\Chrono\Month;
 use Icecave\Chrono\TimeOfDay;
 use Icecave\Chrono\TimePointInterface;
+use Icecave\Chrono\Timer\TimerInterface;
 use Icecave\Chrono\TimeSpan\TimeSpanInterface;
 use Icecave\Chrono\TimeZone;
 use Icecave\Chrono\Year;
@@ -103,4 +104,11 @@ interface ClockInterface
      * @return boolean True if the sleep completed, false if the sleep was interrupted.
      */
     public function sleepUntil(TimePointInterface $timePoint, $dispatchSignals = true, $restart = false);
+
+    /**
+     * Create a new timer.
+     *
+     * @return TimerInterface
+     */
+    public function createTimer();
 }

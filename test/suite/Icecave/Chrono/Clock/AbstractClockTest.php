@@ -6,6 +6,7 @@ use Icecave\Chrono\DateTime;
 use Icecave\Chrono\Interval\Month;
 use Icecave\Chrono\Interval\Year;
 use Icecave\Chrono\TimeOfDay;
+use Icecave\Chrono\Timer\Timer;
 use Icecave\Chrono\TimeZone;
 use Icecave\Isolator\Isolator;
 use Phake;
@@ -360,5 +361,12 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertTrue($result);
+    }
+
+    public function testCreateTimer()
+    {
+        $timer = $this->clock->createTimer();
+
+        $this->assertEquals(new Timer($this->clock), $timer);
     }
 }

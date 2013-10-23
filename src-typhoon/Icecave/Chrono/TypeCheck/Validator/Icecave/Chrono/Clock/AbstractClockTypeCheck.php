@@ -257,4 +257,11 @@ class AbstractClockTypeCheck extends \Icecave\Chrono\TypeCheck\AbstractValidator
         }
     }
 
+    public function createTimer(array $arguments)
+    {
+        if (\count($arguments) > 0) {
+            throw new \Icecave\Chrono\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
+        }
+    }
+
 }

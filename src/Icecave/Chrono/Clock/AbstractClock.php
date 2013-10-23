@@ -7,6 +7,8 @@ use Icecave\Chrono\Interval\Month;
 use Icecave\Chrono\Interval\Year;
 use Icecave\Chrono\TimeOfDay;
 use Icecave\Chrono\TimePointInterface;
+use Icecave\Chrono\Timer\Timer;
+use Icecave\Chrono\Timer\TimerInterface;
 use Icecave\Chrono\TimeSpan\TimeSpanInterface;
 use Icecave\Chrono\TimeZone;
 use Icecave\Chrono\TypeCheck\TypeCheck;
@@ -358,6 +360,18 @@ abstract class AbstractClock implements SuspendableClockInterface
      * @return boolean True if the sleep completed; or false if the sleep was interrupted.
      */
     abstract protected function doSleep($seconds);
+
+    /**
+     * Create a new timer.
+     *
+     * @return TimerInterface
+     */
+    public function createTimer()
+    {
+        $this->typeCheck->createTimer(func_get_args());
+
+        return new Timer($this);
+    }
 
     private $typeCheck;
     private $suspendCount = 0;
