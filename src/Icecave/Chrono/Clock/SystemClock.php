@@ -44,7 +44,7 @@ class SystemClock extends AbstractClock
     /**
      * @return float The current time as a unix timestamp, including partial seconds.
      */
-    public function currentUnixTime()
+    protected function currentUnixTime()
     {
         return $this->isolator->microtime(true);
     }
