@@ -5,6 +5,10 @@ use Eloquent\Liberator\Liberator;
 use Phake;
 use PHPUnit_Framework_TestCase;
 
+/**
+ * @covers Icecave\Chrono\TimeZone
+ * @covers Icecave\Chrono\Detail\Iso8601
+ */
 class TimeZoneTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
@@ -46,6 +50,12 @@ class TimeZoneTest extends PHPUnit_Framework_TestCase
 
         $timeZone = new TimeZone(0, false);
         $this->assertTrue($timeZone->isUtc());
+    }
+
+    public function testCompareWithNotComparableException()
+    {
+        $this->setExpectedException('Icecave\Parity\Exception\NotComparableException');
+        $this->timeZone->compare('foo');
     }
 
     public function testCompareEquals()

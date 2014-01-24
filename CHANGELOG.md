@@ -1,5 +1,20 @@
 # Chrono Changelog
 
+### 0.3.0 (2014-01-24)
+
+* **[BC]** Methods names on `TimeInterface` are now singular (ie, `hour()` vs `hours()`)
+* **[BC]** `Interval::isoStringWithDuration()` is now more correctly named `isoStringWithPeriod()`
+* **[FIXED]** `SystemClock::unixTime()` now properly suspends when the clock is suspended
+* **[IMPROVED]** `Period::resolveToInterval()` and `Duration::resolveToInterval()` can now handle negative time spans
+* **[NEW]** Added ISO-8601 parsing to `Period`, `Interval`, `Year` and `Month`
+* **[NEW]** Added `DateInterface::isoDayOfWeek()` and `numericDayOfWeek()`
+* **[NEW]** Added methods for converting `Period` and `Duration` to/from PHP's `DateInterval` type
+* **[NEW]** Added `ClockInterface::unixTimeAsFloat()`
+* **[NEW]** Added `ClockInterface::sleep()` and `sleepUntil()`
+* **[NEW]** Added `TimerInterface`, `Timer` and `ClockInterface::createTimer()`
+* **[NEW]** Implemented several iterator types for iterating over time spans (see [#3](https://github.com/IcecaveStudios/chrono/issues/3))
+* **[NEW]** Most objects can now be compared using [Parity](https://github.com/IcecaveStudios/parity)
+
 ### 0.2.0 (2013-05-13)
 
 * **[BC]** Moved `Duration` and `TimeSpanInterface` into `TimeSpan` namespace

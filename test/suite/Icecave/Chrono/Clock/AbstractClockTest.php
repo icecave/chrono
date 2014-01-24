@@ -6,17 +6,24 @@ use Icecave\Chrono\DateTime;
 use Icecave\Chrono\Interval\Month;
 use Icecave\Chrono\Interval\Year;
 use Icecave\Chrono\TimeOfDay;
+use Icecave\Chrono\Timer\Timer;
 use Icecave\Chrono\TimeZone;
-use PHPUnit_Framework_TestCase;
+use Icecave\Isolator\Isolator;
 use Phake;
+use PHPUnit_Framework_TestCase;
 
 class AbstractClockTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->clock = Phake::partialMock(__NAMESPACE__ . '\AbstractClock');
+        $this->isolator = Phake::mock(get_class(Isolator::get()));
+        $this->clock = Phake::partialMock(__NAMESPACE__ . '\AbstractClock', $this->isolator);
 
         $this->timeZone = new TimeZone(36000, true);
+
+        Phake::when($this->clock)
+            ->currentUnixTime()
+            ->thenReturn(1384917020.25);
 
         Phake::when($this->clock)
             ->currentLocalTimeInfo()
@@ -25,6 +32,14 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
         Phake::when($this->clock)
             ->currentUtcTimeInfo()
             ->thenReturn(array(1, 2, 3, 4, 5, 2011, '<unused>', '<unused>', 0, 0)); // Intentially set vastly different from localTimeInfo to catch potential errors.
+
+        Phake::when($this->clock)
+            ->doSleep(Phake::anyParameters())
+            ->thenReturn(true);
+
+        Phake::when($this->isolator)
+            ->function_exists('pcntl_signal_dispatch')
+            ->thenReturn(true);
     }
 
     public function verifyLocalClockSuspended()
@@ -41,6 +56,15 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
         Phake::inOrder(
             Phake::verify($this->clock, Phake::atLeast(1))->suspend(),
             Phake::verify($this->clock, Phake::times(1))->currentUtcTimeInfo(),
+            Phake::verify($this->clock, Phake::atLeast(1))->resume()
+        );
+    }
+
+    public function verifyUnixTimeClockSuspended()
+    {
+        Phake::inOrder(
+            Phake::verify($this->clock, Phake::atLeast(1))->suspend(),
+            Phake::verify($this->clock, Phake::times(1))->currentUnixTime(),
             Phake::verify($this->clock, Phake::atLeast(1))->resume()
         );
     }
@@ -135,6 +159,20 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
         $this->verifyUtcClockSuspended();
     }
 
+    public function testUnixTime()
+    {
+        $this->assertSame(1384917020, $this->clock->unixTime());
+
+        $this->verifyUnixTimeClockSuspended();
+    }
+
+    public function testUnixTimeAsFloat()
+    {
+        $this->assertSame(1384917020.25, $this->clock->unixTimeAsFloat());
+
+        $this->verifyUnixTimeClockSuspended();
+    }
+
     public function testSuspend()
     {
         $this->clock->suspend();
@@ -213,5 +251,122 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
         // Calls implementation twice once ...
         Phake::verify($this->clock, Phake::times(2))->currentUtcTimeInfo();
+    }
+
+    public function testSleep()
+    {
+        Phake::when($this->clock)
+            ->localDateTime()
+            ->thenReturn(new DateTime(2012, 1, 1, 0, 0, 0))
+            ->thenReturn(new DateTime(2012, 1, 1, 0, 0, 0))
+            ->thenReturn(new DateTime(2012, 1, 1, 0, 0, 10));
+
+        $result = $this->clock->sleep(10);
+
+        Phake::verify($this->clock)->doSleep(10);
+
+        $this->assertTrue($result);
+    }
+
+    public function testSleepInPast()
+    {
+        $result = $this->clock->sleep(-10);
+
+        Phake::verify($this->clock, Phake::never())->doSleep(Phake::anyParameters());
+
+        $this->assertTrue($result);
+    }
+
+    public function testSleepCheckDrift()
+    {
+        Phake::when($this->clock)
+            ->localDateTime()
+            ->thenReturn(new DateTime(2012, 1, 1, 0, 0, 0))
+            ->thenReturn(new DateTime(2012, 1, 1, 0, 0, 0))
+            ->thenReturn(new DateTime(2012, 1, 1, 0, 0, 9));
+
+        $result = $this->clock->sleep(10);
+
+        Phake::verify($this->clock)->doSleep(10);
+
+        $this->assertFalse($result);
+    }
+
+    public function testSleepInterrupted()
+    {
+        Phake::when($this->clock)
+            ->doSleep(Phake::anyParameters())
+            ->thenReturn(false);
+
+        $result = $this->clock->sleep(10);
+
+        Phake::verify($this->clock)->doSleep(10);
+        Phake::verify($this->isolator)->pcntl_signal_dispatch();
+
+        $this->assertFalse($result);
+    }
+
+    public function testSleepInterruptedNoDispatch()
+    {
+        Phake::when($this->clock)
+            ->doSleep(Phake::anyParameters())
+            ->thenReturn(false);
+
+        $result = $this->clock->sleep(10, false);
+
+        Phake::verify($this->clock)->doSleep(10);
+        Phake::verify($this->isolator, Phake::never())->pcntl_signal_dispatch();
+
+        $this->assertFalse($result);
+    }
+
+    public function testSleepInterruptedNoPcntl()
+    {
+        Phake::when($this->isolator)
+            ->function_exists('pcntl_signal_dispatch')
+            ->thenReturn(false);
+
+        Phake::when($this->clock)
+            ->doSleep(Phake::anyParameters())
+            ->thenReturn(false);
+
+        $result = $this->clock->sleep(10);
+
+        Phake::verify($this->clock)->doSleep(10);
+        Phake::verify($this->isolator, Phake::never())->pcntl_signal_dispatch();
+
+        $this->assertFalse($result);
+    }
+
+    public function testSleepInterruptedRestart()
+    {
+        Phake::when($this->clock)
+            ->doSleep(Phake::anyParameters())
+            ->thenReturn(false)
+            ->thenReturn(true);
+
+        Phake::when($this->clock)
+            ->localDateTime()
+            ->thenReturn(new DateTime(2012, 1, 1, 0, 0, 0))
+            ->thenReturn(new DateTime(2012, 1, 1, 0, 0, 0))
+            ->thenReturn(new DateTime(2012, 1, 1, 0, 0, 9))
+            ->thenReturn(new DateTime(2012, 1, 1, 0, 0, 10));
+
+        $result = $this->clock->sleep(10, true, true);
+
+        Phake::inOrder(
+            Phake::verify($this->clock)->doSleep(10),
+            Phake::verify($this->isolator)->pcntl_signal_dispatch(),
+            Phake::verify($this->clock)->doSleep(1)
+        );
+
+        $this->assertTrue($result);
+    }
+
+    public function testCreateTimer()
+    {
+        $timer = $this->clock->createTimer();
+
+        $this->assertEquals(new Timer($this->clock), $timer);
     }
 }

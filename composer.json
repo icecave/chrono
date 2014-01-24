@@ -1,34 +1,36 @@
 {
     "name": "icecave/chrono",
-    "description": "PHP date and time abstractions that are decoupled from the system clock.",
+    "description": "A date & time library that is decoupled from the system clock.",
     "keywords": ["time", "date", "clock", "timer", "chrono", "iso"],
     "homepage": "https://github.com/IcecaveStudios/chrono",
     "license": "MIT",
     "authors": [
         {
             "name": "James Harris",
-            "email": "james.harris@icecave.com.au"
+            "email": "james.harris@icecave.com.au",
+            "homepage": "https://github.com/jmalloc"
+        },
+        {
+            "name": "Kevin Millar",
+            "email": "koden.km@gmail.com",
+            "homepage": "https://github.com/koden-km"
         }
     ],
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=5.3",
+        "icecave/isolator": "~2",
+        "icecave/parity": "~1"
     },
     "require-dev": {
-        "eloquent/typhoon": "~0.9",
         "eloquent/liberator": "~1",
-        "icecave/archer": "~0.3"
+        "icecave/archer": "~1"
+    },
+    "suggest": {
+        "eloquent/asplode": "Drop-in exception-based error handling."
     },
     "autoload": {
         "psr-0": {
-            "Icecave\\Chrono": "lib",
-            "Icecave\\Chrono\\TypeCheck": "lib-typhoon"
-        }
-    },
-    "extra": {
-        "typhoon": {
-            "output-path": "lib-typhoon",
-            "validator-namespace": "Icecave\\Chrono\\TypeCheck",
-            "use-native-callable": false
+            "Icecave\\Chrono": "src"
         }
     }
 }

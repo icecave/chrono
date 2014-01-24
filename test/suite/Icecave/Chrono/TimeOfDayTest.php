@@ -6,6 +6,10 @@ use Eloquent\Liberator\Liberator;
 use Phake;
 use PHPUnit_Framework_TestCase;
 
+/**
+ * @covers Icecave\Chrono\TimeOfDay
+ * @covers Icecave\Chrono\Detail\Iso8601
+ */
 class TimeOfDayTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
@@ -19,19 +23,19 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
         $this->assertSame('10:21:10+00:00', $time->isoString());
     }
 
-    public function testHours()
+    public function testHour()
     {
-        $this->assertSame(10, $this->time->hours());
+        $this->assertSame(10, $this->time->hour());
     }
 
-    public function testMinutes()
+    public function testMinute()
     {
-        $this->assertSame(20, $this->time->minutes());
+        $this->assertSame(20, $this->time->minute());
     }
 
-    public function testSeconds()
+    public function testSecond()
     {
-        $this->assertSame(30, $this->time->seconds());
+        $this->assertSame(30, $this->time->second());
     }
 
     public function testToTimeZone()
@@ -84,6 +88,12 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
         $expected = new DateTime(2013, 1, 31, 10, 20, 30);
 
         $this->assertEquals($expected, $result);
+    }
+
+    public function testCompareWithNotComparableException()
+    {
+        $this->setExpectedException('Icecave\Parity\Exception\NotComparableException');
+        $this->time->compare('foo');
     }
 
     public function testCompareSelf()
@@ -270,7 +280,7 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
         $hours = 60 * 60;
         $minutes = 60;
 
-        $timeZoneUTC = new TimeZone(0);
+        $timeZoneUTC     = new TimeZone(0);
         $timeZonePos1100 = new TimeZone(11 * $hours);
         $timeZonePos1122 = new TimeZone((11 * $hours) + (22 * $minutes));
         $timeZoneNeg1100 = new TimeZone(-(11 * $hours));
@@ -293,7 +303,7 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider invalidIsoStrings
      */
-    public function testFromIsoStringWithInvalidIsoDateTime($isoString, $expected)
+    public function testFromIsoStringWithInvalidIsoTime($isoString, $expected)
     {
         $this->setExpectedException('InvalidArgumentException', $expected);
         TimeOfDay::fromIsoString($isoString);
@@ -321,6 +331,7 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
             'Invalid letters'                    => array('11:BB:33',   'Invalid ISO time: "11:BB:33"'),
             'Invalid letters'                    => array('11:22:CC',   'Invalid ISO time: "11:22:CC"'),
             'Invalid separator'                  => array('11-22-33',   'Invalid ISO time: "11-22-33"'),
+            'Invalid separator'                  => array('11/22/33',   'Invalid ISO time: "11/22/33"'),
             'Missing time'                       => array('+10',        'Invalid ISO time: "+10"'),
             'Missing time'                       => array('+10:20',     'Invalid ISO time: "+10:20"'),
         );

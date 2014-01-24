@@ -2,6 +2,7 @@
 namespace Icecave\Chrono\Interval;
 
 use Icecave\Chrono\Date;
+use Icecave\Chrono\DateTime;
 use PHPUnit_Framework_TestCase;
 use Phake;
 
@@ -52,6 +53,12 @@ class AbstractIntervalTest extends PHPUnit_Framework_TestCase
 
         $interval = $this->createInterval(new Date(2012, 1, 1), new Date(2012, 1, 2));
         $this->assertFalse($interval->isEmpty());
+    }
+
+    public function testCompareWithNotComparableException()
+    {
+        $this->setExpectedException('Icecave\Parity\Exception\NotComparableException');
+        $this->interval1->compare('foo');
     }
 
     public function testCompare()
@@ -185,5 +192,110 @@ class AbstractIntervalTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Icecave\Chrono\TimeSpan\Duration', $duration);
         $this->assertTrue($duration->isEmpty());
+    }
+
+    public function testPeriod()
+    {
+        $interval = $this->createInterval(new Date(2012, 1, 1), new Date(2012, 1, 2));
+        $period = $interval->period();
+
+        $this->assertInstanceOf('Icecave\Chrono\TimeSpan\Period', $period);
+        $this->assertSame(86400, $period->approximateTotalSeconds());
+    }
+
+    public function testPeriodEmptyInterval()
+    {
+        $interval = $this->createInterval(new Date(2012, 1, 1), new Date(2012, 1, 1));
+        $period = $interval->period();
+
+        $this->assertInstanceOf('Icecave\Chrono\TimeSpan\Period', $period);
+        $this->assertTrue($period->isEmpty());
+    }
+
+    public function testByYear()
+    {
+        $interval = new Interval(new Date(2010, 12, 25), new Date(2015, 12, 25));
+
+        $expected = array(
+            new Year(2010),
+            new Year(2011),
+            new Year(2012),
+            new Year(2013),
+            new Year(2014),
+        );
+
+        $this->assertEquals($expected, iterator_to_array($interval->byYear(), true));
+    }
+
+    public function testByMonth()
+    {
+        $interval = new Interval(new Date(2010, 12, 25), new Date(2011, 2, 26));
+
+        $expected = array(
+            new Month(new Year(2010), 12),
+            new Month(new Year(2011), 1),
+            new Month(new Year(2011), 2),
+        );
+
+        $this->assertEquals($expected, iterator_to_array($interval->byMonth(), true));
+    }
+
+    public function testByDay()
+    {
+        $interval = new Interval(new Date(2010, 12, 30), new Date(2011, 1, 3));
+
+        $expected = array(
+            new Date(2010, 12, 30),
+            new Date(2010, 12, 31),
+            new Date(2011,  1,  1),
+            new Date(2011,  1,  2),
+        );
+
+        $this->assertEquals($expected, iterator_to_array($interval->byDay(), true));
+    }
+
+    public function testByHour()
+    {
+        $interval = new Interval(new DateTime(2010, 12, 25, 10, 20, 30), new DateTime(2010, 12, 25, 15, 20, 30));
+
+        $expected = array(
+            new DateTime(2010, 12, 25, 10, 20, 30),
+            new DateTime(2010, 12, 25, 11, 20, 30),
+            new DateTime(2010, 12, 25, 12, 20, 30),
+            new DateTime(2010, 12, 25, 13, 20, 30),
+            new DateTime(2010, 12, 25, 14, 20, 30),
+        );
+
+        $this->assertEquals($expected, iterator_to_array($interval->byHour(), true));
+    }
+
+    public function testByMinute()
+    {
+        $interval = new Interval(new DateTime(2010, 12, 25, 10, 20, 30), new DateTime(2010, 12, 25, 10, 25, 30));
+
+        $expected = array(
+            new DateTime(2010, 12, 25, 10, 20, 30),
+            new DateTime(2010, 12, 25, 10, 21, 30),
+            new DateTime(2010, 12, 25, 10, 22, 30),
+            new DateTime(2010, 12, 25, 10, 23, 30),
+            new DateTime(2010, 12, 25, 10, 24, 30),
+        );
+
+        $this->assertEquals($expected, iterator_to_array($interval->byMinute(), true));
+    }
+
+    public function testBySecond()
+    {
+        $interval = new Interval(new DateTime(2010, 12, 25, 10, 20, 30), new DateTime(2010, 12, 25, 10, 20, 35));
+
+        $expected = array(
+            new DateTime(2010, 12, 25, 10, 20, 30),
+            new DateTime(2010, 12, 25, 10, 20, 31),
+            new DateTime(2010, 12, 25, 10, 20, 32),
+            new DateTime(2010, 12, 25, 10, 20, 33),
+            new DateTime(2010, 12, 25, 10, 20, 34),
+        );
+
+        $this->assertEquals($expected, iterator_to_array($interval->bySecond(), true));
     }
 }
