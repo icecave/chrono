@@ -1,8 +1,6 @@
 <?php
 namespace Icecave\Chrono\Detail;
 
-use Icecave\Chrono\TypeCheck\TypeCheck;
-
 abstract class Ordinal
 {
     /**
@@ -12,8 +10,6 @@ abstract class Ordinal
      */
     public static function suffix($number)
     {
-        TypeCheck::get(__CLASS__)->suffix(func_get_args());
-
         $mod100 = $number % 100;
 
         if ($mod100 < 11 || $mod100 > 13) {

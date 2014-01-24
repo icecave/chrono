@@ -6,7 +6,6 @@ use Icecave\Chrono\Iso8601Interface;
 use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TimeSpan\Period;
-use Icecave\Chrono\TypeCheck\TypeCheck;
 use InvalidArgumentException;
 
 /**
@@ -20,16 +19,12 @@ class Interval extends AbstractInterval implements Iso8601Interface
      */
     public function __construct(TimePointInterface $start, TimePointInterface $end)
     {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-
         if ($start->isGreaterThan($end)) {
             throw new InvalidArgumentException('Start point must not be greater than end point.');
         }
 
         $this->start = $start;
         $this->end = $end;
-
-        parent::__construct();
     }
 
     /**
@@ -49,8 +44,6 @@ class Interval extends AbstractInterval implements Iso8601Interface
      */
     public static function fromIsoString($isoString)
     {
-        TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
-
         $result = Iso8601::parseInterval($isoString);
         $type = $result['type'];
         $interval = $result['interval'];
@@ -79,8 +72,6 @@ class Interval extends AbstractInterval implements Iso8601Interface
      */
     public function start()
     {
-        $this->typeCheck->start(func_get_args());
-
         return $this->start;
     }
 
@@ -89,8 +80,6 @@ class Interval extends AbstractInterval implements Iso8601Interface
      */
     public function end()
     {
-        $this->typeCheck->end(func_get_args());
-
         return $this->end;
     }
 
@@ -99,8 +88,6 @@ class Interval extends AbstractInterval implements Iso8601Interface
      */
     public function isoStringWithPeriod()
     {
-        $this->typeCheck->isoStringWithPeriod(func_get_args());
-
         $start = $this->start();
         $start = Iso8601::formatDateTime(
             $start->year(),
@@ -120,8 +107,6 @@ class Interval extends AbstractInterval implements Iso8601Interface
      */
     public function isoString()
     {
-        $this->typeCheck->isoString(func_get_args());
-
         $start = $this->start();
         $start = Iso8601::formatDateTime(
             $start->year(),
@@ -155,7 +140,6 @@ class Interval extends AbstractInterval implements Iso8601Interface
         return $this->isoString();
     }
 
-    private $typeCheck;
     private $start;
     private $end;
 }

@@ -5,7 +5,6 @@ use Icecave\Chrono\Date;
 use Icecave\Chrono\TimeOfDay;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\TimeZone;
-use Icecave\Chrono\TypeCheck\TypeCheck;
 use Icecave\Chrono\Detail\Calendar;
 use Icecave\Chrono\Detail\Ordinal;
 
@@ -14,11 +13,6 @@ use Icecave\Chrono\Detail\Ordinal;
  */
 class DefaultFormatter implements FormatterInterface
 {
-    public function __construct()
-    {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-    }
-
     /**
      * Escape any special characters in the string so that they are not substituted
      * for date/time components when used as a format specifier.
@@ -29,8 +23,6 @@ class DefaultFormatter implements FormatterInterface
      */
     public function escape($string)
     {
-        $this->typeCheck->escape(func_get_args());
-
         return preg_replace(
             '/(?<!\\\\)[' . preg_quote(self::SPECIAL_CHARS, '/') . ']/',
             '\\\\$0',
@@ -46,8 +38,6 @@ class DefaultFormatter implements FormatterInterface
      */
     public function formatDate(Date $date, $formatSpecifier)
     {
-        $this->typeCheck->formatDate(func_get_args());
-
         $timeOfDay = new TimeOfDay(0, 0, 0, $date->timeZone());
 
         return $this->formatDateTime($date->at($timeOfDay), $formatSpecifier);
@@ -61,8 +51,6 @@ class DefaultFormatter implements FormatterInterface
      */
     public function formatTimeOfDay(TimeOfDay $time, $formatSpecifier)
     {
-        $this->typeCheck->formatTimeOfDay(func_get_args());
-
         return $this->replace(
             $formatSpecifier,
             function ($character) use ($time) {
@@ -116,8 +104,6 @@ class DefaultFormatter implements FormatterInterface
      */
     public function formatDateTime(DateTime $dateTime, $formatSpecifier)
     {
-        $this->typeCheck->formatDateTime(func_get_args());
-
         $self = $this;
 
         return $this->replace(
@@ -220,8 +206,6 @@ class DefaultFormatter implements FormatterInterface
      */
     public function formatTimeZone(TimeZone $timeZone, $formatSpecifier)
     {
-        $this->typeCheck->formatTimeZone(func_get_args());
-
         return $this->replace(
             $formatSpecifier,
             function ($character) use ($timeZone) {
@@ -250,8 +234,6 @@ class DefaultFormatter implements FormatterInterface
      */
     public static function instance()
     {
-        TypeCheck::get(__CLASS__)->instance(func_get_args());
-
         if (null === self::$instance) {
             self::$instance = new self;
         }
@@ -267,8 +249,6 @@ class DefaultFormatter implements FormatterInterface
      */
     protected function replace($formatSpecifier, $callback)
     {
-        $this->typeCheck->replace(func_get_args());
-
         $length = strlen($formatSpecifier);
         $result = '';
         $escaped = false;
@@ -299,5 +279,4 @@ class DefaultFormatter implements FormatterInterface
     const SPECIAL_CHARS = 'dDjlNSwzWFmMntLoYyaABgGhHisueIOPTZcrU';
 
     private static $instance;
-    private $typeCheck;
 }

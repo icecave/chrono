@@ -1,7 +1,6 @@
 <?php
 namespace Icecave\Chrono\Detail;
 
-use Icecave\Chrono\TypeCheck\TypeCheck;
 use InvalidArgumentException;
 
 /**
@@ -19,8 +18,6 @@ abstract class Iso8601
      */
     public static function formatYear($year)
     {
-        TypeCheck::get(__CLASS__)->formatYear(func_get_args());
-
         return sprintf('%04d', $year);
     }
 
@@ -32,8 +29,6 @@ abstract class Iso8601
      */
     public static function formatYearMonth($year, $month)
     {
-        TypeCheck::get(__CLASS__)->formatYearMonth(func_get_args());
-
         return sprintf('%04d-%02d', $year, $month);
     }
 
@@ -46,8 +41,6 @@ abstract class Iso8601
      */
     public static function formatDate($year, $month, $day)
     {
-        TypeCheck::get(__CLASS__)->formatDate(func_get_args());
-
         return sprintf(
             '%04d-%02d-%02d',
             $year,
@@ -66,8 +59,6 @@ abstract class Iso8601
      */
     public static function formatTime($hour, $minute, $second, $timeZone)
     {
-        TypeCheck::get(__CLASS__)->formatTime(func_get_args());
-
         return sprintf(
             '%02d:%02d:%02d%s',
             $hour,
@@ -90,8 +81,6 @@ abstract class Iso8601
      */
     public static function formatDateTime($year, $month, $day, $hour, $minute, $second, $timeZone)
     {
-        TypeCheck::get(__CLASS__)->formatDateTime(func_get_args());
-
         return sprintf(
             '%04d-%02d-%02dT%02d:%02d:%02d%s',
             $year,
@@ -111,8 +100,6 @@ abstract class Iso8601
      */
     public static function formatTimeZone($offset)
     {
-        TypeCheck::get(__CLASS__)->formatTimeZone(func_get_args());
-
         $seconds = abs($offset);
         $minutes = ($seconds % 3600) / 60;
         $hours   = $seconds / 3600;
@@ -137,8 +124,6 @@ abstract class Iso8601
      */
     public static function formatDuration($years, $months, $days, $hours, $minutes, $seconds)
     {
-        TypeCheck::get(__CLASS__)->formatDuration(func_get_args());
-
         $dateParts = '';
         if ($years !== 0) {
             $dateParts .= $years . 'Y';
@@ -182,8 +167,6 @@ abstract class Iso8601
      */
     public static function parseYear($isoString)
     {
-        TypeCheck::get(__CLASS__)->parseYear(func_get_args());
-
         $matches = array();
         if (preg_match(self::YEAR, $isoString, $matches) === 1) {
             $year = intval($matches[1]);
@@ -206,8 +189,6 @@ abstract class Iso8601
      */
     public static function parseYearMonth($isoString)
     {
-        TypeCheck::get(__CLASS__)->parseYearMonth(func_get_args());
-
         $parts = array(
             'year'   => 0,
             'month'  => 0
@@ -239,8 +220,6 @@ abstract class Iso8601
      */
     public static function parseDate($isoString)
     {
-        TypeCheck::get(__CLASS__)->parseDate(func_get_args());
-
         $date = array(
             'year'   => 0,
             'month'  => 0,
@@ -281,8 +260,6 @@ abstract class Iso8601
      */
     public static function parseTime($isoString)
     {
-        TypeCheck::get(__CLASS__)->parseTime(func_get_args());
-
         $time = array(
             'hour'   => 0,
             'minute' => 0,
@@ -321,8 +298,6 @@ abstract class Iso8601
      */
     public static function parseDateTime($isoString)
     {
-        TypeCheck::get(__CLASS__)->parseDateTime(func_get_args());
-
         $dateTime = array(
             'year'   => 0,
             'month'  => 0,
@@ -370,8 +345,6 @@ abstract class Iso8601
      */
     public static function parseTimeZone($isoString)
     {
-        TypeCheck::get(__CLASS__)->parseTimeZone(func_get_args());
-
         $offset = 0;
 
         $matches = array();
@@ -409,8 +382,6 @@ abstract class Iso8601
      */
     public static function parseDuration($isoString)
     {
-        TypeCheck::get(__CLASS__)->parseDuration(func_get_args());
-
         if (!strlen($isoString) || $isoString === 'P' || substr($isoString, -1) === 'T') {
             throw new InvalidArgumentException('Invalid ISO duration: "' . $isoString . '".');
         }
@@ -490,8 +461,6 @@ abstract class Iso8601
      */
     public static function parseInterval($isoString)
     {
-        TypeCheck::get(__CLASS__)->parseInterval(func_get_args());
-
         if (!strlen($isoString) || $isoString === '/') {
             throw new InvalidArgumentException('Invalid ISO interval: "' . $isoString . '".');
         }

@@ -1,8 +1,6 @@
 <?php
 namespace Icecave\Chrono\Detail;
 
-use Icecave\Chrono\TypeCheck\TypeCheck;
-
 abstract class Normalizer
 {
     /**
@@ -13,8 +11,6 @@ abstract class Normalizer
      */
     public static function normalizeTime(&$hour, &$minute, &$second, &$day = 0)
     {
-        TypeCheck::get(__CLASS__)->normalizeTime(func_get_args());
-
         $minute += self::normalizeOverflow($second, 0, 60);
         $hour   += self::normalizeOverflow($minute, 0, 60);
         $day    += self::normalizeOverflow($hour,   0, 24);
@@ -27,8 +23,6 @@ abstract class Normalizer
      */
     public static function normalizeDate(&$year, &$month, &$day = 1)
     {
-        TypeCheck::get(__CLASS__)->normalizeDate(func_get_args());
-
         $year += self::normalizeOverflow($month, 1, 13);
 
         if ($day < 1) {
@@ -58,8 +52,6 @@ abstract class Normalizer
      */
     private static function normalizeOverflow(&$value, $min, $max)
     {
-        TypeCheck::get(__CLASS__)->normalizeOverflow(func_get_args());
-
         $range = $max - $min;
 
         if ($value < $min) {

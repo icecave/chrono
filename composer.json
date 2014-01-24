@@ -18,10 +18,10 @@
     ],
     "require": {
         "php": ">=5.3",
-        "icecave/parity": "~1@dev"
+        "icecave/isolator": "~2",
+        "icecave/parity": "~1"
     },
     "require-dev": {
-        "eloquent/typhoon": "~0.9.0",
         "eloquent/liberator": "~1",
         "icecave/archer": "~1"
     },
@@ -30,15 +30,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Icecave\\Chrono": "src",
-            "Icecave\\Chrono\\TypeCheck": "src-typhoon"
-        }
-    },
-    "extra": {
-        "typhoon": {
-            "output-path": "src-typhoon",
-            "validator-namespace": "Icecave\\Chrono\\TypeCheck",
-            "use-native-callable": false
+            "Icecave\\Chrono": "src"
         }
     }
 }

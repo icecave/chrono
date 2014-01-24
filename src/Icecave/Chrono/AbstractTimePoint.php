@@ -4,7 +4,6 @@ namespace Icecave\Chrono;
 use Icecave\Chrono\Detail\Calendar;
 use Icecave\Chrono\TimeSpan\Duration;
 use Icecave\Chrono\TimeSpan\Period;
-use Icecave\Chrono\TypeCheck\TypeCheck;
 use Icecave\Parity\AbstractExtendedComparable;
 use Icecave\Parity\Exception\NotComparableException;
 
@@ -13,11 +12,6 @@ use Icecave\Parity\Exception\NotComparableException;
  */
 abstract class AbstractTimePoint extends AbstractExtendedComparable implements TimePointInterface
 {
-    public function __construct()
-    {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-    }
-
     /**
      * Check if $this is able to be compared to another value.
      *
@@ -30,8 +24,6 @@ abstract class AbstractTimePoint extends AbstractExtendedComparable implements T
      */
     public function canCompare($value)
     {
-        $this->typeCheck->canCompare(func_get_args());
-
         return $value instanceof TimePointInterface;
     }
 
@@ -53,8 +45,6 @@ abstract class AbstractTimePoint extends AbstractExtendedComparable implements T
      */
     public function compare($timePoint)
     {
-        $this->typeCheck->compare(func_get_args());
-
         if (!$this->canCompare($timePoint)) {
             throw new NotComparableException($this, $timePoint);
         }
@@ -71,8 +61,6 @@ abstract class AbstractTimePoint extends AbstractExtendedComparable implements T
      */
     public function differenceAsSeconds(TimePointInterface $timePoint)
     {
-        $this->typeCheck->differenceAsSeconds(func_get_args());
-
         return $this->unixTime() - $timePoint->unixTime();
     }
 
@@ -85,8 +73,6 @@ abstract class AbstractTimePoint extends AbstractExtendedComparable implements T
      */
     public function differenceAsDuration(TimePointInterface $timePoint)
     {
-        $this->typeCheck->differenceAsDuration(func_get_args());
-
         return new Duration($this->differenceAsSeconds($timePoint));
     }
 
@@ -99,8 +85,6 @@ abstract class AbstractTimePoint extends AbstractExtendedComparable implements T
      */
     public function differenceAsPeriod(TimePointInterface $timePoint)
     {
-        $this->typeCheck->differenceAsPeriod(func_get_args());
-
         $timePoint = $timePoint->toTimeZone($this->timeZone());
 
         return new Period(
@@ -118,8 +102,6 @@ abstract class AbstractTimePoint extends AbstractExtendedComparable implements T
      */
     public function isoDayOfWeek()
     {
-        $this->typeCheck->isoDayOfWeek(func_get_args());
-
         return Calendar::dayOfWeek($this->year(), $this->month(), $this->day(), true);
     }
 
@@ -128,10 +110,6 @@ abstract class AbstractTimePoint extends AbstractExtendedComparable implements T
      */
     public function numericDayOfWeek()
     {
-        $this->typeCheck->numericDayOfWeek(func_get_args());
-
         return Calendar::dayOfWeek($this->year(), $this->month(), $this->day(), false);
     }
-
-    private $typeCheck;
 }

@@ -1,7 +1,6 @@
 <?php
 namespace Icecave\Chrono\Detail;
 
-use Icecave\Chrono\TypeCheck\TypeCheck;
 use InvalidArgumentException;
 
 abstract class Calendar
@@ -13,8 +12,6 @@ abstract class Calendar
      */
     public static function daysInYear($year)
     {
-        TypeCheck::get(__CLASS__)->daysInYear(func_get_args());
-
         if (self::isLeapYear($year)) {
             return 366;
         }
@@ -30,8 +27,6 @@ abstract class Calendar
      */
     public static function daysInMonth($year, $month)
     {
-        TypeCheck::get(__CLASS__)->daysInMonth(func_get_args());
-
         switch ($month) {
             case 1:
             case 3:
@@ -66,8 +61,6 @@ abstract class Calendar
      */
     public static function isLeapYear($year)
     {
-        TypeCheck::get(__CLASS__)->isLeapYear(func_get_args());
-
         if ($year % 400 === 0) {
             return true;
         } elseif ($year % 100 === 0) {
@@ -84,8 +77,6 @@ abstract class Calendar
      */
     public static function monthName($month)
     {
-        TypeCheck::get(__CLASS__)->monthName(func_get_args());
-
         switch ($month) {
             case 1:
                 return 'January';
@@ -123,8 +114,6 @@ abstract class Calendar
      */
     public static function monthAbbreviation($month)
     {
-        TypeCheck::get(__CLASS__)->monthAbbreviation(func_get_args());
-
         switch ($month) {
             case 1:
                 return 'Jan';
@@ -162,8 +151,6 @@ abstract class Calendar
      */
     public static function dayName($isoDay)
     {
-        TypeCheck::get(__CLASS__)->dayName(func_get_args());
-
         switch ($isoDay) {
             case 1:
                 return 'Monday';
@@ -191,8 +178,6 @@ abstract class Calendar
      */
     public static function dayAbbreviation($isoDay)
     {
-        TypeCheck::get(__CLASS__)->dayAbbreviation(func_get_args());
-
         switch ($isoDay) {
             case 1:
                 return 'Mon';
@@ -222,8 +207,6 @@ abstract class Calendar
      */
     public static function dayOfYear($year, $month, $day)
     {
-        TypeCheck::get(__CLASS__)->dayOfYear(func_get_args());
-
         $timestamp = gmmktime(
             0,
             0,
@@ -246,8 +229,6 @@ abstract class Calendar
      */
     public static function dayOfWeek($year, $month, $day, $iso = true)
     {
-        TypeCheck::get(__CLASS__)->dayOfWeek(func_get_args());
-
         $timestamp = gmmktime(
             0,
             0,
@@ -273,8 +254,6 @@ abstract class Calendar
      */
     public static function isoWeekNumber($year, $month, $day)
     {
-        TypeCheck::get(__CLASS__)->isoWeekNumber(func_get_args());
-
         $timestamp = gmmktime(
             0,
             0,
@@ -296,8 +275,6 @@ abstract class Calendar
      */
     public static function isoYearNumber($year, $month, $day)
     {
-        TypeCheck::get(__CLASS__)->isoYearNumber(func_get_args());
-
         $timestamp = gmmktime(
             0,
             0,
@@ -323,8 +300,6 @@ abstract class Calendar
      */
     public static function approximateTotalSeconds($years = 0, $months = 0, $weeks = 0, $days = 0, $hours = 0, $minutes = 0, $seconds = 0)
     {
-        TypeCheck::get(__CLASS__)->approximateTotalSeconds(func_get_args());
-
         $days += $weeks * 7;
 
         $seconds  = $seconds;

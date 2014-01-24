@@ -3,7 +3,6 @@ namespace Icecave\Chrono\Iterator;
 
 use Icecave\Chrono\Interval\IntervalInterface;
 use Icecave\Chrono\TimeSpan\TimeSpanInterface;
-use Icecave\Chrono\TypeCheck\TypeCheck;
 use Iterator;
 
 class IntervalIterator implements Iterator
@@ -14,8 +13,6 @@ class IntervalIterator implements Iterator
      */
     public function __construct(IntervalInterface $interval, TimeSpanInterface $timeSpan)
     {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-
         $this->interval = $interval;
         $this->timeSpan = $timeSpan;
 
@@ -27,8 +24,6 @@ class IntervalIterator implements Iterator
      */
     public function current()
     {
-        $this->typeCheck->current(func_get_args());
-
         return $this->value;
     }
 
@@ -37,8 +32,6 @@ class IntervalIterator implements Iterator
      */
     public function key()
     {
-        $this->typeCheck->key(func_get_args());
-
         return $this->index;
     }
 
@@ -47,8 +40,6 @@ class IntervalIterator implements Iterator
      */
     public function next()
     {
-        $this->typeCheck->next(func_get_args());
-
         ++$this->index;
         $this->value = $this->value->add($this->timeSpan);
     }
@@ -58,8 +49,6 @@ class IntervalIterator implements Iterator
      */
     public function rewind()
     {
-        $this->typeCheck->rewind(func_get_args());
-
         $this->index = 0;
         $this->value = $this->interval->start()->add(0);
     }
@@ -69,12 +58,9 @@ class IntervalIterator implements Iterator
      */
     public function valid()
     {
-        $this->typeCheck->valid(func_get_args());
-
         return $this->value->isLessThan($this->interval->end());
     }
 
-    private $typeCheck;
     private $interval;
     private $timeSpan;
     private $index;

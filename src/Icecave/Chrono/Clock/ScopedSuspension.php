@@ -1,8 +1,6 @@
 <?php
 namespace Icecave\Chrono\Clock;
 
-use Icecave\Chrono\TypeCheck\TypeCheck;
-
 /**
  * Create a scoped clock suspension.
  *
@@ -15,8 +13,6 @@ class ScopedSuspension
      */
     public function __construct(SuspendableClockInterface $clock)
     {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-
         // Suspend before assigning, so that no resume is performed in case of failure.
         $clock->suspend();
 
@@ -30,6 +26,5 @@ class ScopedSuspension
         }
     }
 
-    private $typeCheck;
     private $clock;
 }

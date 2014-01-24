@@ -2,7 +2,6 @@
 namespace Icecave\Chrono\Clock;
 
 use Icecave\Chrono\TimeZone;
-use Icecave\Chrono\TypeCheck\TypeCheck;
 use Icecave\Isolator\Isolator;
 
 /**
@@ -15,8 +14,6 @@ class SystemClock extends AbstractClock
      */
     public function __construct(Isolator $isolator = null)
     {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-
         parent::__construct($isolator);
     }
 
@@ -25,8 +22,6 @@ class SystemClock extends AbstractClock
      */
     protected function currentLocalTimeInfo()
     {
-        $this->typeCheck->currentLocalTimeInfo(func_get_args());
-
         $parts = $this->isolator->date('s,i,H,d,m,Y,w,z,I,Z', intval($this->currentUnixTime()));
         $parts = explode(',', $parts);
         $parts = array_map('intval', $parts);
@@ -39,8 +34,6 @@ class SystemClock extends AbstractClock
      */
     protected function currentUtcTimeInfo()
     {
-        $this->typeCheck->currentUtcTimeInfo(func_get_args());
-
         $parts = $this->isolator->gmdate('s,i,H,d,m,Y,w,z,0,0', intval($this->currentUnixTime()));
         $parts = explode(',', $parts);
         $parts = array_map('intval', $parts);
@@ -53,8 +46,6 @@ class SystemClock extends AbstractClock
      */
     public function currentUnixTime()
     {
-        $this->typeCheck->currentUnixTime(func_get_args());
-
         return $this->isolator->microtime(true);
     }
 
@@ -65,10 +56,6 @@ class SystemClock extends AbstractClock
      */
     protected function doSleep($seconds)
     {
-        $this->typeCheck->doSleep(func_get_args());
-
         return 0 === $this->isolator->sleep($seconds);
     }
-
-    private $typeCheck;
 }

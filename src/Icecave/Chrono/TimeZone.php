@@ -5,7 +5,6 @@ use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormattableInterface;
 use Icecave\Chrono\Format\FormatterInterface;
-use Icecave\Chrono\TypeCheck\TypeCheck;
 use Icecave\Parity\AbstractExtendedComparable;
 use Icecave\Parity\Exception\NotComparableException;
 use Icecave\Parity\SubClassComparableInterface;
@@ -18,8 +17,6 @@ class TimeZone extends AbstractExtendedComparable implements Iso8601Interface, F
      */
     public function __construct($offset = 0, $isDst = false)
     {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-
         $offset = $offset % 86400;
         $this->offset = intval(round($offset / 60)) * 60;
         $this->isDst = $isDst;
@@ -41,8 +38,6 @@ class TimeZone extends AbstractExtendedComparable implements Iso8601Interface, F
      */
     public static function fromIsoString($isoString, $isDst = false)
     {
-        TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
-
         $offset = Iso8601::parseTimeZone($isoString);
 
         return new self($offset, $isDst);
@@ -53,8 +48,6 @@ class TimeZone extends AbstractExtendedComparable implements Iso8601Interface, F
      */
     public function offset()
     {
-        $this->typeCheck->offset(func_get_args());
-
         return $this->offset;
     }
 
@@ -63,8 +56,6 @@ class TimeZone extends AbstractExtendedComparable implements Iso8601Interface, F
      */
     public function isUtc()
     {
-        $this->typeCheck->isUtc(func_get_args());
-
         return $this->offset() === 0
             && !$this->isDst();
     }
@@ -74,8 +65,6 @@ class TimeZone extends AbstractExtendedComparable implements Iso8601Interface, F
      */
     public function isDst()
     {
-        $this->typeCheck->isDst(func_get_args());
-
         return $this->isDst;
     }
 
@@ -97,8 +86,6 @@ class TimeZone extends AbstractExtendedComparable implements Iso8601Interface, F
      */
     public function compare($timeZone)
     {
-        $this->typeCheck->compare(func_get_args());
-
         if (!$timeZone instanceof TimeZone) {
             throw new NotComparableException($this, $timeZone);
         }
@@ -115,8 +102,6 @@ class TimeZone extends AbstractExtendedComparable implements Iso8601Interface, F
      */
     public function format($formatSpecifier, FormatterInterface $formatter = null)
     {
-        $this->typeCheck->format(func_get_args());
-
         if (null === $formatter) {
             $formatter = DefaultFormatter::instance();
         }
@@ -129,8 +114,6 @@ class TimeZone extends AbstractExtendedComparable implements Iso8601Interface, F
      */
     public function isoString()
     {
-        $this->typeCheck->isoString(func_get_args());
-
         return Iso8601::formatTimeZone($this->offset());
     }
 
@@ -142,7 +125,6 @@ class TimeZone extends AbstractExtendedComparable implements Iso8601Interface, F
         return $this->isoString();
     }
 
-    private $typeCheck;
     private $timeZone;
     private $offset;
     private $isDst;

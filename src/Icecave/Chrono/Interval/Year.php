@@ -6,7 +6,6 @@ use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\Iso8601Interface;
 use Icecave\Chrono\Detail\Calendar;
 use Icecave\Chrono\Detail\Iso8601;
-use Icecave\Chrono\TypeCheck\TypeCheck;
 
 class Year extends AbstractInterval implements Iso8601Interface
 {
@@ -15,11 +14,7 @@ class Year extends AbstractInterval implements Iso8601Interface
      */
     public function __construct($ordinal)
     {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-
         $this->ordinal = $ordinal;
-
-        parent::__construct();
     }
 
     /**
@@ -29,8 +24,6 @@ class Year extends AbstractInterval implements Iso8601Interface
      */
     public static function fromTimePoint(TimePointInterface $timePoint)
     {
-        TypeCheck::get(__CLASS__)->fromTimePoint(func_get_args());
-
         return new self($timePoint->year());
     }
 
@@ -48,8 +41,6 @@ class Year extends AbstractInterval implements Iso8601Interface
      */
     public static function fromIsoString($isoString)
     {
-        TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
-
         $year = Iso8601::parseYear($isoString);
 
         return new self($year);
@@ -60,8 +51,6 @@ class Year extends AbstractInterval implements Iso8601Interface
      */
     public function ordinal()
     {
-        $this->typeCheck->ordinal(func_get_args());
-
         return $this->ordinal;
     }
 
@@ -70,8 +59,6 @@ class Year extends AbstractInterval implements Iso8601Interface
      */
     public function start()
     {
-        $this->typeCheck->start(func_get_args());
-
         return new Date($this->ordinal(), 1, 1);
     }
 
@@ -80,8 +67,6 @@ class Year extends AbstractInterval implements Iso8601Interface
      */
     public function end()
     {
-        $this->typeCheck->end(func_get_args());
-
         return new Date($this->ordinal() + 1, 1, 1);
     }
 
@@ -90,8 +75,6 @@ class Year extends AbstractInterval implements Iso8601Interface
      */
     public function numberOfDays()
     {
-        $this->typeCheck->numberOfDays(func_get_args());
-
         return Calendar::daysInyear($this->ordinal());
     }
 
@@ -100,8 +83,6 @@ class Year extends AbstractInterval implements Iso8601Interface
      */
     public function isLeapYear()
     {
-        $this->typeCheck->isLeapYear(func_get_args());
-
         return Calendar::isLeapYear($this->ordinal());
     }
 
@@ -110,8 +91,6 @@ class Year extends AbstractInterval implements Iso8601Interface
      */
     public function isoString()
     {
-        $this->typeCheck->isoString(func_get_args());
-
         return Iso8601::formatYear($this->ordinal());
     }
 
@@ -123,6 +102,5 @@ class Year extends AbstractInterval implements Iso8601Interface
         return $this->isoString();
     }
 
-    private $typeCheck;
     private $ordinal;
 }

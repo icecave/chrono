@@ -3,7 +3,6 @@ namespace Icecave\Chrono\Timer;
 
 use Icecave\Chrono\Clock\ClockInterface;
 use Icecave\Chrono\Clock\SystemClock;
-use Icecave\Chrono\TypeCheck\TypeCheck;
 
 /**
  * A re-usable timer.
@@ -15,8 +14,6 @@ class Timer implements TimerInterface
      */
     public function __construct(ClockInterface $clock = null)
     {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-
         if (null === $clock) {
             $clock = new SystemClock;
         }
@@ -33,8 +30,6 @@ class Timer implements TimerInterface
      */
     public function clock()
     {
-        $this->typeCheck->clock(func_get_args());
-
         return $this->clock;
     }
 
@@ -45,8 +40,6 @@ class Timer implements TimerInterface
      */
      public function isRunning()
     {
-        $this->typeCheck->isRunning(func_get_args());
-
         return null !== $this->startedAt
             && null === $this->stoppedAt;
     }
@@ -58,8 +51,6 @@ class Timer implements TimerInterface
      */
     public function isStopped()
     {
-        $this->typeCheck->isStopped(func_get_args());
-
         return null !== $this->stoppedAt;
     }
 
@@ -70,8 +61,6 @@ class Timer implements TimerInterface
      */
     public function isReset()
     {
-        $this->typeCheck->isReset(func_get_args());
-
         return null === $this->startedAt
             && null === $this->stoppedAt;
     }
@@ -81,8 +70,6 @@ class Timer implements TimerInterface
      */
     public function reset()
     {
-        $this->typeCheck->reset(func_get_args());
-
         $this->startedAt = null;
         $this->stoppedAt = null;
     }
@@ -94,8 +81,6 @@ class Timer implements TimerInterface
      */
     public function start()
     {
-        $this->typeCheck->start(func_get_args());
-
         if (!$this->isRunning()) {
             $this->reset();
             $this->startedAt = $this->clock->unixTimeAsFloat();
@@ -109,8 +94,6 @@ class Timer implements TimerInterface
      */
     public function stop()
     {
-        $this->typeCheck->stop(func_get_args());
-
         if ($this->isRunning()) {
             $this->stoppedAt = $this->clock->unixTimeAsFloat();
         }
@@ -130,8 +113,6 @@ class Timer implements TimerInterface
      */
     public function resume()
     {
-        $this->typeCheck->resume(func_get_args());
-
         $elapsed = $this->elapsed();
 
         if ($this->isStopped()) {
@@ -152,8 +133,6 @@ class Timer implements TimerInterface
      */
     public function elapsed()
     {
-        $this->typeCheck->elapsed(func_get_args());
-
         if ($this->isStopped()) {
             return $this->stoppedAt - $this->startedAt;
         } elseif ($this->isRunning()) {
@@ -163,7 +142,6 @@ class Timer implements TimerInterface
         }
     }
 
-    private $typeCheck;
     private $clock;
     private $startedAt;
     private $stoppedAt;

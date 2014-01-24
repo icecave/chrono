@@ -9,24 +9,16 @@ use Icecave\Chrono\Iterator\SecondIntervalIterator;
 use Icecave\Chrono\Iterator\YearIntervalIterator;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TimeSpan\Duration;
-use Icecave\Chrono\TypeCheck\TypeCheck;
 use Icecave\Parity\AbstractExtendedComparable;
 use Icecave\Parity\Exception\NotComparableException;
 
 abstract class AbstractInterval extends AbstractExtendedComparable implements IntervalInterface
 {
-    public function __construct()
-    {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-    }
-
     /**
      * @return boolean True if the interval indicates a non-zero duration; otherwise, false.
      */
     public function isEmpty()
     {
-        $this->typeCheck->isEmpty(func_get_args());
-
         return $this->start()->isEqualTo($this->end());
     }
 
@@ -42,8 +34,6 @@ abstract class AbstractInterval extends AbstractExtendedComparable implements In
      */
     public function canCompare($value)
     {
-        $this->typeCheck->canCompare(func_get_args());
-
         return $value instanceof IntervalInterface;
     }
 
@@ -65,8 +55,6 @@ abstract class AbstractInterval extends AbstractExtendedComparable implements In
      */
     public function compare($interval)
     {
-        $this->typeCheck->compare(func_get_args());
-
         if (!$this->canCompare($interval)) {
             throw new NotComparableException($this, $interval);
         }
@@ -84,8 +72,6 @@ abstract class AbstractInterval extends AbstractExtendedComparable implements In
      */
     public function contains(TimePointInterface $timePoint)
     {
-        $this->typeCheck->contains(func_get_args());
-
         return $this->start()->isLessThanOrEqualTo($timePoint)
             && $this->end()->isGreaterThan($timePoint);
     }
@@ -99,8 +85,6 @@ abstract class AbstractInterval extends AbstractExtendedComparable implements In
      */
     public function encompasses(IntervalInterface $interval)
     {
-        $this->typeCheck->encompasses(func_get_args());
-
         return $this->start()->isLessThanOrEqualTo($interval->start())
             && $this->end()->isGreaterThanOrEqualTo($interval->end());
     }
@@ -114,8 +98,6 @@ abstract class AbstractInterval extends AbstractExtendedComparable implements In
      */
     public function intersects(IntervalInterface $interval)
     {
-        $this->typeCheck->intersects(func_get_args());
-
         return $this->start()->isLessThan($interval->end())
             && $this->end()->isGreaterThan($interval->start());
     }
@@ -125,8 +107,6 @@ abstract class AbstractInterval extends AbstractExtendedComparable implements In
      */
     public function duration()
     {
-        $this->typeCheck->duration(func_get_args());
-
         return $this->end()->differenceAsDuration($this->start());
     }
 
@@ -135,8 +115,6 @@ abstract class AbstractInterval extends AbstractExtendedComparable implements In
      */
     public function period()
     {
-        $this->typeCheck->period(func_get_args());
-
         return $this->end()->differenceAsPeriod($this->start());
     }
 
@@ -145,8 +123,6 @@ abstract class AbstractInterval extends AbstractExtendedComparable implements In
      */
     public function byYear()
     {
-        $this->typeCheck->byYear(func_get_args());
-
         return new YearIntervalIterator($this);
     }
 
@@ -155,8 +131,6 @@ abstract class AbstractInterval extends AbstractExtendedComparable implements In
      */
     public function byMonth()
     {
-        $this->typeCheck->byMonth(func_get_args());
-
         return new MonthIntervalIterator($this);
     }
 
@@ -165,8 +139,6 @@ abstract class AbstractInterval extends AbstractExtendedComparable implements In
      */
     public function byDay()
     {
-        $this->typeCheck->byDay(func_get_args());
-
         return new DayIntervalIterator($this);
     }
 
@@ -175,8 +147,6 @@ abstract class AbstractInterval extends AbstractExtendedComparable implements In
      */
     public function byHour()
     {
-        $this->typeCheck->byHour(func_get_args());
-
         return new HourIntervalIterator($this);
     }
 
@@ -185,8 +155,6 @@ abstract class AbstractInterval extends AbstractExtendedComparable implements In
      */
     public function byMinute()
     {
-        $this->typeCheck->byMinute(func_get_args());
-
         return new MinuteIntervalIterator($this);
     }
 
@@ -195,10 +163,6 @@ abstract class AbstractInterval extends AbstractExtendedComparable implements In
      */
     public function bySecond()
     {
-        $this->typeCheck->bySecond(func_get_args());
-
         return new SecondIntervalIterator($this);
     }
-
-    private $typeCheck;
 }

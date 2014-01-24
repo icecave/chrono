@@ -7,7 +7,6 @@ use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\Detail\Normalizer;
 use Icecave\Chrono\TimeSpan\TimeSpanInterface;
-use Icecave\Chrono\TypeCheck\TypeCheck;
 
 /**
  * Represents a date/time.
@@ -32,8 +31,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
         $second = 0,
         TimeZone $timeZone = null
     ) {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-
         Normalizer::normalizeTime($hour, $minute, $second, $day);
         Normalizer::normalizeDate($year, $month, $day);
 
@@ -48,8 +45,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
         $this->minute = $minute;
         $this->second = $second;
         $this->timeZone = $timeZone;
-
-        parent::__construct();
     }
 
     /**
@@ -65,8 +60,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public static function fromIsoString($isoString)
     {
-        TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
-
         $dateTime = Iso8601::parseDateTime($isoString);
 
         if ($dateTime['offset'] !== null) {
@@ -94,8 +87,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public static function fromUnixTime($unixTime, TimeZone $timeZone = null)
     {
-        TypeCheck::get(__CLASS__)->fromUnixTime(func_get_args());
-
         if ($timeZone) {
             $unixTime += $timeZone->offset();
         }
@@ -116,8 +107,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public static function fromNativeDateTime(NativeDateTime $native)
     {
-        TypeCheck::get(__CLASS__)->fromNativeDateTime(func_get_args());
-
         $unixTime = $native->getTimestamp();
         $transitions = $native->getTimezone()->getTransitions($unixTime, $unixTime);
         $isDst = $transitions && $transitions[0]['isdst'];
@@ -133,8 +122,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public function year()
     {
-        $this->typeCheck->year(func_get_args());
-
         return $this->year;
     }
 
@@ -143,8 +130,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public function month()
     {
-        $this->typeCheck->month(func_get_args());
-
         return $this->month;
     }
 
@@ -153,8 +138,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public function day()
     {
-        $this->typeCheck->day(func_get_args());
-
         return $this->day;
     }
 
@@ -163,8 +146,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public function hour()
     {
-        $this->typeCheck->hour(func_get_args());
-
         return $this->hour;
     }
 
@@ -173,8 +154,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public function minute()
     {
-        $this->typeCheck->minute(func_get_args());
-
         return $this->minute;
     }
 
@@ -183,8 +162,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public function second()
     {
-        $this->typeCheck->second(func_get_args());
-
         return $this->second;
     }
 
@@ -199,8 +176,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public function toTimeZone(TimeZone $timeZone)
     {
-        $this->typeCheck->toTimeZone(func_get_args());
-
         if ($this->timeZone()->isEqualTo($timeZone)) {
             return $this;
         }
@@ -228,8 +203,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public function toUtc()
     {
-        $this->typeCheck->toUtc(func_get_args());
-
         return $this->toTimeZone(new TimeZone);
     }
 
@@ -238,8 +211,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public function timeZone()
     {
-        $this->typeCheck->timeZone(func_get_args());
-
         return $this->timeZone;
     }
 
@@ -248,8 +219,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public function date()
     {
-        $this->typeCheck->date(func_get_args());
-
         return new Date(
             $this->year(),
             $this->month(),
@@ -263,8 +232,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public function time()
     {
-        $this->typeCheck->time(func_get_args());
-
         return new TimeOfDay(
             $this->hour(),
             $this->minute(),
@@ -278,8 +245,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public function unixTime()
     {
-        $this->typeCheck->unixTime(func_get_args());
-
         return gmmktime(
             $this->hour(),
             $this->minute(),
@@ -295,8 +260,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public function nativeDateTime()
     {
-        $this->typeCheck->nativeDateTime(func_get_args());
-
         return new NativeDateTime($this->isoString());
     }
 
@@ -309,8 +272,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public function add($timeSpan)
     {
-        $this->typeCheck->add(func_get_args());
-
         if ($timeSpan instanceof TimeSpanInterface) {
             return $timeSpan->resolveToTimePoint($this);
         }
@@ -335,8 +296,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public function subtract($timeSpan)
     {
-        $this->typeCheck->subtract(func_get_args());
-
         if ($timeSpan instanceof TimeSpanInterface) {
             return $timeSpan->inverse()->resolveToTimePoint($this);
         }
@@ -360,8 +319,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public function format($formatSpecifier, FormatterInterface $formatter = null)
     {
-        $this->typeCheck->format(func_get_args());
-
         if (null === $formatter) {
             $formatter = DefaultFormatter::instance();
         }
@@ -374,8 +331,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public function isoString()
     {
-        $this->typeCheck->isoString(func_get_args());
-
         return Iso8601::formatDateTime(
             $this->year(),
             $this->month(),
@@ -395,7 +350,6 @@ class DateTime extends AbstractTimePoint implements TimeInterface
         return $this->isoString();
     }
 
-    private $typeCheck;
     private $year;
     private $month;
     private $day;

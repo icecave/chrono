@@ -9,7 +9,6 @@ use Icecave\Chrono\Interval\Interval;
 use Icecave\Chrono\Interval\IntervalInterface;
 use Icecave\Chrono\Iso8601Interface;
 use Icecave\Chrono\TimePointInterface;
-use Icecave\Chrono\TypeCheck\TypeCheck;
 use Icecave\Parity\AbstractExtendedComparable;
 use Icecave\Parity\Exception\NotComparableException;
 use Icecave\Parity\SubClassComparableInterface;
@@ -32,8 +31,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
         $minutes = 0,
         $seconds = 0
     ) {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-
         $this->years = $years;
         $this->months = $months;
         $this->days = $days;
@@ -59,8 +56,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public static function fromIsoString($isoString)
     {
-        TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
-
         $duration = Iso8601::parseDuration($isoString);
 
         return new self(
@@ -80,8 +75,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public static function fromNativeDateInterval(DateInterval $dateInterval)
     {
-        TypeCheck::get(__CLASS__)->fromNativeDateInterval(func_get_args());
-
         $period = new self(
             $dateInterval->y,
             $dateInterval->m,
@@ -103,8 +96,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function years()
     {
-        $this->typeCheck->years(func_get_args());
-
         return $this->years;
     }
 
@@ -113,8 +104,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function months()
     {
-        $this->typeCheck->months(func_get_args());
-
         return $this->months;
     }
 
@@ -123,8 +112,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function days()
     {
-        $this->typeCheck->days(func_get_args());
-
         return $this->days;
     }
 
@@ -133,8 +120,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function hours()
     {
-        $this->typeCheck->hours(func_get_args());
-
         return $this->hours;
     }
 
@@ -143,8 +128,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function minutes()
     {
-        $this->typeCheck->minutes(func_get_args());
-
         return $this->minutes;
     }
 
@@ -153,8 +136,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function seconds()
     {
-        $this->typeCheck->seconds(func_get_args());
-
         return $this->seconds;
     }
 
@@ -163,8 +144,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function approximateTotalSeconds()
     {
-        $this->typeCheck->approximateTotalSeconds(func_get_args());
-
         return Calendar::approximateTotalSeconds(
             $this->years(),
             $this->months(),
@@ -194,8 +173,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function compare($period)
     {
-        $this->typeCheck->compare(func_get_args());
-
         if (!$period instanceof Period) {
             throw new NotComparableException($this, $period);
         }
@@ -213,8 +190,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function isEmpty()
     {
-        $this->typeCheck->isEmpty(func_get_args());
-
         return 0 === $this->years()
             && 0 === $this->months()
             && 0 === $this->days()
@@ -228,8 +203,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function inverse()
     {
-        $this->typeCheck->inverse(func_get_args());
-
         return new self(
             -$this->years(),
             -$this->months(),
@@ -249,8 +222,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function resolveToSeconds(TimePointInterface $timePoint)
     {
-        $this->typeCheck->resolveToSeconds(func_get_args());
-
         return $this->resolveToTimePoint($timePoint)->differenceAsSeconds($timePoint);
     }
 
@@ -263,8 +234,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function resolveToDuration(TimePointInterface $timePoint)
     {
-        $this->typeCheck->resolveToDuration(func_get_args());
-
         return $this->resolveToTimePoint($timePoint)->differenceAsDuration($timePoint);
     }
 
@@ -277,8 +246,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function resolveToPeriod(TimePointInterface $timePoint)
     {
-        $this->typeCheck->resolveToPeriod(func_get_args());
-
         return $this;
     }
 
@@ -291,8 +258,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function resolveToInterval(TimePointInterface $timePoint)
     {
-        $this->typeCheck->resolveToInterval(func_get_args());
-
         $end = $this->resolveToTimePoint($timePoint);
 
         if ($end->isLessThan($timePoint)) {
@@ -311,8 +276,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function resolveToTimePoint(TimePointInterface $timePoint)
     {
-        $this->typeCheck->resolveToTimePoint(func_get_args());
-
         return new DateTime(
             $timePoint->year() + $this->years(),
             $timePoint->month() + $this->months(),
@@ -329,8 +292,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function nativeDateInterval()
     {
-        $this->typeCheck->nativeDateInterval(func_get_args());
-
         return new DateInterval($this->isoString());
     }
 
@@ -343,8 +304,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function add($period)
     {
-        $this->typeCheck->add(func_get_args());
-
         $years = $this->years();
         $months = $this->months();
         $days = $this->days();
@@ -391,8 +350,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function subtract($period)
     {
-        $this->typeCheck->subtract(func_get_args());
-
         $years = $this->years();
         $months = $this->months();
         $days = $this->days();
@@ -435,8 +392,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function string()
     {
-        $this->typeCheck->string(func_get_args());
-
         $chunks = array();
 
         if ($this->years()) {
@@ -466,8 +421,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function isoString()
     {
-        $this->typeCheck->isoString(func_get_args());
-
         return Iso8601::formatDuration(
             $this->years(),
             $this->months(),
@@ -486,7 +439,6 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
         return $this->isoString();
     }
 
-    private $typeCheck;
     private $years;
     private $months;
     private $days;

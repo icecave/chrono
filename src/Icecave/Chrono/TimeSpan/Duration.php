@@ -9,7 +9,6 @@ use Icecave\Chrono\Interval\Interval;
 use Icecave\Chrono\Interval\IntervalInterface;
 use Icecave\Chrono\Iso8601Interface;
 use Icecave\Chrono\TimePointInterface;
-use Icecave\Chrono\TypeCheck\TypeCheck;
 use Icecave\Parity\AbstractExtendedComparable;
 use Icecave\Parity\Exception\NotComparableException;
 use Icecave\Parity\SubClassComparableInterface;
@@ -25,8 +24,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function __construct($seconds = 0)
     {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-
         $this->seconds = $seconds;
     }
 
@@ -41,8 +38,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public static function fromComponents($weeks = 0, $days = 0, $hours = 0, $minutes = 0, $seconds = 0)
     {
-        TypeCheck::get(__CLASS__)->fromComponents(func_get_args());
-
         $days += $weeks * 7;
         $hours += $days * 24;
         $minutes += $hours * 60;
@@ -68,8 +63,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public static function fromIsoString($isoString)
     {
-        TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
-
         $duration = Iso8601::parseDuration($isoString);
 
         $seconds = Calendar::approximateTotalSeconds(
@@ -92,8 +85,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public static function fromNativeDateInterval(DateInterval $dateInterval)
     {
-        TypeCheck::get(__CLASS__)->fromNativeDateInterval(func_get_args());
-
         if ($dateInterval->y !== 0 || $dateInterval->m !== 0) {
             throw new InvalidArgumentException('Duration\'s can not be created from date intervals containing years or months.');
         }
@@ -118,8 +109,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function weeks()
     {
-        $this->typeCheck->weeks(func_get_args());
-
         return intval($this->totalSeconds() / 604800);
     }
 
@@ -128,8 +117,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function days()
     {
-        $this->typeCheck->days(func_get_args());
-
         return intval(($this->totalSeconds() % 604800) / 86400);
     }
 
@@ -138,8 +125,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function hours()
     {
-        $this->typeCheck->hours(func_get_args());
-
         return intval(($this->totalSeconds() % 86400) / 3600);
     }
 
@@ -148,8 +133,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function minutes()
     {
-        $this->typeCheck->minutes(func_get_args());
-
         return intval(($this->totalSeconds() % 3600) / 60);
     }
 
@@ -158,8 +141,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function seconds()
     {
-        $this->typeCheck->seconds(func_get_args());
-
         return intval($this->totalSeconds() % 60);
     }
 
@@ -168,8 +149,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function totalDays()
     {
-        $this->typeCheck->totalDays(func_get_args());
-
         return intval($this->totalSeconds() / 86400);
     }
 
@@ -178,8 +157,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function totalHours()
     {
-        $this->typeCheck->totalHours(func_get_args());
-
         return intval($this->totalSeconds() / 3600);
     }
 
@@ -188,8 +165,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function totalMinutes()
     {
-        $this->typeCheck->totalMinutes(func_get_args());
-
         return intval($this->totalSeconds() / 60);
     }
 
@@ -198,8 +173,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function totalSeconds()
     {
-        $this->typeCheck->totalSeconds(func_get_args());
-
         return $this->seconds;
     }
 
@@ -221,8 +194,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function compare($duration)
     {
-        $this->typeCheck->compare(func_get_args());
-
         if (!$duration instanceof Duration) {
             throw new NotComparableException($this, $duration);
         }
@@ -235,8 +206,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function isEmpty()
     {
-        $this->typeCheck->isEmpty(func_get_args());
-
         return 0 === $this->totalSeconds();
     }
 
@@ -245,8 +214,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function inverse()
     {
-        $this->typeCheck->inverse(func_get_args());
-
         return new self(-$this->totalSeconds());
     }
 
@@ -259,8 +226,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function resolveToSeconds(TimePointInterface $timePoint)
     {
-        $this->typeCheck->resolveToSeconds(func_get_args());
-
         return $this->totalSeconds();
     }
 
@@ -273,8 +238,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function resolveToDuration(TimePointInterface $timePoint)
     {
-        $this->typeCheck->resolveToDuration(func_get_args());
-
         return $this;
     }
 
@@ -287,8 +250,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function resolveToPeriod(TimePointInterface $timePoint)
     {
-        $this->typeCheck->resolveToPeriod(func_get_args());
-
         return new Period(
             0,
             0,
@@ -308,8 +269,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function resolveToInterval(TimePointInterface $timePoint)
     {
-        $this->typeCheck->resolveToInterval(func_get_args());
-
         $end = $this->resolveToTimePoint($timePoint);
 
         if ($end->isLessThan($timePoint)) {
@@ -328,8 +287,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function resolveToTimePoint(TimePointInterface $timePoint)
     {
-        $this->typeCheck->resolveToTimePoint(func_get_args());
-
         return new DateTime(
             $timePoint->year(),
             $timePoint->month(),
@@ -346,8 +303,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function nativeDateInterval()
     {
-        $this->typeCheck->nativeDateInterval(func_get_args());
-
         return new DateInterval($this->isoString());
     }
 
@@ -360,8 +315,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function add($duration)
     {
-        $this->typeCheck->add(func_get_args());
-
         if ($duration instanceof Duration) {
             $duration = $duration->totalSeconds();
         }
@@ -378,8 +331,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function subtract($duration)
     {
-        $this->typeCheck->subtract(func_get_args());
-
         if ($duration instanceof Duration) {
             $duration = $duration->totalSeconds();
         }
@@ -392,8 +343,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function string()
     {
-        $this->typeCheck->string(func_get_args());
-
         $chunks = array();
 
         if ($this->weeks()) {
@@ -419,8 +368,6 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function isoString()
     {
-        $this->typeCheck->isoString(func_get_args());
-
         return Iso8601::formatDuration(
             0,
             0,
@@ -439,6 +386,5 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
         return $this->isoString();
     }
 
-    private $typeCheck;
     private $seconds;
 }

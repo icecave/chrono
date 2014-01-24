@@ -7,7 +7,6 @@ use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\Detail\Normalizer;
 use Icecave\Chrono\TimeSpan\TimeSpanInterface;
-use Icecave\Chrono\TypeCheck\TypeCheck;
 
 /**
  * Represents a date.
@@ -26,8 +25,6 @@ class Date extends AbstractTimePoint
         $day,
         TimeZone $timeZone = null
     ) {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-
         Normalizer::normalizeDate($year, $month, $day);
 
         if ($timeZone === null) {
@@ -38,8 +35,6 @@ class Date extends AbstractTimePoint
         $this->month = $month;
         $this->day = $day;
         $this->timeZone = $timeZone;
-
-        parent::__construct();
     }
 
     /**
@@ -57,8 +52,6 @@ class Date extends AbstractTimePoint
      */
     public static function fromIsoString($isoString)
     {
-        TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
-
         $date = Iso8601::parseDate($isoString);
 
         if ($date['offset'] !== null) {
@@ -83,8 +76,6 @@ class Date extends AbstractTimePoint
      */
     public static function fromUnixTime($unixTime, TimeZone $timeZone = null)
     {
-        TypeCheck::get(__CLASS__)->fromUnixTime(func_get_args());
-
         if ($timeZone) {
             $unixTime += $timeZone->offset();
         }
@@ -105,8 +96,6 @@ class Date extends AbstractTimePoint
      */
     public static function fromNativeDateTime(NativeDateTime $native)
     {
-        TypeCheck::get(__CLASS__)->fromNativeDateTime(func_get_args());
-
         $unixTime = $native->getTimestamp();
         $transitions = $native->getTimezone()->getTransitions($unixTime, $unixTime);
         $isDst = $transitions && $transitions[0]['isdst'];
@@ -122,8 +111,6 @@ class Date extends AbstractTimePoint
      */
     public function year()
     {
-        $this->typeCheck->year(func_get_args());
-
         return $this->year;
     }
 
@@ -132,8 +119,6 @@ class Date extends AbstractTimePoint
      */
     public function month()
     {
-        $this->typeCheck->month(func_get_args());
-
         return $this->month;
     }
 
@@ -142,8 +127,6 @@ class Date extends AbstractTimePoint
      */
     public function day()
     {
-        $this->typeCheck->day(func_get_args());
-
         return $this->day;
     }
 
@@ -152,8 +135,6 @@ class Date extends AbstractTimePoint
      */
     public function hour()
     {
-        $this->typeCheck->hour(func_get_args());
-
         return 0;
     }
 
@@ -162,8 +143,6 @@ class Date extends AbstractTimePoint
      */
     public function minute()
     {
-        $this->typeCheck->minute(func_get_args());
-
         return 0;
     }
 
@@ -172,8 +151,6 @@ class Date extends AbstractTimePoint
      */
     public function second()
     {
-        $this->typeCheck->second(func_get_args());
-
         return 0;
     }
 
@@ -188,8 +165,6 @@ class Date extends AbstractTimePoint
      */
     public function toTimeZone(TimeZone $timeZone)
     {
-        $this->typeCheck->toTimeZone(func_get_args());
-
         if ($this->timeZone()->isEqualTo($timeZone)) {
             return $this;
         }
@@ -217,8 +192,6 @@ class Date extends AbstractTimePoint
      */
     public function toUtc()
     {
-        $this->typeCheck->toUtc(func_get_args());
-
         return $this->toTimeZone(new TimeZone);
     }
 
@@ -227,8 +200,6 @@ class Date extends AbstractTimePoint
      */
     public function timeZone()
     {
-        $this->typeCheck->timeZone(func_get_args());
-
         return $this->timeZone;
     }
 
@@ -243,8 +214,6 @@ class Date extends AbstractTimePoint
      */
     public function at(TimeOfDay $time)
     {
-        $this->typeCheck->at(func_get_args());
-
         $time = $time->toTimeZone($this->timeZone());
 
         return new DateTime(
@@ -263,8 +232,6 @@ class Date extends AbstractTimePoint
      */
     public function unixTime()
     {
-        $this->typeCheck->unixTime(func_get_args());
-
         return gmmktime(
             0,
             0,
@@ -280,8 +247,6 @@ class Date extends AbstractTimePoint
      */
     public function nativeDateTime()
     {
-        $this->typeCheck->nativeDateTime(func_get_args());
-
         return new NativeDateTime($this->format('c'));
     }
 
@@ -294,8 +259,6 @@ class Date extends AbstractTimePoint
      */
     public function add($timeSpan)
     {
-        $this->typeCheck->add(func_get_args());
-
         if ($timeSpan instanceof TimeSpanInterface) {
             return $timeSpan->resolveToTimePoint($this);
         }
@@ -319,8 +282,6 @@ class Date extends AbstractTimePoint
      */
     public function subtract($timeSpan)
     {
-        $this->typeCheck->subtract(func_get_args());
-
         if ($timeSpan instanceof TimeSpanInterface) {
             return $timeSpan->inverse()->resolveToTimePoint($this);
         }
@@ -343,8 +304,6 @@ class Date extends AbstractTimePoint
      */
     public function format($formatSpecifier, FormatterInterface $formatter = null)
     {
-        $this->typeCheck->format(func_get_args());
-
         if (null === $formatter) {
             $formatter = DefaultFormatter::instance();
         }
@@ -357,8 +316,6 @@ class Date extends AbstractTimePoint
      */
     public function isoString()
     {
-        $this->typeCheck->isoString(func_get_args());
-
         return Iso8601::formatDate(
             $this->year(),
             $this->month(),
@@ -374,7 +331,6 @@ class Date extends AbstractTimePoint
         return $this->isoString();
     }
 
-    private $typeCheck;
     private $year;
     private $month;
     private $day;

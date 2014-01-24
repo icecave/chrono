@@ -6,7 +6,6 @@ use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\Detail\Normalizer;
 use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormatterInterface;
-use Icecave\Chrono\TypeCheck\TypeCheck;
 use Icecave\Parity\AbstractExtendedComparable;
 use Icecave\Parity\Exception\NotComparableException;
 use Icecave\Parity\SubClassComparableInterface;
@@ -25,8 +24,6 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
         $second = 0,
         TimeZone $timeZone = null
     ) {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-
         Normalizer::normalizeTime($hour, $minute, $second);
 
         if ($timeZone === null) {
@@ -54,8 +51,6 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
      */
     public static function fromIsoString($isoString)
     {
-        TypeCheck::get(__CLASS__)->fromIsoString(func_get_args());
-
         $time = Iso8601::parseTime($isoString);
 
         if ($time['offset'] !== null) {
@@ -80,8 +75,6 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
      */
     public static function fromUnixTime($unixTime, TimeZone $timeZone = null)
     {
-        TypeCheck::get(__CLASS__)->fromUnixTime(func_get_args());
-
         if ($timeZone) {
             $unixTime += $timeZone->offset();
         }
@@ -102,8 +95,6 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
      */
     public static function fromNativeDateTime(NativeDateTime $native)
     {
-        TypeCheck::get(__CLASS__)->fromNativeDateTime(func_get_args());
-
         $unixTime = $native->getTimestamp();
         $transitions = $native->getTimezone()->getTransitions($unixTime, $unixTime);
         $isDst = $transitions && $transitions[0]['isdst'];
@@ -119,8 +110,6 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
      */
     public function hour()
     {
-        $this->typeCheck->hour(func_get_args());
-
         return $this->hour;
     }
 
@@ -129,8 +118,6 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
      */
     public function minute()
     {
-        $this->typeCheck->minute(func_get_args());
-
         return $this->minute;
     }
 
@@ -139,8 +126,6 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
      */
     public function second()
     {
-        $this->typeCheck->second(func_get_args());
-
         return $this->second;
     }
 
@@ -153,8 +138,6 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
      */
     public function toTimeZone(TimeZone $timeZone)
     {
-        $this->typeCheck->toTimeZone(func_get_args());
-
         if ($this->timeZone()->isEqualTo($timeZone)) {
             return $this;
         }
@@ -177,8 +160,6 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
      */
     public function toUtc()
     {
-        $this->typeCheck->toUtc(func_get_args());
-
         return $this->toTimeZone(new TimeZone);
     }
 
@@ -187,8 +168,6 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
      */
     public function timeZone()
     {
-        $this->typeCheck->timeZone(func_get_args());
-
         return $this->timeZone;
     }
 
@@ -203,8 +182,6 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
      */
     public function on(Date $date)
     {
-        $this->typeCheck->on(func_get_args());
-
         $date = $date->toTimeZone($this->timeZone());
 
         return new DateTime(
@@ -236,8 +213,6 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
      */
      public function compare($time)
      {
-         $this->typeCheck->compare(func_get_args());
-
         if (!$time instanceof TimeOfDay) {
             throw new NotComparableException($this, $time);
         }
@@ -251,8 +226,6 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
       */
      public function totalSeconds()
      {
-         $this->typeCheck->totalSeconds(func_get_args());
-
          return $this->hour() * 3600
               + $this->minute() * 60
               + $this->second();
@@ -266,8 +239,6 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
       */
      public function format($formatSpecifier, FormatterInterface $formatter = null)
      {
-         $this->typeCheck->format(func_get_args());
-
          if (null === $formatter) {
              $formatter = DefaultFormatter::instance();
          }
@@ -280,8 +251,6 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
      */
     public function isoString()
     {
-        $this->typeCheck->isoString(func_get_args());
-
         return Iso8601::formatTime(
             $this->hour(),
             $this->minute(),
@@ -298,7 +267,6 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
         return $this->isoString();
     }
 
-    private $typeCheck;
     private $hour;
     private $minute;
     private $second;
