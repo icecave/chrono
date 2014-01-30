@@ -116,6 +116,6 @@ $nativeDateTime = $dateTime->nativeDateTime();
 ```
 
 <!-- references -->
-[Build Status]: https://b.adge.me/travis/IcecaveStudios/chrono/develop.svg
-[Test Coverage]: https://b.adge.me/coveralls/IcecaveStudios/chrono/develop.svg
-[SemVer]: https://b.adge.me/:semver-0.3.0-yellow.svg
+[Build Status]: http://img.shields.io/travis/IcecaveStudios/chrono/develop.svg
+[Test Coverage]: http://img.shields.io/coveralls/IcecaveStudios/chrono/develop.svg
+[SemVer]: http://img.shields.io/:semver-0.3.0-yellow.svg
