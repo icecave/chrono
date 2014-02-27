@@ -35,6 +35,7 @@ as a [dependency](http://en.wikipedia.org/wiki/Dependency_injection), improving 
 ## Implementations
 
 * [System Clock](src/Icecave/Chrono/Clock/SystemClock.php): A factory for chronological measurements that uses the system clock.
+* [Test Clock](src/Icecave/Chrono/Clock/TestClock.php): A clock that can be manually manipulated for testing purposes.
 * [Date](src/Icecave/Chrono/Date.php): Represents a date, models the *Time Point* and *Date* concepts.
 * [Time of Day](src/Icecave/Chrono/TimeOfDay.php): Represents a time of day, models the *Time* concept.
 * [Date Time](src/Icecave/Chrono/DateTime.php): Represents a time of day on specific date, models the *Time Point*, *Date* and *Time* concepts.
