@@ -21,9 +21,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
         $this->timeZone = new TimeZone(36000, true);
 
-        Phake::when($this->clock)
-            ->currentUnixTime()
-            ->thenReturn(1384917020.25);
+        Phake::when($this->clock)->currentUnixTime()->thenReturn(array(1384917020, 123456789));
 
         Phake::when($this->clock)
             ->currentLocalTimeInfo()
@@ -168,7 +166,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
     public function testUnixTimeAsFloat()
     {
-        $this->assertSame(1384917020.25, $this->clock->unixTimeAsFloat());
+        $this->assertEquals(1384917020.123456789, $this->clock->unixTimeAsFloat(), '', 0.0000000001);
 
         $this->verifyUnixTimeClockSuspended();
     }

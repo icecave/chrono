@@ -161,8 +161,9 @@ abstract class AbstractClock implements SuspendableClockInterface
     public function unixTime()
     {
         $lock = new ScopedSuspension($this);
+        list($seconds) = $this->suspendedUnixTime();
 
-        return intval($this->suspendedUnixTime());
+        return $seconds;
     }
 
     /**
@@ -171,8 +172,9 @@ abstract class AbstractClock implements SuspendableClockInterface
     public function unixTimeAsFloat()
     {
         $lock = new ScopedSuspension($this);
+        list($seconds, $nanoseconds) = $this->suspendedUnixTime();
 
-        return $this->suspendedUnixTime();
+        return $seconds + $nanoseconds / 1000000000;
     }
 
     /**
@@ -281,7 +283,7 @@ abstract class AbstractClock implements SuspendableClockInterface
     /**
      * The clock MUST be suspended before calling this method.
      *
-     * @return float The time as a unix timestamp, including partial seconds.
+     * @return tuple<integer,integer> The Unix time as a 2-tuple of seconds and nanoseconds.
      */
     protected function suspendedUnixTime()
     {
@@ -305,7 +307,7 @@ abstract class AbstractClock implements SuspendableClockInterface
     /**
      * Fetch the current unix timestamp, bypassing suspended state.
      *
-     * @return float The current time as a unix timestamp, including partial seconds.
+     * @return tuple<integer,integer> The current Unix time as a 2-tuple of seconds and nanoseconds.
      */
     abstract protected function currentUnixTime();
 
