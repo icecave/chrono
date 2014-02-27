@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2fac50ce174429f7042f276d2aa7123a",
+    "hash": "fb28b77a51b73e0e4db8c59cb560c9d4",
     "packages": [
         {
             "name": "icecave/isolator",

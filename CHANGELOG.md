@@ -3,6 +3,7 @@
 ### 0.4.0 (2014-02-27)
 
 * **[NEW]** Added `TestClock`, a clock implementation that can be manipulated manually to ease testing of time-dependent code
+* **[IMPROVED]** Updated autoloader to [PSR-4](http://www.php-fig.org/psr/psr-4/)
 
 ### 0.3.0 (2014-01-24)
 
