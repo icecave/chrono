@@ -42,7 +42,7 @@ as a [dependency](http://en.wikipedia.org/wiki/Dependency_injection), improving 
 * [Interval](src/Interval/Interval.php): A span of time between two *Time Points*. Models the *Interval* concept.
 * [Month](src/Interval/Month.php): A one month time span. Models the *Interval* concept.
 * [Year](src/Interval/Year.php): A one year time span. Models the *Interval* concept.
-* [Duration](src/TimeSpan/Duration.php): A time span measured in seconds with no specified beginning or end. Models the *Time Span* concept.
+* [Duration](src/TimeSpan/Duration.php): A time span measured in seconds with no beginning or end. Models the *Time Span* concept.
 * [Period](src/TimeSpan/Period.php): A time span specified in component form (eg: 3 months, 4 days), models the *Time Span* concept.
 
 ## Examples
