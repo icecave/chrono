@@ -1,5 +1,9 @@
 # Chrono Changelog
 
+### 0.4.0 (2014-02-27)
+
+* **[NEW]** Added `TestClock`, a clock implementation that can be manipulated manually to ease testing of time-dependent code
+
 ### 0.3.0 (2014-01-24)
 
 * **[BC]** Methods names on `TimeInterface` are now singular (ie, `hour()` vs `hours()`)
