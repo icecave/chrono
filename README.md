@@ -36,22 +36,22 @@ as a [dependency](http://en.wikipedia.org/wiki/Dependency_injection), improving 
 
 * [System Clock](src/Clock/SystemClock.php): A factory for chronological measurements that uses the system clock.
 * [Test Clock](src/Clock/TestClock.php): A clock that can be manually manipulated for testing purposes.
-* [Date](src/Date.php): Represents a date, models the *Time Point* and *Date* concepts.
-* [Time of Day](src/TimeOfDay.php): Represents a time of day, models the *Time* concept.
-* [Date Time](src/DateTime.php): Represents a time of day on specific date, models the *Time Point*, *Date* and *Time* concepts.
-* [Interval](src/Interval/Interval.php): A span of time between two *Time Points*, models the *Interval* concept.
-* [Month](src/Interval/Month.php): A one month time span, models the *Interval* concept.
-* [Year](src/Interval/Year.php): A one year time span, models the *Interval* concept.
-* [Duration](src/TimeSpan/Duration.php): A span of time measured in seconds, with no specified beginning or end, models the *Time Span* concept.
-* [Period](src/TimeSpan/Period.php): A span of time specified in component form (eg: 3 months, 4 days), models the *Time Span* concept.
+* [Date](src/Date.php): Represents a date. Models the *Time Point* and *Date* concepts.
+* [Time of Day](src/TimeOfDay.php): Represents a time of day. Models the *Time* concept.
+* [Date Time](src/DateTime.php): Represents a time of day on specific date. Models the *Time Point*, *Date* and *Time* concepts.
+* [Interval](src/Interval/Interval.php): A span of time between two *Time Points*. Models the *Interval* concept.
+* [Month](src/Interval/Month.php): A one month time span. Models the *Interval* concept.
+* [Year](src/Interval/Year.php): A one year time span. Models the *Interval* concept.
+* [Duration](src/TimeSpan/Duration.php): A time span measured in seconds with no specified beginning or end. Models the *Time Span* concept.
+* [Period](src/TimeSpan/Period.php): A time span specified in component form (eg: 3 months, 4 days), models the *Time Span* concept.
 
 ## Examples
 
 ### Getting the current time
 
-In order to get the current time you need to use a [clock](src/Clock/ClockInterface.php).
-Most of the time in production code you will use the [SystemClock](src/Clock/SystemClock.php) class,
-which uses the machine's current system time and time zone information.
+In order to get the current time you need to use a [clock](src/Clock/ClockInterface.php). Most of the time in production
+code you will use the [SystemClock](src/Clock/SystemClock.php) class, which uses the machine's current system time and
+time zone information.
 
 ```php
 use Icecave\Chrono\Clock\SystemClock;
