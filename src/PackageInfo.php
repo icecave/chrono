@@ -4,5 +4,5 @@ namespace Icecave\Chrono;
 class PackageInfo
 {
     const NAME = 'Chrono';
-    const VERSION = '0.3.0';
+    const VERSION = '0.4.0';
 }

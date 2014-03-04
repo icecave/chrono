@@ -14,16 +14,20 @@ class SystemClockTest extends PHPUnit_Framework_TestCase
         $this->isolator = Phake::partialMock(get_class(Isolator::get()));
         $this->clock = new SystemClock($this->isolator);
 
-        Phake::when($this->isolator)
-            ->microtime(true)
-            ->thenReturn(1384917020.25);
+        Phake::when($this->isolator)->microtime(true)->thenReturn(1384917020.123456);
     }
 
     public function testCurrentUnixTime()
     {
-        $result = $this->clock->utcDateTime();
-        $expected = new DateTime(2013, 11, 20, 3, 10, 20);
-        $this->assertEquals($expected, $result);
+        $actual = Liberator::liberate($this->clock)->currentUnixTime();
+        $actualDateTime = $this->clock->utcDateTime();
+        $expectedDateTime = new DateTime(2013, 11, 20, 3, 10, 20);
+
+        $this->assertInternalType('array', $actual);
+        $this->assertSame(array(0, 1), array_keys($actual));
+        $this->assertSame(1384917020, $actual[0]);
+        $this->assertEquals(123456000, $actual[1], '', 1000);
+        $this->assertEquals($expectedDateTime, $actualDateTime);
     }
 
     public function testDoSleep()

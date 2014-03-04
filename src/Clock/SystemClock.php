@@ -22,7 +22,8 @@ class SystemClock extends AbstractClock
      */
     protected function currentLocalTimeInfo()
     {
-        $parts = $this->isolator->date('s,i,H,d,m,Y,w,z,I,Z', intval($this->currentUnixTime()));
+        list($seconds) = $this->currentUnixTime();
+        $parts = $this->isolator->date('s,i,H,d,m,Y,w,z,I,Z', $seconds);
         $parts = explode(',', $parts);
         $parts = array_map('intval', $parts);
 
@@ -34,7 +35,8 @@ class SystemClock extends AbstractClock
      */
     protected function currentUtcTimeInfo()
     {
-        $parts = $this->isolator->gmdate('s,i,H,d,m,Y,w,z,0,0', intval($this->currentUnixTime()));
+        list($seconds) = $this->currentUnixTime();
+        $parts = $this->isolator->gmdate('s,i,H,d,m,Y,w,z,0,0', $seconds);
         $parts = explode(',', $parts);
         $parts = array_map('intval', $parts);
 
@@ -42,11 +44,16 @@ class SystemClock extends AbstractClock
     }
 
     /**
-     * @return float The current time as a unix timestamp, including partial seconds.
+     * Fetch the current unix timestamp, bypassing suspended state.
+     *
+     * @return tuple<integer,integer> The current Unix time as a 2-tuple of seconds and nanoseconds.
      */
     protected function currentUnixTime()
     {
-        return $this->isolator->microtime(true);
+        $microtime = $this->isolator->microtime(true);
+        $seconds = intval($microtime);
+
+        return array($seconds, intval(($microtime - $seconds) * 1000000000));
     }
 
     /**
