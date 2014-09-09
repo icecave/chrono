@@ -32,5 +32,10 @@
         "psr-4": {
             "Icecave\\Chrono\\": "src"
         }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "1.0.x-dev"
+        }
     }
 }
