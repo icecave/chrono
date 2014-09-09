@@ -1,5 +1,9 @@
 # Chrono Changelog
 
+### 1.0.0 (2014-09-09)
+
+* **[NEW]** Added convenience factory methods on `Duration`
+
 ### 0.4.0 (2014-02-27)
 
 * **[NEW]** Added `TestClock`, a clock implementation that can be manipulated manually to ease testing of time-dependent code
