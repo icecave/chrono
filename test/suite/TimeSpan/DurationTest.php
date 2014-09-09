@@ -22,6 +22,16 @@ class DurationTest extends PHPUnit_Framework_TestCase
         $this->after = Duration::fromComponents(1, 2, 3, 4, 6);
     }
 
+    public function testStaticFactoryMethods()
+    {
+        $this->assertSame(694861, Duration::fromComponents(1, 1, 1, 1, 1)->totalSeconds());
+        $this->assertSame(604800, Duration::fromWeeks(1)->totalSeconds());
+        $this->assertSame(86400, Duration::fromDays(1)->totalSeconds());
+        $this->assertSame(3600, Duration::fromHours(1)->totalSeconds());
+        $this->assertSame(60, Duration::fromMinutes(1)->totalSeconds());
+        $this->assertSame(1, Duration::fromSeconds(1)->totalSeconds());
+    }
+
     public function testWeeks()
     {
         $this->assertSame(1, $this->duration->weeks());

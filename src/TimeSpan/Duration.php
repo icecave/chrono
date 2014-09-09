@@ -28,13 +28,15 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
     }
 
     /**
+     * Create a duration from the supplied amounts of standard time increments.
+     *
      * @param integer $weeks   The number of weeks in the duration.
      * @param integer $days    The number of days in the duration.
      * @param integer $hours   The number of hours in the duration.
      * @param integer $minutes The number of minutes in the duration.
      * @param integer $seconds The number of seconds in the duration.
      *
-     * @return Duration
+     * @return Duration The resulting duration.
      */
     public static function fromComponents($weeks = 0, $days = 0, $hours = 0, $minutes = 0, $seconds = 0)
     {
@@ -44,6 +46,66 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
         $seconds += $minutes * 60;
 
         return new self($seconds);
+    }
+
+    /**
+     * Create a duration from the supplied amount of weeks.
+     *
+     * @param integer $weeks The number of weeks in the duration.
+     *
+     * @return Duration The resulting duration.
+     */
+    public static function fromWeeks($weeks)
+    {
+        return static::fromComponents($weeks);
+    }
+
+    /**
+     * Create a duration from the supplied amount of days.
+     *
+     * @param integer $days The number of days in the duration.
+     *
+     * @return Duration The resulting duration.
+     */
+    public static function fromDays($days)
+    {
+        return static::fromComponents(0, $days);
+    }
+
+    /**
+     * Create a duration from the supplied amount of hours.
+     *
+     * @param integer $hours The number of hours in the duration.
+     *
+     * @return Duration The resulting duration.
+     */
+    public static function fromHours($hours)
+    {
+        return static::fromComponents(0, 0, $hours);
+    }
+
+    /**
+     * Create a duration from the supplied amount of minutes.
+     *
+     * @param integer $minutes The number of minutes in the duration.
+     *
+     * @return Duration The resulting duration.
+     */
+    public static function fromMinutes($minutes)
+    {
+        return static::fromComponents(0, 0, 0, $minutes);
+    }
+
+    /**
+     * Create a duration from the supplied amount of seconds.
+     *
+     * @param integer $seconds The number of seconds in the duration.
+     *
+     * @return Duration The resulting duration.
+     */
+    public static function fromSeconds($seconds)
+    {
+        return static::fromComponents(0, 0, 0, 0, $seconds);
     }
 
     /**
