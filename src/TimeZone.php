@@ -13,7 +13,7 @@ class TimeZone extends AbstractExtendedComparable implements Iso8601Interface, F
 {
     /**
      * @param integer $offset The offset from UTC in seconds.
-     * @param boolean $isDst  True if the timezone is currently honouring daylight saving time; otheriwse, false.
+     * @param boolean $isDst  True if the timezone is currently honouring daylight saving time; otherwise, false.
      */
     public function __construct($offset = 0, $isDst = false)
     {
