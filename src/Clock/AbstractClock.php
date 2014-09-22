@@ -207,7 +207,7 @@ abstract class AbstractClock implements SuspendableClockInterface
     }
 
     /**
-     * @return True if the clock is currently suspended; otherwise, false.
+     * @return boolean True if the clock is currently suspended; otherwise, false.
      */
     public function isSuspended()
     {
