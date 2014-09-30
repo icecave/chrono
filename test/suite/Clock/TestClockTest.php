@@ -31,7 +31,7 @@ class TestClockTest extends PHPUnit_Framework_TestCase
 
     public function testConstructorDefaults()
     {
-        $this->clock = new TestClock;
+        $this->clock = new TestClock();
 
         $this->assertEquals(DateTime::fromUnixTime(0), $this->clock->localDateTime());
         $this->assertFalse($this->clock->isSuspended());

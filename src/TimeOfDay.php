@@ -27,7 +27,7 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
         Normalizer::normalizeTime($hour, $minute, $second);
 
         if ($timeZone === null) {
-            $timeZone = new TimeZone;
+            $timeZone = new TimeZone();
         }
 
         $this->hour = $hour;
@@ -160,7 +160,7 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
      */
     public function toUtc()
     {
-        return $this->toTimeZone(new TimeZone);
+        return $this->toTimeZone(new TimeZone());
     }
 
     /**

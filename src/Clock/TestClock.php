@@ -122,7 +122,7 @@ class TestClock implements TestClockInterface
      */
     public function utcDateTime()
     {
-        return $this->localDateTime()->toTimeZone(new TimeZone);
+        return $this->localDateTime()->toTimeZone(new TimeZone());
     }
 
     /**

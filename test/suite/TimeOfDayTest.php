@@ -49,7 +49,7 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
 
     public function testToTimeZoneSame()
     {
-        $result = $this->time->toTimeZone(new TimeZone);
+        $result = $this->time->toTimeZone(new TimeZone());
         $this->assertSame($this->time, $result);
     }
 

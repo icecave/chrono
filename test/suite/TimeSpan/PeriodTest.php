@@ -116,7 +116,7 @@ class PeriodTest extends PHPUnit_Framework_TestCase
     {
         $this->assertFalse($this->period->isEmpty());
 
-        $period = new Period;
+        $period = new Period();
 
         $this->assertTrue($period->isEmpty());
     }

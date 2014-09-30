@@ -26,7 +26,7 @@ class TimerTest extends PHPUnit_Framework_TestCase
 
     public function testConstructorDefaults()
     {
-        $timer = new Timer;
+        $timer = new Timer();
 
         $this->assertInstanceOf('Icecave\Chrono\Clock\SystemClock', $timer->clock());
     }
