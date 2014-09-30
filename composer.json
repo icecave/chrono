@@ -1,7 +1,14 @@
 {
     "name": "icecave/chrono",
     "description": "A date & time library that is decoupled from the system clock.",
-    "keywords": ["time", "date", "clock", "timer", "chrono", "iso"],
+    "keywords": [
+        "time",
+        "date",
+        "clock",
+        "timer",
+        "chrono",
+        "iso"
+    ],
     "homepage": "https://github.com/IcecaveStudios/chrono",
     "license": "MIT",
     "authors": [
