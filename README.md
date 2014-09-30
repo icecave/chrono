@@ -116,6 +116,11 @@ $dateTime = DateTime::fromNativeDateTime(new NativeDateTime);
 $nativeDateTime = $dateTime->nativeDateTime();
 ```
 
+## Contact us
+
+* Follow [@IcecaveStudios](https://twitter.com/IcecaveStudios) on Twitter
+* Visit the [Icecave Studios website](http://icecave.com.au)
+
 <!-- references -->
 [Build Status]: http://img.shields.io/travis/IcecaveStudios/chrono/develop.svg?style=flat-square
 [Test Coverage]: http://img.shields.io/coveralls/IcecaveStudios/chrono/develop.svg?style=flat-square
