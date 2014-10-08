@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9f19d6129ce8d9b9b964752e88d8f0bd",
+    "hash": "5b934f48adba17a73ff4e7f7b75a2eb1",
     "packages": [
         {
             "name": "icecave/isolator",
-            "version": "2.3.0",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/IcecaveStudios/isolator.git",
-                "reference": "97c51fafa39c57a8f1a31f978a48fbe6cea4a5d5"
+                "reference": "7d975e5324cec69d2bcc2cda1e19c8f52923a48f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/IcecaveStudios/isolator/zipball/97c51fafa39c57a8f1a31f978a48fbe6cea4a5d5",
-                "reference": "97c51fafa39c57a8f1a31f978a48fbe6cea4a5d5",
+                "url": "https://api.github.com/repos/IcecaveStudios/isolator/zipball/7d975e5324cec69d2bcc2cda1e19c8f52923a48f",
+                "reference": "7d975e5324cec69d2bcc2cda1e19c8f52923a48f",
                 "shasum": ""
             },
             "require": {
@@ -26,14 +26,19 @@
             "require-dev": {
                 "icecave/archer": "~1"
             },
-            "suggest": {
-                "eloquent/asplode": "Drop-in exception-based error handling."
-            },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "3.0.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Icecave\\Isolator\\": "src"
-                }
+                },
+                "files": [
+                    "src/register-autoloader.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -49,14 +54,15 @@
             "description": "Dependency injection for global functions.",
             "homepage": "https://github.com/IcecaveStudios/isolator",
             "keywords": [
+                "Double",
                 "fake",
                 "mock",
-                "phake",
                 "phpunit",
+                "stub",
                 "test",
                 "unit"
             ],
-            "time": "2014-08-12 03:16:11"
+            "time": "2014-10-08 01:06:45"
         },
         {
             "name": "icecave/parity",

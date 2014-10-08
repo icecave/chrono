@@ -25,7 +25,7 @@
     ],
     "require": {
         "php": ">=5.3",
-        "icecave/isolator": "~2",
+        "icecave/isolator": "~3",
         "icecave/parity": "~1"
     },
     "require-dev": {
