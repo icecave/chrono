@@ -2,21 +2,12 @@
 namespace Icecave\Chrono\Clock;
 
 use Icecave\Chrono\TimeZone;
-use Icecave\Isolator\Isolator;
 
 /**
  * A clock that uses the system to obtain real wall-clock date/times.
  */
 class SystemClock extends AbstractClock
 {
-    /**
-     * @param Isolator|null $isolator
-     */
-    public function __construct(Isolator $isolator = null)
-    {
-        parent::__construct($isolator);
-    }
-
     /**
      * @return array<integer> A tuple containing time information, as per {@see localtime()}, plus the timezone offset in seconds.
      */

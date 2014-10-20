@@ -11,7 +11,7 @@ class SystemClockTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->isolator = Phake::partialMock(get_class(Isolator::get()));
+        $this->isolator = Phake::partialMock('Icecave\Isolator\Isolator');
         $this->clock = new SystemClock($this->isolator);
 
         Phake::when($this->isolator)->microtime(true)->thenReturn(1384917020.123456);
