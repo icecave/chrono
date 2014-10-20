@@ -1,5 +1,9 @@
 # Chrono Changelog
 
+### 1.0.1 (2014-10-20)
+
+* **[IMPROVED]** Allow either version 2.* or 3.* of [icecave/isolator](https://github.com/isolator)
+
 ### 1.0.0 (2014-09-09)
 
 * **[NEW]** Added convenience factory methods on `Duration`

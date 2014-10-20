@@ -16,7 +16,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->isolator = Phake::mock(get_class(Isolator::get()));
+        $this->isolator = Phake::mock('Icecave\Isolator\Isolator');
         $this->clock = Phake::partialMock(__NAMESPACE__ . '\AbstractClock', $this->isolator);
 
         $this->timeZone = new TimeZone(36000, true);
