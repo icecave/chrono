@@ -12,7 +12,7 @@
 ## Rationale
 
 Many date & time operations in the core PHP libraries require access to system state such as the current wall time, or
-resources such as timezone databases. These hard-wire dependencies can make it very difficult to write well-abstracted
+resources such as timezone databases. These hard-wired dependencies can make it very difficult to write well-abstracted
 and testable code when dealing with time-sensitive operations.
 
 **Chrono** provides a set of date & time classes that are completely decoupled from the system and hence behave
@@ -95,7 +95,7 @@ string representation.
 ### Unix timestamps
 
 [Date](src/Date.php) and [DateTime](src/DateTime.php) instances can be produced from unix
-timestamps using the `fromUnixTime()` static method. The unix timestamp can be retreived using `unixTime()`.
+timestamps using the `fromUnixTime()` static method. The unix timestamp can be retrieved using `unixTime()`.
 
 ```php
 $dateTime = DateTime::fromUnixTime(1367823963);
@@ -116,7 +116,13 @@ $dateTime = DateTime::fromNativeDateTime(new NativeDateTime);
 $nativeDateTime = $dateTime->nativeDateTime();
 ```
 
+## Contact us
+
+* Follow [@IcecaveStudios](https://twitter.com/IcecaveStudios) on Twitter
+* Visit the [Icecave Studios website](http://icecave.com.au)
+* Join `#icecave` on [irc.freenode.net](http://webchat.freenode.net?channels=icecave)
+
 <!-- references -->
-[Build Status]: http://img.shields.io/travis/IcecaveStudios/chrono/develop.svg
-[Test Coverage]: http://img.shields.io/coveralls/IcecaveStudios/chrono/develop.svg
-[SemVer]: http://img.shields.io/:semver-0.4.0-yellow.svg
+[Build Status]: http://img.shields.io/travis/IcecaveStudios/chrono/develop.svg?style=flat-square
+[Test Coverage]: http://img.shields.io/coveralls/IcecaveStudios/chrono/develop.svg?style=flat-square
+[SemVer]: http://img.shields.io/:semver-1.0.1-brightgreen.svg?style=flat-square

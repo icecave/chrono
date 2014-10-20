@@ -14,7 +14,7 @@ class DefaultFormatterTest extends PHPUnit_Framework_TestCase
     {
         Liberator::liberateClass(__NAMESPACE__ . '\DefaultFormatter')->instance = null;
 
-        $this->formatter = new DefaultFormatter;
+        $this->formatter = new DefaultFormatter();
         $this->specialChars = 'dDjlNSwzWFmMntLoYyaABgGhHisueIOPTZcrU';
         $this->escapedChars = '\\d\\D\\j\\l\\N\\S\\w\\z\\W\\F\\m\\M\\n\\t\\L\\o\\Y\\y\\a\\A\\B\\g\\G\\h\\H\\i\\s\\u\\e\\I\\O\\P\\T\\Z\\c\\r\\U';
 

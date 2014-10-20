@@ -35,7 +35,7 @@ class DateTime extends AbstractTimePoint implements TimeInterface
         Normalizer::normalizeDate($year, $month, $day);
 
         if ($timeZone === null) {
-            $timeZone = new TimeZone;
+            $timeZone = new TimeZone();
         }
 
         $this->year = $year;
@@ -203,7 +203,7 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public function toUtc()
     {
-        return $this->toTimeZone(new TimeZone);
+        return $this->toTimeZone(new TimeZone());
     }
 
     /**

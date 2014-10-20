@@ -122,7 +122,7 @@ class TestClock implements TestClockInterface
      */
     public function utcDateTime()
     {
-        return $this->localDateTime()->toTimeZone(new TimeZone);
+        return $this->localDateTime()->toTimeZone(new TimeZone());
     }
 
     /**
@@ -246,7 +246,7 @@ class TestClock implements TestClockInterface
     }
 
     /**
-     * @return True if the clock is currently suspended; otherwise, false.
+     * @return boolean True if the clock is currently suspended; otherwise, false.
      */
     public function isSuspended()
     {

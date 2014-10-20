@@ -64,7 +64,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
 
     public function testToTimeZoneSame()
     {
-        $result = $this->dateTime->toTimeZone(new TimeZone);
+        $result = $this->dateTime->toTimeZone(new TimeZone());
         $this->assertSame($this->dateTime, $result);
     }
 

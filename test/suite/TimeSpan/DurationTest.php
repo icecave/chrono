@@ -81,7 +81,7 @@ class DurationTest extends PHPUnit_Framework_TestCase
     {
         $this->assertFalse($this->duration->isEmpty());
 
-        $duration = new Duration;
+        $duration = new Duration();
 
         $this->assertTrue($duration->isEmpty());
     }

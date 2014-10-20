@@ -18,7 +18,7 @@ class TestClockTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->localDateTime = DateTime::fromIsoString('2001-01-01T01:01:01+01:00');
-        $this->isolator = Phake::mock(Isolator::className());
+        $this->isolator = Phake::mock('Icecave\Isolator\Isolator');
         $this->clock = new TestClock($this->localDateTime, $this->isolator);
 
         Phake::when($this->isolator)->function_exists('pcntl_signal_dispatch')->thenReturn(true);
@@ -31,7 +31,7 @@ class TestClockTest extends PHPUnit_Framework_TestCase
 
     public function testConstructorDefaults()
     {
-        $this->clock = new TestClock;
+        $this->clock = new TestClock();
 
         $this->assertEquals(DateTime::fromUnixTime(0), $this->clock->localDateTime());
         $this->assertFalse($this->clock->isSuspended());

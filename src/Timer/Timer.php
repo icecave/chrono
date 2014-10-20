@@ -15,7 +15,7 @@ class Timer implements TimerInterface
     public function __construct(ClockInterface $clock = null)
     {
         if (null === $clock) {
-            $clock = new SystemClock;
+            $clock = new SystemClock();
         }
 
         $this->clock = $clock;
