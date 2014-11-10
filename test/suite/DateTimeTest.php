@@ -198,6 +198,33 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
         $this->assertSame('2013-02-01T20:20:30+10:00', $dateTime->isoString());
     }
 
+    /**
+     * @group regression
+     * @link https://github.com/IcecaveStudios/chrono/issues/92
+     */
+    public function testFromNativeDateTimeWithTimeZoneAbbreviation()
+    {
+        $this->assertEquals(
+            new TimeZone(
+                -25200,
+                true
+            ),
+            DateTime::fromNativeDateTime(
+                new NativeDateTime('2014-10-11 12:13:14 PDT')
+            )->timeZone()
+        );
+
+        $this->assertEquals(
+            new TimeZone(
+                -28800,
+                false
+            ),
+            DateTime::fromNativeDateTime(
+                new NativeDateTime('2014-10-11 12:13:14 PST')
+            )->timeZone()
+        );
+    }
+
     public function testNativeDateTime()
     {
         $timeZone = new TimeZone(36000, true);

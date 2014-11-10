@@ -1,5 +1,9 @@
 # Chrono Changelog
 
+### 1.0.2 (2014-11-10)
+
+* **[FIXED]** `DateTime::fromNativeDateTime()` correctly preserves DST flag when converting from timezones that use abbreviated names (e.g. PST, PDT, etc)
+
 ### 1.0.1 (2014-10-20)
 
 * **[IMPROVED]** Allow either version 2.* or 3.* of [icecave/isolator](https://github.com/isolator)
