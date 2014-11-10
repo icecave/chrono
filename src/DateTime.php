@@ -107,13 +107,12 @@ class DateTime extends AbstractTimePoint implements TimeInterface
      */
     public static function fromNativeDateTime(NativeDateTime $native)
     {
-        $unixTime = $native->getTimestamp();
-        $transitions = $native->getTimezone()->getTransitions($unixTime, $unixTime);
-        $isDst = $transitions && $transitions[0]['isdst'];
-
         return self::fromUnixTime(
-            $unixTime,
-            new TimeZone($native->getTimezone()->getOffset($native), $isDst)
+            $native->getTimestamp(),
+            new TimeZone(
+                $native->getOffset(),
+                (bool) $native->format('I')
+            )
         );
     }
 
