@@ -204,15 +204,24 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
      */
     public function testFromNativeDateTimeWithTimeZoneAbbreviation()
     {
-        $native = new NativeDateTime('2014-10-11 12:13:14 PDT');
-        $dateTime = DateTime::fromNativeDateTime($native);
-
         $this->assertEquals(
             new TimeZone(
                 -25200,
                 true
             ),
-            $dateTime->timeZone()
+            DateTime::fromNativeDateTime(
+                new NativeDateTime('2014-10-11 12:13:14 PDT')
+            )->timeZone()
+        );
+
+        $this->assertEquals(
+            new TimeZone(
+                -28800,
+                false
+            ),
+            DateTime::fromNativeDateTime(
+                new NativeDateTime('2014-10-11 12:13:14 PST')
+            )->timeZone()
         );
     }
 
