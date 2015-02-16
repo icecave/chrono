@@ -4,7 +4,6 @@ namespace Icecave\Chrono\Iterator;
 use Icecave\Chrono\Interval\IntervalInterface;
 use Icecave\Chrono\Interval\Year;
 use Icecave\Chrono\TimeSpan\Period;
-use Iterator;
 
 class YearIntervalIterator extends IntervalIterator
 {

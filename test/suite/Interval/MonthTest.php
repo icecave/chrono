@@ -12,7 +12,7 @@ class MonthTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->year = new Year(2012);
+        $this->year  = new Year(2012);
         $this->month = new Month($this->year, 2);
     }
 

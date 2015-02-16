@@ -3,8 +3,8 @@ namespace Icecave\Chrono;
 
 use DateTime as NativeDateTime;
 use Eloquent\Liberator\Liberator;
-use Phake;
 use PHPUnit_Framework_TestCase;
+use Phake;
 
 /**
  * @covers Icecave\Chrono\DateTime
@@ -56,7 +56,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     public function testToTimeZone()
     {
         $timeZone = new TimeZone(36000);
-        $result = $this->dateTime->toTimeZone($timeZone);
+        $result   = $this->dateTime->toTimeZone($timeZone);
 
         $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $result);
         $this->assertSame('2013-02-01T20:20:30+10:00', $result->isoString());
@@ -72,7 +72,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $timeZone = new TimeZone(36000);
         $dateTime = new DateTime(2013, 2, 1, 10, 20, 30, $timeZone);
-        $result = $dateTime->toUtc();
+        $result   = $dateTime->toUtc();
 
         $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $result);
         $this->assertSame('2013-02-01T00:20:30+00:00', $result->isoString());
@@ -192,7 +192,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
 
     public function testFromNativeDateTime()
     {
-        $native = new NativeDateTime('2013-02-01T20:20:30+10:00');
+        $native   = new NativeDateTime('2013-02-01T20:20:30+10:00');
         $dateTime = DateTime::fromNativeDateTime($native);
         $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $dateTime);
         $this->assertSame('2013-02-01T20:20:30+10:00', $dateTime->isoString());
@@ -288,7 +288,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     public function testDifferenceAsSeconds()
     {
         $dateTime = new DateTime(2013, 2, 1, 10, 20, 0);
-        $diff = $this->dateTime->differenceAsSeconds($dateTime);
+        $diff     = $this->dateTime->differenceAsSeconds($dateTime);
         $this->assertSame(30, $diff);
     }
 
@@ -303,7 +303,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
 
     public function testFormat()
     {
-        $formatter = Phake::mock(__NAMESPACE__ . '\Format\FormatterInterface');
+        $formatter                                                                     = Phake::mock(__NAMESPACE__ . '\Format\FormatterInterface');
         Liberator::liberateClass(__NAMESPACE__ . '\Format\DefaultFormatter')->instance = $formatter;
 
         Phake::when($formatter)
@@ -364,7 +364,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
 
     public function validIsoStringsWithTimeZone()
     {
-        $hours = 60 * 60;
+        $hours   = 60 * 60;
         $minutes = 60;
 
         $timeZoneUTC     = new TimeZone(0);

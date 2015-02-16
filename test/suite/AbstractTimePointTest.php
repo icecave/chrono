@@ -11,8 +11,8 @@ class AbstractTimePointTest extends PHPUnit_Framework_TestCase
         $this->timePoint = Phake::partialMock('Icecave\Chrono\AbstractTimePoint');
 
         $this->before = Phake::partialMock('Icecave\Chrono\AbstractTimePoint');
-        $this->same = Phake::partialMock('Icecave\Chrono\AbstractTimePoint');
-        $this->after = Phake::partialMock('Icecave\Chrono\AbstractTimePoint');
+        $this->same   = Phake::partialMock('Icecave\Chrono\AbstractTimePoint');
+        $this->after  = Phake::partialMock('Icecave\Chrono\AbstractTimePoint');
 
         Phake::when($this->timePoint)
             ->unixTime()

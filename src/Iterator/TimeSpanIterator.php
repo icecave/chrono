@@ -14,8 +14,8 @@ class TimeSpanIterator implements Iterator
      */
     public function __construct(TimePointInterface $startTime, TimeSpanInterface $timeSpan, $iterations)
     {
-        $this->startTime = $startTime->add(0);
-        $this->timeSpan = $timeSpan;
+        $this->startTime  = $startTime->add(0);
+        $this->timeSpan   = $timeSpan;
         $this->iterations = $iterations;
 
         $this->rewind();

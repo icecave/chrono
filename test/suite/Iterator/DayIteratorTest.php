@@ -15,7 +15,7 @@ class DayIteratorTest extends PHPUnit_Framework_TestCase
             1 => new Date(2012, 12, 11),
             2 => new Date(2012, 12, 12),
             3 => new Date(2012, 12, 13),
-            4 => new Date(2012, 12, 14)
+            4 => new Date(2012, 12, 14),
         );
     }
 

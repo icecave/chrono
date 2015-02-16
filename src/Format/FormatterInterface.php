@@ -2,8 +2,8 @@
 namespace Icecave\Chrono\Format;
 
 use Icecave\Chrono\Date;
-use Icecave\Chrono\TimeOfDay;
 use Icecave\Chrono\DateTime;
+use Icecave\Chrono\TimeOfDay;
 use Icecave\Chrono\TimeZone;
 
 /**

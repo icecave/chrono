@@ -13,7 +13,7 @@ class IntervalIteratorTest extends PHPUnit_Framework_TestCase
     {
         $this->startTime = new Date(2012, 12, 20);
         $this->endTime   = new Date(2012, 12, 25);
-        $this->timeSpan = new Period(0, 0, 1);
+        $this->timeSpan  = new Period(0, 0, 1);
 
         $this->interval = new Interval($this->startTime, $this->endTime);
 
@@ -22,7 +22,7 @@ class IntervalIteratorTest extends PHPUnit_Framework_TestCase
             1 => new DateTime(2012, 12, 21),
             2 => new DateTime(2012, 12, 22),
             3 => new DateTime(2012, 12, 23),
-            4 => new DateTime(2012, 12, 24)
+            4 => new DateTime(2012, 12, 24),
         );
     }
 

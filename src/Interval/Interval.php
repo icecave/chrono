@@ -2,8 +2,8 @@
 namespace Icecave\Chrono\Interval;
 
 use Icecave\Chrono\DateTime;
-use Icecave\Chrono\Iso8601Interface;
 use Icecave\Chrono\Detail\Iso8601;
+use Icecave\Chrono\Iso8601Interface;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TimeSpan\Period;
 use InvalidArgumentException;
@@ -24,7 +24,7 @@ class Interval extends AbstractInterval implements Iso8601Interface
         }
 
         $this->start = $start;
-        $this->end = $end;
+        $this->end   = $end;
     }
 
     /**
@@ -44,24 +44,24 @@ class Interval extends AbstractInterval implements Iso8601Interface
      */
     public static function fromIsoString($isoString)
     {
-        $result = Iso8601::parseInterval($isoString);
-        $type = $result['type'];
+        $result   = Iso8601::parseInterval($isoString);
+        $type     = $result['type'];
         $interval = $result['interval'];
 
         if ($type === 'duration/datetime') {
             list($duration, $end) = $interval;
-            $period = Period::fromIsoString($duration);
-            $end = DateTime::fromIsoString($end);
-            $start = $period->inverse()->resolveToTimePoint($end);
+            $period               = Period::fromIsoString($duration);
+            $end                  = DateTime::fromIsoString($end);
+            $start                = $period->inverse()->resolveToTimePoint($end);
         } elseif ($type === 'datetime/duration') {
             list($start, $duration) = $interval;
-            $start = DateTime::fromIsoString($start);
-            $period = Period::fromIsoString($duration);
-            $end = $period->resolveToTimePoint($start);
+            $start                  = DateTime::fromIsoString($start);
+            $period                 = Period::fromIsoString($duration);
+            $end                    = $period->resolveToTimePoint($start);
         } else {
             list($start, $end) = $interval;
-            $start = DateTime::fromIsoString($start);
-            $end = DateTime::fromIsoString($end);
+            $start             = DateTime::fromIsoString($start);
+            $end               = DateTime::fromIsoString($end);
         }
 
         return new self($start, $end);

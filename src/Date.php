@@ -2,10 +2,10 @@
 namespace Icecave\Chrono;
 
 use DateTime as NativeDateTime;
-use Icecave\Chrono\Format\DefaultFormatter;
-use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\Detail\Normalizer;
+use Icecave\Chrono\Format\DefaultFormatter;
+use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\TimeSpan\TimeSpanInterface;
 
 /**
@@ -31,9 +31,9 @@ class Date extends AbstractTimePoint
             $timeZone = new TimeZone();
         }
 
-        $this->year = $year;
-        $this->month = $month;
-        $this->day = $day;
+        $this->year     = $year;
+        $this->month    = $month;
+        $this->day      = $day;
         $this->timeZone = $timeZone;
     }
 
@@ -96,9 +96,9 @@ class Date extends AbstractTimePoint
      */
     public static function fromNativeDateTime(NativeDateTime $native)
     {
-        $unixTime = $native->getTimestamp();
+        $unixTime    = $native->getTimestamp();
         $transitions = $native->getTimezone()->getTransitions($unixTime, $unixTime);
-        $isDst = $transitions && $transitions[0]['isdst'];
+        $isDst       = $transitions && $transitions[0]['isdst'];
 
         return self::fromUnixTime(
             $unixTime,

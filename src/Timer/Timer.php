@@ -39,10 +39,10 @@ class Timer implements TimerInterface
      * @return boolean True if the timer is running; otherwise, false.
      */
      public function isRunning()
-    {
-        return null !== $this->startedAt
+     {
+         return null !== $this->startedAt
             && null === $this->stoppedAt;
-    }
+     }
 
     /**
      * Check if the timer has been stopped.

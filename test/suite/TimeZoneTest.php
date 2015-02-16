@@ -2,8 +2,8 @@
 namespace Icecave\Chrono;
 
 use Eloquent\Liberator\Liberator;
-use Phake;
 use PHPUnit_Framework_TestCase;
+use Phake;
 
 /**
  * @covers Icecave\Chrono\TimeZone
@@ -211,7 +211,7 @@ class TimeZoneTest extends PHPUnit_Framework_TestCase
 
     public function testFormat()
     {
-        $formatter = Phake::mock(__NAMESPACE__ . '\Format\FormatterInterface');
+        $formatter                                                                     = Phake::mock(__NAMESPACE__ . '\Format\FormatterInterface');
         Liberator::liberateClass(__NAMESPACE__ . '\Format\DefaultFormatter')->instance = $formatter;
 
         Phake::when($formatter)

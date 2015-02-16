@@ -14,9 +14,9 @@ class SystemClock extends AbstractClock
     protected function currentLocalTimeInfo()
     {
         list($seconds) = $this->currentUnixTime();
-        $parts = $this->isolator->date('s,i,H,d,m,Y,w,z,I,Z', $seconds);
-        $parts = explode(',', $parts);
-        $parts = array_map('intval', $parts);
+        $parts         = $this->isolator->date('s,i,H,d,m,Y,w,z,I,Z', $seconds);
+        $parts         = explode(',', $parts);
+        $parts         = array_map('intval', $parts);
 
         return $parts;
     }
@@ -27,9 +27,9 @@ class SystemClock extends AbstractClock
     protected function currentUtcTimeInfo()
     {
         list($seconds) = $this->currentUnixTime();
-        $parts = $this->isolator->gmdate('s,i,H,d,m,Y,w,z,0,0', $seconds);
-        $parts = explode(',', $parts);
-        $parts = array_map('intval', $parts);
+        $parts         = $this->isolator->gmdate('s,i,H,d,m,Y,w,z,0,0', $seconds);
+        $parts         = explode(',', $parts);
+        $parts         = array_map('intval', $parts);
 
         return $parts;
     }
@@ -42,7 +42,7 @@ class SystemClock extends AbstractClock
     protected function currentUnixTime()
     {
         $microtime = $this->isolator->microtime(true);
-        $seconds = intval($microtime);
+        $seconds   = intval($microtime);
 
         return array($seconds, intval(($microtime - $seconds) * 1000000000));
     }

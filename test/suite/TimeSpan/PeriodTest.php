@@ -4,8 +4,8 @@ namespace Icecave\Chrono\TimeSpan;
 use DateInterval;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\TimeZone;
-use Phake;
 use PHPUnit_Framework_TestCase;
+use Phake;
 
 /**
  * @covers Icecave\Chrono\TimeSpan\Period
@@ -18,8 +18,8 @@ class PeriodTest extends PHPUnit_Framework_TestCase
         $this->period = new Period(1, 2, 3, 4, 5, 6);
 
         $this->before = new Period(1, 2, 3, 4, 5, 5);
-        $this->same = new Period(1, 2, 3, 4, 5, 6);
-        $this->after = new Period(1, 2, 3, 4, 5, 7);
+        $this->same   = new Period(1, 2, 3, 4, 5, 6);
+        $this->after  = new Period(1, 2, 3, 4, 5, 7);
     }
 
     public function testYears()
@@ -135,7 +135,7 @@ class PeriodTest extends PHPUnit_Framework_TestCase
 
     public function testResolveToSeconds()
     {
-        $timeZone = new TimeZone(36000);
+        $timeZone  = new TimeZone(36000);
         $timePoint = new DateTime(2012, 1, 2, 10, 20, 30, $timeZone);
 
         $this->assertSame(36993906, $this->period->resolveToSeconds($timePoint));
@@ -143,7 +143,7 @@ class PeriodTest extends PHPUnit_Framework_TestCase
 
     public function testResolveToDuration()
     {
-        $timeZone = new TimeZone(36000);
+        $timeZone  = new TimeZone(36000);
         $timePoint = new DateTime(2012, 1, 2, 10, 20, 30, $timeZone);
 
         $duration = $this->period->resolveToDuration($timePoint);
@@ -163,7 +163,7 @@ class PeriodTest extends PHPUnit_Framework_TestCase
 
     public function testResolveToInterval()
     {
-        $timeZone = new TimeZone(36000);
+        $timeZone  = new TimeZone(36000);
         $timePoint = new DateTime(2012, 1, 2, 10, 20, 30, $timeZone);
 
         $result = $this->period->resolveToInterval($timePoint);
@@ -175,7 +175,7 @@ class PeriodTest extends PHPUnit_Framework_TestCase
 
     public function testResolveToIntervalInverse()
     {
-        $period = new Period(0, 0, 0, 0, 0, -10);
+        $period    = new Period(0, 0, 0, 0, 0, -10);
         $timePoint = new DateTime(2012, 1, 2, 0, 0, 0);
 
         $result = $period->resolveToInterval($timePoint);
@@ -187,7 +187,7 @@ class PeriodTest extends PHPUnit_Framework_TestCase
 
     public function testResolveToTimePoint()
     {
-        $timeZone = new TimeZone(36000);
+        $timeZone  = new TimeZone(36000);
         $timePoint = new DateTime(2012, 1, 2, 10, 20, 30, $timeZone);
 
         $result = $this->period->resolveToTimePoint($timePoint);
@@ -432,7 +432,7 @@ class PeriodTest extends PHPUnit_Framework_TestCase
 
     public function testFromNativeDateIntervalWithInvert()
     {
-        $native = new DateInterval('P1Y2M3DT4H5M6S');
+        $native         = new DateInterval('P1Y2M3DT4H5M6S');
         $native->invert = 1;
 
         $result = Period::fromNativeDateInterval($native);

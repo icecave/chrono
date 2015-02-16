@@ -19,7 +19,7 @@ class SecondIntervalIteratorTest extends PHPUnit_Framework_TestCase
             1 => new DateTime(2010, 12, 25, 10, 20, 31),
             2 => new DateTime(2010, 12, 25, 10, 20, 32),
             3 => new DateTime(2010, 12, 25, 10, 20, 33),
-            4 => new DateTime(2010, 12, 25, 10, 20, 34)
+            4 => new DateTime(2010, 12, 25, 10, 20, 34),
         );
     }
 

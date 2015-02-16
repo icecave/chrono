@@ -15,7 +15,7 @@ class MinuteIteratorTest extends PHPUnit_Framework_TestCase
             1 => new DateTime(2012, 12, 25, 10, 21, 30),
             2 => new DateTime(2012, 12, 25, 10, 22, 30),
             3 => new DateTime(2012, 12, 25, 10, 23, 30),
-            4 => new DateTime(2012, 12, 25, 10, 24, 30)
+            4 => new DateTime(2012, 12, 25, 10, 24, 30),
         );
     }
 

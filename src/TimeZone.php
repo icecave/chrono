@@ -17,9 +17,9 @@ class TimeZone extends AbstractExtendedComparable implements Iso8601Interface, F
      */
     public function __construct($offset = 0, $isDst = false)
     {
-        $offset = $offset % 86400;
+        $offset       = $offset % 86400;
         $this->offset = intval(round($offset / 60)) * 60;
-        $this->isDst = $isDst;
+        $this->isDst  = $isDst;
     }
 
     /**

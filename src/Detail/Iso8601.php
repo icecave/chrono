@@ -191,7 +191,7 @@ abstract class Iso8601
     {
         $parts = array(
             'year'   => 0,
-            'month'  => 0
+            'month'  => 0,
         );
 
         $matches = array();
@@ -224,13 +224,12 @@ abstract class Iso8601
             'year'   => 0,
             'month'  => 0,
             'day'    => 0,
-            'offset' => null
+            'offset' => null,
         );
 
         $matches = array();
         if (preg_match(self::DATE_EXTENDED, $isoString, $matches) === 1 ||
             preg_match(self::DATE_BASIC,    $isoString, $matches) === 1) {
-
             $date['year']  = intval($matches[1]);
             $date['month'] = intval($matches[2]);
             $date['day']   = intval($matches[3]);
@@ -264,13 +263,12 @@ abstract class Iso8601
             'hour'   => 0,
             'minute' => 0,
             'second' => 0,
-            'offset' => null
+            'offset' => null,
         );
 
         $matches = array();
         if (preg_match(self::TIME_EXTENDED, $isoString, $matches) === 1 ||
             preg_match(self::TIME_BASIC,    $isoString, $matches) === 1) {
-
             $time['hour']   = intval($matches[1]);
             $time['minute'] = intval($matches[2]);
             $time['second'] = intval($matches[3]);
@@ -305,13 +303,12 @@ abstract class Iso8601
             'hour'   => 0,
             'minute' => 0,
             'second' => 0,
-            'offset' => null
+            'offset' => null,
         );
 
         $matches = array();
         if (preg_match(self::DATETIME_EXTENDED, $isoString, $matches) === 1 ||
             preg_match(self::DATETIME_BASIC,    $isoString, $matches) === 1) {
-
             $dateTime['year']   = intval($matches[1]);
             $dateTime['month']  = intval($matches[2]);
             $dateTime['day']    = intval($matches[3]);
@@ -351,8 +348,8 @@ abstract class Iso8601
         if (preg_match(self::TIMEZONE_UTC, $isoString, $matches) === 1) {
             $offset = 0;
         } elseif (preg_match(self::TIMEZONE_OFFSET, $isoString, $matches) === 1) {
-            $sign = trim($matches[1]);
-            $hour = intval($matches[2]);
+            $sign   = trim($matches[1]);
+            $hour   = intval($matches[2]);
             $minute = count($matches) > 4 ? intval($matches[4]) : 0;
 
             $offset = intval(($hour * 60 * 60) + ($minute * 60));
@@ -392,7 +389,7 @@ abstract class Iso8601
             'days'    => 0,
             'hours'   => 0,
             'minutes' => 0,
-            'seconds' => 0
+            'seconds' => 0,
         );
 
         $matches = array();
@@ -405,7 +402,7 @@ abstract class Iso8601
                 'days'    => 0,
                 'hours'   => 0,
                 'minutes' => 0,
-                'seconds' => 0
+                'seconds' => 0,
             );
             $matches += $defaults;
 
@@ -434,7 +431,6 @@ abstract class Iso8601
                 $duration['hours'] > 24 ||
                 $duration['minutes'] > 59 ||
                 $duration['seconds'] > 59) {
-
                 throw new InvalidArgumentException('Invalid ISO duration: "' . $isoString . '".');
             }
         } else {
@@ -478,7 +474,7 @@ abstract class Iso8601
         if (strlen($firstPart) > 0 && $firstPart[0] === 'P') {
             return array(
                 'type'     => 'duration/datetime',
-                'interval' => array($firstPart, $secondPart)
+                'interval' => array($firstPart, $secondPart),
             );
         }
 
@@ -486,14 +482,14 @@ abstract class Iso8601
         if (strlen($secondPart) > 0 && $secondPart[0] === 'P') {
             return array(
                 'type'     => 'datetime/duration',
-                'interval' => array($firstPart, $secondPart)
+                'interval' => array($firstPart, $secondPart),
             );
         }
 
         // Only option left is a start-datetime/end-datetime interval.
         return array(
             'type'     => 'datetime/datetime',
-            'interval' => array($firstPart, $secondPart)
+            'interval' => array($firstPart, $secondPart),
         );
     }
 

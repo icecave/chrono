@@ -19,7 +19,7 @@ class HourIntervalIteratorTest extends PHPUnit_Framework_TestCase
             1 => new DateTime(2010, 12, 25, 11, 20, 30),
             2 => new DateTime(2010, 12, 25, 12, 20, 30),
             3 => new DateTime(2010, 12, 25, 13, 20, 30),
-            4 => new DateTime(2010, 12, 25, 14, 20, 30)
+            4 => new DateTime(2010, 12, 25, 14, 20, 30),
         );
     }
 

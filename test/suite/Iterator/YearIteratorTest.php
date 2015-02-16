@@ -16,7 +16,7 @@ class YearIteratorTest extends PHPUnit_Framework_TestCase
             1 => new Year(2011),
             2 => new Year(2012),
             3 => new Year(2013),
-            4 => new Year(2014)
+            4 => new Year(2014),
         );
     }
 

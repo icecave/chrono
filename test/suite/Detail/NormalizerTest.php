@@ -19,8 +19,8 @@ class NormalizerTest extends PHPUnit_Framework_TestCase
 
     public function testNormalizeTimeIncreasesDay()
     {
-        $days = 5;
-        $hours = 25;
+        $days    = 5;
+        $hours   = 25;
         $minutes = 0;
         $seconds = 0;
 
@@ -34,7 +34,7 @@ class NormalizerTest extends PHPUnit_Framework_TestCase
 
     public function testNormalizeTimeWithoutDayParameter()
     {
-        $hours = 25;
+        $hours   = 25;
         $minutes = 0;
         $seconds = 0;
 
