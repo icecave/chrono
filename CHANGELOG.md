@@ -1,5 +1,9 @@
 # Chrono Changelog
 
+### 1.0.3 (2015-02-16)
+
+* **[IMPROVED]** `DateTime` and `TimeOfDay` ISO string parsing now allows (but discards) partial-second information
+
 ### 1.0.2 (2014-11-10)
 
 * **[FIXED]** `DateTime::fromNativeDateTime()` correctly preserves DST flag when converting from timezones that use abbreviated names (e.g. PST, PDT, etc)
