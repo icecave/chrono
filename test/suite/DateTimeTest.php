@@ -338,10 +338,17 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     public function validIsoStrings()
     {
         return array(
-            'Basic with T'       => array('20130201T102030',     '2013-02-01T10:20:30+00:00'),
-            'Basic without T'    => array('20130201 102030',     '2013-02-01T10:20:30+00:00'),
-            'Extended with T'    => array('2013-02-01T10:20:30', '2013-02-01T10:20:30+00:00'),
-            'Extended without T' => array('2013-02-01 10:20:30', '2013-02-01T10:20:30+00:00'),
+            'Basic with T'                        => array('20130201T102030',          '2013-02-01T10:20:30+00:00'),
+            'Basic with T, partial seconds'       => array('20130201T102030.1234',     '2013-02-01T10:20:30+00:00'),
+
+            'Basic without T'                     => array('20130201 102030',          '2013-02-01T10:20:30+00:00'),
+            'Basic without T, partial seconds'    => array('20130201 102030.1234',     '2013-02-01T10:20:30+00:00'),
+
+            'Extended with T'                     => array('2013-02-01T10:20:30',      '2013-02-01T10:20:30+00:00'),
+            'Extended with T, partial seconds'    => array('2013-02-01T10:20:30.1234', '2013-02-01T10:20:30+00:00'),
+
+            'Extended without T'                  => array('2013-02-01 10:20:30',      '2013-02-01T10:20:30+00:00'),
+            'Extended without T, partial seconds' => array('2013-02-01 10:20:30.1234', '2013-02-01T10:20:30+00:00'),
         );
     }
 
@@ -367,26 +374,33 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
         $timeZoneNeg1122 = new TimeZone(-((11 * $hours) + (22 * $minutes)));
 
         return array(
-            'Basic with T, UTC'                  => array('20130201T102030Z',          '2013-02-01T10:20:30+00:00', $timeZoneUTC),
-            'Basic with T, positive short'       => array('20130201T102030+11',        '2013-02-01T10:20:30+11:00', $timeZonePos1100),
-            'Basic with T, positive long'        => array('20130201T102030+1122',      '2013-02-01T10:20:30+11:22', $timeZonePos1122),
-            'Basic with T, negative short'       => array('20130201T102030-11',        '2013-02-01T10:20:30-11:00', $timeZoneNeg1100),
-            'Basic with T, negative long'        => array('20130201T102030-1122',      '2013-02-01T10:20:30-11:22', $timeZoneNeg1122),
-            'Extended with T, UTC'               => array('2013-02-01T10:20:30Z',      '2013-02-01T10:20:30+00:00', $timeZoneUTC),
-            'Extended with T, positive short'    => array('2013-02-01T10:20:30+11',    '2013-02-01T10:20:30+11:00', $timeZonePos1100),
-            'Extended with T, positive long'     => array('2013-02-01T10:20:30+11:22', '2013-02-01T10:20:30+11:22', $timeZonePos1122),
-            'Extended with T, negative short'    => array('2013-02-01T10:20:30-11',    '2013-02-01T10:20:30-11:00', $timeZoneNeg1100),
-            'Extended with T, negative long'     => array('2013-02-01T10:20:30-11:22', '2013-02-01T10:20:30-11:22', $timeZoneNeg1122),
-            'Basic without T, UTC'               => array('20130201 102030Z',          '2013-02-01T10:20:30+00:00', $timeZoneUTC),
-            'Basic without T, positive short'    => array('20130201 102030+11',        '2013-02-01T10:20:30+11:00', $timeZonePos1100),
-            'Basic without T, positive long'     => array('20130201 102030+1122',      '2013-02-01T10:20:30+11:22', $timeZonePos1122),
-            'Basic without T, negative short'    => array('20130201 102030-11',        '2013-02-01T10:20:30-11:00', $timeZoneNeg1100),
-            'Basic without T, negative long'     => array('20130201 102030-1122',      '2013-02-01T10:20:30-11:22', $timeZoneNeg1122),
-            'Extended without T, UTC'            => array('2013-02-01 10:20:30Z',      '2013-02-01T10:20:30+00:00', $timeZoneUTC),
-            'Extended without T, positive short' => array('2013-02-01 10:20:30+11',    '2013-02-01T10:20:30+11:00', $timeZonePos1100),
-            'Extended without T, positive long'  => array('2013-02-01 10:20:30+11:22', '2013-02-01T10:20:30+11:22', $timeZonePos1122),
-            'Extended without T, negative short' => array('2013-02-01 10:20:30-11',    '2013-02-01T10:20:30-11:00', $timeZoneNeg1100),
-            'Extended without T, negative long'  => array('2013-02-01 10:20:30-11:22', '2013-02-01T10:20:30-11:22', $timeZoneNeg1122),
+            'Basic with T, UTC'                   => array('20130201T102030Z',               '2013-02-01T10:20:30+00:00', $timeZoneUTC),
+            'Basic with T, positive short'        => array('20130201T102030+11',             '2013-02-01T10:20:30+11:00', $timeZonePos1100),
+            'Basic with T, positive long'         => array('20130201T102030+1122',           '2013-02-01T10:20:30+11:22', $timeZonePos1122),
+            'Basic with T, negative short'        => array('20130201T102030-11',             '2013-02-01T10:20:30-11:00', $timeZoneNeg1100),
+            'Basic with T, negative long'         => array('20130201T102030-1122',           '2013-02-01T10:20:30-11:22', $timeZoneNeg1122),
+            'Basic with T, partial seconds'       => array('20130201T102030.1234-1122',      '2013-02-01T10:20:30-11:22', $timeZoneNeg1122),
+
+            'Extended with T, UTC'                => array('2013-02-01T10:20:30Z',           '2013-02-01T10:20:30+00:00', $timeZoneUTC),
+            'Extended with T, positive short'     => array('2013-02-01T10:20:30+11',         '2013-02-01T10:20:30+11:00', $timeZonePos1100),
+            'Extended with T, positive long'      => array('2013-02-01T10:20:30+11:22',      '2013-02-01T10:20:30+11:22', $timeZonePos1122),
+            'Extended with T, negative short'     => array('2013-02-01T10:20:30-11',         '2013-02-01T10:20:30-11:00', $timeZoneNeg1100),
+            'Extended with T, negative long'      => array('2013-02-01T10:20:30-11:22',      '2013-02-01T10:20:30-11:22', $timeZoneNeg1122),
+            'Extended with T, partial seconds'    => array('2013-02-01T10:20:30.1234-11:22', '2013-02-01T10:20:30-11:22', $timeZoneNeg1122),
+
+            'Basic without T, UTC'                => array('20130201 102030Z',               '2013-02-01T10:20:30+00:00', $timeZoneUTC),
+            'Basic without T, positive short'     => array('20130201 102030+11',             '2013-02-01T10:20:30+11:00', $timeZonePos1100),
+            'Basic without T, positive long'      => array('20130201 102030+1122',           '2013-02-01T10:20:30+11:22', $timeZonePos1122),
+            'Basic without T, negative short'     => array('20130201 102030-11',             '2013-02-01T10:20:30-11:00', $timeZoneNeg1100),
+            'Basic without T, negative long'      => array('20130201 102030-1122',           '2013-02-01T10:20:30-11:22', $timeZoneNeg1122),
+            'Basic without T, partial seconds'    => array('20130201 102030.1234-1122',      '2013-02-01T10:20:30-11:22', $timeZoneNeg1122),
+
+            'Extended without T, UTC'             => array('2013-02-01 10:20:30Z',           '2013-02-01T10:20:30+00:00', $timeZoneUTC),
+            'Extended without T, positive short'  => array('2013-02-01 10:20:30+11',         '2013-02-01T10:20:30+11:00', $timeZonePos1100),
+            'Extended without T, positive long'   => array('2013-02-01 10:20:30+11:22',      '2013-02-01T10:20:30+11:22', $timeZonePos1122),
+            'Extended without T, negative short'  => array('2013-02-01 10:20:30-11',         '2013-02-01T10:20:30-11:00', $timeZoneNeg1100),
+            'Extended without T, negative long'   => array('2013-02-01 10:20:30-11:22',      '2013-02-01T10:20:30-11:22', $timeZoneNeg1122),
+            'Extended without T, partial seconds' => array('2013-02-01 10:20:30.1234-11:22', '2013-02-01T10:20:30-11:22', $timeZoneNeg1122),
         );
     }
 

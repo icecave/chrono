@@ -503,11 +503,11 @@ abstract class Iso8601
     const DATE_BASIC    = '/^(\d\d\d\d)(\d\d)(\d\d)(.*)$/';
     const DATE_EXTENDED = '/^(\d\d\d\d)-(\d\d)-(\d\d)(.*)$/';
 
-    const TIME_BASIC    = '/^(\d\d)(\d\d)(\d\d)(.*)$/';
-    const TIME_EXTENDED = '/^(\d\d):(\d\d):(\d\d)(.*)$/';
+    const TIME_BASIC    = '/^(\d\d)(\d\d)(\d\d)(?:\.\d+)?(.*)$/';
+    const TIME_EXTENDED = '/^(\d\d):(\d\d):(\d\d)(?:\.\d+)?(.*)$/';
 
-    const DATETIME_BASIC    = '/^(\d\d\d\d)(\d\d)(\d\d)[T| ](\d\d)(\d\d)(\d\d)(.*)$/';
-    const DATETIME_EXTENDED = '/^(\d\d\d\d)-(\d\d)-(\d\d)[T| ](\d\d):(\d\d):(\d\d)(.*)$/';
+    const DATETIME_BASIC    = '/^(\d\d\d\d)(\d\d)(\d\d)[T| ](\d\d)(\d\d)(\d\d)(?:\.\d+)?(.*)$/';
+    const DATETIME_EXTENDED = '/^(\d\d\d\d)-(\d\d)-(\d\d)[T| ](\d\d):(\d\d):(\d\d)(?:\.\d+)?(.*)$/';
 
     const TIMEZONE_UTC    = '/^(Z)$/';
     const TIMEZONE_OFFSET = '/^([+-])(\d\d)(:?(\d\d))?$/';

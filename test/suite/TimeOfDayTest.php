@@ -260,8 +260,11 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
     public function validIsoStrings()
     {
         return array(
-            'Basic'    => array('102030',   '10:20:30+00:00'),
-            'Extended' => array('10:20:30', '10:20:30+00:00'),
+            'Basic'                     => array('102030',        '10:20:30+00:00'),
+            'Basic, partial seconds'    => array('102030.1234',   '10:20:30+00:00'),
+
+            'Extended'                  => array('10:20:30',      '10:20:30+00:00'),
+            'Extended, partial seconds' => array('10:20:30.1234', '10:20:30+00:00'),
         );
     }
 
@@ -287,16 +290,19 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
         $timeZoneNeg1122 = new TimeZone(-((11 * $hours) + (22 * $minutes)));
 
         return array(
-            'Basic, UTC'               => array('102030Z',        '10:20:30+00:00', $timeZoneUTC),
-            'Basic, positive short'    => array('102030+11',      '10:20:30+11:00', $timeZonePos1100),
-            'Basic, positive long'     => array('102030+1122',    '10:20:30+11:22', $timeZonePos1122),
-            'Basic, negative short'    => array('102030-11',      '10:20:30-11:00', $timeZoneNeg1100),
-            'Basic, negative long'     => array('102030-1122',    '10:20:30-11:22', $timeZoneNeg1122),
-            'Extended, UTC'            => array('10:20:30Z',      '10:20:30+00:00', $timeZoneUTC),
-            'Extended, positive short' => array('10:20:30+11',    '10:20:30+11:00', $timeZonePos1100),
-            'Extended, positive long'  => array('10:20:30+11:22', '10:20:30+11:22', $timeZonePos1122),
-            'Extended, negative short' => array('10:20:30-11',    '10:20:30-11:00', $timeZoneNeg1100),
-            'Extended, negative long'  => array('10:20:30-11:22', '10:20:30-11:22', $timeZoneNeg1122),
+            'Basic, UTC'                => array('102030Z',          '10:20:30+00:00', $timeZoneUTC),
+            'Basic, positive short'     => array('102030+11',        '10:20:30+11:00', $timeZonePos1100),
+            'Basic, positive long'      => array('102030+1122',      '10:20:30+11:22', $timeZonePos1122),
+            'Basic, negative short'     => array('102030-11',        '10:20:30-11:00', $timeZoneNeg1100),
+            'Basic, negative long'      => array('102030-1122',      '10:20:30-11:22', $timeZoneNeg1122),
+            'Basic, partial seconds'    => array('102030.1234-1122', '10:20:30-11:22', $timeZoneNeg1122),
+
+            'Extended, UTC'             => array('10:20:30Z',           '10:20:30+00:00', $timeZoneUTC),
+            'Extended, positive short'  => array('10:20:30+11',         '10:20:30+11:00', $timeZonePos1100),
+            'Extended, positive long'   => array('10:20:30+11:22',      '10:20:30+11:22', $timeZonePos1122),
+            'Extended, negative short'  => array('10:20:30-11',         '10:20:30-11:00', $timeZoneNeg1100),
+            'Extended, negative long'   => array('10:20:30-11:22',      '10:20:30-11:22', $timeZoneNeg1122),
+            'Extended, partial seconds' => array('10:20:30.1234-11:22', '10:20:30-11:22', $timeZoneNeg1122),
         );
     }
 
