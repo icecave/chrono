@@ -4,8 +4,8 @@ namespace Icecave\Chrono\TimeSpan;
 use DateInterval;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\TimeZone;
-use Phake;
 use PHPUnit_Framework_TestCase;
+use Phake;
 
 /**
  * @covers Icecave\Chrono\TimeSpan\Duration
@@ -18,8 +18,8 @@ class DurationTest extends PHPUnit_Framework_TestCase
         $this->duration = Duration::fromComponents(1, 2, 3, 4, 5);
 
         $this->before = Duration::fromComponents(1, 2, 3, 4, 4);
-        $this->same = Duration::fromComponents(1, 2, 3, 4, 5);
-        $this->after = Duration::fromComponents(1, 2, 3, 4, 6);
+        $this->same   = Duration::fromComponents(1, 2, 3, 4, 5);
+        $this->after  = Duration::fromComponents(1, 2, 3, 4, 6);
     }
 
     public function testStaticFactoryMethods()
@@ -168,7 +168,7 @@ class DurationTest extends PHPUnit_Framework_TestCase
     {
         $timePoint = Phake::mock('Icecave\Chrono\TimePointInterface');
 
-        $result = $this->duration->resolveToPeriod($timePoint);
+        $result   = $this->duration->resolveToPeriod($timePoint);
         $expected = new Period(0, 0, 9, 3, 4, 5);
 
         $this->assertInstanceOf('Icecave\Chrono\TimeSpan\Period', $result);
@@ -179,7 +179,7 @@ class DurationTest extends PHPUnit_Framework_TestCase
 
     public function testResolveToInterval()
     {
-        $timeZone = new TimeZone(36000);
+        $timeZone  = new TimeZone(36000);
         $timePoint = new DateTime(2012, 1, 2, 10, 20, 30, $timeZone);
 
         $result = $this->duration->resolveToInterval($timePoint);
@@ -191,7 +191,7 @@ class DurationTest extends PHPUnit_Framework_TestCase
 
     public function testResolveToIntervalInverse()
     {
-        $duration = new Duration(-10);
+        $duration  = new Duration(-10);
         $timePoint = new DateTime(2012, 1, 2, 0, 0, 0);
 
         $result = $duration->resolveToInterval($timePoint);
@@ -203,7 +203,7 @@ class DurationTest extends PHPUnit_Framework_TestCase
 
     public function testResolveToTimePoint()
     {
-        $timeZone = new TimeZone(36000);
+        $timeZone  = new TimeZone(36000);
         $timePoint = new DateTime(2012, 1, 2, 10, 20, 30, $timeZone);
 
         $result = $this->duration->resolveToTimePoint($timePoint);
@@ -215,7 +215,7 @@ class DurationTest extends PHPUnit_Framework_TestCase
     public function testNativeDateInterval()
     {
         $duration = Duration::fromIsoString('P1Y2M3DT4H5M6S');
-        $native = $duration->nativeDateInterval();
+        $native   = $duration->nativeDateInterval();
 
         $this->assertSame($native->format('P%dDT%hH%iM%sS'), $duration->isoString());
     }
@@ -432,7 +432,7 @@ class DurationTest extends PHPUnit_Framework_TestCase
 
     public function testFromNativeDateIntervalWithInvert()
     {
-        $native = new DateInterval('P3DT4H5M6S');
+        $native         = new DateInterval('P3DT4H5M6S');
         $native->invert = 1;
 
         $result = Duration::fromNativeDateInterval($native);

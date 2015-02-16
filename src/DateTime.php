@@ -2,10 +2,10 @@
 namespace Icecave\Chrono;
 
 use DateTime as NativeDateTime;
-use Icecave\Chrono\Format\DefaultFormatter;
-use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\Detail\Normalizer;
+use Icecave\Chrono\Format\DefaultFormatter;
+use Icecave\Chrono\Format\FormatterInterface;
 use Icecave\Chrono\TimeSpan\TimeSpanInterface;
 
 /**
@@ -38,12 +38,12 @@ class DateTime extends AbstractTimePoint implements TimeInterface
             $timeZone = new TimeZone();
         }
 
-        $this->year = $year;
-        $this->month = $month;
-        $this->day = $day;
-        $this->hour = $hour;
-        $this->minute = $minute;
-        $this->second = $second;
+        $this->year     = $year;
+        $this->month    = $month;
+        $this->day      = $day;
+        $this->hour     = $hour;
+        $this->minute   = $minute;
+        $this->second   = $second;
         $this->timeZone = $timeZone;
     }
 

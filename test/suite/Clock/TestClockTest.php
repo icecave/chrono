@@ -10,16 +10,16 @@ use Icecave\Chrono\TimeSpan\Duration;
 use Icecave\Chrono\TimeZone;
 use Icecave\Chrono\Timer\Timer;
 use Icecave\Isolator\Isolator;
-use Phake;
 use PHPUnit_Framework_TestCase;
+use Phake;
 
 class TestClockTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
         $this->localDateTime = DateTime::fromIsoString('2001-01-01T01:01:01+01:00');
-        $this->isolator = Phake::mock('Icecave\Isolator\Isolator');
-        $this->clock = new TestClock($this->localDateTime, $this->isolator);
+        $this->isolator      = Phake::mock('Icecave\Isolator\Isolator');
+        $this->clock         = new TestClock($this->localDateTime, $this->isolator);
 
         Phake::when($this->isolator)->function_exists('pcntl_signal_dispatch')->thenReturn(true);
     }

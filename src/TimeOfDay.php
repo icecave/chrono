@@ -30,9 +30,9 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
             $timeZone = new TimeZone();
         }
 
-        $this->hour = $hour;
-        $this->minute = $minute;
-        $this->second = $second;
+        $this->hour     = $hour;
+        $this->minute   = $minute;
+        $this->second   = $second;
         $this->timeZone = $timeZone;
     }
 
@@ -95,9 +95,9 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
      */
     public static function fromNativeDateTime(NativeDateTime $native)
     {
-        $unixTime = $native->getTimestamp();
+        $unixTime    = $native->getTimestamp();
         $transitions = $native->getTimezone()->getTransitions($unixTime, $unixTime);
-        $isDst = $transitions && $transitions[0]['isdst'];
+        $isDst       = $transitions && $transitions[0]['isdst'];
 
         return self::fromUnixTime(
             $unixTime,
@@ -213,9 +213,9 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
      */
      public function compare($time)
      {
-        if (!$time instanceof TimeOfDay) {
-            throw new NotComparableException($this, $time);
-        }
+         if (!$time instanceof TimeOfDay) {
+             throw new NotComparableException($this, $time);
+         }
 
          return ($this->totalSeconds() - $this->timeZone()->offset())
               - ($time->totalSeconds() - $time->timeZone()->offset());

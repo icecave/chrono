@@ -2,8 +2,8 @@
 namespace Icecave\Chrono\TimeSpan;
 
 use DateInterval;
-use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\Interval\IntervalInterface;
+use Icecave\Chrono\TimePointInterface;
 
 /**
  * A common interface for non-anchored blocks of time (periods and durations).

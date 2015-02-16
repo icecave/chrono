@@ -4,23 +4,23 @@ namespace Icecave\Chrono\Clock;
 use Eloquent\Liberator\Liberator;
 use Icecave\Chrono\DateTime;
 use Icecave\Isolator\Isolator;
-use Phake;
 use PHPUnit_Framework_TestCase;
+use Phake;
 
 class SystemClockTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
         $this->isolator = Phake::partialMock('Icecave\Isolator\Isolator');
-        $this->clock = new SystemClock($this->isolator);
+        $this->clock    = new SystemClock($this->isolator);
 
         Phake::when($this->isolator)->microtime(true)->thenReturn(1384917020.123456);
     }
 
     public function testCurrentUnixTime()
     {
-        $actual = Liberator::liberate($this->clock)->currentUnixTime();
-        $actualDateTime = $this->clock->utcDateTime();
+        $actual           = Liberator::liberate($this->clock)->currentUnixTime();
+        $actualDateTime   = $this->clock->utcDateTime();
         $expectedDateTime = new DateTime(2013, 11, 20, 3, 10, 20);
 
         $this->assertInternalType('array', $actual);

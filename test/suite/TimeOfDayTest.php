@@ -3,8 +3,8 @@ namespace Icecave\Chrono;
 
 use DateTime as NativeDateTime;
 use Eloquent\Liberator\Liberator;
-use Phake;
 use PHPUnit_Framework_TestCase;
+use Phake;
 
 /**
  * @covers Icecave\Chrono\TimeOfDay
@@ -41,7 +41,7 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
     public function testToTimeZone()
     {
         $timeZone = new TimeZone(36000);
-        $result = $this->time->toTimeZone($timeZone);
+        $result   = $this->time->toTimeZone($timeZone);
 
         $this->assertInstanceOf(__NAMESPACE__ . '\TimeOfDay', $result);
         $this->assertSame('20:20:30+10:00', $result->isoString());
@@ -56,8 +56,8 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
     public function testToUtc()
     {
         $timeZone = new TimeZone(36000);
-        $time = new TimeOfDay(10, 20, 30, $timeZone);
-        $result = $time->toUtc();
+        $time     = new TimeOfDay(10, 20, 30, $timeZone);
+        $result   = $time->toUtc();
 
         $this->assertInstanceOf(__NAMESPACE__ . '\TimeOfDay', $result);
         $this->assertSame('00:20:30+00:00', $result->isoString());
@@ -68,14 +68,14 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($this->time->timeZone()->isUtc());
 
         $timeZone = new TimeZone(36000, true);
-        $time = new TimeOfDay(10, 20, 30, $timeZone);
+        $time     = new TimeOfDay(10, 20, 30, $timeZone);
         $this->assertSame($timeZone, $time->timeZone());
     }
 
     public function testOn()
     {
-        $date = new Date(2013, 2, 1);
-        $result = $this->time->on($date);
+        $date     = new Date(2013, 2, 1);
+        $result   = $this->time->on($date);
         $expected = new DateTime(2013, 2, 1, 10, 20, 30);
 
         $this->assertEquals($expected, $result);
@@ -83,8 +83,8 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
 
     public function testOnWithTimeZoneCoversion()
     {
-        $date = new Date(2013, 2, 1, new TimeZone(36000));
-        $result = $this->time->on($date);
+        $date     = new Date(2013, 2, 1, new TimeZone(36000));
+        $result   = $this->time->on($date);
         $expected = new DateTime(2013, 1, 31, 10, 20, 30);
 
         $this->assertEquals($expected, $result);
@@ -132,8 +132,8 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
     public function testIsEqualTo()
     {
         $before = new TimeOfDay(10, 20, 25);
-        $time = new TimeOfDay(10, 20, 30);
-        $after = new TimeOfDay(10, 20, 45);
+        $time   = new TimeOfDay(10, 20, 30);
+        $after  = new TimeOfDay(10, 20, 45);
 
         $this->assertTrue($time->isEqualTo($time));
         $this->assertFalse($time->isEqualTo($before));
@@ -143,8 +143,8 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
     public function testIsNotEqualTo()
     {
         $before = new TimeOfDay(10, 20, 25);
-        $time = new TimeOfDay(10, 20, 30);
-        $after = new TimeOfDay(10, 20, 45);
+        $time   = new TimeOfDay(10, 20, 30);
+        $after  = new TimeOfDay(10, 20, 45);
 
         $this->assertFalse($time->isNotEqualTo($time));
         $this->assertTrue($time->isNotEqualTo($before));
@@ -154,8 +154,8 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
     public function testIsGreaterThan()
     {
         $before = new TimeOfDay(10, 20, 25);
-        $time = new TimeOfDay(10, 20, 30);
-        $after = new TimeOfDay(10, 20, 45);
+        $time   = new TimeOfDay(10, 20, 30);
+        $after  = new TimeOfDay(10, 20, 45);
 
         $this->assertFalse($time->isGreaterThan($time));
         $this->assertTrue($time->isGreaterThan($before));
@@ -165,8 +165,8 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
     public function testIsLessThan()
     {
         $before = new TimeOfDay(10, 20, 25);
-        $time = new TimeOfDay(10, 20, 30);
-        $after = new TimeOfDay(10, 20, 45);
+        $time   = new TimeOfDay(10, 20, 30);
+        $after  = new TimeOfDay(10, 20, 45);
 
         $this->assertFalse($time->isLessThan($time));
         $this->assertFalse($time->isLessThan($before));
@@ -176,8 +176,8 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
     public function testIsGreaterThanOrEqualTo()
     {
         $before = new TimeOfDay(10, 20, 25);
-        $time = new TimeOfDay(10, 20, 30);
-        $after = new TimeOfDay(10, 20, 45);
+        $time   = new TimeOfDay(10, 20, 30);
+        $after  = new TimeOfDay(10, 20, 45);
 
         $this->assertTrue($time->isGreaterThanOrEqualTo($time));
         $this->assertTrue($time->isGreaterThanOrEqualTo($before));
@@ -187,8 +187,8 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
     public function testIsLessThanOrEqualTo()
     {
         $before = new TimeOfDay(10, 20, 25);
-        $time = new TimeOfDay(10, 20, 30);
-        $after = new TimeOfDay(10, 20, 45);
+        $time   = new TimeOfDay(10, 20, 30);
+        $after  = new TimeOfDay(10, 20, 45);
 
         $this->assertTrue($time->isLessThanOrEqualTo($time));
         $this->assertFalse($time->isLessThanOrEqualTo($before));
@@ -202,7 +202,7 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
 
     public function testFormat()
     {
-        $formatter = Phake::mock(__NAMESPACE__ . '\Format\FormatterInterface');
+        $formatter                                                                     = Phake::mock(__NAMESPACE__ . '\Format\FormatterInterface');
         Liberator::liberateClass(__NAMESPACE__ . '\Format\DefaultFormatter')->instance = $formatter;
 
         Phake::when($formatter)
@@ -228,7 +228,7 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
 
     public function testFromUnixTimeWithTimeZone()
     {
-        $timeZone = new TimeZone(36000, true);
+        $timeZone  = new TimeZone(36000, true);
         $timeOfDay = TimeOfDay::fromUnixTime(1359714030, $timeZone);
         $this->assertInstanceOf(__NAMESPACE__ . '\TimeOfDay', $timeOfDay);
         $this->assertSame('20:20:30+10:00', $timeOfDay->isoString());
@@ -236,7 +236,7 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
 
     public function testFromNativeDateTime()
     {
-        $native = new NativeDateTime('2013-02-01T20:20:30+10:00');
+        $native    = new NativeDateTime('2013-02-01T20:20:30+10:00');
         $timeOfDay = TimeOfDay::fromNativeDateTime($native);
         $this->assertInstanceOf(__NAMESPACE__ . '\TimeOfDay', $timeOfDay);
         $this->assertSame('20:20:30+10:00', $timeOfDay->isoString());
@@ -260,8 +260,11 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
     public function validIsoStrings()
     {
         return array(
-            'Basic'    => array('102030',   '10:20:30+00:00'),
-            'Extended' => array('10:20:30', '10:20:30+00:00'),
+            'Basic'                     => array('102030',        '10:20:30+00:00'),
+            'Basic, partial seconds'    => array('102030.1234',   '10:20:30+00:00'),
+
+            'Extended'                  => array('10:20:30',      '10:20:30+00:00'),
+            'Extended, partial seconds' => array('10:20:30.1234', '10:20:30+00:00'),
         );
     }
 
@@ -277,7 +280,7 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
 
     public function validIsoStringsWithTimeZone()
     {
-        $hours = 60 * 60;
+        $hours   = 60 * 60;
         $minutes = 60;
 
         $timeZoneUTC     = new TimeZone(0);
@@ -287,16 +290,19 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
         $timeZoneNeg1122 = new TimeZone(-((11 * $hours) + (22 * $minutes)));
 
         return array(
-            'Basic, UTC'               => array('102030Z',        '10:20:30+00:00', $timeZoneUTC),
-            'Basic, positive short'    => array('102030+11',      '10:20:30+11:00', $timeZonePos1100),
-            'Basic, positive long'     => array('102030+1122',    '10:20:30+11:22', $timeZonePos1122),
-            'Basic, negative short'    => array('102030-11',      '10:20:30-11:00', $timeZoneNeg1100),
-            'Basic, negative long'     => array('102030-1122',    '10:20:30-11:22', $timeZoneNeg1122),
-            'Extended, UTC'            => array('10:20:30Z',      '10:20:30+00:00', $timeZoneUTC),
-            'Extended, positive short' => array('10:20:30+11',    '10:20:30+11:00', $timeZonePos1100),
-            'Extended, positive long'  => array('10:20:30+11:22', '10:20:30+11:22', $timeZonePos1122),
-            'Extended, negative short' => array('10:20:30-11',    '10:20:30-11:00', $timeZoneNeg1100),
-            'Extended, negative long'  => array('10:20:30-11:22', '10:20:30-11:22', $timeZoneNeg1122),
+            'Basic, UTC'                => array('102030Z',          '10:20:30+00:00', $timeZoneUTC),
+            'Basic, positive short'     => array('102030+11',        '10:20:30+11:00', $timeZonePos1100),
+            'Basic, positive long'      => array('102030+1122',      '10:20:30+11:22', $timeZonePos1122),
+            'Basic, negative short'     => array('102030-11',        '10:20:30-11:00', $timeZoneNeg1100),
+            'Basic, negative long'      => array('102030-1122',      '10:20:30-11:22', $timeZoneNeg1122),
+            'Basic, partial seconds'    => array('102030.1234-1122', '10:20:30-11:22', $timeZoneNeg1122),
+
+            'Extended, UTC'             => array('10:20:30Z',           '10:20:30+00:00', $timeZoneUTC),
+            'Extended, positive short'  => array('10:20:30+11',         '10:20:30+11:00', $timeZonePos1100),
+            'Extended, positive long'   => array('10:20:30+11:22',      '10:20:30+11:22', $timeZonePos1122),
+            'Extended, negative short'  => array('10:20:30-11',         '10:20:30-11:00', $timeZoneNeg1100),
+            'Extended, negative long'   => array('10:20:30-11:22',      '10:20:30-11:22', $timeZoneNeg1122),
+            'Extended, partial seconds' => array('10:20:30.1234-11:22', '10:20:30-11:22', $timeZoneNeg1122),
         );
     }
 

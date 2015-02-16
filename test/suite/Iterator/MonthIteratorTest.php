@@ -11,14 +11,14 @@ class MonthIteratorTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->startTime = new Date(2010, 1, 25);
-        $this->year = new Year(2010);
+        $this->year      = new Year(2010);
 
         $this->expected = array(
             0 => new Month($this->year, 1),
             1 => new Month($this->year, 2),
             2 => new Month($this->year, 3),
             3 => new Month($this->year, 4),
-            4 => new Month($this->year, 5)
+            4 => new Month($this->year, 5),
         );
     }
 

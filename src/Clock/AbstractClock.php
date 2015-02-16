@@ -7,10 +7,10 @@ use Icecave\Chrono\Interval\Month;
 use Icecave\Chrono\Interval\Year;
 use Icecave\Chrono\TimeOfDay;
 use Icecave\Chrono\TimePointInterface;
-use Icecave\Chrono\Timer\Timer;
-use Icecave\Chrono\Timer\TimerInterface;
 use Icecave\Chrono\TimeSpan\TimeSpanInterface;
 use Icecave\Chrono\TimeZone;
+use Icecave\Chrono\Timer\Timer;
+use Icecave\Chrono\Timer\TimerInterface;
 use Icecave\Isolator\Isolator;
 
 abstract class AbstractClock implements SuspendableClockInterface
@@ -160,7 +160,7 @@ abstract class AbstractClock implements SuspendableClockInterface
      */
     public function unixTime()
     {
-        $lock = new ScopedSuspension($this);
+        $lock          = new ScopedSuspension($this);
         list($seconds) = $this->suspendedUnixTime();
 
         return $seconds;
@@ -171,7 +171,7 @@ abstract class AbstractClock implements SuspendableClockInterface
      */
     public function unixTimeAsFloat()
     {
-        $lock = new ScopedSuspension($this);
+        $lock                        = new ScopedSuspension($this);
         list($seconds, $nanoseconds) = $this->suspendedUnixTime();
 
         return $seconds + $nanoseconds / 1000000000;
@@ -186,7 +186,7 @@ abstract class AbstractClock implements SuspendableClockInterface
             $this->suspendState = array(
                 $this->currentLocalTimeInfo(),
                 $this->currentUtcTimeInfo(),
-                $this->currentUnixTime()
+                $this->currentUnixTime(),
             );
         }
     }

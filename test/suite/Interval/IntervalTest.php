@@ -12,8 +12,8 @@ class IntervalTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->pointA = new Date(2012, 1, 1);
-        $this->pointB = new Date(2012, 1, 5);
+        $this->pointA   = new Date(2012, 1, 1);
+        $this->pointB   = new Date(2012, 1, 5);
         $this->interval = new Interval($this->pointA, $this->pointB);
     }
 

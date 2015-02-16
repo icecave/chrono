@@ -1,8 +1,8 @@
 <?php
 namespace Icecave\Chrono\Timer;
 
-use Phake;
 use PHPUnit_Framework_TestCase;
+use Phake;
 
 class TimerTest extends PHPUnit_Framework_TestCase
 {

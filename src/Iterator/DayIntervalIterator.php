@@ -4,7 +4,6 @@ namespace Icecave\Chrono\Iterator;
 use Icecave\Chrono\Date;
 use Icecave\Chrono\Interval\IntervalInterface;
 use Icecave\Chrono\TimeSpan\Period;
-use Iterator;
 
 class DayIntervalIterator extends IntervalIterator
 {

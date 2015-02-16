@@ -22,7 +22,7 @@ class MonthIntervalIteratorTest extends PHPUnit_Framework_TestCase
             1 => new Month($this->year, 2),
             2 => new Month($this->year, 3),
             3 => new Month($this->year, 4),
-            4 => new Month($this->year, 5)
+            4 => new Month($this->year, 5),
         );
     }
 

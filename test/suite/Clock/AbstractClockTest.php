@@ -6,18 +6,18 @@ use Icecave\Chrono\DateTime;
 use Icecave\Chrono\Interval\Month;
 use Icecave\Chrono\Interval\Year;
 use Icecave\Chrono\TimeOfDay;
-use Icecave\Chrono\Timer\Timer;
 use Icecave\Chrono\TimeZone;
+use Icecave\Chrono\Timer\Timer;
 use Icecave\Isolator\Isolator;
-use Phake;
 use PHPUnit_Framework_TestCase;
+use Phake;
 
 class AbstractClockTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
         $this->isolator = Phake::mock('Icecave\Isolator\Isolator');
-        $this->clock = Phake::partialMock(__NAMESPACE__ . '\AbstractClock', $this->isolator);
+        $this->clock    = Phake::partialMock(__NAMESPACE__ . '\AbstractClock', $this->isolator);
 
         $this->timeZone = new TimeZone(36000, true);
 
@@ -69,7 +69,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
     public function testLocalTime()
     {
-        $result = $this->clock->localTime();
+        $result   = $this->clock->localTime();
         $expected = new TimeOfDay(13, 20, 10, $this->timeZone);
         $this->assertEquals($expected, $result);
 
@@ -78,7 +78,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
     public function testLocalDateTime()
     {
-        $result = $this->clock->localDateTime();
+        $result   = $this->clock->localDateTime();
         $expected = new DateTime(2013, 11, 20, 13, 20, 10, $this->timeZone);
         $this->assertEquals($expected, $result);
 
@@ -87,7 +87,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
     public function testLocalDate()
     {
-        $result = $this->clock->localDate();
+        $result   = $this->clock->localDate();
         $expected = new Date(2013, 11, 20, $this->timeZone);
         $this->assertEquals($expected, $result);
 
@@ -96,7 +96,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
     public function testLocalMonth()
     {
-        $result = $this->clock->localMonth();
+        $result   = $this->clock->localMonth();
         $expected = new Month(new Year(2013), 11);
         $this->assertEquals($expected, $result);
 
@@ -105,7 +105,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
     public function testLocalYear()
     {
-        $result = $this->clock->localYear();
+        $result   = $this->clock->localYear();
         $expected = new Year(2013);
         $this->assertEquals($expected, $result);
 
@@ -114,7 +114,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
     public function testUtcTime()
     {
-        $result = $this->clock->utcTime();
+        $result   = $this->clock->utcTime();
         $expected = new TimeOfDay(3, 2, 1);
         $this->assertEquals($expected, $result);
 
@@ -123,7 +123,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
     public function testUtcDateTime()
     {
-        $result = $this->clock->utcDateTime();
+        $result   = $this->clock->utcDateTime();
         $expected = new DateTime(2011, 5, 4, 3, 2, 1);
         $this->assertEquals($expected, $result);
 
@@ -132,7 +132,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
     public function testUtcDate()
     {
-        $result = $this->clock->utcDate();
+        $result   = $this->clock->utcDate();
         $expected = new Date(2011, 5, 4);
         $this->assertEquals($expected, $result);
 
@@ -141,7 +141,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
     public function testUtcMonth()
     {
-        $result = $this->clock->utcMonth();
+        $result   = $this->clock->utcMonth();
         $expected = new Month(new Year(2011), 5);
         $this->assertEquals($expected, $result);
 
@@ -150,7 +150,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
     public function testUtcYear()
     {
-        $result = $this->clock->utcYear();
+        $result   = $this->clock->utcYear();
         $expected = new Year(2011);
         $this->assertEquals($expected, $result);
 
@@ -179,7 +179,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
         // Try localDateTime twice ...
         $expected = new DateTime(2013, 11, 20, 13, 20, 10, $this->timeZone);
-        $result = $this->clock->localDateTime();
+        $result   = $this->clock->localDateTime();
         $this->assertEquals($expected, $result);
 
         $result = $this->clock->localDateTime();
@@ -190,7 +190,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
         // Try utcDateTime twice ...
         $expected = new DateTime(2011, 5, 4, 3, 2, 1);
-        $result = $this->clock->utcDateTime();
+        $result   = $this->clock->utcDateTime();
         $this->assertEquals($expected, $result);
 
         $result = $this->clock->utcDateTime();
@@ -223,7 +223,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
         // Try localDateTime twice ...
         $expected = new DateTime(2013, 11, 20, 13, 20, 10, $this->timeZone);
-        $result = $this->clock->localDateTime();
+        $result   = $this->clock->localDateTime();
         $this->assertEquals($expected, $result);
 
         $result = $this->clock->localDateTime();
@@ -241,7 +241,7 @@ class AbstractClockTest extends PHPUnit_Framework_TestCase
 
         // Try utcDateTime twice ...
         $expected = new DateTime(2011, 5, 4, 3, 2, 1);
-        $result = $this->clock->utcDateTime();
+        $result   = $this->clock->utcDateTime();
         $this->assertEquals($expected, $result);
 
         $result = $this->clock->utcDateTime();

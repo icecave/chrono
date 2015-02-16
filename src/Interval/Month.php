@@ -2,10 +2,10 @@
 namespace Icecave\Chrono\Interval;
 
 use Icecave\Chrono\Date;
-use Icecave\Chrono\TimePointInterface;
-use Icecave\Chrono\Iso8601Interface;
 use Icecave\Chrono\Detail\Calendar;
 use Icecave\Chrono\Detail\Iso8601;
+use Icecave\Chrono\Iso8601Interface;
+use Icecave\Chrono\TimePointInterface;
 
 class Month extends AbstractInterval implements Iso8601Interface
 {
@@ -15,7 +15,7 @@ class Month extends AbstractInterval implements Iso8601Interface
      */
     public function __construct(Year $year, $ordinal)
     {
-        $this->year = $year;
+        $this->year    = $year;
         $this->ordinal = $ordinal;
     }
 

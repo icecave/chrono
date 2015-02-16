@@ -19,7 +19,7 @@ class DayIntervalIteratorTest extends PHPUnit_Framework_TestCase
             1 => new Date(2010, 12, 21),
             2 => new Date(2010, 12, 22),
             3 => new Date(2010, 12, 23),
-            4 => new Date(2010, 12, 24)
+            4 => new Date(2010, 12, 24),
         );
     }
 

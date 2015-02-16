@@ -11,14 +11,14 @@ class TimeSpanIteratorTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->startTime = new Date(2012, 12, 10);
-        $this->timeSpan = new Period(0, 0, 1);
+        $this->timeSpan  = new Period(0, 0, 1);
 
         $this->expected = array(
             0 => new DateTime(2012, 12, 10),
             1 => new DateTime(2012, 12, 11),
             2 => new DateTime(2012, 12, 12),
             3 => new DateTime(2012, 12, 13),
-            4 => new DateTime(2012, 12, 14)
+            4 => new DateTime(2012, 12, 14),
         );
     }
 

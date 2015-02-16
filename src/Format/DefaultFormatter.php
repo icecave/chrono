@@ -2,11 +2,11 @@
 namespace Icecave\Chrono\Format;
 
 use Icecave\Chrono\Date;
-use Icecave\Chrono\TimeOfDay;
 use Icecave\Chrono\DateTime;
-use Icecave\Chrono\TimeZone;
 use Icecave\Chrono\Detail\Calendar;
 use Icecave\Chrono\Detail\Ordinal;
+use Icecave\Chrono\TimeOfDay;
+use Icecave\Chrono\TimeZone;
 
 /**
  * A string formatter that accets {@see date()} compatible format specifiers.
@@ -249,8 +249,8 @@ class DefaultFormatter implements FormatterInterface
      */
     protected function replace($formatSpecifier, $callback)
     {
-        $length = strlen($formatSpecifier);
-        $result = '';
+        $length  = strlen($formatSpecifier);
+        $result  = '';
         $escaped = false;
 
         for ($index = 0; $index < $length; ++$index) {

@@ -31,10 +31,10 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
         $minutes = 0,
         $seconds = 0
     ) {
-        $this->years = $years;
-        $this->months = $months;
-        $this->days = $days;
-        $this->hours = $hours;
+        $this->years   = $years;
+        $this->months  = $months;
+        $this->days    = $days;
+        $this->hours   = $hours;
         $this->minutes = $minutes;
         $this->seconds = $seconds;
     }
@@ -304,10 +304,10 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function add($period)
     {
-        $years = $this->years();
-        $months = $this->months();
-        $days = $this->days();
-        $hours = $this->hours();
+        $years   = $this->years();
+        $months  = $this->months();
+        $days    = $this->days();
+        $hours   = $this->hours();
         $minutes = $this->minutes();
         $seconds = $this->seconds();
 
@@ -350,10 +350,10 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function subtract($period)
     {
-        $years = $this->years();
-        $months = $this->months();
-        $days = $this->days();
-        $hours = $this->hours();
+        $years   = $this->years();
+        $months  = $this->months();
+        $days    = $this->days();
+        $hours   = $this->hours();
         $minutes = $this->minutes();
         $seconds = $this->seconds();
 

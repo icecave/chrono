@@ -7,9 +7,9 @@ use Icecave\Chrono\Interval\Month;
 use Icecave\Chrono\Interval\Year;
 use Icecave\Chrono\TimeOfDay;
 use Icecave\Chrono\TimePointInterface;
-use Icecave\Chrono\Timer\TimerInterface;
 use Icecave\Chrono\TimeSpan\TimeSpanInterface;
 use Icecave\Chrono\TimeZone;
+use Icecave\Chrono\Timer\TimerInterface;
 
 /**
  * A clock is used to produce date and time measurments.

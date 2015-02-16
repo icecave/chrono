@@ -3,8 +3,8 @@ namespace Icecave\Chrono;
 
 use DateTime as NativeDateTime;
 use Eloquent\Liberator\Liberator;
-use Phake;
 use PHPUnit_Framework_TestCase;
+use Phake;
 
 /**
  * @covers Icecave\Chrono\Date
@@ -48,7 +48,7 @@ class DateTest extends PHPUnit_Framework_TestCase
     public function testToTimeZone()
     {
         $timeZone = new TimeZone(36000);
-        $result = $this->date->toTimeZone($timeZone);
+        $result   = $this->date->toTimeZone($timeZone);
 
         $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $result);
         $this->assertSame('2013-02-01T10:00:00+10:00', $result->isoString());
@@ -63,8 +63,8 @@ class DateTest extends PHPUnit_Framework_TestCase
     public function testToUtc()
     {
         $timeZone = new TimeZone(36000);
-        $date = new Date(2013, 2, 1, $timeZone);
-        $result = $date->toUtc();
+        $date     = new Date(2013, 2, 1, $timeZone);
+        $result   = $date->toUtc();
 
         $this->assertInstanceOf(__NAMESPACE__ . '\DateTime', $result);
         $this->assertSame('2013-01-31T14:00:00+00:00', $result->isoString());
@@ -75,14 +75,14 @@ class DateTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($this->date->timeZone()->isUtc());
 
         $timeZone = new TimeZone(36000, true);
-        $date = new Date(2013, 2, 1, $timeZone);
+        $date     = new Date(2013, 2, 1, $timeZone);
         $this->assertSame($timeZone, $date->timeZone());
     }
 
     public function testAt()
     {
-        $time = new TimeOfDay(10, 20, 30);
-        $result = $this->date->at($time);
+        $time     = new TimeOfDay(10, 20, 30);
+        $result   = $this->date->at($time);
         $expected = new DateTime(2013, 2, 1, 10, 20, 30);
 
         $this->assertEquals($expected, $result);
@@ -90,8 +90,8 @@ class DateTest extends PHPUnit_Framework_TestCase
 
     public function testAtWithTimeZoneCoversion()
     {
-        $time = new TimeOfDay(10, 20, 30, new TimeZone(36000));
-        $result = $this->date->at($time);
+        $time     = new TimeOfDay(10, 20, 30, new TimeZone(36000));
+        $result   = $this->date->at($time);
         $expected = new DateTime(2013, 2, 1, 0, 20, 30);
 
         $this->assertEquals($expected, $result);
@@ -148,7 +148,7 @@ class DateTest extends PHPUnit_Framework_TestCase
     public function testUnixTimeWithTimeZone()
     {
         $timeZone = new TimeZone(36000, true);
-        $date = new Date(2013, 2, 1, $timeZone);
+        $date     = new Date(2013, 2, 1, $timeZone);
 
         $this->assertSame(1359640800, $date->unixTime());
     }
@@ -163,7 +163,7 @@ class DateTest extends PHPUnit_Framework_TestCase
     public function testFromUnixTimeWithTimeZone()
     {
         $timeZone = new TimeZone(36000, true);
-        $date = Date::fromUnixTime(1359714030, $timeZone);
+        $date     = Date::fromUnixTime(1359714030, $timeZone);
         $this->assertInstanceOf(__NAMESPACE__ . '\Date', $date);
         $this->assertSame('2013-02-01T00:00:00+10:00', $date->format('c'));
     }
@@ -171,7 +171,7 @@ class DateTest extends PHPUnit_Framework_TestCase
     public function testFromNativeDateTime()
     {
         $native = new NativeDateTime('2013-02-01T20:20:30+10:00');
-        $date = Date::fromNativeDateTime($native);
+        $date   = Date::fromNativeDateTime($native);
         $this->assertInstanceOf(__NAMESPACE__ . '\Date', $date);
         $this->assertSame('2013-02-01', $date->isoString());
         $this->assertSame(36000, $date->timeZone()->offset());
@@ -186,7 +186,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 
     public function testNativeDateTimeWithTimezone()
     {
-        $date = new Date(2013, 02, 01, new TimeZone(36000));
+        $date   = new Date(2013, 02, 01, new TimeZone(36000));
         $native = $date->nativeDateTime();
         $this->assertInstanceOf('DateTime', $native);
         $this->assertSame('2013-02-01T00:00:00+10:00', $native->format('c'));
@@ -251,7 +251,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 
     public function testDifferenceAsDuration()
     {
-        $date = new Date(2013, 1, 31);
+        $date     = new Date(2013, 1, 31);
         $duration = $this->date->differenceAsDuration($date);
 
         $this->assertInstanceOf('Icecave\Chrono\TimeSpan\Duration', $duration);
@@ -260,7 +260,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 
     public function testFormat()
     {
-        $formatter = Phake::mock(__NAMESPACE__ . '\Format\FormatterInterface');
+        $formatter                                                                     = Phake::mock(__NAMESPACE__ . '\Format\FormatterInterface');
         Liberator::liberateClass(__NAMESPACE__ . '\Format\DefaultFormatter')->instance = $formatter;
 
         Phake::when($formatter)
@@ -296,7 +296,7 @@ class DateTest extends PHPUnit_Framework_TestCase
     {
         return array(
             'Basic'    => array('20130201',   '2013-02-01'),
-            'Extended' => array('2013-02-01', '2013-02-01')
+            'Extended' => array('2013-02-01', '2013-02-01'),
         );
     }
 
@@ -312,7 +312,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 
     public function validIsoStringsWithTimeZone()
     {
-        $hours = 60 * 60;
+        $hours   = 60 * 60;
         $minutes = 60;
 
         $timeZoneUTC     = new TimeZone(0);
