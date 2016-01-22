@@ -10,7 +10,7 @@ matrix:
 env:
   global:
     - ARCHER_PUBLISH_VERSION=5.6
-    - secure: "HZsPafLD/Tw8QB3wxiqUGpmawKoIoZuFanW8Tzve29IAnvjj4ulIxWnYMULQbe4wvukcUg9dkjZ5ltXMJVKeFh3jlrC5ejKWrTD0cCnpfxgkmACInh93+Jt0XhpT+5dbReblOKMFslkEJwJxPily4rocyXUVLiUIz4tQgWnxQtQ="
+    - secure: "mQqL+yliTcDlTTwNzITPdmFlnEvrrlbvZwUvpRN0cCaFs4O/EltU0SqlLx5Dw+RjERhg6SBoRKeFgDL5VPrvJTKdsYJGG4aBNlscLU4HTPlvVdpoX+ywiP8keqUuyBSfRQRncpoBQE0nNz9Fp1Bm9wqqMZo+Bu+hgxMMnPiTgVI="
 
 install:
   - ./.archer/travis.install
