@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Chrono\Iterator;
 
 use Icecave\Chrono\Interval\Month;

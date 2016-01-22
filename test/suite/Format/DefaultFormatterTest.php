@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Chrono\Format;
 
 use Eloquent\Liberator\Liberator;

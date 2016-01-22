@@ -1,8 +1,9 @@
 <?php
+
 namespace Icecave\Chrono\Clock;
 
-use PHPUnit_Framework_TestCase;
 use Phake;
+use PHPUnit_Framework_TestCase;
 
 class ScopedSuspensionTest extends PHPUnit_Framework_TestCase
 {

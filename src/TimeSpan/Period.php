@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Chrono\TimeSpan;
 
 use DateInterval;
@@ -173,7 +174,7 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      */
     public function compare($period)
     {
-        if (!$period instanceof Period) {
+        if (!$period instanceof self) {
             throw new NotComparableException($this, $period);
         }
 
@@ -311,7 +312,7 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
         $minutes = $this->minutes();
         $seconds = $this->seconds();
 
-        if ($period instanceof Period) {
+        if ($period instanceof self) {
             $years += $period->years();
             $months += $period->months();
             $days += $period->days();
@@ -331,7 +332,7 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
             $seconds += $period->seconds();
         }
 
-        return new Period(
+        return new self(
             $years,
             $months,
             $days,
@@ -357,7 +358,7 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
         $minutes = $this->minutes();
         $seconds = $this->seconds();
 
-        if ($period instanceof Period) {
+        if ($period instanceof self) {
             $years -= $period->years();
             $months -= $period->months();
             $days -= $period->days();
@@ -377,7 +378,7 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
             $seconds -= $period->seconds();
         }
 
-        return new Period(
+        return new self(
             $years,
             $months,
             $days,

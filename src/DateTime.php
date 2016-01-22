@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Chrono;
 
 use DateTime as NativeDateTime;
@@ -182,7 +183,7 @@ class DateTime extends AbstractTimePoint implements TimeInterface
         $offset = $timeZone->offset()
                 - $this->timeZone()->offset();
 
-        return new DateTime(
+        return new self(
             $this->year(),
             $this->month(),
             $this->day(),

@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Chrono;
 
 use DateTime as NativeDateTime;
@@ -145,7 +146,7 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
         $offset = $timeZone->offset()
                 - $this->timeZone()->offset();
 
-        return new TimeOfDay(
+        return new self(
             $this->hour(),
             $this->minute(),
             $this->second() + $offset,
@@ -195,25 +196,25 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
         );
     }
 
-    /**
-     * Compare this object with another value, yielding a result according to the following table:
-     *
-     * +--------------------+---------------+
-     * | Condition          | Result        |
-     * +--------------------+---------------+
-     * | $this == $value    | $result === 0 |
-     * | $this < $value     | $result < 0   |
-     * | $this > $value     | $result > 0   |
-     * +--------------------+---------------+
-     *
-     * @param mixed $time The time to compare.
-     *
-     * @return integer                0 if $this and $time are equal, <0 if $this < $time, or >0 if $this > $time.
-     * @throws NotComparableException Indicates that the implementation does not know how to compare $this to $time.
-     */
+     /**
+      * Compare this object with another value, yielding a result according to the following table:
+      *
+      * +--------------------+---------------+
+      * | Condition          | Result        |
+      * +--------------------+---------------+
+      * | $this == $value    | $result === 0 |
+      * | $this < $value     | $result < 0   |
+      * | $this > $value     | $result > 0   |
+      * +--------------------+---------------+
+      *
+      * @param mixed $time The time to compare.
+      *
+      * @return integer                0 if $this and $time are equal, <0 if $this < $time, or >0 if $this > $time.
+      * @throws NotComparableException Indicates that the implementation does not know how to compare $this to $time.
+      */
      public function compare($time)
      {
-         if (!$time instanceof TimeOfDay) {
+         if (!$time instanceof self) {
              throw new NotComparableException($this, $time);
          }
 

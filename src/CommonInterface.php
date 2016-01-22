@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Chrono;
 
 use Icecave\Chrono\Format\FormattableInterface;

@@ -1,9 +1,10 @@
 <?php
+
 namespace Icecave\Chrono;
 
 use Eloquent\Liberator\Liberator;
-use PHPUnit_Framework_TestCase;
 use Phake;
+use PHPUnit_Framework_TestCase;
 
 /**
  * @covers Icecave\Chrono\TimeZone

@@ -1,11 +1,12 @@
 <?php
+
 namespace Icecave\Chrono\Clock;
 
 use Eloquent\Liberator\Liberator;
 use Icecave\Chrono\DateTime;
 use Icecave\Isolator\Isolator;
-use PHPUnit_Framework_TestCase;
 use Phake;
+use PHPUnit_Framework_TestCase;
 
 class SystemClockTest extends PHPUnit_Framework_TestCase
 {

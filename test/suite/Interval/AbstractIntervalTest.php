@@ -1,10 +1,11 @@
 <?php
+
 namespace Icecave\Chrono\Interval;
 
 use Icecave\Chrono\Date;
 use Icecave\Chrono\DateTime;
-use PHPUnit_Framework_TestCase;
 use Phake;
+use PHPUnit_Framework_TestCase;
 
 class AbstractIntervalTest extends PHPUnit_Framework_TestCase
 {

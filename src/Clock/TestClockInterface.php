@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Chrono\Clock;
 
 use Icecave\Chrono\TimePointInterface;

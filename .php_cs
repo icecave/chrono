@@ -29,7 +29,6 @@ return Symfony\CS\Config\Config::create()
             'operators_spaces',
             'phpdoc_indent',
             'phpdoc_params',
-            'phpdoc_short_description',
             'phpdoc_to_comment',
             'phpdoc_trim',
             'phpdoc_type_to_var',

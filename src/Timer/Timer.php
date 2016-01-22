@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Chrono\Timer;
 
 use Icecave\Chrono\Clock\ClockInterface;
@@ -33,11 +34,11 @@ class Timer implements TimerInterface
         return $this->clock;
     }
 
-    /**
-     * Check if the timer is currently running.
-     *
-     * @return boolean True if the timer is running; otherwise, false.
-     */
+     /**
+      * Check if the timer is currently running.
+      *
+      * @return boolean True if the timer is running; otherwise, false.
+      */
      public function isRunning()
      {
          return null !== $this->startedAt

@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Chrono\TimeSpan;
 
 use DateInterval;
@@ -256,7 +257,7 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function compare($duration)
     {
-        if (!$duration instanceof Duration) {
+        if (!$duration instanceof self) {
             throw new NotComparableException($this, $duration);
         }
 
@@ -377,11 +378,11 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function add($duration)
     {
-        if ($duration instanceof Duration) {
+        if ($duration instanceof self) {
             $duration = $duration->totalSeconds();
         }
 
-        return new Duration($this->totalSeconds() + $duration);
+        return new self($this->totalSeconds() + $duration);
     }
 
     /**
@@ -393,11 +394,11 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      */
     public function subtract($duration)
     {
-        if ($duration instanceof Duration) {
+        if ($duration instanceof self) {
             $duration = $duration->totalSeconds();
         }
 
-        return new Duration($this->totalSeconds() - $duration);
+        return new self($this->totalSeconds() - $duration);
     }
 
     /**

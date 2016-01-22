@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Chrono\Detail;
 
 use InvalidArgumentException;

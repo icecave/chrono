@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Chrono;
 
 use Icecave\Chrono\Detail\Iso8601;
@@ -86,7 +87,7 @@ class TimeZone extends AbstractExtendedComparable implements Iso8601Interface, F
      */
     public function compare($timeZone)
     {
-        if (!$timeZone instanceof TimeZone) {
+        if (!$timeZone instanceof self) {
             throw new NotComparableException($this, $timeZone);
         }
 
