@@ -30,7 +30,9 @@
     },
     "require-dev": {
         "eloquent/liberator": "~1",
-        "icecave/archer": "~1"
+        "icecave/archer": "dev-develop",
+        "phake/phake": "^2",
+        "phpunit/phpunit": "^4"
     },
     "autoload": {
         "psr-4": {

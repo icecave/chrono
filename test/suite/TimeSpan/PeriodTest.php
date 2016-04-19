@@ -1,11 +1,12 @@
 <?php
+
 namespace Icecave\Chrono\TimeSpan;
 
 use DateInterval;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\TimeZone;
-use PHPUnit_Framework_TestCase;
 use Phake;
+use PHPUnit_Framework_TestCase;
 
 /**
  * @covers Icecave\Chrono\TimeSpan\Period

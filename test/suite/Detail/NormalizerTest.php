@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Chrono\Detail;
 
 use PHPUnit_Framework_TestCase;
@@ -49,7 +50,7 @@ class NormalizerTest extends PHPUnit_Framework_TestCase
     {
         return array(
             'valid time'                 => array(10, 25, 13,    '10:25:13',     0),
-            'min'                        => array( 0,  0,  0,    '00:00:00',     0),
+            'min'                        => array(0,  0,  0,    '00:00:00',     0),
             'max'                        => array(23, 59, 59,    '23:59:59',     0),
 
             'seconds overflow'           => array(10, 25, 70,    '10:26:10',     0),
@@ -91,7 +92,7 @@ class NormalizerTest extends PHPUnit_Framework_TestCase
     {
         return array(
             'valid date'                => array(2012,  6, 14,      '2012-06-14'),
-            'min'                       => array(   0,  1,  1,      '0000-01-01'), // Note, behavior here deviates from [gm]mktime.
+            'min'                       => array(0,  1,  1,      '0000-01-01'), // Note, behavior here deviates from [gm]mktime.
             'max'                       => array(9999, 12, 31,      '9999-12-31'),
 
             'day overflow'              => array(2012,  6, 31,      '2012-07-01'),

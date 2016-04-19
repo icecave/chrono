@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Chrono\Clock;
 
 use Icecave\Chrono\Date;
@@ -6,12 +7,12 @@ use Icecave\Chrono\DateTime;
 use Icecave\Chrono\Interval\Month;
 use Icecave\Chrono\Interval\Year;
 use Icecave\Chrono\TimeOfDay;
+use Icecave\Chrono\Timer\Timer;
 use Icecave\Chrono\TimeSpan\Duration;
 use Icecave\Chrono\TimeZone;
-use Icecave\Chrono\Timer\Timer;
 use Icecave\Isolator\Isolator;
-use PHPUnit_Framework_TestCase;
 use Phake;
+use PHPUnit_Framework_TestCase;
 
 class TestClockTest extends PHPUnit_Framework_TestCase
 {

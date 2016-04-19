@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Chrono;
 
 use DateTime as NativeDateTime;

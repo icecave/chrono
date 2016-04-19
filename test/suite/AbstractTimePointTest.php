@@ -1,8 +1,9 @@
 <?php
+
 namespace Icecave\Chrono;
 
-use PHPUnit_Framework_TestCase;
 use Phake;
+use PHPUnit_Framework_TestCase;
 
 class AbstractTimePointTest extends PHPUnit_Framework_TestCase
 {
