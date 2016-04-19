@@ -261,10 +261,11 @@ abstract class Iso8601
     public static function parseTime($isoString)
     {
         $time = array(
-            'hour'   => 0,
-            'minute' => 0,
-            'second' => 0,
-            'offset' => null,
+            'hour'        => 0,
+            'minute'      => 0,
+            'second'      => 0,
+            'microsecond' => 0,
+            'offset'      => null,
         );
 
         $matches = array();
@@ -273,9 +274,10 @@ abstract class Iso8601
             $time['hour']   = intval($matches[1]);
             $time['minute'] = intval($matches[2]);
             $time['second'] = intval($matches[3]);
+            $time['microsecond'] = intval(str_pad(substr($matches[4], 0, 6), 6, '0'));
 
-            if (count($matches) > 4 && strlen($matches[4]) > 0) {
-                $time['offset'] = self::parseTimeZone($matches[4]);
+            if (count($matches) > 5 && strlen($matches[5]) > 0) {
+                $time['offset'] = self::parseTimeZone($matches[5]);
             }
         } else {
             throw new InvalidArgumentException('Invalid ISO time: "' . $isoString . '".');
@@ -298,13 +300,14 @@ abstract class Iso8601
     public static function parseDateTime($isoString)
     {
         $dateTime = array(
-            'year'   => 0,
-            'month'  => 0,
-            'day'    => 0,
-            'hour'   => 0,
-            'minute' => 0,
-            'second' => 0,
-            'offset' => null,
+            'year'        => 0,
+            'month'       => 0,
+            'day'         => 0,
+            'hour'        => 0,
+            'minute'      => 0,
+            'second'      => 0,
+            'microsecond' => 0,
+            'offset'      => null,
         );
 
         $matches = array();
@@ -317,9 +320,10 @@ abstract class Iso8601
             $dateTime['hour']   = intval($matches[4]);
             $dateTime['minute'] = intval($matches[5]);
             $dateTime['second'] = intval($matches[6]);
+            $dateTime['microsecond'] = intval(str_pad(substr($matches[7], 0, 6), 6, '0'));
 
-            if (count($matches) > 7 && strlen($matches[7]) > 0) {
-                $dateTime['offset'] = self::parseTimeZone($matches[7]);
+            if (count($matches) > 8 && strlen($matches[8]) > 0) {
+                $dateTime['offset'] = self::parseTimeZone($matches[8]);
             }
         } else {
             throw new InvalidArgumentException('Invalid ISO date time: "' . $isoString . '".');
@@ -500,11 +504,11 @@ abstract class Iso8601
     const DATE_BASIC    = '/^(\d\d\d\d)(\d\d)(\d\d)(.*)$/';
     const DATE_EXTENDED = '/^(\d\d\d\d)-(\d\d)-(\d\d)(.*)$/';
 
-    const TIME_BASIC    = '/^(\d\d)(\d\d)(\d\d)(?:\.\d+)?(.*)$/';
-    const TIME_EXTENDED = '/^(\d\d):(\d\d):(\d\d)(?:\.\d+)?(.*)$/';
+    const TIME_BASIC    = '/^(\d\d)(\d\d)(\d\d)(?:\.(\d+))?(.*)$/';
+    const TIME_EXTENDED = '/^(\d\d):(\d\d):(\d\d)(?:\.(\d+))?(.*)$/';
 
-    const DATETIME_BASIC    = '/^(\d\d\d\d)(\d\d)(\d\d)[T| ](\d\d)(\d\d)(\d\d)(?:\.\d+)?(.*)$/';
-    const DATETIME_EXTENDED = '/^(\d\d\d\d)-(\d\d)-(\d\d)[T| ](\d\d):(\d\d):(\d\d)(?:\.\d+)?(.*)$/';
+    const DATETIME_BASIC    = '/^(\d\d\d\d)(\d\d)(\d\d)[T| ](\d\d)(\d\d)(\d\d)(?:\.(\d+))?(.*)$/';
+    const DATETIME_EXTENDED = '/^(\d\d\d\d)-(\d\d)-(\d\d)[T| ](\d\d):(\d\d):(\d\d)(?:\.(\d+))?(.*)$/';
 
     const TIMEZONE_UTC    = '/^(Z)$/';
     const TIMEZONE_OFFSET = '/^([+-])(\d\d)(:?(\d\d))?$/';
