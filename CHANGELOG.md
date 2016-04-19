@@ -1,5 +1,9 @@
 # Chrono Changelog
 
+### 1.0.4 (2016-02-19)
+
+* **[IMPROVED]** Added support for partial second parsing in internal class `Iso8604`, in preparation for adding partial-second support to the public interface
+
 ### 1.0.3 (2015-02-16)
 
 * **[IMPROVED]** `DateTime` and `TimeOfDay` ISO string parsing now allows (but discards) partial-second information
