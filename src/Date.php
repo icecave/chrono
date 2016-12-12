@@ -167,11 +167,10 @@ class Date extends AbstractTimePoint
     public function toTimeZone(TimeZone $timeZone)
     {
         if ($this->timeZone()->isEqualTo($timeZone)) {
-            return $this;
+            $offset = 0;
+        } else {
+            $offset = $timeZone->offset() - $this->timeZone()->offset();
         }
-
-        $offset = $timeZone->offset()
-                - $this->timeZone()->offset();
 
         return new DateTime(
             $this->year(),
