@@ -12,9 +12,9 @@ use Icecave\Chrono\TimeSpan\Duration;
 use Icecave\Chrono\TimeZone;
 use Icecave\Isolator\Isolator;
 use Phake;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class TestClockTest extends PHPUnit_Framework_TestCase
+class TestClockTest extends TestCase
 {
     public function setUp()
     {

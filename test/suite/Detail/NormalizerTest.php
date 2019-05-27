@@ -2,9 +2,9 @@
 
 namespace Icecave\Chrono\Detail;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class NormalizerTest extends PHPUnit_Framework_TestCase
+class NormalizerTest extends TestCase
 {
     /**
      * @dataProvider normalizeTimeData

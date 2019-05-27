@@ -3,13 +3,13 @@
 namespace Icecave\Chrono\Interval;
 
 use Icecave\Chrono\Date;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers Icecave\Chrono\Interval\Month
  * @covers Icecave\Chrono\Detail\Iso8601
  */
-class MonthTest extends PHPUnit_Framework_TestCase
+class MonthTest extends TestCase
 {
     public function setUp()
     {
@@ -78,7 +78,7 @@ class MonthTest extends PHPUnit_Framework_TestCase
      */
     public function testFromIsoStringWithInvalidIsoMonth($isoString, $expected)
     {
-        $this->setExpectedException('InvalidArgumentException', $expected);
+        $this->expectException('InvalidArgumentException', $expected);
         Month::fromIsoString($isoString);
     }
 

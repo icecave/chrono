@@ -5,9 +5,9 @@ namespace Icecave\Chrono\Interval;
 use Icecave\Chrono\Date;
 use Icecave\Chrono\DateTime;
 use Phake;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class AbstractIntervalTest extends PHPUnit_Framework_TestCase
+class AbstractIntervalTest extends TestCase
 {
     public function setUp()
     {
@@ -58,7 +58,7 @@ class AbstractIntervalTest extends PHPUnit_Framework_TestCase
 
     public function testCompareWithNotComparableException()
     {
-        $this->setExpectedException('Icecave\Parity\Exception\NotComparableException');
+        $this->expectException('Icecave\Parity\Exception\NotComparableException');
         $this->interval1->compare('foo');
     }
 

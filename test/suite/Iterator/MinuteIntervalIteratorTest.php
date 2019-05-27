@@ -4,9 +4,9 @@ namespace Icecave\Chrono\Iterator;
 
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\Interval\Interval;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class MinuteIntervalIteratorTest extends PHPUnit_Framework_TestCase
+class MinuteIntervalIteratorTest extends TestCase
 {
     protected function setUp()
     {

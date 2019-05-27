@@ -3,9 +3,9 @@
 namespace Icecave\Chrono\Clock;
 
 use Phake;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ScopedSuspensionTest extends PHPUnit_Framework_TestCase
+class ScopedSuspensionTest extends TestCase
 {
     public function setUp()
     {
@@ -22,5 +22,9 @@ class ScopedSuspensionTest extends PHPUnit_Framework_TestCase
         unset($lock);
 
         Phake::verify($this->clock, Phake::times(1))->resume();
+
+        // Ensure that the test is not marked risky, as Phake verifications are
+        // not recognised by PHPUnit as assertions.
+        $this->assertTrue(true);
     }
 }

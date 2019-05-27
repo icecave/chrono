@@ -5,9 +5,9 @@ namespace Icecave\Chrono\Iterator;
 use Icecave\Chrono\Date;
 use Icecave\Chrono\Interval\Month;
 use Icecave\Chrono\Interval\Year;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class MonthIteratorTest extends PHPUnit_Framework_TestCase
+class MonthIteratorTest extends TestCase
 {
     protected function setUp()
     {

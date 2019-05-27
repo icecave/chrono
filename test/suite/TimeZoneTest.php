@@ -4,13 +4,13 @@ namespace Icecave\Chrono;
 
 use Eloquent\Liberator\Liberator;
 use Phake;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers Icecave\Chrono\TimeZone
  * @covers Icecave\Chrono\Detail\Iso8601
  */
-class TimeZoneTest extends PHPUnit_Framework_TestCase
+class TimeZoneTest extends TestCase
 {
     public function setUp()
     {
@@ -55,7 +55,7 @@ class TimeZoneTest extends PHPUnit_Framework_TestCase
 
     public function testCompareWithNotComparableException()
     {
-        $this->setExpectedException('Icecave\Parity\Exception\NotComparableException');
+        $this->expectException('Icecave\Parity\Exception\NotComparableException');
         $this->timeZone->compare('foo');
     }
 
@@ -299,7 +299,7 @@ class TimeZoneTest extends PHPUnit_Framework_TestCase
      */
     public function testFromIsoStringWithInvalidIsoTimeZone($isoString, $expected)
     {
-        $this->setExpectedException('InvalidArgumentException', $expected);
+        $this->expectException('InvalidArgumentException', $expected);
         TimeZone::fromIsoString($isoString);
     }
 

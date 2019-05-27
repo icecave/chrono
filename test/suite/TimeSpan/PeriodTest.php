@@ -6,13 +6,13 @@ use DateInterval;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\TimeZone;
 use Phake;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers Icecave\Chrono\TimeSpan\Period
  * @covers Icecave\Chrono\Detail\Iso8601
  */
-class PeriodTest extends PHPUnit_Framework_TestCase
+class PeriodTest extends TestCase
 {
     public function setUp()
     {
@@ -60,7 +60,7 @@ class PeriodTest extends PHPUnit_Framework_TestCase
 
     public function testCompareWithNotComparableException()
     {
-        $this->setExpectedException('Icecave\Parity\Exception\NotComparableException');
+        $this->expectException('Icecave\Parity\Exception\NotComparableException');
         $this->period->compare('foo');
     }
 
@@ -353,7 +353,7 @@ class PeriodTest extends PHPUnit_Framework_TestCase
      */
     public function testFromIsoStringWithInvalidIsoString($isoString, $expected)
     {
-        $this->setExpectedException('InvalidArgumentException', $expected);
+        $this->expectException('InvalidArgumentException', $expected);
         Period::fromIsoString($isoString);
     }
 

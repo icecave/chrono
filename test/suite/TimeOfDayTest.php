@@ -5,13 +5,13 @@ namespace Icecave\Chrono;
 use DateTime as NativeDateTime;
 use Eloquent\Liberator\Liberator;
 use Phake;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers Icecave\Chrono\TimeOfDay
  * @covers Icecave\Chrono\Detail\Iso8601
  */
-class TimeOfDayTest extends PHPUnit_Framework_TestCase
+class TimeOfDayTest extends TestCase
 {
     public function setUp()
     {
@@ -93,7 +93,7 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
 
     public function testCompareWithNotComparableException()
     {
-        $this->setExpectedException('Icecave\Parity\Exception\NotComparableException');
+        $this->expectException('Icecave\Parity\Exception\NotComparableException');
         $this->time->compare('foo');
     }
 
@@ -312,7 +312,7 @@ class TimeOfDayTest extends PHPUnit_Framework_TestCase
      */
     public function testFromIsoStringWithInvalidIsoTime($isoString, $expected)
     {
-        $this->setExpectedException('InvalidArgumentException', $expected);
+        $this->expectException('InvalidArgumentException', $expected);
         TimeOfDay::fromIsoString($isoString);
     }
 

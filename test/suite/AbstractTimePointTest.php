@@ -3,9 +3,9 @@
 namespace Icecave\Chrono;
 
 use Phake;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class AbstractTimePointTest extends PHPUnit_Framework_TestCase
+class AbstractTimePointTest extends TestCase
 {
     public function setUp()
     {
@@ -34,7 +34,7 @@ class AbstractTimePointTest extends PHPUnit_Framework_TestCase
 
     public function testCompareWithNotComparableException()
     {
-        $this->setExpectedException('Icecave\Parity\Exception\NotComparableException');
+        $this->expectException('Icecave\Parity\Exception\NotComparableException');
         $this->timePoint->compare('foo');
     }
 

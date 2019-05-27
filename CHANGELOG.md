@@ -37,8 +37,8 @@
 * **[NEW]** Added `ClockInterface::unixTimeAsFloat()`
 * **[NEW]** Added `ClockInterface::sleep()` and `sleepUntil()`
 * **[NEW]** Added `TimerInterface`, `Timer` and `ClockInterface::createTimer()`
-* **[NEW]** Implemented several iterator types for iterating over time spans (see [#3](https://github.com/IcecaveStudios/chrono/issues/3))
-* **[NEW]** Most objects can now be compared using [Parity](https://github.com/IcecaveStudios/parity)
+* **[NEW]** Implemented several iterator types for iterating over time spans (see [#3](https://github.com/icecave/chrono/issues/3))
+* **[NEW]** Most objects can now be compared using [Parity](https://github.com/icecave/parity)
 
 ### 0.2.0 (2013-05-13)
 

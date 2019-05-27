@@ -11,9 +11,9 @@ use Icecave\Chrono\Timer\Timer;
 use Icecave\Chrono\TimeZone;
 use Icecave\Isolator\Isolator;
 use Phake;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class AbstractClockTest extends PHPUnit_Framework_TestCase
+class AbstractClockTest extends TestCase
 {
     public function setUp()
     {

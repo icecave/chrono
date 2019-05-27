@@ -5,9 +5,9 @@ namespace Icecave\Chrono\Iterator;
 use Icecave\Chrono\Date;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\TimeSpan\Period;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class TimeSpanIteratorTest extends PHPUnit_Framework_TestCase
+class TimeSpanIteratorTest extends TestCase
 {
     protected function setUp()
     {

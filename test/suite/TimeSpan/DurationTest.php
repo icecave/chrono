@@ -6,13 +6,13 @@ use DateInterval;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\TimeZone;
 use Phake;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers Icecave\Chrono\TimeSpan\Duration
  * @covers Icecave\Chrono\Detail\Iso8601
  */
-class DurationTest extends PHPUnit_Framework_TestCase
+class DurationTest extends TestCase
 {
     public function setUp()
     {
@@ -89,7 +89,7 @@ class DurationTest extends PHPUnit_Framework_TestCase
 
     public function testCompareWithNotComparableException()
     {
-        $this->setExpectedException('Icecave\Parity\Exception\NotComparableException');
+        $this->expectException('Icecave\Parity\Exception\NotComparableException');
         $this->duration->compare('foo');
     }
 
@@ -353,7 +353,7 @@ class DurationTest extends PHPUnit_Framework_TestCase
      */
     public function testFromIsoStringWithInvalidIsoString($isoString, $expected)
     {
-        $this->setExpectedException('InvalidArgumentException', $expected);
+        $this->expectException('InvalidArgumentException', $expected);
         Duration::fromIsoString($isoString);
     }
 
@@ -446,7 +446,7 @@ class DurationTest extends PHPUnit_Framework_TestCase
 
     public function testFromNativeDateIntervalWithInvalidArgumentException()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Duration\'s can not be created from date intervals containing years or months.');
+        $this->expectException('InvalidArgumentException', 'Duration\'s can not be created from date intervals containing years or months.');
 
         $native = new DateInterval('P1Y2M3DT4H5M6S');
         Duration::fromNativeDateInterval($native);

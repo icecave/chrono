@@ -5,9 +5,9 @@ namespace Icecave\Chrono\Iterator;
 use Icecave\Chrono\Date;
 use Icecave\Chrono\Interval\Interval;
 use Icecave\Chrono\Interval\Year;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class YearIntervalIteratorTest extends PHPUnit_Framework_TestCase
+class YearIntervalIteratorTest extends TestCase
 {
     protected function setUp()
     {

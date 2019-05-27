@@ -5,13 +5,13 @@ namespace Icecave\Chrono;
 use DateTime as NativeDateTime;
 use Eloquent\Liberator\Liberator;
 use Phake;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers Icecave\Chrono\DateTime
  * @covers Icecave\Chrono\Detail\Iso8601
  */
-class DateTimeTest extends PHPUnit_Framework_TestCase
+class DateTimeTest extends TestCase
 {
     public function setUp()
     {
@@ -410,7 +410,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
      */
     public function testFromIsoStringWithInvalidIsoDateTime($isoString, $expected)
     {
-        $this->setExpectedException('InvalidArgumentException', $expected);
+        $this->expectException('InvalidArgumentException', $expected);
         DateTime::fromIsoString($isoString);
     }
 

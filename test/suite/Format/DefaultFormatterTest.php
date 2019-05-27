@@ -7,9 +7,9 @@ use Icecave\Chrono\Date;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\TimeOfDay;
 use Icecave\Chrono\TimeZone;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class DefaultFormatterTest extends PHPUnit_Framework_TestCase
+class DefaultFormatterTest extends TestCase
 {
     public function setUp()
     {

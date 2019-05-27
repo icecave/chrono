@@ -1,13 +1,12 @@
 # Chrono
 
-[![Build Status]](https://travis-ci.org/IcecaveStudios/chrono)
-[![Test Coverage]](https://coveralls.io/r/IcecaveStudios/chrono?branch=develop)
-[![SemVer]](http://semver.org)
+[![Build Status](http://img.shields.io/travis/icecave/chrono/master.svg?style=flat-square)](https://travis-ci.org/icecave/chrono)
+[![Code Coverage](https://img.shields.io/codecov/c/github/icecave/chrono/master.svg?style=flat-square)](https://codecov.io/github/icecave/chrono)
+[![Latest Version](http://img.shields.io/packagist/v/recoil/recoil.svg?style=flat-square&label=semver)](https://semver.org)
 
 **Chrono** is a PHP date & time library that is decoupled from the system clock.
 
-* Install via [Composer](http://getcomposer.org) package [icecave/chrono](https://packagist.org/packages/icecave/chrono)
-* Read the [API documentation](http://icecavestudios.github.io/chrono/artifacts/documentation/api/)
+    composer install icecave/chrono
 
 ## Rationale
 

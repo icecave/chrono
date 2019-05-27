@@ -4,9 +4,9 @@ namespace Icecave\Chrono\Iterator;
 
 use Icecave\Chrono\Date;
 use Icecave\Chrono\Interval\Interval;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class DayIntervalIteratorTest extends PHPUnit_Framework_TestCase
+class DayIntervalIteratorTest extends TestCase
 {
     protected function setUp()
     {

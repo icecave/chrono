@@ -9,7 +9,7 @@
         "chrono",
         "iso"
     ],
-    "homepage": "https://github.com/IcecaveStudios/chrono",
+    "homepage": "https://github.com/icecave/chrono",
     "license": "MIT",
     "authors": [
         {
@@ -24,24 +24,20 @@
         }
     ],
     "require": {
-        "php": ">=5.3",
-        "icecave/isolator": "~2|~3",
-        "icecave/parity": "~1"
+        "php": ">=7.1",
+        "icecave/isolator": "~3",
+        "icecave/parity": "~2"
     },
     "require-dev": {
         "eloquent/liberator": "~1",
-        "icecave/archer": "dev-develop",
         "phake/phake": "^2",
-        "phpunit/phpunit": "^4"
+        "phpunit/phpunit": "^7"
     },
-    "autoload": {
-        "psr-4": {
-            "Icecave\\Chrono\\": "src"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-develop": "1.0.x-dev"
+    "autoload": { "psr-4": { "Icecave\\Chrono\\": "src" } },
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "7.1"
         }
     }
 }

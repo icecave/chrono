@@ -3,9 +3,9 @@
 namespace Icecave\Chrono\Iterator;
 
 use Icecave\Chrono\DateTime;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class SecondIteratorTest extends PHPUnit_Framework_TestCase
+class SecondIteratorTest extends TestCase
 {
     protected function setUp()
     {

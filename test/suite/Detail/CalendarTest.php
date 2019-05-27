@@ -2,9 +2,9 @@
 
 namespace Icecave\Chrono\Detail;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class CalendarTest extends PHPUnit_Framework_TestCase
+class CalendarTest extends TestCase
 {
     /**
      * @dataProvider leapYearProvider
@@ -63,7 +63,7 @@ class CalendarTest extends PHPUnit_Framework_TestCase
 
     public function testDaysInMonthFailure()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid month: 0.');
+        $this->expectException('InvalidArgumentException', 'Invalid month: 0.');
         Calendar::daysInMonth(2012, 0);
     }
 
@@ -108,7 +108,7 @@ class CalendarTest extends PHPUnit_Framework_TestCase
 
     public function testMonthNameFailure()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid month: 0.');
+        $this->expectException('InvalidArgumentException', 'Invalid month: 0.');
         Calendar::monthName(0);
     }
 
@@ -122,7 +122,7 @@ class CalendarTest extends PHPUnit_Framework_TestCase
 
     public function testMonthAbbreviationFailure()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid month: 0.');
+        $this->expectException('InvalidArgumentException', 'Invalid month: 0.');
         Calendar::monthAbbreviation(0);
     }
 
@@ -154,7 +154,7 @@ class CalendarTest extends PHPUnit_Framework_TestCase
 
     public function testDayNameFailure()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid ISO-8601 day of week: 0.');
+        $this->expectException('InvalidArgumentException', 'Invalid ISO-8601 day of week: 0.');
         Calendar::dayName(0);
     }
 
@@ -168,7 +168,7 @@ class CalendarTest extends PHPUnit_Framework_TestCase
 
     public function testDayAbbreviationFailure()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid ISO-8601 day of week: 0.');
+        $this->expectException('InvalidArgumentException', 'Invalid ISO-8601 day of week: 0.');
         Calendar::dayAbbreviation(0);
     }
 

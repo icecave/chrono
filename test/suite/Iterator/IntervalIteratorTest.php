@@ -6,9 +6,9 @@ use Icecave\Chrono\Date;
 use Icecave\Chrono\DateTime;
 use Icecave\Chrono\Interval\Interval;
 use Icecave\Chrono\TimeSpan\Period;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class IntervalIteratorTest extends PHPUnit_Framework_TestCase
+class IntervalIteratorTest extends TestCase
 {
     protected function setUp()
     {

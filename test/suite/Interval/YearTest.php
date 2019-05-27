@@ -3,13 +3,13 @@
 namespace Icecave\Chrono\Interval;
 
 use Icecave\Chrono\Date;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers Icecave\Chrono\Interval\Year
  * @covers Icecave\Chrono\Detail\Iso8601
  */
-class YearTest extends PHPUnit_Framework_TestCase
+class YearTest extends TestCase
 {
     public function setUp()
     {
@@ -85,7 +85,7 @@ class YearTest extends PHPUnit_Framework_TestCase
      */
     public function testFromIsoStringWithInvalidIsoYear($isoString, $expected)
     {
-        $this->setExpectedException('InvalidArgumentException', $expected);
+        $this->expectException('InvalidArgumentException', $expected);
         Year::fromIsoString($isoString);
     }
 

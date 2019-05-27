@@ -2,9 +2,9 @@
 
 namespace Icecave\Chrono\Detail;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class OrdinalTest extends PHPUnit_Framework_TestCase
+class OrdinalTest extends TestCase
 {
     /**
      * @dataProvider makeTimestampData

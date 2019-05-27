@@ -6,9 +6,9 @@ use Eloquent\Liberator\Liberator;
 use Icecave\Chrono\DateTime;
 use Icecave\Isolator\Isolator;
 use Phake;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class SystemClockTest extends PHPUnit_Framework_TestCase
+class SystemClockTest extends TestCase
 {
     public function setUp()
     {

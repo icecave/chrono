@@ -3,13 +3,13 @@
 namespace Icecave\Chrono\Interval;
 
 use Icecave\Chrono\Date;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers Icecave\Chrono\Interval\Interval
  * @covers Icecave\Chrono\Detail\Iso8601
  */
-class IntervalTest extends PHPUnit_Framework_TestCase
+class IntervalTest extends TestCase
 {
     public function setUp()
     {
@@ -20,7 +20,7 @@ class IntervalTest extends PHPUnit_Framework_TestCase
 
     public function testConstructFailure()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Start point must not be greater than end point.');
+        $this->expectException('InvalidArgumentException', 'Start point must not be greater than end point.');
         new Interval($this->pointB, $this->pointA);
     }
 
@@ -82,7 +82,7 @@ class IntervalTest extends PHPUnit_Framework_TestCase
      */
     public function testFromIsoStringWithInvalidIsoString($isoString, $expected)
     {
-        $this->setExpectedException('InvalidArgumentException', $expected);
+        $this->expectException('InvalidArgumentException', $expected);
         $result = Interval::fromIsoString($isoString);
     }
 

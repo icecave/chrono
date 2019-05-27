@@ -2,9 +2,9 @@
 
 namespace Icecave\Chrono\Detail;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class Iso8601Test extends PHPUnit_Framework_TestCase
+class Iso8601Test extends TestCase
 {
     public function parseTimeData()
     {
