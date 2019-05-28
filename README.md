@@ -2,11 +2,11 @@
 
 [![Build Status](http://img.shields.io/travis/icecave/chrono/master.svg?style=flat-square)](https://travis-ci.org/icecave/chrono)
 [![Code Coverage](https://img.shields.io/codecov/c/github/icecave/chrono/master.svg?style=flat-square)](https://codecov.io/github/icecave/chrono)
-[![Latest Version](http://img.shields.io/packagist/v/recoil/recoil.svg?style=flat-square&label=semver)](https://semver.org)
+[![Latest Version](http://img.shields.io/packagist/v/icecave/chrono.svg?style=flat-square&label=semver)](https://semver.org)
 
 **Chrono** is a PHP date & time library that is decoupled from the system clock.
 
-    composer install icecave/chrono
+    composer require icecave/chrono
 
 ## Rationale
 
@@ -114,14 +114,3 @@ use Icecave\Chrono\DateTime;
 $dateTime = DateTime::fromNativeDateTime(new NativeDateTime);
 $nativeDateTime = $dateTime->nativeDateTime();
 ```
-
-## Contact us
-
-* Follow [@IcecaveStudios](https://twitter.com/IcecaveStudios) on Twitter
-* Visit the [Icecave Studios website](http://icecave.com.au)
-* Join `#icecave` on [irc.freenode.net](http://webchat.freenode.net?channels=icecave)
-
-<!-- references -->
-[Build Status]: http://img.shields.io/travis/IcecaveStudios/chrono/develop.svg?style=flat-square
-[Test Coverage]: http://img.shields.io/coveralls/IcecaveStudios/chrono/develop.svg?style=flat-square
-[SemVer]: http://img.shields.io/:semver-1.0.4-brightgreen.svg?style=flat-square
