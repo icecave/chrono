@@ -7,12 +7,14 @@ use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\Detail\Normalizer;
 use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormatterInterface;
-use Icecave\Parity\AbstractExtendedComparable;
+use Icecave\Parity\ExtendedComparableTrait;
 use Icecave\Parity\Exception\NotComparableException;
-use Icecave\Parity\SubClassComparableInterface;
+use Icecave\Parity\SubClassComparable;
 
-class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, SubClassComparableInterface
+class TimeOfDay implements TimeInterface, SubClassComparable
 {
+    use ExtendedComparableTrait;
+
     /**
      * @param integer       $hour     The hour component of the time.
      * @param integer       $minute   The minute component of the time.
@@ -212,7 +214,7 @@ class TimeOfDay extends AbstractExtendedComparable implements TimeInterface, Sub
       * @return integer                0 if $this and $time are equal, <0 if $this < $time, or >0 if $this > $time.
       * @throws NotComparableException Indicates that the implementation does not know how to compare $this to $time.
       */
-     public function compare($time)
+     public function compare($time): int
      {
          if (!$time instanceof self) {
              throw new NotComparableException($this, $time);

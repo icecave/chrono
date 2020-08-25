@@ -10,11 +10,13 @@ use Icecave\Chrono\Iterator\SecondIntervalIterator;
 use Icecave\Chrono\Iterator\YearIntervalIterator;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TimeSpan\Duration;
-use Icecave\Parity\AbstractExtendedComparable;
+use Icecave\Parity\ExtendedComparableTrait;
 use Icecave\Parity\Exception\NotComparableException;
 
-abstract class AbstractInterval extends AbstractExtendedComparable implements IntervalInterface
+abstract class AbstractInterval implements IntervalInterface
 {
+    use ExtendedComparableTrait;
+
     /**
      * @return boolean True if the interval indicates a non-zero duration; otherwise, false.
      */
@@ -33,7 +35,7 @@ abstract class AbstractInterval extends AbstractExtendedComparable implements In
      *
      * @return boolean True if $this can be compared to $value.
      */
-    public function canCompare($value)
+    public function canCompare($value): bool
     {
         return $value instanceof IntervalInterface;
     }
@@ -54,7 +56,7 @@ abstract class AbstractInterval extends AbstractExtendedComparable implements In
      * @return integer                0 if $this and $interval are equal, <0 if $this < $interval, or >0 if $this > $interval.
      * @throws NotComparableException Indicates that the implementation does not know how to compare $this to $value.
      */
-    public function compare($interval)
+    public function compare($interval): int
     {
         if (!$this->canCompare($interval)) {
             throw new NotComparableException($this, $interval);

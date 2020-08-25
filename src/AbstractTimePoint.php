@@ -5,14 +5,16 @@ namespace Icecave\Chrono;
 use Icecave\Chrono\Detail\Calendar;
 use Icecave\Chrono\TimeSpan\Duration;
 use Icecave\Chrono\TimeSpan\Period;
-use Icecave\Parity\AbstractExtendedComparable;
+use Icecave\Parity\ExtendedComparableTrait;
 use Icecave\Parity\Exception\NotComparableException;
 
 /**
  * Represents a concrete point on the time continuum.
  */
-abstract class AbstractTimePoint extends AbstractExtendedComparable implements TimePointInterface
+abstract class AbstractTimePoint implements TimePointInterface
 {
+    use ExtendedComparableTrait;
+
     /**
      * Check if $this is able to be compared to another value.
      *
@@ -23,7 +25,7 @@ abstract class AbstractTimePoint extends AbstractExtendedComparable implements T
      *
      * @return boolean True if $this can be compared to $value.
      */
-    public function canCompare($value)
+    public function canCompare($value): bool
     {
         return $value instanceof TimePointInterface;
     }
@@ -44,7 +46,7 @@ abstract class AbstractTimePoint extends AbstractExtendedComparable implements T
      * @return integer                0 if $this and $timePoint are equal, <0 if $this < $timePoint, or >0 if $this > $timePoint.
      * @throws NotComparableException Indicates that the implementation does not know how to compare $this to $timePoint.
      */
-    public function compare($timePoint)
+    public function compare($timePoint): int
     {
         if (!$this->canCompare($timePoint)) {
             throw new NotComparableException($this, $timePoint);

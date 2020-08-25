@@ -10,12 +10,14 @@ use Icecave\Chrono\Interval\Interval;
 use Icecave\Chrono\Interval\IntervalInterface;
 use Icecave\Chrono\Iso8601Interface;
 use Icecave\Chrono\TimePointInterface;
-use Icecave\Parity\AbstractExtendedComparable;
+use Icecave\Parity\ExtendedComparableTrait;
 use Icecave\Parity\Exception\NotComparableException;
-use Icecave\Parity\SubClassComparableInterface;
+use Icecave\Parity\SubClassComparable;
 
-class Period extends AbstractExtendedComparable implements TimeSpanInterface, Iso8601Interface, SubClassComparableInterface
+class Period implements TimeSpanInterface, Iso8601Interface, SubClassComparable
 {
+    use ExtendedComparableTrait;
+
     /**
      * @param integer $years   The years in the period.
      * @param integer $months  The months in the period.
@@ -172,7 +174,7 @@ class Period extends AbstractExtendedComparable implements TimeSpanInterface, Is
      * @return integer                0 if $this and $period are equal, <0 if $this < $period, or >0 if $this > $period.
      * @throws NotComparableException Indicates that the implementation does not know how to compare $this to $period.
      */
-    public function compare($period)
+    public function compare($period): int
     {
         if (!$period instanceof self) {
             throw new NotComparableException($this, $period);

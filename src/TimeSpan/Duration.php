@@ -10,16 +10,18 @@ use Icecave\Chrono\Interval\Interval;
 use Icecave\Chrono\Interval\IntervalInterface;
 use Icecave\Chrono\Iso8601Interface;
 use Icecave\Chrono\TimePointInterface;
-use Icecave\Parity\AbstractExtendedComparable;
+use Icecave\Parity\ExtendedComparableTrait;
 use Icecave\Parity\Exception\NotComparableException;
-use Icecave\Parity\SubClassComparableInterface;
+use Icecave\Parity\SubClassComparable;
 use InvalidArgumentException;
 
 /**
  * A duration represents a concrete amount of time.
  */
-class Duration extends AbstractExtendedComparable implements TimeSpanInterface, Iso8601Interface, SubClassComparableInterface
+class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparable
 {
+    use ExtendedComparableTrait;
+
     /**
      * @param integer $seconds The total number of seconds in the duration.
      */
@@ -255,7 +257,7 @@ class Duration extends AbstractExtendedComparable implements TimeSpanInterface, 
      * @return integer                0 if $this and $duration are equal, <0 if $this < $duration, or >0 if $this > $duration.
      * @throws NotComparableException Indicates that the implementation does not know how to compare $this to $duration.
      */
-    public function compare($duration)
+    public function compare($duration): int
     {
         if (!$duration instanceof self) {
             throw new NotComparableException($this, $duration);

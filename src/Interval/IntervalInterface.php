@@ -5,13 +5,13 @@ namespace Icecave\Chrono\Interval;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TimeSpan\Duration;
 use Icecave\Chrono\TimeSpan\Period;
-use Icecave\Parity\ExtendedComparableInterface;
-use Icecave\Parity\RestrictedComparableInterface;
+use Icecave\Parity\ExtendedComparable;
+use Icecave\Parity\RestrictedComparable;
 
 /**
  * An interval represents a stretch of time between two known time points.
  */
-interface IntervalInterface extends ExtendedComparableInterface, RestrictedComparableInterface
+interface IntervalInterface extends ExtendedComparable, RestrictedComparable
 {
     /**
      * @return TimePointInterface The start of the interval.

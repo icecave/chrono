@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7d63434510aae42a7984d143ef2b691f",
+    "content-hash": "07c497ed645f850e35e4629a38eea037",
     "packages": [
         {
             "name": "icecave/isolator",
@@ -66,26 +66,27 @@
         },
         {
             "name": "icecave/parity",
-            "version": "2.0.0",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/icecave/parity.git",
-                "reference": "f3db2dd1fb7dbfaf466306cec24b41afb82dab97"
+                "reference": "e82f570dbe703198a9d45388146278121228cbdf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/icecave/parity/zipball/f3db2dd1fb7dbfaf466306cec24b41afb82dab97",
-                "reference": "f3db2dd1fb7dbfaf466306cec24b41afb82dab97",
+                "url": "https://api.github.com/repos/icecave/parity/zipball/e82f570dbe703198a9d45388146278121228cbdf",
+                "reference": "e82f570dbe703198a9d45388146278121228cbdf",
                 "shasum": ""
             },
             "require": {
-                "icecave/repr": "^1",
-                "php": "^7"
+                "icecave/repr": "^4",
+                "php": "^7.2"
             },
             "require-dev": {
-                "eloquent/liberator": "^1",
-                "phake/phake": "^1",
-                "phpunit/phpunit": "^7"
+                "eloquent/liberator": "^2",
+                "friendsofphp/php-cs-fixer": "^2",
+                "phake/phake": "^3",
+                "phpunit/phpunit": "^8"
             },
             "type": "library",
             "autoload": {
@@ -100,12 +101,12 @@
             "authors": [
                 {
                     "name": "James Harris",
-                    "email": "james.harris@icecave.com.au",
+                    "email": "mailjamesharris@gmail.com",
                     "homepage": "https://github.com/jmalloc"
                 }
             ],
             "description": "A customizable deep comparison library.",
-            "homepage": "https://github.com/IcecaveStudios/parity",
+            "homepage": "https://github.com/icecave/parity",
             "keywords": [
                 "compare",
                 "comparison",
@@ -116,30 +117,29 @@
                 "sort",
                 "sorting"
             ],
-            "time": "2018-11-06T11:54:23+00:00"
+            "time": "2020-08-25T04:32:23+00:00"
         },
         {
             "name": "icecave/repr",
-            "version": "1.0.1",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/icecave/repr.git",
-                "reference": "8a3d2953adf5f464a06e3e2587aeacc97e2bed07"
+                "reference": "3dad35ee43394404ae0f1926d754e7b7820da8e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/icecave/repr/zipball/8a3d2953adf5f464a06e3e2587aeacc97e2bed07",
-                "reference": "8a3d2953adf5f464a06e3e2587aeacc97e2bed07",
+                "url": "https://api.github.com/repos/icecave/repr/zipball/3dad35ee43394404ae0f1926d754e7b7820da8e4",
+                "reference": "3dad35ee43394404ae0f1926d754e7b7820da8e4",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3"
+                "php": ">=7.2"
             },
             "require-dev": {
-                "icecave/archer": "~1"
-            },
-            "suggest": {
-                "eloquent/asplode": "Drop-in exception-based error handling."
+                "eloquent/phony-phpunit": "^6",
+                "friendsofphp/php-cs-fixer": "^2",
+                "phpunit/phpunit": "^8"
             },
             "type": "library",
             "autoload": {
@@ -154,12 +154,12 @@
             "authors": [
                 {
                     "name": "James Harris",
-                    "email": "james.harris@icecave.com.au",
+                    "email": "mailjamesharris@gmail.com",
                     "homepage": "https://github.com/jmalloc"
                 }
             ],
             "description": "A library for generating string representations of any value, inspired by Python's reprlib library.",
-            "homepage": "https://github.com/IcecaveStudios/repr",
+            "homepage": "https://github.com/icecave/repr",
             "keywords": [
                 "human",
                 "readable",
@@ -167,7 +167,7 @@
                 "representation",
                 "string"
             ],
-            "time": "2014-07-25T05:44:41+00:00"
+            "time": "2020-08-25T02:05:11+00:00"
         }
     ],
     "packages-dev": [
@@ -395,26 +395,28 @@
         },
         {
             "name": "phake/phake",
-            "version": "v2.0.2",
+            "version": "v3.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mlively/Phake.git",
-                "reference": "15d688aa23e6d5db433accb75feea6c0a1cdd1f1"
+                "reference": "9f9dfb12c9ce6e38c73de9631ea2ab0f0ea36a65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mlively/Phake/zipball/15d688aa23e6d5db433accb75feea6c0a1cdd1f1",
-                "reference": "15d688aa23e6d5db433accb75feea6c0a1cdd1f1",
+                "url": "https://api.github.com/repos/mlively/Phake/zipball/9f9dfb12c9ce6e38c73de9631ea2ab0f0ea36a65",
+                "reference": "9f9dfb12c9ce6e38c73de9631ea2ab0f0ea36a65",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=7",
+                "sebastian/comparator": "^1.1|^2.0|^3.0|^4.0"
             },
             "require-dev": {
+                "codeclimate/php-test-reporter": "dev-master",
                 "doctrine/common": "2.3.*",
                 "ext-soap": "*",
                 "hamcrest/hamcrest-php": "1.1.*",
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": "^7.0"
             },
             "suggest": {
                 "doctrine/common": "Allows mock annotations to use import statements for classes.",
@@ -423,7 +425,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0-dev"
+                    "dev-master": "3.0.0-dev"
                 }
             },
             "autoload": {
@@ -447,7 +449,7 @@
                 "mock",
                 "testing"
             ],
-            "time": "2015-03-21T18:05:30+00:00"
+            "time": "2020-05-11T18:43:26+00:00"
         },
         {
             "name": "phar-io/manifest",

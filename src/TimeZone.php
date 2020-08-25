@@ -6,12 +6,14 @@ use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormattableInterface;
 use Icecave\Chrono\Format\FormatterInterface;
-use Icecave\Parity\AbstractExtendedComparable;
+use Icecave\Parity\ExtendedComparableTrait;
 use Icecave\Parity\Exception\NotComparableException;
-use Icecave\Parity\SubClassComparableInterface;
+use Icecave\Parity\SubClassComparable;
 
-class TimeZone extends AbstractExtendedComparable implements Iso8601Interface, FormattableInterface, SubClassComparableInterface
+class TimeZone implements Iso8601Interface, FormattableInterface, SubClassComparable
 {
+    use ExtendedComparableTrait;
+
     /**
      * @param integer $offset The offset from UTC in seconds.
      * @param boolean $isDst  True if the timezone is currently honouring daylight saving time; otherwise, false.
@@ -85,7 +87,7 @@ class TimeZone extends AbstractExtendedComparable implements Iso8601Interface, F
      * @return integer                0 if $this and $timeZone are equal, <0 if $this < $timeZone, or >0 if $this > $timeZone.
      * @throws NotComparableException Indicates that the implementation does not know how to compare $this to $timeZone.
      */
-    public function compare($timeZone)
+    public function compare($timeZone): int
     {
         if (!$timeZone instanceof self) {
             throw new NotComparableException($this, $timeZone);

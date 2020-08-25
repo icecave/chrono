@@ -6,13 +6,13 @@ use DateTime as NativeDateTime;
 use Icecave\Chrono\TimeSpan\Duration;
 use Icecave\Chrono\TimeSpan\Period;
 use Icecave\Chrono\TimeSpan\TimeSpanInterface;
-use Icecave\Parity\ExtendedComparableInterface;
-use Icecave\Parity\RestrictedComparableInterface;
+use Icecave\Parity\ExtendedComparable;
+use Icecave\Parity\RestrictedComparable;
 
 /**
  * Represents a concrete point on the time continuum.
  */
-interface TimePointInterface extends DateInterface, TimeInterface, ExtendedComparableInterface, RestrictedComparableInterface
+interface TimePointInterface extends DateInterface, TimeInterface, ExtendedComparable, RestrictedComparable
 {
     /**
      * @return integer The number of seconds since unix epoch (1970-01-01 00:00:00+00:00).
