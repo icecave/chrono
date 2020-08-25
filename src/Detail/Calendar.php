@@ -7,9 +7,9 @@ use InvalidArgumentException;
 abstract class Calendar
 {
     /**
-     * @param integer $year
+     * @param int $year
      *
-     * @return integer
+     * @return int
      */
     public static function daysInYear($year)
     {
@@ -21,10 +21,10 @@ abstract class Calendar
     }
 
     /**
-     * @param integer $year
-     * @param integer $month
+     * @param int $year
+     * @param int $month
      *
-     * @return integer
+     * @return int
      */
     public static function daysInMonth($year, $month)
     {
@@ -56,9 +56,9 @@ abstract class Calendar
     }
 
     /**
-     * @param integer $year
+     * @param int $year
      *
-     * @return boolean
+     * @return bool
      */
     public static function isLeapYear($year)
     {
@@ -72,7 +72,7 @@ abstract class Calendar
     }
 
     /**
-     * @param integer $month
+     * @param int $month
      *
      * @return string
      */
@@ -109,7 +109,7 @@ abstract class Calendar
     }
 
     /**
-     * @param integer $month
+     * @param int $month
      *
      * @return string
      */
@@ -146,7 +146,7 @@ abstract class Calendar
     }
 
     /**
-     * @param integer $isoDay
+     * @param int $isoDay
      *
      * @return string
      */
@@ -173,7 +173,7 @@ abstract class Calendar
     }
 
     /**
-     * @param integer $isoDay
+     * @param int $isoDay
      *
      * @return string
      */
@@ -200,11 +200,11 @@ abstract class Calendar
     }
 
     /**
-     * @param integer $year
-     * @param integer $month
-     * @param integer $day
+     * @param int $year
+     * @param int $month
+     * @param int $day
      *
-     * @return integer
+     * @return int
      */
     public static function dayOfYear($year, $month, $day)
     {
@@ -221,12 +221,12 @@ abstract class Calendar
     }
 
     /**
-     * @param integer $year
-     * @param integer $month
-     * @param integer $day
-     * @param boolean $iso
+     * @param int  $year
+     * @param int  $month
+     * @param int  $day
+     * @param bool $iso
      *
-     * @return integer
+     * @return int
      */
     public static function dayOfWeek($year, $month, $day, $iso = true)
     {
@@ -247,11 +247,11 @@ abstract class Calendar
     }
 
     /**
-     * @param integer $year
-     * @param integer $month
-     * @param integer $day
+     * @param int $year
+     * @param int $month
+     * @param int $day
      *
-     * @return integer
+     * @return int
      */
     public static function isoWeekNumber($year, $month, $day)
     {
@@ -268,11 +268,11 @@ abstract class Calendar
     }
 
     /**
-     * @param integer $year
-     * @param integer $month
-     * @param integer $day
+     * @param int $year
+     * @param int $month
+     * @param int $day
      *
-     * @return integer
+     * @return int
      */
     public static function isoYearNumber($year, $month, $day)
     {
@@ -289,15 +289,15 @@ abstract class Calendar
     }
 
     /**
-     * @param integer $years   The years in the period.
-     * @param integer $months  The months in the period.
-     * @param integer $weeks   The weeks in the period.
-     * @param integer $days    The days in the period.
-     * @param integer $hours   The hours in the period.
-     * @param integer $minutes The minutes in the period.
-     * @param integer $seconds The seconds in the period.
+     * @param int $years   The years in the period.
+     * @param int $months  The months in the period.
+     * @param int $weeks   The weeks in the period.
+     * @param int $days    The days in the period.
+     * @param int $hours   The hours in the period.
+     * @param int $minutes The minutes in the period.
+     * @param int $seconds The seconds in the period.
      *
-     * @return integer The approximate total seconds in the period.
+     * @return int The approximate total seconds in the period.
      */
     public static function approximateTotalSeconds($years = 0, $months = 0, $weeks = 0, $days = 0, $hours = 0, $minutes = 0, $seconds = 0)
     {

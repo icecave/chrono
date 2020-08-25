@@ -10,15 +10,15 @@ use Icecave\Chrono\Iterator\SecondIntervalIterator;
 use Icecave\Chrono\Iterator\YearIntervalIterator;
 use Icecave\Chrono\TimePointInterface;
 use Icecave\Chrono\TimeSpan\Duration;
-use Icecave\Parity\ExtendedComparableTrait;
 use Icecave\Parity\Exception\NotComparableException;
+use Icecave\Parity\ExtendedComparableTrait;
 
 abstract class AbstractInterval implements IntervalInterface
 {
     use ExtendedComparableTrait;
 
     /**
-     * @return boolean True if the interval indicates a non-zero duration; otherwise, false.
+     * @return bool True if the interval indicates a non-zero duration; otherwise, false.
      */
     public function isEmpty()
     {
@@ -33,7 +33,7 @@ abstract class AbstractInterval implements IntervalInterface
      *
      * @param mixed $value The value to compare.
      *
-     * @return boolean True if $this can be compared to $value.
+     * @return bool True if $this can be compared to $value.
      */
     public function canCompare($value): bool
     {
@@ -53,7 +53,7 @@ abstract class AbstractInterval implements IntervalInterface
      *
      * @param mixed $interval The interval to compare.
      *
-     * @return integer                0 if $this and $interval are equal, <0 if $this < $interval, or >0 if $this > $interval.
+     * @return int                    0 if $this and $interval are equal, <0 if $this < $interval, or >0 if $this > $interval.
      * @throws NotComparableException Indicates that the implementation does not know how to compare $this to $value.
      */
     public function compare($interval): int
@@ -71,7 +71,7 @@ abstract class AbstractInterval implements IntervalInterface
      *
      * @param TimePointInterface $timePoint The time point to check.
      *
-     * @return boolean True if this interval contains the given time point; otherwise, false.
+     * @return bool True if this interval contains the given time point; otherwise, false.
      */
     public function contains(TimePointInterface $timePoint)
     {
@@ -84,7 +84,7 @@ abstract class AbstractInterval implements IntervalInterface
      *
      * @param IntervalInterface $interval The interval to check.
      *
-     * @return boolean True if this interval entirely contains the given interval; otherwise, false.
+     * @return bool True if this interval entirely contains the given interval; otherwise, false.
      */
     public function encompasses(IntervalInterface $interval)
     {
@@ -97,7 +97,7 @@ abstract class AbstractInterval implements IntervalInterface
      *
      * @param IntervalInterface $interval The interval to check.
      *
-     * @return boolean True if this interval intersects the given interval; otherwise, false.
+     * @return bool True if this interval intersects the given interval; otherwise, false.
      */
     public function intersects(IntervalInterface $interval)
     {

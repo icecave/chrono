@@ -18,13 +18,13 @@ class IntervalIteratorTest extends TestCase
 
         $this->interval = new Interval($this->startTime, $this->endTime);
 
-        $this->expected = array(
+        $this->expected = [
             0 => new DateTime(2012, 12, 20),
             1 => new DateTime(2012, 12, 21),
             2 => new DateTime(2012, 12, 22),
             3 => new DateTime(2012, 12, 23),
             4 => new DateTime(2012, 12, 24),
-        );
+        ];
     }
 
     public function testIteration()

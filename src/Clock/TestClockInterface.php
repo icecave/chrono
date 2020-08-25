@@ -13,14 +13,14 @@ interface TestClockInterface extends SuspendableClockInterface
     /**
      * Add a time span to the current local date/time.
      *
-     * @param TimeSpanInterface|integer $timeSpan A time span instance, or an integer representing seconds.
+     * @param TimeSpanInterface|int $timeSpan A time span instance, or an integer representing seconds.
      */
     public function addTime($timeSpan);
 
     /**
      * Subtract a time span from the current local date/time.
      *
-     * @param TimeSpanInterface|integer $timeSpan A time span instance, or an integer representing seconds.
+     * @param TimeSpanInterface|int $timeSpan A time span instance, or an integer representing seconds.
      */
     public function subtractTime($timeSpan);
 

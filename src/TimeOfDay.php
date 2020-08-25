@@ -7,8 +7,8 @@ use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\Detail\Normalizer;
 use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormatterInterface;
-use Icecave\Parity\ExtendedComparableTrait;
 use Icecave\Parity\Exception\NotComparableException;
+use Icecave\Parity\ExtendedComparableTrait;
 use Icecave\Parity\SubClassComparable;
 
 class TimeOfDay implements TimeInterface, SubClassComparable
@@ -16,9 +16,9 @@ class TimeOfDay implements TimeInterface, SubClassComparable
     use ExtendedComparableTrait;
 
     /**
-     * @param integer       $hour     The hour component of the time.
-     * @param integer       $minute   The minute component of the time.
-     * @param integer       $second   The second component of the time.
+     * @param int           $hour     The hour component of the time.
+     * @param int           $minute   The minute component of the time.
+     * @param int           $second   The second component of the time.
      * @param TimeZone|null $timeZone The time zone of the time, or null to use UTC.
      */
     public function __construct(
@@ -71,7 +71,7 @@ class TimeOfDay implements TimeInterface, SubClassComparable
     }
 
     /**
-     * @param integer       $unixTime The unix timestamp.
+     * @param int           $unixTime The unix timestamp.
      * @param TimeZone|null $timeZone The time zone of the time, or null to use UTC.
      *
      * @return TimeOfDay The TimeOfDay constructed from the given timestamp and time zone.
@@ -109,7 +109,7 @@ class TimeOfDay implements TimeInterface, SubClassComparable
     }
 
     /**
-     * @return integer The hour component of the time.
+     * @return int The hour component of the time.
      */
     public function hour()
     {
@@ -117,7 +117,7 @@ class TimeOfDay implements TimeInterface, SubClassComparable
     }
 
     /**
-     * @return integer The minute component of the time.
+     * @return int The minute component of the time.
      */
     public function minute()
     {
@@ -125,7 +125,7 @@ class TimeOfDay implements TimeInterface, SubClassComparable
     }
 
     /**
-     * @return integer The second component of the time.
+     * @return int The second component of the time.
      */
     public function second()
     {
@@ -211,7 +211,7 @@ class TimeOfDay implements TimeInterface, SubClassComparable
       *
       * @param mixed $time The time to compare.
       *
-      * @return integer                0 if $this and $time are equal, <0 if $this < $time, or >0 if $this > $time.
+      * @return int                0 if $this and $time are equal, <0 if $this < $time, or >0 if $this > $time.
       * @throws NotComparableException Indicates that the implementation does not know how to compare $this to $time.
       */
      public function compare($time): int
@@ -225,7 +225,7 @@ class TimeOfDay implements TimeInterface, SubClassComparable
      }
 
      /**
-      * @return integer The total number of seconds since 00:00.
+      * @return int The total number of seconds since 00:00.
       */
      public function totalSeconds()
      {

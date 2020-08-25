@@ -144,15 +144,15 @@ class AbstractTimePointTest extends TestCase
 
     public function isoDaysOfWeek()
     {
-        return array(
-            array(new Date(2013, 8,  5),   1),
-            array(new Date(2013, 8,  6),   2),
-            array(new Date(2013, 8,  7),   3),
-            array(new Date(2013, 8,  8),   4),
-            array(new Date(2013, 8,  9),   5),
-            array(new Date(2013, 8, 10),   6),
-            array(new Date(2013, 8, 11),   7),
-        );
+        return [
+            [new Date(2013, 8, 5),   1],
+            [new Date(2013, 8, 6),   2],
+            [new Date(2013, 8, 7),   3],
+            [new Date(2013, 8, 8),   4],
+            [new Date(2013, 8, 9),   5],
+            [new Date(2013, 8, 10),   6],
+            [new Date(2013, 8, 11),   7],
+        ];
     }
 
     /**
@@ -165,14 +165,14 @@ class AbstractTimePointTest extends TestCase
 
     public function numericDaysOfWeek()
     {
-        return array(
-            array(new Date(2013, 8,  5),   1),
-            array(new Date(2013, 8,  6),   2),
-            array(new Date(2013, 8,  7),   3),
-            array(new Date(2013, 8,  8),   4),
-            array(new Date(2013, 8,  9),   5),
-            array(new Date(2013, 8, 10),   6),
-            array(new Date(2013, 8, 11),   0),
-        );
+        return [
+            [new Date(2013, 8, 5),   1],
+            [new Date(2013, 8, 6),   2],
+            [new Date(2013, 8, 7),   3],
+            [new Date(2013, 8, 8),   4],
+            [new Date(2013, 8, 9),   5],
+            [new Date(2013, 8, 10),   6],
+            [new Date(2013, 8, 11),   0],
+        ];
     }
 }

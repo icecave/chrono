@@ -76,20 +76,20 @@ class DefaultFormatterTest extends TestCase
 
     public function dateFormats()
     {
-        $formats =  array(
-            'swatch internet time'  => array('B', '625'),
+        $formats =  [
+            'swatch internet time'  => ['B', '625'],
 
-            'unpadded 12hr hours'   => array('g', '12'),
-            'unpadded 24hr hours'   => array('G', '0'),
-            'padded 12hr hours'     => array('h', '12'),
-            'padded 24hr hours'     => array('H', '00'),
-            'padded minutes'        => array('i', '00'),
-            'padded seconds'        => array('s', '00'),
+            'unpadded 12hr hours'   => ['g', '12'],
+            'unpadded 24hr hours'   => ['G', '0'],
+            'padded 12hr hours'     => ['h', '12'],
+            'padded 24hr hours'     => ['H', '00'],
+            'padded minutes'        => ['i', '00'],
+            'padded seconds'        => ['s', '00'],
 
-            'ISO-8601 date'         => array('c', '2012-06-07T00:00:00+10:00'),
-            'RFC-2822 date'         => array('r', 'Thu, 07 Jun 2012 00:00:00 +1000'),
-            'unix time'             => array('U', '1338991200'),
-        );
+            'ISO-8601 date'         => ['c', '2012-06-07T00:00:00+10:00'],
+            'RFC-2822 date'         => ['r', 'Thu, 07 Jun 2012 00:00:00 +1000'],
+            'unix time'             => ['U', '1338991200'],
+        ];
 
         return $formats + $this->dateTimeFormats();
     }
@@ -104,26 +104,26 @@ class DefaultFormatterTest extends TestCase
 
     public function timeOfDayFormats()
     {
-        return array(
-            'lowercase am/pm'       => array('a', 'am'), // need to test PM
-            'uppercase am/pm'       => array('A', 'AM'),
-            'swatch internet time'  => array('B', '005'),
+        return [
+            'lowercase am/pm'       => ['a', 'am'], // need to test PM
+            'uppercase am/pm'       => ['A', 'AM'],
+            'swatch internet time'  => ['B', '005'],
 
-            'unpadded 12hr hours'   => array('g', '9'), // need to test with PM
-            'unpadded 24hr hours'   => array('G', '9'), // need to test with PM
-            'padded 12hr hours'     => array('h', '09'), // need to test with PM
-            'padded 24hr hours'     => array('H', '09'), // need to test with PM
-            'padded minutes'        => array('i', '08'),
-            'padded seconds'        => array('s', '07'),
-            'microseconds'          => array('u', '0'),
+            'unpadded 12hr hours'   => ['g', '9'], // need to test with PM
+            'unpadded 24hr hours'   => ['G', '9'], // need to test with PM
+            'padded 12hr hours'     => ['h', '09'], // need to test with PM
+            'padded 24hr hours'     => ['H', '09'], // need to test with PM
+            'padded minutes'        => ['i', '08'],
+            'padded seconds'        => ['s', '07'],
+            'microseconds'          => ['u', '0'],
 
             // 'timezone identifier'   => array('e', '???'), // not currently supported
-            'daylight savings'      => array('I', '0'), // need to test DST
-            'timezone offset'       => array('O', '+1000'), // need to test negative
-            'timezone offset colon' => array('P', '+10:00'), // need to test negative
+            'daylight savings'      => ['I', '0'], // need to test DST
+            'timezone offset'       => ['O', '+1000'], // need to test negative
+            'timezone offset colon' => ['P', '+10:00'], // need to test negative
             // 'timezone abbreviation' => array('T', '???'), // not currently supported
-            'timezone seconds'      => array('Z', '36000'), // need to test negative
-        );
+            'timezone seconds'      => ['Z', '36000'], // need to test negative
+        ];
     }
 
     /**
@@ -136,52 +136,52 @@ class DefaultFormatterTest extends TestCase
 
     public function dateTimeFormats()
     {
-        return array(
-            'padded day of month'   => array('d', '07'),
-            'short day name'        => array('D', 'Thu'),
-            'unpadded day of month' => array('j', '7'),
-            'long day name'         => array('l', 'Thursday'),
-            'ISO-8601 day number'   => array('N', '4'),
-            'ordinal suffix'        => array('S', 'th'), // probably need to test other suffixes
-            'day of week'           => array('w', '4'),
-            'day of year'           => array('z', '159'),
+        return [
+            'padded day of month'   => ['d', '07'],
+            'short day name'        => ['D', 'Thu'],
+            'unpadded day of month' => ['j', '7'],
+            'long day name'         => ['l', 'Thursday'],
+            'ISO-8601 day number'   => ['N', '4'],
+            'ordinal suffix'        => ['S', 'th'], // probably need to test other suffixes
+            'day of week'           => ['w', '4'],
+            'day of year'           => ['z', '159'],
 
-            'ISO-8601 week number'  => array('W', '23'), // ??
+            'ISO-8601 week number'  => ['W', '23'], // ??
 
-            'long month name'       => array('F', 'June'),
-            'padded month number'   => array('m', '06'),
-            'short month name'      => array('M', 'Jun'),
-            'unpadded month number' => array('n', '6'),
-            'days in month'         => array('t', '30'),
+            'long month name'       => ['F', 'June'],
+            'padded month number'   => ['m', '06'],
+            'short month name'      => ['M', 'Jun'],
+            'unpadded month number' => ['n', '6'],
+            'days in month'         => ['t', '30'],
 
-            'leap year'             => array('L', '1'), // need to test non leap year
-            'ISO-8601 year number'  => array('o', '2012'), // need to test wrapping based on week number
-            'year number'           => array('Y', '2012'),
-            'short year number'     => array('y', '12'),
+            'leap year'             => ['L', '1'], // need to test non leap year
+            'ISO-8601 year number'  => ['o', '2012'], // need to test wrapping based on week number
+            'year number'           => ['Y', '2012'],
+            'short year number'     => ['y', '12'],
 
-            'lowercase am/pm'       => array('a', 'am'), // need to test PM
-            'uppercase am/pm'       => array('A', 'AM'),
-            'swatch internet time'  => array('B', '005'),
+            'lowercase am/pm'       => ['a', 'am'], // need to test PM
+            'uppercase am/pm'       => ['A', 'AM'],
+            'swatch internet time'  => ['B', '005'],
 
-            'unpadded 12hr hours'   => array('g', '9'), // need to test with PM
-            'unpadded 24hr hours'   => array('G', '9'), // need to test with PM
-            'padded 12hr hours'     => array('h', '09'), // need to test with PM
-            'padded 24hr hours'     => array('H', '09'), // need to test with PM
-            'padded minutes'        => array('i', '08'),
-            'padded seconds'        => array('s', '07'),
-            'microseconds'          => array('u', '0'),
+            'unpadded 12hr hours'   => ['g', '9'], // need to test with PM
+            'unpadded 24hr hours'   => ['G', '9'], // need to test with PM
+            'padded 12hr hours'     => ['h', '09'], // need to test with PM
+            'padded 24hr hours'     => ['H', '09'], // need to test with PM
+            'padded minutes'        => ['i', '08'],
+            'padded seconds'        => ['s', '07'],
+            'microseconds'          => ['u', '0'],
 
             // 'timezone identifier'   => array('e', '???'), // not currently supported
-            'daylight savings'      => array('I', '0'), // need to test DST
-            'timezone offset'       => array('O', '+1000'), // need to test negative
-            'timezone offset colon' => array('P', '+10:00'), // need to test negative
+            'daylight savings'      => ['I', '0'], // need to test DST
+            'timezone offset'       => ['O', '+1000'], // need to test negative
+            'timezone offset colon' => ['P', '+10:00'], // need to test negative
             // 'timezone abbreviation' => array('T', '???'), // not currently supported
-            'timezone seconds'      => array('Z', '36000'), // need to test negative
+            'timezone seconds'      => ['Z', '36000'], // need to test negative
 
-            'ISO-8601 date'         => array('c', '2012-06-07T09:08:07+10:00'),
-            'RFC-2822 date'         => array('r', 'Thu, 07 Jun 2012 09:08:07 +1000'),
-            'unix time'             => array('U', '1339024087'),
-        );
+            'ISO-8601 date'         => ['c', '2012-06-07T09:08:07+10:00'],
+            'RFC-2822 date'         => ['r', 'Thu, 07 Jun 2012 09:08:07 +1000'],
+            'unix time'             => ['U', '1339024087'],
+        ];
     }
 
     /**
@@ -195,14 +195,14 @@ class DefaultFormatterTest extends TestCase
 
     public function timeZoneFormats()
     {
-        return array(
+        return [
             // 'timezone identifier'   => array('e', '???'), // not currently supported
-            'daylight savings'      => array('I', '1'), // need to test DST
-            'timezone offset'       => array('O', '+0930'), // need to test negative
-            'timezone offset colon' => array('P', '+09:30'), // need to test negative
+            'daylight savings'      => ['I', '1'], // need to test DST
+            'timezone offset'       => ['O', '+0930'], // need to test negative
+            'timezone offset colon' => ['P', '+09:30'], // need to test negative
             // 'timezone abbreviation' => array('T', '???'), // not currently supported
-            'timezone seconds'      => array('Z', '34200'), // need to test negative
-        );
+            'timezone seconds'      => ['Z', '34200'], // need to test negative
+        ];
     }
 
     public function testInstance()

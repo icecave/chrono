@@ -74,10 +74,10 @@ class YearTest extends TestCase
 
     public function validIsoStrings()
     {
-        return array(
-            'Year'              => array('2012',    '2012'),
-            'Zero prefix year'  => array('0012',    '0012'),
-        );
+        return [
+            'Year'              => ['2012',    '2012'],
+            'Zero prefix year'  => ['0012',    '0012'],
+        ];
     }
 
     /**
@@ -91,11 +91,11 @@ class YearTest extends TestCase
 
     public function invalidIsoStrings()
     {
-        return array(
-            'Empty'                 => array('',        'Invalid ISO year: ""'),
-            'Not enough digits'     => array('1',       'Invalid ISO year: "1"'),
-            'Not enough digits'     => array('12',      'Invalid ISO year: "12"'),
-            'Not enough digits'     => array('123',     'Invalid ISO year: "123"'),
-        );
+        return [
+            'Empty'                 => ['',        'Invalid ISO year: ""'],
+            'Not enough digits'     => ['1',       'Invalid ISO year: "1"'],
+            'Not enough digits'     => ['12',      'Invalid ISO year: "12"'],
+            'Not enough digits'     => ['123',     'Invalid ISO year: "123"'],
+        ];
     }
 }

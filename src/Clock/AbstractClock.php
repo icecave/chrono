@@ -157,7 +157,7 @@ abstract class AbstractClock implements SuspendableClockInterface
     }
 
     /**
-     * @return integer The current time as a unix timestamp.
+     * @return int The current time as a unix timestamp.
      */
     public function unixTime()
     {
@@ -184,11 +184,11 @@ abstract class AbstractClock implements SuspendableClockInterface
     public function suspend()
     {
         if (1 === ++$this->suspendCount) {
-            $this->suspendState = array(
+            $this->suspendState = [
                 $this->currentLocalTimeInfo(),
                 $this->currentUtcTimeInfo(),
                 $this->currentUnixTime(),
-            );
+            ];
         }
     }
 
@@ -208,7 +208,7 @@ abstract class AbstractClock implements SuspendableClockInterface
     }
 
     /**
-     * @return boolean True if the clock is currently suspended; otherwise, false.
+     * @return bool True if the clock is currently suspended; otherwise, false.
      */
     public function isSuspended()
     {
@@ -218,11 +218,11 @@ abstract class AbstractClock implements SuspendableClockInterface
     /**
      * Sleep for the given time span.
      *
-     * @param TimeSpanInterface|integer $timeSpan        A time span instance, or an integer representing seconds.
-     * @param boolean                   $dispatchSignals True to dispatch to signal handlers when sleep is interrupted.
-     * @param boolean                   $restart         True to continue sleeping after interrupt.
+     * @param TimeSpanInterface|int $timeSpan        A time span instance, or an integer representing seconds.
+     * @param bool                  $dispatchSignals True to dispatch to signal handlers when sleep is interrupted.
+     * @param bool                  $restart         True to continue sleeping after interrupt.
      *
-     * @return boolean True if the sleep completed, false if the sleep was interrupted.
+     * @return bool True if the sleep completed, false if the sleep was interrupted.
      */
     public function sleep($timeSpan, $dispatchSignals = true, $restart = false)
     {
@@ -235,10 +235,10 @@ abstract class AbstractClock implements SuspendableClockInterface
      * Sleep until the given time point.
      *
      * @param TimePointInterface $timePoint       The the point to sleep until.
-     * @param boolean            $dispatchSignals True to dispatch to signal handlers when sleep is interrupted.
-     * @param boolean            $restart         True to continue sleeping after interrupt.
+     * @param bool               $dispatchSignals True to dispatch to signal handlers when sleep is interrupted.
+     * @param bool               $restart         True to continue sleeping after interrupt.
      *
-     * @return boolean True if the sleep completed, false if the sleep was interrupted.
+     * @return bool True if the sleep completed, false if the sleep was interrupted.
      */
     public function sleepUntil(TimePointInterface $timePoint, $dispatchSignals = true, $restart = false)
     {
@@ -313,9 +313,9 @@ abstract class AbstractClock implements SuspendableClockInterface
     abstract protected function currentUnixTime();
 
     /**
-     * @param integer $seconds The number of seconds to sleep.
+     * @param int $seconds The number of seconds to sleep.
      *
-     * @return boolean True if the sleep completed; or false if the sleep was interrupted.
+     * @return bool True if the sleep completed; or false if the sleep was interrupted.
      */
     abstract protected function doSleep($seconds);
 

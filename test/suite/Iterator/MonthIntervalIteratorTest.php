@@ -18,13 +18,13 @@ class MonthIntervalIteratorTest extends TestCase
 
         $this->interval = new Interval($this->startTime, $this->endTime);
 
-        $this->expected = array(
+        $this->expected = [
             0 => new Month($this->year, 1),
             1 => new Month($this->year, 2),
             2 => new Month($this->year, 3),
             3 => new Month($this->year, 4),
             4 => new Month($this->year, 5),
-        );
+        ];
     }
 
     public function testIteration()

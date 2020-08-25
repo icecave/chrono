@@ -43,7 +43,7 @@ class TestClock implements TestClockInterface
     /**
      * Add a time span to the current local date/time.
      *
-     * @param TimeSpanInterface|integer $timeSpan A time span instance, or an integer representing seconds.
+     * @param TimeSpanInterface|int $timeSpan A time span instance, or an integer representing seconds.
      */
     public function addTime($timeSpan)
     {
@@ -53,7 +53,7 @@ class TestClock implements TestClockInterface
     /**
      * Subtract a time span from the current local date/time.
      *
-     * @param TimeSpanInterface|integer $timeSpan A time span instance, or an integer representing seconds.
+     * @param TimeSpanInterface|int $timeSpan A time span instance, or an integer representing seconds.
      */
     public function subtractTime($timeSpan)
     {
@@ -159,7 +159,7 @@ class TestClock implements TestClockInterface
     }
 
     /**
-     * @return integer The current time as a unix timestamp.
+     * @return int The current time as a unix timestamp.
      */
     public function unixTime()
     {
@@ -177,11 +177,11 @@ class TestClock implements TestClockInterface
     /**
      * Sleep for the given time span.
      *
-     * @param TimeSpanInterface|integer $timeSpan        A time span instance, or an integer representing seconds.
-     * @param boolean                   $dispatchSignals True to dispatch to signal handlers when sleep is interrupted.
-     * @param boolean                   $restart         True to continue sleeping after interrupt.
+     * @param TimeSpanInterface|int $timeSpan        A time span instance, or an integer representing seconds.
+     * @param bool                  $dispatchSignals True to dispatch to signal handlers when sleep is interrupted.
+     * @param bool                  $restart         True to continue sleeping after interrupt.
      *
-     * @return boolean True if the sleep completed, false if the sleep was interrupted.
+     * @return bool True if the sleep completed, false if the sleep was interrupted.
      */
     public function sleep($timeSpan, $dispatchSignals = true, $restart = false)
     {
@@ -194,10 +194,10 @@ class TestClock implements TestClockInterface
      * Sleep until the given time point.
      *
      * @param TimePointInterface $timePoint       The the point to sleep until.
-     * @param boolean            $dispatchSignals True to dispatch to signal handlers when sleep is interrupted.
-     * @param boolean            $restart         True to continue sleeping after interrupt.
+     * @param bool               $dispatchSignals True to dispatch to signal handlers when sleep is interrupted.
+     * @param bool               $restart         True to continue sleeping after interrupt.
      *
-     * @return boolean True if the sleep completed, false if the sleep was interrupted.
+     * @return bool True if the sleep completed, false if the sleep was interrupted.
      */
     public function sleepUntil(TimePointInterface $timePoint, $dispatchSignals = true, $restart = false)
     {
@@ -247,7 +247,7 @@ class TestClock implements TestClockInterface
     }
 
     /**
-     * @return boolean True if the clock is currently suspended; otherwise, false.
+     * @return bool True if the clock is currently suspended; otherwise, false.
      */
     public function isSuspended()
     {

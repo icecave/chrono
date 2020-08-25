@@ -5,22 +5,22 @@ namespace Icecave\Chrono\Detail;
 abstract class Normalizer
 {
     /**
-     * @param integer &$hour
-     * @param integer &$minute
-     * @param integer &$second
-     * @param integer &$day
+     * @param int &$hour
+     * @param int &$minute
+     * @param int &$second
+     * @param int &$day
      */
     public static function normalizeTime(&$hour, &$minute, &$second, &$day = 0)
     {
         $minute += self::normalizeOverflow($second, 0, 60);
         $hour   += self::normalizeOverflow($minute, 0, 60);
-        $day    += self::normalizeOverflow($hour,   0, 24);
+        $day    += self::normalizeOverflow($hour, 0, 24);
     }
 
     /**
-     * @param integer &$year
-     * @param integer &$month
-     * @param integer &$day
+     * @param int &$year
+     * @param int &$month
+     * @param int &$day
      */
     public static function normalizeDate(&$year, &$month, &$day = 1)
     {
@@ -45,11 +45,11 @@ abstract class Normalizer
     }
 
     /**
-     * @param integer &$value
-     * @param integer $min
-     * @param integer $max
+     * @param int &$value
+     * @param int $min
+     * @param int $max
      *
-     * @return integer The normalized value.
+     * @return int The normalized value.
      */
     private static function normalizeOverflow(&$value, $min, $max)
     {

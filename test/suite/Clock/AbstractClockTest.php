@@ -9,7 +9,6 @@ use Icecave\Chrono\Interval\Year;
 use Icecave\Chrono\TimeOfDay;
 use Icecave\Chrono\Timer\Timer;
 use Icecave\Chrono\TimeZone;
-use Icecave\Isolator\Isolator;
 use Phake;
 use PHPUnit\Framework\TestCase;
 
@@ -22,15 +21,15 @@ class AbstractClockTest extends TestCase
 
         $this->timeZone = new TimeZone(36000, true);
 
-        Phake::when($this->clock)->currentUnixTime()->thenReturn(array(1384917020, 123456789));
+        Phake::when($this->clock)->currentUnixTime()->thenReturn([1384917020, 123456789]);
 
         Phake::when($this->clock)
             ->currentLocalTimeInfo()
-            ->thenReturn(array(10, 20, 13, 20, 11, 2013, '<unused>', '<unused>', 1, 36000));
+            ->thenReturn([10, 20, 13, 20, 11, 2013, '<unused>', '<unused>', 1, 36000]);
 
         Phake::when($this->clock)
             ->currentUtcTimeInfo()
-            ->thenReturn(array(1, 2, 3, 4, 5, 2011, '<unused>', '<unused>', 0, 0)); // Intentially set vastly different from localTimeInfo to catch potential errors.
+            ->thenReturn([1, 2, 3, 4, 5, 2011, '<unused>', '<unused>', 0, 0]); // Intentially set vastly different from localTimeInfo to catch potential errors.
 
         Phake::when($this->clock)
             ->doSleep(Phake::anyParameters())

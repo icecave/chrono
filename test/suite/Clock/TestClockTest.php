@@ -10,7 +10,6 @@ use Icecave\Chrono\TimeOfDay;
 use Icecave\Chrono\Timer\Timer;
 use Icecave\Chrono\TimeSpan\Duration;
 use Icecave\Chrono\TimeZone;
-use Icecave\Isolator\Isolator;
 use Phake;
 use PHPUnit\Framework\TestCase;
 

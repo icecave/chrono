@@ -67,10 +67,10 @@ class MonthTest extends TestCase
 
     public function validIsoStrings()
     {
-        return array(
-            'With zero prefix month'        => array('2012-02',     '2012-02'),
-            'With zero prefix year'         => array('0012-02',     '0012-02'),
-        );
+        return [
+            'With zero prefix month'        => ['2012-02',     '2012-02'],
+            'With zero prefix year'         => ['0012-02',     '0012-02'],
+        ];
     }
 
     /**
@@ -84,18 +84,18 @@ class MonthTest extends TestCase
 
     public function invalidIsoStrings()
     {
-        return array(
-            'Empty'                                     => array('',            'Invalid ISO year month: ""'),
-            'Not enough digits'                         => array('1',           'Invalid ISO year month: "1"'),
-            'Not enough digits'                         => array('12',          'Invalid ISO year month: "12"'),
-            'Not enough digits'                         => array('123',         'Invalid ISO year month: "123"'),
-            'Not enough digits'                         => array('1234',        'Invalid ISO year month: "1234"'),
-            'Not enough digits'                         => array('12345',       'Invalid ISO year month: "12345"'),
-            'Missing seperator'                         => array('123456',      'Invalid ISO year month: "123456"'),
-            'Invalid seperator'                         => array('1234/56',     'Invalid ISO year month: "1234/56"'),
-            'Invalid format, month-year'                => array('12-3456',     'Invalid ISO year month: "12-3456"'),
-            'Invalid format, seperator, month-year'     => array('12/3456',     'Invalid ISO year month: "12/3456"'),
-            'Invalid format, 2 digit year'              => array('12-34',       'Invalid ISO year month: "12-34"'),
-        );
+        return [
+            'Empty'                                     => ['',            'Invalid ISO year month: ""'],
+            'Not enough digits'                         => ['1',           'Invalid ISO year month: "1"'],
+            'Not enough digits'                         => ['12',          'Invalid ISO year month: "12"'],
+            'Not enough digits'                         => ['123',         'Invalid ISO year month: "123"'],
+            'Not enough digits'                         => ['1234',        'Invalid ISO year month: "1234"'],
+            'Not enough digits'                         => ['12345',       'Invalid ISO year month: "12345"'],
+            'Missing seperator'                         => ['123456',      'Invalid ISO year month: "123456"'],
+            'Invalid seperator'                         => ['1234/56',     'Invalid ISO year month: "1234/56"'],
+            'Invalid format, month-year'                => ['12-3456',     'Invalid ISO year month: "12-3456"'],
+            'Invalid format, seperator, month-year'     => ['12/3456',     'Invalid ISO year month: "12/3456"'],
+            'Invalid format, 2 digit year'              => ['12-34',       'Invalid ISO year month: "12-34"'],
+        ];
     }
 }

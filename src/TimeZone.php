@@ -6,8 +6,8 @@ use Icecave\Chrono\Detail\Iso8601;
 use Icecave\Chrono\Format\DefaultFormatter;
 use Icecave\Chrono\Format\FormattableInterface;
 use Icecave\Chrono\Format\FormatterInterface;
-use Icecave\Parity\ExtendedComparableTrait;
 use Icecave\Parity\Exception\NotComparableException;
+use Icecave\Parity\ExtendedComparableTrait;
 use Icecave\Parity\SubClassComparable;
 
 class TimeZone implements Iso8601Interface, FormattableInterface, SubClassComparable
@@ -15,8 +15,8 @@ class TimeZone implements Iso8601Interface, FormattableInterface, SubClassCompar
     use ExtendedComparableTrait;
 
     /**
-     * @param integer $offset The offset from UTC in seconds.
-     * @param boolean $isDst  True if the timezone is currently honouring daylight saving time; otherwise, false.
+     * @param int  $offset The offset from UTC in seconds.
+     * @param bool $isDst  True if the timezone is currently honouring daylight saving time; otherwise, false.
      */
     public function __construct($offset = 0, $isDst = false)
     {
@@ -34,8 +34,8 @@ class TimeZone implements Iso8601Interface, FormattableInterface, SubClassCompar
      *
      * @link http://en.wikipedia.org/wiki/ISO_8601#Time_zone_designators
      *
-     * @param string  $isoString A string containing a time zone in any ISO-8601 compatible time zone format, with the exception of allowing negative zero's.
-     * @param boolean $isDst     True if the time zone is currently honouring daylight saving time; otheriwse, false.
+     * @param string $isoString A string containing a time zone in any ISO-8601 compatible time zone format, with the exception of allowing negative zero's.
+     * @param bool   $isDst     True if the time zone is currently honouring daylight saving time; otheriwse, false.
      *
      * @return TimeZone The TimeZone constructed from the ISO compatible string.
      */
@@ -47,7 +47,7 @@ class TimeZone implements Iso8601Interface, FormattableInterface, SubClassCompar
     }
 
     /**
-     * @return integer The offset from UTC in seconds.
+     * @return int The offset from UTC in seconds.
      */
     public function offset()
     {
@@ -55,7 +55,7 @@ class TimeZone implements Iso8601Interface, FormattableInterface, SubClassCompar
     }
 
     /**
-     * @return boolean True if the timezone represents UTC (0 offset, no DST).
+     * @return bool True if the timezone represents UTC (0 offset, no DST).
      */
     public function isUtc()
     {
@@ -64,7 +64,7 @@ class TimeZone implements Iso8601Interface, FormattableInterface, SubClassCompar
     }
 
     /**
-     * @return boolean True if the timezone is currently honouring daylight saving time; otheriwse, false.
+     * @return bool True if the timezone is currently honouring daylight saving time; otheriwse, false.
      */
     public function isDst()
     {
@@ -84,7 +84,7 @@ class TimeZone implements Iso8601Interface, FormattableInterface, SubClassCompar
      *
      * @param mixed $timeZone The timezone to compare.
      *
-     * @return integer                0 if $this and $timeZone are equal, <0 if $this < $timeZone, or >0 if $this > $timeZone.
+     * @return int                    0 if $this and $timeZone are equal, <0 if $this < $timeZone, or >0 if $this > $timeZone.
      * @throws NotComparableException Indicates that the implementation does not know how to compare $this to $timeZone.
      */
     public function compare($timeZone): int

@@ -12,7 +12,7 @@ use Icecave\Chrono\TimePointInterface;
 interface TimeSpanInterface
 {
     /**
-     * @return boolean True if the time span is zero seconds in length; otherwise, false.
+     * @return bool True if the time span is zero seconds in length; otherwise, false.
      */
     public function isEmpty();
 
@@ -26,7 +26,7 @@ interface TimeSpanInterface
      *
      * @param TimePointInterface $timePoint The start of the time span.
      *
-     * @return integer The total number of seconds.
+     * @return int The total number of seconds.
      */
     public function resolveToSeconds(TimePointInterface $timePoint);
 

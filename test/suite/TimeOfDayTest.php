@@ -260,13 +260,13 @@ class TimeOfDayTest extends TestCase
 
     public function validIsoStrings()
     {
-        return array(
-            'Basic'                     => array('102030',        '10:20:30+00:00'),
-            'Basic, partial seconds'    => array('102030.1234',   '10:20:30+00:00'),
+        return [
+            'Basic'                     => ['102030',        '10:20:30+00:00'],
+            'Basic, partial seconds'    => ['102030.1234',   '10:20:30+00:00'],
 
-            'Extended'                  => array('10:20:30',      '10:20:30+00:00'),
-            'Extended, partial seconds' => array('10:20:30.1234', '10:20:30+00:00'),
-        );
+            'Extended'                  => ['10:20:30',      '10:20:30+00:00'],
+            'Extended, partial seconds' => ['10:20:30.1234', '10:20:30+00:00'],
+        ];
     }
 
     /**
@@ -290,21 +290,21 @@ class TimeOfDayTest extends TestCase
         $timeZoneNeg1100 = new TimeZone(-(11 * $hours));
         $timeZoneNeg1122 = new TimeZone(-((11 * $hours) + (22 * $minutes)));
 
-        return array(
-            'Basic, UTC'                => array('102030Z',          '10:20:30+00:00', $timeZoneUTC),
-            'Basic, positive short'     => array('102030+11',        '10:20:30+11:00', $timeZonePos1100),
-            'Basic, positive long'      => array('102030+1122',      '10:20:30+11:22', $timeZonePos1122),
-            'Basic, negative short'     => array('102030-11',        '10:20:30-11:00', $timeZoneNeg1100),
-            'Basic, negative long'      => array('102030-1122',      '10:20:30-11:22', $timeZoneNeg1122),
-            'Basic, partial seconds'    => array('102030.1234-1122', '10:20:30-11:22', $timeZoneNeg1122),
+        return [
+            'Basic, UTC'                => ['102030Z',          '10:20:30+00:00', $timeZoneUTC],
+            'Basic, positive short'     => ['102030+11',        '10:20:30+11:00', $timeZonePos1100],
+            'Basic, positive long'      => ['102030+1122',      '10:20:30+11:22', $timeZonePos1122],
+            'Basic, negative short'     => ['102030-11',        '10:20:30-11:00', $timeZoneNeg1100],
+            'Basic, negative long'      => ['102030-1122',      '10:20:30-11:22', $timeZoneNeg1122],
+            'Basic, partial seconds'    => ['102030.1234-1122', '10:20:30-11:22', $timeZoneNeg1122],
 
-            'Extended, UTC'             => array('10:20:30Z',           '10:20:30+00:00', $timeZoneUTC),
-            'Extended, positive short'  => array('10:20:30+11',         '10:20:30+11:00', $timeZonePos1100),
-            'Extended, positive long'   => array('10:20:30+11:22',      '10:20:30+11:22', $timeZonePos1122),
-            'Extended, negative short'  => array('10:20:30-11',         '10:20:30-11:00', $timeZoneNeg1100),
-            'Extended, negative long'   => array('10:20:30-11:22',      '10:20:30-11:22', $timeZoneNeg1122),
-            'Extended, partial seconds' => array('10:20:30.1234-11:22', '10:20:30-11:22', $timeZoneNeg1122),
-        );
+            'Extended, UTC'             => ['10:20:30Z',           '10:20:30+00:00', $timeZoneUTC],
+            'Extended, positive short'  => ['10:20:30+11',         '10:20:30+11:00', $timeZonePos1100],
+            'Extended, positive long'   => ['10:20:30+11:22',      '10:20:30+11:22', $timeZonePos1122],
+            'Extended, negative short'  => ['10:20:30-11',         '10:20:30-11:00', $timeZoneNeg1100],
+            'Extended, negative long'   => ['10:20:30-11:22',      '10:20:30-11:22', $timeZoneNeg1122],
+            'Extended, partial seconds' => ['10:20:30.1234-11:22', '10:20:30-11:22', $timeZoneNeg1122],
+        ];
     }
 
     /**
@@ -318,29 +318,29 @@ class TimeOfDayTest extends TestCase
 
     public function invalidIsoStrings()
     {
-        return array(
-            'Not enough digits'                  => array('1',          'Invalid ISO time: "1"'),
-            'Not enough digits'                  => array('00000',      'Invalid ISO time: "00:00:0"'),
-            'Not enough digits'                  => array('11223',      'Invalid ISO time: "00:00:0"'),
-            'Not enough digits'                  => array('00:00:0',    'Invalid ISO time: "00:00:0"'),
-            'Not enough digits'                  => array('11:22:3',    'Invalid ISO time: "11:22:3"'),
-            'Too many digits, invalid time zone' => array('1122334',    'Invalid ISO time: "4"'),
-            'Too many digits, invalid time zone' => array('11:22:33:4', 'Invalid ISO time zone: ":4"'),
-            'Missing minute and second'          => array('11',         'Invalid ISO time: "11"'),
-            'Missing second'                     => array('1122',       'Invalid ISO time: "11:22"'),
-            'Missing second'                     => array('11:22',      'Invalid ISO time: "11:22"'),
-            'Unexpected prefix'                  => array('-10:20:30',  'Invalid ISO time: "-10:20:30"'),
-            'Invalid format'                     => array('11:',        'Invalid ISO time: "11:"'),
-            'Invalid format'                     => array('11:22:',     'Invalid ISO time: "11:22:"'),
-            'Invalid letters'                    => array('AABBCC',     'Invalid ISO time: "AABBCC"'),
-            'Invalid letters'                    => array('AA:BB:CC',   'Invalid ISO time: "AA:BB:CC"'),
-            'Invalid letters'                    => array('AA:22:33',   'Invalid ISO time: "AA:22:33"'),
-            'Invalid letters'                    => array('11:BB:33',   'Invalid ISO time: "11:BB:33"'),
-            'Invalid letters'                    => array('11:22:CC',   'Invalid ISO time: "11:22:CC"'),
-            'Invalid separator'                  => array('11-22-33',   'Invalid ISO time: "11-22-33"'),
-            'Invalid separator'                  => array('11/22/33',   'Invalid ISO time: "11/22/33"'),
-            'Missing time'                       => array('+10',        'Invalid ISO time: "+10"'),
-            'Missing time'                       => array('+10:20',     'Invalid ISO time: "+10:20"'),
-        );
+        return [
+            'Not enough digits'                  => ['1',          'Invalid ISO time: "1"'],
+            'Not enough digits'                  => ['00000',      'Invalid ISO time: "00:00:0"'],
+            'Not enough digits'                  => ['11223',      'Invalid ISO time: "00:00:0"'],
+            'Not enough digits'                  => ['00:00:0',    'Invalid ISO time: "00:00:0"'],
+            'Not enough digits'                  => ['11:22:3',    'Invalid ISO time: "11:22:3"'],
+            'Too many digits, invalid time zone' => ['1122334',    'Invalid ISO time: "4"'],
+            'Too many digits, invalid time zone' => ['11:22:33:4', 'Invalid ISO time zone: ":4"'],
+            'Missing minute and second'          => ['11',         'Invalid ISO time: "11"'],
+            'Missing second'                     => ['1122',       'Invalid ISO time: "11:22"'],
+            'Missing second'                     => ['11:22',      'Invalid ISO time: "11:22"'],
+            'Unexpected prefix'                  => ['-10:20:30',  'Invalid ISO time: "-10:20:30"'],
+            'Invalid format'                     => ['11:',        'Invalid ISO time: "11:"'],
+            'Invalid format'                     => ['11:22:',     'Invalid ISO time: "11:22:"'],
+            'Invalid letters'                    => ['AABBCC',     'Invalid ISO time: "AABBCC"'],
+            'Invalid letters'                    => ['AA:BB:CC',   'Invalid ISO time: "AA:BB:CC"'],
+            'Invalid letters'                    => ['AA:22:33',   'Invalid ISO time: "AA:22:33"'],
+            'Invalid letters'                    => ['11:BB:33',   'Invalid ISO time: "11:BB:33"'],
+            'Invalid letters'                    => ['11:22:CC',   'Invalid ISO time: "11:22:CC"'],
+            'Invalid separator'                  => ['11-22-33',   'Invalid ISO time: "11-22-33"'],
+            'Invalid separator'                  => ['11/22/33',   'Invalid ISO time: "11/22/33"'],
+            'Missing time'                       => ['+10',        'Invalid ISO time: "+10"'],
+            'Missing time'                       => ['+10:20',     'Invalid ISO time: "+10:20"'],
+        ];
     }
 }

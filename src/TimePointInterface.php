@@ -15,7 +15,7 @@ use Icecave\Parity\RestrictedComparable;
 interface TimePointInterface extends DateInterface, TimeInterface, ExtendedComparable, RestrictedComparable
 {
     /**
-     * @return integer The number of seconds since unix epoch (1970-01-01 00:00:00+00:00).
+     * @return int The number of seconds since unix epoch (1970-01-01 00:00:00+00:00).
      */
     public function unixTime();
 
@@ -32,7 +32,7 @@ interface TimePointInterface extends DateInterface, TimeInterface, ExtendedCompa
     /**
      * Add a time span to the time point.
      *
-     * @param TimeSpanInterface|integer $timeSpan A time span instance, or an integer representing seconds.
+     * @param TimeSpanInterface|int $timeSpan A time span instance, or an integer representing seconds.
      *
      * @return TimePointInterface
      */
@@ -41,7 +41,7 @@ interface TimePointInterface extends DateInterface, TimeInterface, ExtendedCompa
     /**
      * Subtract a time span from the time point.
      *
-     * @param TimeSpanInterface|integer $timeSpan A time span instance, or an integer representing seconds.
+     * @param TimeSpanInterface|int $timeSpan A time span instance, or an integer representing seconds.
      *
      * @return TimePointInterface
      */
@@ -52,9 +52,9 @@ interface TimePointInterface extends DateInterface, TimeInterface, ExtendedCompa
      *
      * @param TimePointInterface $timePoint
      *
-     * @return integer
+     * @return int
      */
-    public function differenceAsSeconds(TimePointInterface $timePoint);
+    public function differenceAsSeconds(self $timePoint);
 
     /**
      * Calculate the difference between this time point and another, representing the result as a duration.
@@ -63,7 +63,7 @@ interface TimePointInterface extends DateInterface, TimeInterface, ExtendedCompa
      *
      * @return Duration
      */
-    public function differenceAsDuration(TimePointInterface $timePoint);
+    public function differenceAsDuration(self $timePoint);
 
     /**
      * Calculate the difference between this time point and another, representing the result as a duration.
@@ -72,5 +72,5 @@ interface TimePointInterface extends DateInterface, TimeInterface, ExtendedCompa
      *
      * @return Period
      */
-    public function differenceAsPeriod(TimePointInterface $timePoint);
+    public function differenceAsPeriod(self $timePoint);
 }

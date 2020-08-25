@@ -15,12 +15,12 @@ use Icecave\Chrono\TimeSpan\TimeSpanInterface;
 class DateTime extends AbstractTimePoint implements TimeInterface
 {
     /**
-     * @param integer       $year     The year component of the date.
-     * @param integer       $month    The month component of the date.
-     * @param integer       $day      The day component of the date.
-     * @param integer       $hour     The hour component of the time.
-     * @param integer       $minute   The minute component of the time.
-     * @param integer       $second   The second component of the time.
+     * @param int           $year     The year component of the date.
+     * @param int           $month    The month component of the date.
+     * @param int           $day      The day component of the date.
+     * @param int           $hour     The hour component of the time.
+     * @param int           $minute   The minute component of the time.
+     * @param int           $second   The second component of the time.
      * @param TimeZone|null $timeZone The time zone of the time, or null to use UTC.
      */
     public function __construct(
@@ -81,7 +81,7 @@ class DateTime extends AbstractTimePoint implements TimeInterface
     }
 
     /**
-     * @param integer       $unixTime The unix timestamp.
+     * @param int           $unixTime The unix timestamp.
      * @param TimeZone|null $timeZone The time zone of the time, or null to use UTC.
      *
      * @return DateTime The DateTime constructed from the given timestamp and time zone.
@@ -118,7 +118,7 @@ class DateTime extends AbstractTimePoint implements TimeInterface
     }
 
     /**
-     * @return integer The year component of the date.
+     * @return int The year component of the date.
      */
     public function year()
     {
@@ -126,7 +126,7 @@ class DateTime extends AbstractTimePoint implements TimeInterface
     }
 
     /**
-     * @return integer The month component of the date.
+     * @return int The month component of the date.
      */
     public function month()
     {
@@ -134,7 +134,7 @@ class DateTime extends AbstractTimePoint implements TimeInterface
     }
 
     /**
-     * @return integer The day component of the date.
+     * @return int The day component of the date.
      */
     public function day()
     {
@@ -142,7 +142,7 @@ class DateTime extends AbstractTimePoint implements TimeInterface
     }
 
     /**
-     * @return integer The hour component of the time.
+     * @return int The hour component of the time.
      */
     public function hour()
     {
@@ -150,7 +150,7 @@ class DateTime extends AbstractTimePoint implements TimeInterface
     }
 
     /**
-     * @return integer The minute component of the time.
+     * @return int The minute component of the time.
      */
     public function minute()
     {
@@ -158,7 +158,7 @@ class DateTime extends AbstractTimePoint implements TimeInterface
     }
 
     /**
-     * @return integer The second component of the time.
+     * @return int The second component of the time.
      */
     public function second()
     {
@@ -241,7 +241,7 @@ class DateTime extends AbstractTimePoint implements TimeInterface
     }
 
     /**
-     * @return integer The number of seconds since unix epoch (1970-01-01 00:00:00+00:00).
+     * @return int The number of seconds since unix epoch (1970-01-01 00:00:00+00:00).
      */
     public function unixTime()
     {
@@ -266,7 +266,7 @@ class DateTime extends AbstractTimePoint implements TimeInterface
     /**
      * Add a time span to the time point.
      *
-     * @param TimeSpanInterface|integer $timeSpan A time span instance, or an integer representing seconds.
+     * @param TimeSpanInterface|int $timeSpan A time span instance, or an integer representing seconds.
      *
      * @return TimePointInterface
      */
@@ -290,7 +290,7 @@ class DateTime extends AbstractTimePoint implements TimeInterface
     /**
      * Subtract a time span from the time point.
      *
-     * @param TimeSpanInterface|integer $timeSpan A time span instance, or an integer representing seconds.
+     * @param TimeSpanInterface|int $timeSpan A time span instance, or an integer representing seconds.
      *
      * @return TimePointInterface
      */

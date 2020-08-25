@@ -4,7 +4,6 @@ namespace Icecave\Chrono\Clock;
 
 use Eloquent\Liberator\Liberator;
 use Icecave\Chrono\DateTime;
-use Icecave\Isolator\Isolator;
 use Phake;
 use PHPUnit\Framework\TestCase;
 
@@ -25,7 +24,7 @@ class SystemClockTest extends TestCase
         $expectedDateTime = new DateTime(2013, 11, 20, 3, 10, 20);
 
         $this->assertIsArray($actual);
-        $this->assertSame(array(0, 1), array_keys($actual));
+        $this->assertSame([0, 1], array_keys($actual));
         $this->assertSame(1384917020, $actual[0]);
         $this->assertEqualsWithDelta(123456000, $actual[1], 1000);
         $this->assertEquals($expectedDateTime, $actualDateTime);

@@ -299,10 +299,10 @@ class DateTest extends TestCase
 
     public function validIsoStrings()
     {
-        return array(
-            'Basic'    => array('20130201',   '2013-02-01'),
-            'Extended' => array('2013-02-01', '2013-02-01'),
-        );
+        return [
+            'Basic'    => ['20130201',   '2013-02-01'],
+            'Extended' => ['2013-02-01', '2013-02-01'],
+        ];
     }
 
     /**
@@ -326,18 +326,18 @@ class DateTest extends TestCase
         $timeZoneNeg1100 = new TimeZone(-(11 * $hours));
         $timeZoneNeg1122 = new TimeZone(-((11 * $hours) + (22 * $minutes)));
 
-        return array(
-            'Basic UTC'               => array('20130201Z',        '2013-02-01', $timeZoneUTC),
-            'Basic positive short'    => array('20130201+11',      '2013-02-01', $timeZonePos1100),
-            'Basic positive long'     => array('20130201+1122',    '2013-02-01', $timeZonePos1122),
-            'Basic negative short'    => array('20130201-11',      '2013-02-01', $timeZoneNeg1100),
-            'Basic negative long'     => array('20130201-1122',    '2013-02-01', $timeZoneNeg1122),
-            'Extended UTC'            => array('2013-02-01Z',      '2013-02-01', $timeZoneUTC),
-            'Extended positive short' => array('2013-02-01+11',    '2013-02-01', $timeZonePos1100),
-            'Extended positive long'  => array('2013-02-01+11:22', '2013-02-01', $timeZonePos1122),
-            'Extended negative short' => array('2013-02-01-11',    '2013-02-01', $timeZoneNeg1100),
-            'Extended negative long'  => array('2013-02-01-11:22', '2013-02-01', $timeZoneNeg1122),
-        );
+        return [
+            'Basic UTC'               => ['20130201Z',        '2013-02-01', $timeZoneUTC],
+            'Basic positive short'    => ['20130201+11',      '2013-02-01', $timeZonePos1100],
+            'Basic positive long'     => ['20130201+1122',    '2013-02-01', $timeZonePos1122],
+            'Basic negative short'    => ['20130201-11',      '2013-02-01', $timeZoneNeg1100],
+            'Basic negative long'     => ['20130201-1122',    '2013-02-01', $timeZoneNeg1122],
+            'Extended UTC'            => ['2013-02-01Z',      '2013-02-01', $timeZoneUTC],
+            'Extended positive short' => ['2013-02-01+11',    '2013-02-01', $timeZonePos1100],
+            'Extended positive long'  => ['2013-02-01+11:22', '2013-02-01', $timeZonePos1122],
+            'Extended negative short' => ['2013-02-01-11',    '2013-02-01', $timeZoneNeg1100],
+            'Extended negative long'  => ['2013-02-01-11:22', '2013-02-01', $timeZoneNeg1122],
+        ];
     }
 
     /**
@@ -351,32 +351,32 @@ class DateTest extends TestCase
 
     public function invalidIsoStrings()
     {
-        return array(
-            'Not enough digits'                  => array('1',            'Invalid ISO date: "1"'),
-            'Not enough digits'                  => array('000000',       'Invalid ISO date: "00-00-00"'),
-            'Not enough digits'                  => array('112233',       'Invalid ISO date: "11-22-33"'),
-            'Not enough digits'                  => array('00-00-00',     'Invalid ISO date: "00-00-00"'),
-            'Not enough digits'                  => array('11-22-33',     'Invalid ISO date: "11-22-33"'),
-            'Too many digits, invalid time zone' => array('111122334',    'Invalid ISO date: "4"'),
-            'Too many digits, invalid time zone' => array('1111-22-33-4', 'Invalid ISO time zone: "-4"'),
-            'Missing month and day'              => array('2013',         'Invalid ISO date: "2013"'),
-            'Missing day'                        => array('201302',       'Invalid ISO date: "201302"'),
-            'Missing day'                        => array('2013-02',      'Invalid ISO date: "2013-02"'),
-            'Unexpected prefix'                  => array('-1111-22-33',  'Invalid ISO date: "-1111-22-33"'),
-            'Invalid format'                     => array('00-00-0000',   'Invalid ISO date: ""'),
-            'Invalid format'                     => array('11-22-3333',   'Invalid ISO date: "11-22-3333"'),
-            'Invalid letters'                    => array('AAAABBCC',     'Invalid ISO date: "AAAABBCC"'),
-            'Invalid letters'                    => array('AABBCC',       'Invalid ISO date: "AABBCC"'),
-            'Invalid letters'                    => array('AAAA-BB-CC',   'Invalid ISO date: "AAAA-BB-CC"'),
-            'Invalid letters'                    => array('AA-BB-CC',     'Invalid ISO date: "AA-BB-CC"'),
-            'Invalid letters'                    => array('AA-BB-CCCC',   'Invalid ISO date: "AA-BB-CCCC"'),
-            'Invalid letters'                    => array('AAAA-01-01',   'Invalid ISO date: "AAAA-01-01"'),
-            'Invalid letters'                    => array('2013-BB-01',   'Invalid ISO date: "2013-BB-01"'),
-            'Invalid letters'                    => array('2013-01-CC',   'Invalid ISO date: "2013-01-CC"'),
-            'Invalid separator'                  => array('2013:02:01',   'Invalid ISO date: "2013:02:01"'),
-            'Invalid separator'                  => array('2013/02/01',   'Invalid ISO date: "2013/02/01"'),
-            'Missing date'                       => array('+10',          'Invalid ISO date: "+10"'),
-            'Missing date'                       => array('+10:20',       'Invalid ISO date: "+10:20"'),
-        );
+        return [
+            'Not enough digits'                  => ['1',            'Invalid ISO date: "1"'],
+            'Not enough digits'                  => ['000000',       'Invalid ISO date: "00-00-00"'],
+            'Not enough digits'                  => ['112233',       'Invalid ISO date: "11-22-33"'],
+            'Not enough digits'                  => ['00-00-00',     'Invalid ISO date: "00-00-00"'],
+            'Not enough digits'                  => ['11-22-33',     'Invalid ISO date: "11-22-33"'],
+            'Too many digits, invalid time zone' => ['111122334',    'Invalid ISO date: "4"'],
+            'Too many digits, invalid time zone' => ['1111-22-33-4', 'Invalid ISO time zone: "-4"'],
+            'Missing month and day'              => ['2013',         'Invalid ISO date: "2013"'],
+            'Missing day'                        => ['201302',       'Invalid ISO date: "201302"'],
+            'Missing day'                        => ['2013-02',      'Invalid ISO date: "2013-02"'],
+            'Unexpected prefix'                  => ['-1111-22-33',  'Invalid ISO date: "-1111-22-33"'],
+            'Invalid format'                     => ['00-00-0000',   'Invalid ISO date: ""'],
+            'Invalid format'                     => ['11-22-3333',   'Invalid ISO date: "11-22-3333"'],
+            'Invalid letters'                    => ['AAAABBCC',     'Invalid ISO date: "AAAABBCC"'],
+            'Invalid letters'                    => ['AABBCC',       'Invalid ISO date: "AABBCC"'],
+            'Invalid letters'                    => ['AAAA-BB-CC',   'Invalid ISO date: "AAAA-BB-CC"'],
+            'Invalid letters'                    => ['AA-BB-CC',     'Invalid ISO date: "AA-BB-CC"'],
+            'Invalid letters'                    => ['AA-BB-CCCC',   'Invalid ISO date: "AA-BB-CCCC"'],
+            'Invalid letters'                    => ['AAAA-01-01',   'Invalid ISO date: "AAAA-01-01"'],
+            'Invalid letters'                    => ['2013-BB-01',   'Invalid ISO date: "2013-BB-01"'],
+            'Invalid letters'                    => ['2013-01-CC',   'Invalid ISO date: "2013-01-CC"'],
+            'Invalid separator'                  => ['2013:02:01',   'Invalid ISO date: "2013:02:01"'],
+            'Invalid separator'                  => ['2013/02/01',   'Invalid ISO date: "2013/02/01"'],
+            'Missing date'                       => ['+10',          'Invalid ISO date: "+10"'],
+            'Missing date'                       => ['+10:20',       'Invalid ISO date: "+10:20"'],
+        ];
     }
 }

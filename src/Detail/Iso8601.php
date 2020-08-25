@@ -13,7 +13,7 @@ use InvalidArgumentException;
 abstract class Iso8601
 {
     /**
-     * @param integer $year
+     * @param int $year
      *
      * @return string A string representing the data in an ISO compatible year format (YYYY).
      */
@@ -23,8 +23,8 @@ abstract class Iso8601
     }
 
     /**
-     * @param integer $year
-     * @param integer $month
+     * @param int $year
+     * @param int $month
      *
      * @return string A string representing the data in an ISO compatible year month format (YYYY-MM).
      */
@@ -34,9 +34,9 @@ abstract class Iso8601
     }
 
     /**
-     * @param integer $year
-     * @param integer $month
-     * @param integer $day
+     * @param int $year
+     * @param int $month
+     * @param int $day
      *
      * @return string A string representing the data in an ISO compatible date format (YYYY-MM-DD).
      */
@@ -51,10 +51,10 @@ abstract class Iso8601
     }
 
     /**
-     * @param integer $hour
-     * @param integer $minute
-     * @param integer $second
-     * @param string  $timeZone Time zone in ISO compatible time zone format.
+     * @param int    $hour
+     * @param int    $minute
+     * @param int    $second
+     * @param string $timeZone Time zone in ISO compatible time zone format.
      *
      * @return string A string representing the data in an ISO compatible time format (hh:mm:ss[+-]hh:mm).
      */
@@ -70,13 +70,13 @@ abstract class Iso8601
     }
 
     /**
-     * @param integer $year
-     * @param integer $month
-     * @param integer $day
-     * @param integer $hour
-     * @param integer $minute
-     * @param integer $second
-     * @param string  $timeZone Time zone in ISO compatible time zone format.
+     * @param int    $year
+     * @param int    $month
+     * @param int    $day
+     * @param int    $hour
+     * @param int    $minute
+     * @param int    $second
+     * @param string $timeZone Time zone in ISO compatible time zone format.
      *
      * @return string A string representing the data in an ISO compatible date time format (YYYY-MM-DDThh:mm:ss[+-]hh:mm).
      */
@@ -95,7 +95,7 @@ abstract class Iso8601
     }
 
     /**
-     * @param integer $offset The offset from UTC in seconds.
+     * @param int $offset The offset from UTC in seconds.
      *
      * @return string A string representing the data in an ISO compatible time zone format ([+-]hh:mm).
      */
@@ -114,12 +114,12 @@ abstract class Iso8601
     }
 
     /**
-     * @param integer $years
-     * @param integer $months
-     * @param integer $days
-     * @param integer $hours
-     * @param integer $minutes
-     * @param integer $seconds
+     * @param int $years
+     * @param int $months
+     * @param int $days
+     * @param int $hours
+     * @param int $minutes
+     * @param int $seconds
      *
      * @return string A string representing the data in an ISO compatible duration format (PnYnMnDTnHnMnS).
      */
@@ -164,11 +164,11 @@ abstract class Iso8601
      *
      * @param string $isoString A string containing a year in any ISO-8601 compatible year format.
      *
-     * @return integer The year number from the ISO compatible string.
+     * @return int The year number from the ISO compatible string.
      */
     public static function parseYear($isoString)
     {
-        $matches = array();
+        $matches = [];
         if (preg_match(self::YEAR, $isoString, $matches) === 1) {
             $year = intval($matches[1]);
         } else {
@@ -190,12 +190,12 @@ abstract class Iso8601
      */
     public static function parseYearMonth($isoString)
     {
-        $parts = array(
+        $parts = [
             'year'   => 0,
             'month'  => 0,
-        );
+        ];
 
-        $matches = array();
+        $matches = [];
         if (preg_match(self::YEAR_MONTH, $isoString, $matches) === 1) {
             $parts['year']  = intval($matches[1]);
             $parts['month'] = intval($matches[2]);
@@ -221,16 +221,16 @@ abstract class Iso8601
      */
     public static function parseDate($isoString)
     {
-        $date = array(
+        $date = [
             'year'   => 0,
             'month'  => 0,
             'day'    => 0,
             'offset' => null,
-        );
+        ];
 
-        $matches = array();
+        $matches = [];
         if (preg_match(self::DATE_EXTENDED, $isoString, $matches) === 1 ||
-            preg_match(self::DATE_BASIC,    $isoString, $matches) === 1) {
+            preg_match(self::DATE_BASIC, $isoString, $matches) === 1) {
             $date['year']  = intval($matches[1]);
             $date['month'] = intval($matches[2]);
             $date['day']   = intval($matches[3]);
@@ -260,17 +260,17 @@ abstract class Iso8601
      */
     public static function parseTime($isoString)
     {
-        $time = array(
+        $time = [
             'hour'        => 0,
             'minute'      => 0,
             'second'      => 0,
             'microsecond' => 0,
             'offset'      => null,
-        );
+        ];
 
-        $matches = array();
+        $matches = [];
         if (preg_match(self::TIME_EXTENDED, $isoString, $matches) === 1 ||
-            preg_match(self::TIME_BASIC,    $isoString, $matches) === 1) {
+            preg_match(self::TIME_BASIC, $isoString, $matches) === 1) {
             $time['hour']   = intval($matches[1]);
             $time['minute'] = intval($matches[2]);
             $time['second'] = intval($matches[3]);
@@ -299,7 +299,7 @@ abstract class Iso8601
      */
     public static function parseDateTime($isoString)
     {
-        $dateTime = array(
+        $dateTime = [
             'year'        => 0,
             'month'       => 0,
             'day'         => 0,
@@ -308,11 +308,11 @@ abstract class Iso8601
             'second'      => 0,
             'microsecond' => 0,
             'offset'      => null,
-        );
+        ];
 
-        $matches = array();
+        $matches = [];
         if (preg_match(self::DATETIME_EXTENDED, $isoString, $matches) === 1 ||
-            preg_match(self::DATETIME_BASIC,    $isoString, $matches) === 1) {
+            preg_match(self::DATETIME_BASIC, $isoString, $matches) === 1) {
             $dateTime['year']   = intval($matches[1]);
             $dateTime['month']  = intval($matches[2]);
             $dateTime['day']    = intval($matches[3]);
@@ -343,13 +343,13 @@ abstract class Iso8601
      *
      * @param string $isoString A string containing a time zone in any ISO-8601 compatible time zone format, with the exception of allowing negative zero's.
      *
-     * @return integer The time zone offset from the ISO compatible string.
+     * @return int The time zone offset from the ISO compatible string.
      */
     public static function parseTimeZone($isoString)
     {
         $offset = 0;
 
-        $matches = array();
+        $matches = [];
         if (preg_match(self::TIMEZONE_UTC, $isoString, $matches) === 1) {
             $offset = 0;
         } elseif (preg_match(self::TIMEZONE_OFFSET, $isoString, $matches) === 1) {
@@ -388,27 +388,27 @@ abstract class Iso8601
             throw new InvalidArgumentException('Invalid ISO duration: "' . $isoString . '".');
         }
 
-        $duration = array(
+        $duration = [
             'years'   => 0,
             'months'  => 0,
             'days'    => 0,
             'hours'   => 0,
             'minutes' => 0,
             'seconds' => 0,
-        );
+        ];
 
-        $matches = array();
+        $matches = [];
         if (preg_match(self::DURATION_WEEK, $isoString, $matches)) {
             $duration['days'] = intval($matches[1]) * 7;
         } elseif (preg_match(self::DURATION_PERIOD, $isoString, $matches)) {
-            $defaults = array(
+            $defaults = [
                 'years'   => 0,
                 'months'  => 0,
                 'days'    => 0,
                 'hours'   => 0,
                 'minutes' => 0,
                 'seconds' => 0,
-            );
+            ];
             $matches += $defaults;
 
             $duration['years']   = intval($matches['years']);
@@ -419,7 +419,7 @@ abstract class Iso8601
             $duration['minutes'] = intval($matches['minutes']);
             $duration['seconds'] = intval($matches['seconds']);
         } elseif (
-            preg_match(self::DURATION_DATETIME_BASIC,    $isoString, $matches) === 1 ||
+            preg_match(self::DURATION_DATETIME_BASIC, $isoString, $matches) === 1 ||
             preg_match(self::DURATION_DATETIME_EXTENDED, $isoString, $matches) === 1
         ) {
             $duration['years']   = intval($matches[1]);
@@ -477,25 +477,25 @@ abstract class Iso8601
 
         // If $firstPart begins with P, than its a duration/end-datetime interval.
         if (strlen($firstPart) > 0 && $firstPart[0] === 'P') {
-            return array(
+            return [
                 'type'     => 'duration/datetime',
-                'interval' => array($firstPart, $secondPart),
-            );
+                'interval' => [$firstPart, $secondPart],
+            ];
         }
 
         // If $secondPart begins with P, than its a datetime/duration interval.
         if (strlen($secondPart) > 0 && $secondPart[0] === 'P') {
-            return array(
+            return [
                 'type'     => 'datetime/duration',
-                'interval' => array($firstPart, $secondPart),
-            );
+                'interval' => [$firstPart, $secondPart],
+            ];
         }
 
         // Only option left is a start-datetime/end-datetime interval.
-        return array(
+        return [
             'type'     => 'datetime/datetime',
-            'interval' => array($firstPart, $secondPart),
-        );
+            'interval' => [$firstPart, $secondPart],
+        ];
     }
 
     const YEAR       = '/^(\d\d\d\d)$/';

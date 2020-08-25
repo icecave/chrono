@@ -11,7 +11,7 @@ use Icecave\Chrono\TimePointInterface;
 class Year extends AbstractInterval implements Iso8601Interface
 {
     /**
-     * @param integer $ordinal The year number.
+     * @param int $ordinal The year number.
      */
     public function __construct($ordinal)
     {
@@ -48,7 +48,7 @@ class Year extends AbstractInterval implements Iso8601Interface
     }
 
     /**
-     * @return integer The year number.
+     * @return int The year number.
      */
     public function ordinal()
     {
@@ -72,7 +72,7 @@ class Year extends AbstractInterval implements Iso8601Interface
     }
 
     /**
-     * @return integer The number of days included in this interval.
+     * @return int The number of days included in this interval.
      */
     public function numberOfDays()
     {
@@ -80,7 +80,7 @@ class Year extends AbstractInterval implements Iso8601Interface
     }
 
     /**
-     * @return boolean True if this year interval represents a leap year; otherwise, false.
+     * @return bool True if this year interval represents a leap year; otherwise, false.
      */
     public function isLeapYear()
     {

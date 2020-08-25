@@ -14,20 +14,20 @@ class MonthIteratorTest extends TestCase
         $this->startTime = new Date(2010, 1, 25);
         $this->year      = new Year(2010);
 
-        $this->expected = array(
+        $this->expected = [
             0 => new Month($this->year, 1),
             1 => new Month($this->year, 2),
             2 => new Month($this->year, 3),
             3 => new Month($this->year, 4),
             4 => new Month($this->year, 5),
-        );
+        ];
     }
 
     public function testIteration()
     {
         $iterator = new MonthIterator($this->startTime, 5);
 
-        $result = array();
+        $result = [];
         foreach ($iterator as $index => $value) {
             $result[$index] = $value;
         }
@@ -39,7 +39,7 @@ class MonthIteratorTest extends TestCase
     {
         $iterator = new MonthIterator($this->startTime, null);
 
-        $result = array();
+        $result = [];
         foreach ($iterator as $index => $value) {
             $result[$index] = $value;
 

@@ -11,20 +11,20 @@ class SecondIteratorTest extends TestCase
     {
         $this->startTime = new DateTime(2012, 12, 25, 10, 20, 30);
 
-        $this->expected = array(
+        $this->expected = [
             0 => new DateTime(2012, 12, 25, 10, 20, 30),
             1 => new DateTime(2012, 12, 25, 10, 20, 31),
             2 => new DateTime(2012, 12, 25, 10, 20, 32),
             3 => new DateTime(2012, 12, 25, 10, 20, 33),
             4 => new DateTime(2012, 12, 25, 10, 20, 34),
-        );
+        ];
     }
 
     public function testIteration()
     {
         $iterator = new SecondIterator($this->startTime, 5);
 
-        $result = array();
+        $result = [];
         foreach ($iterator as $index => $value) {
             $result[$index] = $value;
         }
@@ -36,7 +36,7 @@ class SecondIteratorTest extends TestCase
     {
         $iterator = new SecondIterator($this->startTime, null);
 
-        $result = array();
+        $result = [];
         foreach ($iterator as $index => $value) {
             $result[$index] = $value;
 

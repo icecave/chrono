@@ -16,13 +16,13 @@ class YearIntervalIteratorTest extends TestCase
 
         $this->interval = new Interval($this->startTime, $this->endTime);
 
-        $this->expected = array(
+        $this->expected = [
             0 => new Year(2010),
             1 => new Year(2011),
             2 => new Year(2012),
             3 => new Year(2013),
             4 => new Year(2014),
-        );
+        ];
     }
 
     public function testIteration()

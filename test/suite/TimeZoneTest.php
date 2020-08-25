@@ -256,15 +256,15 @@ class TimeZoneTest extends TestCase
 
     public function validIsoStrings()
     {
-        return array(
-            'UTC Z'            => array('Z',      '+00:00'),
-            'Positive Short'   => array('+01',    '+01:00'),
-            'Positive Basic'   => array('+0120',  '+01:20'),
-            'Positive Exteded' => array('+01:20', '+01:20'),
-            'Negative Short'   => array('-01',    '-01:00'),
-            'Negative Basic'   => array('-0120',  '-01:20'),
-            'Negative Exteded' => array('-01:20', '-01:20'),
-        );
+        return [
+            'UTC Z'            => ['Z',      '+00:00'],
+            'Positive Short'   => ['+01',    '+01:00'],
+            'Positive Basic'   => ['+0120',  '+01:20'],
+            'Positive Exteded' => ['+01:20', '+01:20'],
+            'Negative Short'   => ['-01',    '-01:00'],
+            'Negative Basic'   => ['-0120',  '-01:20'],
+            'Negative Exteded' => ['-01:20', '-01:20'],
+        ];
     }
 
     /**
@@ -278,11 +278,11 @@ class TimeZoneTest extends TestCase
 
     public function validIsoStringsWithNegativeZero()
     {
-        return array(
-            'Negative Short'   => array('-00',    '+00:00'),
-            'Negative Basic'   => array('-0000',  '+00:00'),
-            'Negative Exteded' => array('-00:00', '+00:00'),
-        );
+        return [
+            'Negative Short'   => ['-00',    '+00:00'],
+            'Negative Basic'   => ['-0000',  '+00:00'],
+            'Negative Exteded' => ['-00:00', '+00:00'],
+        ];
     }
 
     public function testFromIsoStringWithDst()
@@ -305,42 +305,42 @@ class TimeZoneTest extends TestCase
 
     public function invalidIsoStrings()
     {
-        return array(
-            'UTC lower case z'                  => array('z',       'Invalid ISO time zone: "z".'),
-            'Missing prefix'                    => array('12',      'Invalid ISO time zone: "12".'),
-            'Missing prefix'                    => array('1234',    'Invalid ISO time zone: "1234".'),
-            'Missing prefix'                    => array('12:34',   'Invalid ISO time zone: "12:34".'),
-            'Not enough digits'                 => array('+1',      'Invalid ISO time zone: "+1".'),
-            'Not enough digits'                 => array('+123',    'Invalid ISO time zone: "+123".'),
-            'Not enough digits, missing prefix' => array('1',       'Invalid ISO time zone: "1".'),
-            'Not enough digits, missing prefix' => array('123',     'Invalid ISO time zone: "123".'),
-            'Invalid prefix space'              => array(' 12',     'Invalid ISO time zone: " 12".'),
-            'Invalid prefix symbol'             => array('#12',     'Invalid ISO time zone: "#12".'),
-            'Invalid prefix letter'             => array('A12',     'Invalid ISO time zone: "A12".'),
-            'Invalid letter, missing prefix'    => array('Y',       'Invalid ISO time zone: "Y".'),
-            'Invalid letters, missing prefix'   => array('YY',      'Invalid ISO time zone: "YY".'),
-            'Invalid letters, missing prefix'   => array('YYY',     'Invalid ISO time zone: "YYY".'),
-            'Invalid letters, missing prefix'   => array('YYYY',    'Invalid ISO time zone: "YYYY".'),
-            'Invalid letter'                    => array('+Y',      'Invalid ISO time zone: "+Y".'),
-            'Invalid letters'                   => array('+YY',     'Invalid ISO time zone: "+YY".'),
-            'Invalid letters'                   => array('+YYY',    'Invalid ISO time zone: "+YYY".'),
-            'Invalid letters'                   => array('+YYYY',   'Invalid ISO time zone: "+YYYY".'),
-            'Invalid letter, and colon'         => array('+Y:',     'Invalid ISO time zone: "+Y:".'),
-            'Invalid letters, and colon'        => array('+YY:',    'Invalid ISO time zone: "+YY:".'),
-            'Invalid letters, and colon'        => array('+YYY:',   'Invalid ISO time zone: "+YYY:".'),
-            'Invalid letters, and colon'        => array('+YYYY:',  'Invalid ISO time zone: "+YYYY:".'),
-            'Invalid colon'                     => array('+1:',     'Invalid ISO time zone: "+1:".'),
-            'Invalid colon'                     => array('+1:2',    'Invalid ISO time zone: "+1:2".'),
-            'Invalid colon'                     => array('+1:2:',   'Invalid ISO time zone: "+1:2:".'),
-            'Invalid colon'                     => array('+12:',    'Invalid ISO time zone: "+12:".'),
-            'Invalid colon'                     => array('+12:3',   'Invalid ISO time zone: "+12:3".'),
-            'Invalid colon'                     => array('+12:34:', 'Invalid ISO time zone: "+12:34:".'),
-            'Invalid colon, missing prefix'     => array('1:',      'Invalid ISO time zone: "1:".'),
-            'Invalid colon, missing prefix'     => array('1:2',     'Invalid ISO time zone: "1:2".'),
-            'Invalid colon, missing prefix'     => array('1:2:',    'Invalid ISO time zone: "1:2:".'),
-            'Invalid colon, missing prefix'     => array('12:',     'Invalid ISO time zone: "12:".'),
-            'Invalid colon, missing prefix'     => array('12:3',    'Invalid ISO time zone: "12:3".'),
-            'Invalid colon, missing prefix'     => array('12:34:',  'Invalid ISO time zone: "12:34:".'),
-        );
+        return [
+            'UTC lower case z'                  => ['z',       'Invalid ISO time zone: "z".'],
+            'Missing prefix'                    => ['12',      'Invalid ISO time zone: "12".'],
+            'Missing prefix'                    => ['1234',    'Invalid ISO time zone: "1234".'],
+            'Missing prefix'                    => ['12:34',   'Invalid ISO time zone: "12:34".'],
+            'Not enough digits'                 => ['+1',      'Invalid ISO time zone: "+1".'],
+            'Not enough digits'                 => ['+123',    'Invalid ISO time zone: "+123".'],
+            'Not enough digits, missing prefix' => ['1',       'Invalid ISO time zone: "1".'],
+            'Not enough digits, missing prefix' => ['123',     'Invalid ISO time zone: "123".'],
+            'Invalid prefix space'              => [' 12',     'Invalid ISO time zone: " 12".'],
+            'Invalid prefix symbol'             => ['#12',     'Invalid ISO time zone: "#12".'],
+            'Invalid prefix letter'             => ['A12',     'Invalid ISO time zone: "A12".'],
+            'Invalid letter, missing prefix'    => ['Y',       'Invalid ISO time zone: "Y".'],
+            'Invalid letters, missing prefix'   => ['YY',      'Invalid ISO time zone: "YY".'],
+            'Invalid letters, missing prefix'   => ['YYY',     'Invalid ISO time zone: "YYY".'],
+            'Invalid letters, missing prefix'   => ['YYYY',    'Invalid ISO time zone: "YYYY".'],
+            'Invalid letter'                    => ['+Y',      'Invalid ISO time zone: "+Y".'],
+            'Invalid letters'                   => ['+YY',     'Invalid ISO time zone: "+YY".'],
+            'Invalid letters'                   => ['+YYY',    'Invalid ISO time zone: "+YYY".'],
+            'Invalid letters'                   => ['+YYYY',   'Invalid ISO time zone: "+YYYY".'],
+            'Invalid letter, and colon'         => ['+Y:',     'Invalid ISO time zone: "+Y:".'],
+            'Invalid letters, and colon'        => ['+YY:',    'Invalid ISO time zone: "+YY:".'],
+            'Invalid letters, and colon'        => ['+YYY:',   'Invalid ISO time zone: "+YYY:".'],
+            'Invalid letters, and colon'        => ['+YYYY:',  'Invalid ISO time zone: "+YYYY:".'],
+            'Invalid colon'                     => ['+1:',     'Invalid ISO time zone: "+1:".'],
+            'Invalid colon'                     => ['+1:2',    'Invalid ISO time zone: "+1:2".'],
+            'Invalid colon'                     => ['+1:2:',   'Invalid ISO time zone: "+1:2:".'],
+            'Invalid colon'                     => ['+12:',    'Invalid ISO time zone: "+12:".'],
+            'Invalid colon'                     => ['+12:3',   'Invalid ISO time zone: "+12:3".'],
+            'Invalid colon'                     => ['+12:34:', 'Invalid ISO time zone: "+12:34:".'],
+            'Invalid colon, missing prefix'     => ['1:',      'Invalid ISO time zone: "1:".'],
+            'Invalid colon, missing prefix'     => ['1:2',     'Invalid ISO time zone: "1:2".'],
+            'Invalid colon, missing prefix'     => ['1:2:',    'Invalid ISO time zone: "1:2:".'],
+            'Invalid colon, missing prefix'     => ['12:',     'Invalid ISO time zone: "12:".'],
+            'Invalid colon, missing prefix'     => ['12:3',    'Invalid ISO time zone: "12:3".'],
+            'Invalid colon, missing prefix'     => ['12:34:',  'Invalid ISO time zone: "12:34:".'],
+        ];
     }
 }

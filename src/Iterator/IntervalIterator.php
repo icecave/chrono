@@ -29,7 +29,7 @@ class IntervalIterator implements Iterator
     }
 
     /**
-     * @return integer The current iteration index.
+     * @return int The current iteration index.
      */
     public function key()
     {
@@ -55,7 +55,7 @@ class IntervalIterator implements Iterator
     }
 
     /**
-     * @return boolean True if the iterator points to a valid element; otherwise, false.
+     * @return bool True if the iterator points to a valid element; otherwise, false.
      */
     public function valid()
     {

@@ -10,8 +10,8 @@ use Icecave\Chrono\Interval\Interval;
 use Icecave\Chrono\Interval\IntervalInterface;
 use Icecave\Chrono\Iso8601Interface;
 use Icecave\Chrono\TimePointInterface;
-use Icecave\Parity\ExtendedComparableTrait;
 use Icecave\Parity\Exception\NotComparableException;
+use Icecave\Parity\ExtendedComparableTrait;
 use Icecave\Parity\SubClassComparable;
 
 class Period implements TimeSpanInterface, Iso8601Interface, SubClassComparable
@@ -19,12 +19,12 @@ class Period implements TimeSpanInterface, Iso8601Interface, SubClassComparable
     use ExtendedComparableTrait;
 
     /**
-     * @param integer $years   The years in the period.
-     * @param integer $months  The months in the period.
-     * @param integer $days    The days in the period.
-     * @param integer $hours   The hours in the period.
-     * @param integer $minutes The minutes in the period.
-     * @param integer $seconds The seconds in the period.
+     * @param int $years   The years in the period.
+     * @param int $months  The months in the period.
+     * @param int $days    The days in the period.
+     * @param int $hours   The hours in the period.
+     * @param int $minutes The minutes in the period.
+     * @param int $seconds The seconds in the period.
      */
     public function __construct(
         $years = 0,
@@ -95,7 +95,7 @@ class Period implements TimeSpanInterface, Iso8601Interface, SubClassComparable
     }
 
     /**
-     * @return integer The number of years in the period.
+     * @return int The number of years in the period.
      */
     public function years()
     {
@@ -103,7 +103,7 @@ class Period implements TimeSpanInterface, Iso8601Interface, SubClassComparable
     }
 
     /**
-     * @return integer The number of months in the period.
+     * @return int The number of months in the period.
      */
     public function months()
     {
@@ -111,7 +111,7 @@ class Period implements TimeSpanInterface, Iso8601Interface, SubClassComparable
     }
 
     /**
-     * @return integer The number of days in the period.
+     * @return int The number of days in the period.
      */
     public function days()
     {
@@ -119,7 +119,7 @@ class Period implements TimeSpanInterface, Iso8601Interface, SubClassComparable
     }
 
     /**
-     * @return integer The number of hours in the period.
+     * @return int The number of hours in the period.
      */
     public function hours()
     {
@@ -127,7 +127,7 @@ class Period implements TimeSpanInterface, Iso8601Interface, SubClassComparable
     }
 
     /**
-     * @return integer The number of minutes in the period.
+     * @return int The number of minutes in the period.
      */
     public function minutes()
     {
@@ -135,7 +135,7 @@ class Period implements TimeSpanInterface, Iso8601Interface, SubClassComparable
     }
 
     /**
-     * @return integer The number of seconds in the period.
+     * @return int The number of seconds in the period.
      */
     public function seconds()
     {
@@ -143,7 +143,7 @@ class Period implements TimeSpanInterface, Iso8601Interface, SubClassComparable
     }
 
     /**
-     * @return integer The approximate total seconds in the period.
+     * @return int The approximate total seconds in the period.
      */
     public function approximateTotalSeconds()
     {
@@ -171,7 +171,7 @@ class Period implements TimeSpanInterface, Iso8601Interface, SubClassComparable
      *
      * @param mixed $period The period to compare.
      *
-     * @return integer                0 if $this and $period are equal, <0 if $this < $period, or >0 if $this > $period.
+     * @return int                    0 if $this and $period are equal, <0 if $this < $period, or >0 if $this > $period.
      * @throws NotComparableException Indicates that the implementation does not know how to compare $this to $period.
      */
     public function compare($period): int
@@ -189,7 +189,7 @@ class Period implements TimeSpanInterface, Iso8601Interface, SubClassComparable
     }
 
     /**
-     * @return boolean True if the period is zero seconds in length; otherwise, false.
+     * @return bool True if the period is zero seconds in length; otherwise, false.
      */
     public function isEmpty()
     {
@@ -221,7 +221,7 @@ class Period implements TimeSpanInterface, Iso8601Interface, SubClassComparable
      *
      * @param TimePointInterface $timePoint The start of the time span.
      *
-     * @return integer The total number of seconds.
+     * @return int The total number of seconds.
      */
     public function resolveToSeconds(TimePointInterface $timePoint)
     {
@@ -301,7 +301,7 @@ class Period implements TimeSpanInterface, Iso8601Interface, SubClassComparable
     /**
      * Add another period or duration to this period.
      *
-     * @param Period|Duration|integer $period The period to add.
+     * @param Period|Duration|int $period The period to add.
      *
      * @return Period
      */
@@ -347,7 +347,7 @@ class Period implements TimeSpanInterface, Iso8601Interface, SubClassComparable
     /**
      * Subtruct another period or duration from this period.
      *
-     * @param Period|Duration|integer $period The period to subtract.
+     * @param Period|Duration|int $period The period to subtract.
      *
      * @return Period
      */
@@ -395,7 +395,7 @@ class Period implements TimeSpanInterface, Iso8601Interface, SubClassComparable
      */
     public function string()
     {
-        $chunks = array();
+        $chunks = [];
 
         if ($this->years()) {
             $chunks[] = $this->years() . 'y';

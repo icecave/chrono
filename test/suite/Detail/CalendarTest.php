@@ -28,29 +28,29 @@ class CalendarTest extends TestCase
 
     public function leapYearProvider()
     {
-        return array(
+        return [
             // Multiples of 4
-            array(2001, false),
-            array(2002, false),
-            array(2003, false),
-            array(2004, true),
-            array(2005, false),
-            array(2006, false),
-            array(2007, false),
-            array(2008, true),
-            array(2009, false),
-            array(2010, false),
+            [2001, false],
+            [2002, false],
+            [2003, false],
+            [2004, true],
+            [2005, false],
+            [2006, false],
+            [2007, false],
+            [2008, true],
+            [2009, false],
+            [2010, false],
 
             // With multiples of 100, only multiples of 400 are leap year ...
-            array(2000, true),
-            array(2100, false),
-            array(2200, false),
-            array(2300, false),
-            array(2400, true),
-            array(2500, false),
-            array(2600, false),
-            array(2700, false),
-        );
+            [2000, true],
+            [2100, false],
+            [2200, false],
+            [2300, false],
+            [2400, true],
+            [2500, false],
+            [2600, false],
+            [2700, false],
+        ];
     }
 
     /**
@@ -69,33 +69,33 @@ class CalendarTest extends TestCase
 
     public function daysInMonthProvider()
     {
-        return array(
-            'January'   => array(2005,  1, 31),
-            'February'  => array(2005,  2, 28),
-            'March'     => array(2005,  3, 31),
-            'April'     => array(2005,  4, 30),
-            'May'       => array(2005,  5, 31),
-            'June'      => array(2005,  6, 30),
-            'July'      => array(2005,  7, 31),
-            'August'    => array(2005,  8, 31),
-            'September' => array(2005,  9, 30),
-            'October'   => array(2005, 10, 31),
-            'November'  => array(2005, 11, 30),
-            'December'  => array(2005, 12, 31),
+        return [
+            'January'   => [2005,  1, 31],
+            'February'  => [2005,  2, 28],
+            'March'     => [2005,  3, 31],
+            'April'     => [2005,  4, 30],
+            'May'       => [2005,  5, 31],
+            'June'      => [2005,  6, 30],
+            'July'      => [2005,  7, 31],
+            'August'    => [2005,  8, 31],
+            'September' => [2005,  9, 30],
+            'October'   => [2005, 10, 31],
+            'November'  => [2005, 11, 30],
+            'December'  => [2005, 12, 31],
 
-            'January (Leap Year)'   => array(2008,  1, 31),
-            'February (Leap Year)'  => array(2008,  2, 29),
-            'March (Leap Year)'     => array(2008,  3, 31),
-            'April (Leap Year)'     => array(2008,  4, 30),
-            'May (Leap Year)'       => array(2008,  5, 31),
-            'June (Leap Year)'      => array(2008,  6, 30),
-            'July (Leap Year)'      => array(2008,  7, 31),
-            'August (Leap Year)'    => array(2008,  8, 31),
-            'September (Leap Year)' => array(2008,  9, 30),
-            'October (Leap Year)'   => array(2008, 10, 31),
-            'November (Leap Year)'  => array(2008, 11, 30),
-            'December (Leap Year)'  => array(2008, 12, 31),
-        );
+            'January (Leap Year)'   => [2008,  1, 31],
+            'February (Leap Year)'  => [2008,  2, 29],
+            'March (Leap Year)'     => [2008,  3, 31],
+            'April (Leap Year)'     => [2008,  4, 30],
+            'May (Leap Year)'       => [2008,  5, 31],
+            'June (Leap Year)'      => [2008,  6, 30],
+            'July (Leap Year)'      => [2008,  7, 31],
+            'August (Leap Year)'    => [2008,  8, 31],
+            'September (Leap Year)' => [2008,  9, 30],
+            'October (Leap Year)'   => [2008, 10, 31],
+            'November (Leap Year)'  => [2008, 11, 30],
+            'December (Leap Year)'  => [2008, 12, 31],
+        ];
     }
 
     /**
@@ -128,20 +128,20 @@ class CalendarTest extends TestCase
 
     public function monthNames()
     {
-        return array(
-            array(1,    'January'),
-            array(2,    'February'),
-            array(3,    'March'),
-            array(4,    'April'),
-            array(5,    'May'),
-            array(6,    'June'),
-            array(7,    'July'),
-            array(8,    'August'),
-            array(9,    'September'),
-            array(10,   'October'),
-            array(11,   'November'),
-            array(12,   'December'),
-        );
+        return [
+            [1,    'January'],
+            [2,    'February'],
+            [3,    'March'],
+            [4,    'April'],
+            [5,    'May'],
+            [6,    'June'],
+            [7,    'July'],
+            [8,    'August'],
+            [9,    'September'],
+            [10,   'October'],
+            [11,   'November'],
+            [12,   'December'],
+        ];
     }
 
     /**
@@ -174,15 +174,15 @@ class CalendarTest extends TestCase
 
     public function dayNames()
     {
-        return array(
-            array(1,    'Monday'),
-            array(2,    'Tuesday'),
-            array(3,    'Wednesday'),
-            array(4,    'Thursday'),
-            array(5,    'Friday'),
-            array(6,    'Saturday'),
-            array(7,    'Sunday'),
-        );
+        return [
+            [1,    'Monday'],
+            [2,    'Tuesday'],
+            [3,    'Wednesday'],
+            [4,    'Thursday'],
+            [5,    'Friday'],
+            [6,    'Saturday'],
+            [7,    'Sunday'],
+        ];
     }
 
     public function testDayOfYear()
@@ -226,45 +226,45 @@ class CalendarTest extends TestCase
 
     public function isoWeekDates()
     {
-        return array(
-            array(2005,  1,  1, 2004, 53, 6),
-            array(2005,  1,  2, 2004, 53, 7),
-            array(2005, 12, 31, 2005, 52, 6),
-            array(2007,  1,  1, 2007,  1, 1), // Both years 2007 start with the same day.
-            array(2007, 12, 30, 2007, 52, 7),
-            array(2007, 12, 31, 2008,  1, 1),
-            array(2008,  1,  1, 2008,  1, 2), // Gregorian year 2008 is a leap year, ISO year 2008 is 2 days shorter: 1 day longer at the start, 3 days shorter at the end.
-            array(2008, 12, 28, 2008, 52, 7), // For 2008/2009 where the ISO week-numbering year is three days into the previous Gregorian year.
-            array(2008, 12, 29, 2009,  1, 1),
-            array(2008, 12, 30, 2009,  1, 2),
-            array(2008, 12, 31, 2009,  1, 3),
-            array(2009,  1,  1, 2009,  1, 4),
-            array(2009, 12, 31, 2009, 53, 4), // ISO year 2009 has 53 weeks, extending the Gregorian year 2009, which starts and ends with Thursday, at both ends with three days. For 2009/2010 the ISO week-numbering year is three days into the next Gregorian year.
-            array(2010,  1,  1, 2009, 53, 5),
-            array(2010,  1,  2, 2009, 53, 6),
-            array(2010,  1,  3, 2009, 53, 7),
-            array(2012,  1,  1, 2011, 52, 7),
-        );
+        return [
+            [2005,  1,  1, 2004, 53, 6],
+            [2005,  1,  2, 2004, 53, 7],
+            [2005, 12, 31, 2005, 52, 6],
+            [2007,  1,  1, 2007,  1, 1], // Both years 2007 start with the same day.
+            [2007, 12, 30, 2007, 52, 7],
+            [2007, 12, 31, 2008,  1, 1],
+            [2008,  1,  1, 2008,  1, 2], // Gregorian year 2008 is a leap year, ISO year 2008 is 2 days shorter: 1 day longer at the start, 3 days shorter at the end.
+            [2008, 12, 28, 2008, 52, 7], // For 2008/2009 where the ISO week-numbering year is three days into the previous Gregorian year.
+            [2008, 12, 29, 2009,  1, 1],
+            [2008, 12, 30, 2009,  1, 2],
+            [2008, 12, 31, 2009,  1, 3],
+            [2009,  1,  1, 2009,  1, 4],
+            [2009, 12, 31, 2009, 53, 4], // ISO year 2009 has 53 weeks, extending the Gregorian year 2009, which starts and ends with Thursday, at both ends with three days. For 2009/2010 the ISO week-numbering year is three days into the next Gregorian year.
+            [2010,  1,  1, 2009, 53, 5],
+            [2010,  1,  2, 2009, 53, 6],
+            [2010,  1,  3, 2009, 53, 7],
+            [2012,  1,  1, 2011, 52, 7],
+        ];
     }
 
     public function testApproximateTotalSeconds()
     {
-        $this->assertSame(0,        Calendar::approximateTotalSeconds());
+        $this->assertSame(0, Calendar::approximateTotalSeconds());
         $this->assertSame(38995567, Calendar::approximateTotalSeconds(1, 2, 3, 4, 5, 6, 7));
 
-        $this->assertSame(60,       Calendar::approximateTotalSeconds(0, 0, 0, 0, 0, 0, 60));
-        $this->assertSame(60,       Calendar::approximateTotalSeconds(0, 0, 0, 0, 0, 1));
+        $this->assertSame(60, Calendar::approximateTotalSeconds(0, 0, 0, 0, 0, 0, 60));
+        $this->assertSame(60, Calendar::approximateTotalSeconds(0, 0, 0, 0, 0, 1));
 
-        $this->assertSame(3600,     Calendar::approximateTotalSeconds(0, 0, 0, 0, 0, 60));
-        $this->assertSame(3600,     Calendar::approximateTotalSeconds(0, 0, 0, 0, 1));
+        $this->assertSame(3600, Calendar::approximateTotalSeconds(0, 0, 0, 0, 0, 60));
+        $this->assertSame(3600, Calendar::approximateTotalSeconds(0, 0, 0, 0, 1));
 
-        $this->assertSame(86400,    Calendar::approximateTotalSeconds(0, 0, 0, 0, 24));
-        $this->assertSame(86400,    Calendar::approximateTotalSeconds(0, 0, 0, 1));
+        $this->assertSame(86400, Calendar::approximateTotalSeconds(0, 0, 0, 0, 24));
+        $this->assertSame(86400, Calendar::approximateTotalSeconds(0, 0, 0, 1));
 
-        $this->assertSame(604800,   Calendar::approximateTotalSeconds(0, 0, 0, 7));
-        $this->assertSame(604800,   Calendar::approximateTotalSeconds(0, 0, 1));
+        $this->assertSame(604800, Calendar::approximateTotalSeconds(0, 0, 0, 7));
+        $this->assertSame(604800, Calendar::approximateTotalSeconds(0, 0, 1));
 
-        $this->assertSame(2629800,  Calendar::approximateTotalSeconds(0, 1));
+        $this->assertSame(2629800, Calendar::approximateTotalSeconds(0, 1));
         $this->assertSame(31557600, Calendar::approximateTotalSeconds(1));
     }
 }

@@ -23,7 +23,7 @@ interface SuspendableClockInterface extends ClockInterface
     public function resume();
 
     /**
-     * @return boolean True if the clock is currently suspended; otherwise, false.
+     * @return bool True if the clock is currently suspended; otherwise, false.
      */
     public function isSuspended();
 }

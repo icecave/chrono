@@ -11,8 +11,8 @@ use Icecave\Chrono\TimePointInterface;
 class Month extends AbstractInterval implements Iso8601Interface
 {
     /**
-     * @param Year    $year    The year.
-     * @param integer $ordinal The month number.
+     * @param Year $year    The year.
+     * @param int  $ordinal The month number.
      */
     public function __construct(Year $year, $ordinal)
     {
@@ -62,7 +62,7 @@ class Month extends AbstractInterval implements Iso8601Interface
     }
 
     /**
-     * @return integer The year number.
+     * @return int The year number.
      */
     public function ordinal()
     {
@@ -86,7 +86,7 @@ class Month extends AbstractInterval implements Iso8601Interface
     }
 
     /**
-     * @return integer The number of days included in this interval.
+     * @return int The number of days included in this interval.
      */
     public function numberOfDays()
     {

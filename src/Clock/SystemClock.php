@@ -45,13 +45,13 @@ class SystemClock extends AbstractClock
         $microtime = $this->isolator->microtime(true);
         $seconds   = intval($microtime);
 
-        return array($seconds, intval(($microtime - $seconds) * 1000000000));
+        return [$seconds, intval(($microtime - $seconds) * 1000000000)];
     }
 
     /**
-     * @param integer $seconds The number of seconds to sleep.
+     * @param int $seconds The number of seconds to sleep.
      *
-     * @return boolean True if the sleep completed; or false if the sleep was interrupted.
+     * @return bool True if the sleep completed; or false if the sleep was interrupted.
      */
     protected function doSleep($seconds)
     {

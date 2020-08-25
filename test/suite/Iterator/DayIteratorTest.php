@@ -11,20 +11,20 @@ class DayIteratorTest extends TestCase
     {
         $this->startTime = new Date(2012, 12, 10);
 
-        $this->expected = array(
+        $this->expected = [
             0 => new Date(2012, 12, 10),
             1 => new Date(2012, 12, 11),
             2 => new Date(2012, 12, 12),
             3 => new Date(2012, 12, 13),
             4 => new Date(2012, 12, 14),
-        );
+        ];
     }
 
     public function testIteration()
     {
         $iterator = new DayIterator($this->startTime, 5);
 
-        $result = array();
+        $result = [];
         foreach ($iterator as $index => $value) {
             $result[$index] = $value;
         }
@@ -36,7 +36,7 @@ class DayIteratorTest extends TestCase
     {
         $iterator = new DayIterator($this->startTime, null);
 
-        $result = array();
+        $result = [];
         foreach ($iterator as $index => $value) {
             $result[$index] = $value;
 

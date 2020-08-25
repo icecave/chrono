@@ -15,9 +15,9 @@ use Icecave\Chrono\TimeSpan\TimeSpanInterface;
 class Date extends AbstractTimePoint
 {
     /**
-     * @param integer       $year     The year component of the date.
-     * @param integer       $month    The month component of the date.
-     * @param integer       $day      The day component of the date.
+     * @param int           $year     The year component of the date.
+     * @param int           $month    The month component of the date.
+     * @param int           $day      The day component of the date.
      * @param TimeZone|null $timeZone The time zone of the time, or null to use UTC.
      */
     public function __construct(
@@ -70,7 +70,7 @@ class Date extends AbstractTimePoint
     }
 
     /**
-     * @param integer       $unixTime The unix timestamp.
+     * @param int           $unixTime The unix timestamp.
      * @param TimeZone|null $timeZone The time zone of the time, or null to use UTC.
      *
      * @return DateTime The Date constructed from the given timestamp and time zone.
@@ -108,7 +108,7 @@ class Date extends AbstractTimePoint
     }
 
     /**
-     * @return integer The year component of the date.
+     * @return int The year component of the date.
      */
     public function year()
     {
@@ -116,7 +116,7 @@ class Date extends AbstractTimePoint
     }
 
     /**
-     * @return integer The month component of the date.
+     * @return int The month component of the date.
      */
     public function month()
     {
@@ -124,7 +124,7 @@ class Date extends AbstractTimePoint
     }
 
     /**
-     * @return integer The day component of the date.
+     * @return int The day component of the date.
      */
     public function day()
     {
@@ -132,7 +132,7 @@ class Date extends AbstractTimePoint
     }
 
     /**
-     * @return integer The hour component of the time.
+     * @return int The hour component of the time.
      */
     public function hour()
     {
@@ -140,7 +140,7 @@ class Date extends AbstractTimePoint
     }
 
     /**
-     * @return integer The minute component of the time.
+     * @return int The minute component of the time.
      */
     public function minute()
     {
@@ -148,7 +148,7 @@ class Date extends AbstractTimePoint
     }
 
     /**
-     * @return integer The second component of the time.
+     * @return int The second component of the time.
      */
     public function second()
     {
@@ -228,7 +228,7 @@ class Date extends AbstractTimePoint
     }
 
     /**
-     * @return integer The number of seconds since unix epoch (1970-01-01 00:00:00+00:00).
+     * @return int The number of seconds since unix epoch (1970-01-01 00:00:00+00:00).
      */
     public function unixTime()
     {
@@ -253,7 +253,7 @@ class Date extends AbstractTimePoint
     /**
      * Add a time span to the time point.
      *
-     * @param TimeSpanInterface|integer $timeSpan A time span instance, or an integer representing seconds.
+     * @param TimeSpanInterface|int $timeSpan A time span instance, or an integer representing seconds.
      *
      * @return TimePointInterface
      */
@@ -276,7 +276,7 @@ class Date extends AbstractTimePoint
     /**
      * Subtract a time span from the time point.
      *
-     * @param TimeSpanInterface|integer $timeSpan A time span instance, or an integer representing seconds.
+     * @param TimeSpanInterface|int $timeSpan A time span instance, or an integer representing seconds.
      *
      * @return TimePointInterface
      */

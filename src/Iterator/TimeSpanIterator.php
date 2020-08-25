@@ -11,7 +11,7 @@ class TimeSpanIterator implements Iterator
     /**
      * @param TimePointInterface $startTime  The time to start iterating at.
      * @param TimeSpanInterface  $timeSpan   The time span to increment by for each iteration.
-     * @param integer|null       $iterations The number of iterations or null to iterate forever.
+     * @param int|null           $iterations The number of iterations or null to iterate forever.
      */
     public function __construct(TimePointInterface $startTime, TimeSpanInterface $timeSpan, $iterations)
     {
@@ -31,7 +31,7 @@ class TimeSpanIterator implements Iterator
     }
 
     /**
-     * @return integer The current iteration index.
+     * @return int The current iteration index.
      */
     public function key()
     {
@@ -57,7 +57,7 @@ class TimeSpanIterator implements Iterator
     }
 
     /**
-     * @return boolean True if the iterator points to a valid element; otherwise, false.
+     * @return bool True if the iterator points to a valid element; otherwise, false.
      */
     public function valid()
     {

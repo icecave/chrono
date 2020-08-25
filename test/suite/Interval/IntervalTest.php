@@ -62,19 +62,19 @@ class IntervalTest extends TestCase
 
     public function validIsoStrings()
     {
-        return array(
+        return [
             // Duration/DateTime Format
-            'Duration and DateTime'                 => array('P1DT2H/2012-10-21T13:22:33',                          '2012-10-20T11:22:33+00:00/2012-10-21T13:22:33+00:00'),
-            'Duration and DateTime with timezone'   => array('P1DT2H/2012-10-21T13:22:33+12:34',                    '2012-10-20T11:22:33+12:34/2012-10-21T13:22:33+12:34'),
+            'Duration and DateTime'                 => ['P1DT2H/2012-10-21T13:22:33',                          '2012-10-20T11:22:33+00:00/2012-10-21T13:22:33+00:00'],
+            'Duration and DateTime with timezone'   => ['P1DT2H/2012-10-21T13:22:33+12:34',                    '2012-10-20T11:22:33+12:34/2012-10-21T13:22:33+12:34'],
 
             // DateTime/Duration Format
-            'DateTime and Duration'                 => array('2012-10-20T11:22:33/P1DT2H',                          '2012-10-20T11:22:33+00:00/2012-10-21T13:22:33+00:00'),
-            'DateTime with timezone and Duration'   => array('2012-10-20T11:22:33+12:34/P1DT2H',                    '2012-10-20T11:22:33+12:34/2012-10-21T13:22:33+12:34'),
+            'DateTime and Duration'                 => ['2012-10-20T11:22:33/P1DT2H',                          '2012-10-20T11:22:33+00:00/2012-10-21T13:22:33+00:00'],
+            'DateTime with timezone and Duration'   => ['2012-10-20T11:22:33+12:34/P1DT2H',                    '2012-10-20T11:22:33+12:34/2012-10-21T13:22:33+12:34'],
 
             // DateTime/DateTime Format
-            'DateTime and DateTime'                 => array('2011-11-11T11:11:11/2022-12-22T22:22:22',             '2011-11-11T11:11:11+00:00/2022-12-22T22:22:22+00:00'),
-            'DateTime and DateTime with timezones'  => array('2011-11-11T11:11:11+11:11/2022-12-22T22:22:22+22:22', '2011-11-11T11:11:11+11:11/2022-12-22T22:22:22+22:22'),
-        );
+            'DateTime and DateTime'                 => ['2011-11-11T11:11:11/2022-12-22T22:22:22',             '2011-11-11T11:11:11+00:00/2022-12-22T22:22:22+00:00'],
+            'DateTime and DateTime with timezones'  => ['2011-11-11T11:11:11+11:11/2022-12-22T22:22:22+22:22', '2011-11-11T11:11:11+11:11/2022-12-22T22:22:22+22:22'],
+        ];
     }
 
     /**
@@ -88,21 +88,21 @@ class IntervalTest extends TestCase
 
     public function invalidIsoStrings()
     {
-        return array(
-            'Empty'                                     => array('',                                    'Invalid ISO interval: "".'),
-            'Empty /'                                   => array('/',                                   'Invalid ISO interval: "/".'),
+        return [
+            'Empty'                                     => ['',                                    'Invalid ISO interval: "".'],
+            'Empty /'                                   => ['/',                                   'Invalid ISO interval: "/".'],
 
             // Duration Format - Not supported
-            'Duration Format only is not supported'     => array('P',                                   'Invalid ISO interval: "P".'),
-            'Duration Format only is not supported'     => array('P12DT10H',                            'Invalid ISO interval: "P12DT10H".'),
+            'Duration Format only is not supported'     => ['P',                                   'Invalid ISO interval: "P".'],
+            'Duration Format only is not supported'     => ['P12DT10H',                            'Invalid ISO interval: "P12DT10H".'],
 
             // DateTime/Duration Format
-            'Duration and DateTime empty'               => array('P/',                                  'Invalid ISO duration: "P".'),
-            'Duration empty'                            => array('P/2012-10-20T11:22:33+00:00',         'Invalid ISO duration: "P".'),
+            'Duration and DateTime empty'               => ['P/',                                  'Invalid ISO duration: "P".'],
+            'Duration empty'                            => ['P/2012-10-20T11:22:33+00:00',         'Invalid ISO duration: "P".'],
 
             // DateTime/Duration Format
-            'DateTime and Duration empty'               => array('/P',                                  'Invalid ISO date time: "".'),
-            'Duration empty'                            => array('2012-10-20T11:22:33+00:00/P',         'Invalid ISO duration: "P".'),
-        );
+            'DateTime and Duration empty'               => ['/P',                                  'Invalid ISO date time: "".'],
+            'Duration empty'                            => ['2012-10-20T11:22:33+00:00/P',         'Invalid ISO duration: "P".'],
+        ];
     }
 }

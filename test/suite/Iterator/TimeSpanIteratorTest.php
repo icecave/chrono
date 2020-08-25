@@ -14,20 +14,20 @@ class TimeSpanIteratorTest extends TestCase
         $this->startTime = new Date(2012, 12, 10);
         $this->timeSpan  = new Period(0, 0, 1);
 
-        $this->expected = array(
+        $this->expected = [
             0 => new DateTime(2012, 12, 10),
             1 => new DateTime(2012, 12, 11),
             2 => new DateTime(2012, 12, 12),
             3 => new DateTime(2012, 12, 13),
             4 => new DateTime(2012, 12, 14),
-        );
+        ];
     }
 
     public function testIteration()
     {
         $iterator = new TimeSpanIterator($this->startTime, $this->timeSpan, 5);
 
-        $result = array();
+        $result = [];
         foreach ($iterator as $index => $value) {
             $result[$index] = $value;
         }
@@ -39,7 +39,7 @@ class TimeSpanIteratorTest extends TestCase
     {
         $iterator = new TimeSpanIterator($this->startTime, $this->timeSpan, null);
 
-        $result = array();
+        $result = [];
         foreach ($iterator as $index => $value) {
             $result[$index] = $value;
 

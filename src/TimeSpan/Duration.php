@@ -10,8 +10,8 @@ use Icecave\Chrono\Interval\Interval;
 use Icecave\Chrono\Interval\IntervalInterface;
 use Icecave\Chrono\Iso8601Interface;
 use Icecave\Chrono\TimePointInterface;
-use Icecave\Parity\ExtendedComparableTrait;
 use Icecave\Parity\Exception\NotComparableException;
+use Icecave\Parity\ExtendedComparableTrait;
 use Icecave\Parity\SubClassComparable;
 use InvalidArgumentException;
 
@@ -23,7 +23,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
     use ExtendedComparableTrait;
 
     /**
-     * @param integer $seconds The total number of seconds in the duration.
+     * @param int $seconds The total number of seconds in the duration.
      */
     public function __construct($seconds = 0)
     {
@@ -33,11 +33,11 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
     /**
      * Create a duration from the supplied amounts of standard time increments.
      *
-     * @param integer $weeks   The number of weeks in the duration.
-     * @param integer $days    The number of days in the duration.
-     * @param integer $hours   The number of hours in the duration.
-     * @param integer $minutes The number of minutes in the duration.
-     * @param integer $seconds The number of seconds in the duration.
+     * @param int $weeks   The number of weeks in the duration.
+     * @param int $days    The number of days in the duration.
+     * @param int $hours   The number of hours in the duration.
+     * @param int $minutes The number of minutes in the duration.
+     * @param int $seconds The number of seconds in the duration.
      *
      * @return Duration The resulting duration.
      */
@@ -54,7 +54,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
     /**
      * Create a duration from the supplied amount of weeks.
      *
-     * @param integer $weeks The number of weeks in the duration.
+     * @param int $weeks The number of weeks in the duration.
      *
      * @return Duration The resulting duration.
      */
@@ -66,7 +66,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
     /**
      * Create a duration from the supplied amount of days.
      *
-     * @param integer $days The number of days in the duration.
+     * @param int $days The number of days in the duration.
      *
      * @return Duration The resulting duration.
      */
@@ -78,7 +78,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
     /**
      * Create a duration from the supplied amount of hours.
      *
-     * @param integer $hours The number of hours in the duration.
+     * @param int $hours The number of hours in the duration.
      *
      * @return Duration The resulting duration.
      */
@@ -90,7 +90,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
     /**
      * Create a duration from the supplied amount of minutes.
      *
-     * @param integer $minutes The number of minutes in the duration.
+     * @param int $minutes The number of minutes in the duration.
      *
      * @return Duration The resulting duration.
      */
@@ -102,7 +102,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
     /**
      * Create a duration from the supplied amount of seconds.
      *
-     * @param integer $seconds The number of seconds in the duration.
+     * @param int $seconds The number of seconds in the duration.
      *
      * @return Duration The resulting duration.
      */
@@ -170,7 +170,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
     }
 
     /**
-     * @return integer The number of weeks in the duration.
+     * @return int The number of weeks in the duration.
      */
     public function weeks()
     {
@@ -178,7 +178,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
     }
 
     /**
-     * @return integer The number of days in the duration, not including those that comprise whole weeks.
+     * @return int The number of days in the duration, not including those that comprise whole weeks.
      */
     public function days()
     {
@@ -186,7 +186,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
     }
 
     /**
-     * @return integer The number of hours in the duration, not including those that comprise whole days.
+     * @return int The number of hours in the duration, not including those that comprise whole days.
      */
     public function hours()
     {
@@ -194,7 +194,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
     }
 
     /**
-     * @return integer The number of minutes in the duration, not including those that comprise whole hours.
+     * @return int The number of minutes in the duration, not including those that comprise whole hours.
      */
     public function minutes()
     {
@@ -202,7 +202,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
     }
 
     /**
-     * @return integer The number of seconds in the duration, not including those that comprise whole minutes.
+     * @return int The number of seconds in the duration, not including those that comprise whole minutes.
      */
     public function seconds()
     {
@@ -210,7 +210,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
     }
 
     /**
-     * @return integer The total number of whole days in the duration.
+     * @return int The total number of whole days in the duration.
      */
     public function totalDays()
     {
@@ -218,7 +218,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
     }
 
     /**
-     * @return integer The total number of whole hours in the duration.
+     * @return int The total number of whole hours in the duration.
      */
     public function totalHours()
     {
@@ -226,7 +226,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
     }
 
     /**
-     * @return integer The total number of whole minutes in the duration.
+     * @return int The total number of whole minutes in the duration.
      */
     public function totalMinutes()
     {
@@ -234,7 +234,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
     }
 
     /**
-     * @return integer The total number seconds in the duration.
+     * @return int The total number seconds in the duration.
      */
     public function totalSeconds()
     {
@@ -254,7 +254,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
      *
      * @param mixed $duration The duration to compare.
      *
-     * @return integer                0 if $this and $duration are equal, <0 if $this < $duration, or >0 if $this > $duration.
+     * @return int                    0 if $this and $duration are equal, <0 if $this < $duration, or >0 if $this > $duration.
      * @throws NotComparableException Indicates that the implementation does not know how to compare $this to $duration.
      */
     public function compare($duration): int
@@ -267,7 +267,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
     }
 
     /**
-     * @return boolean True if the duration is zero seconds in length; otherwise, false.
+     * @return bool True if the duration is zero seconds in length; otherwise, false.
      */
     public function isEmpty()
     {
@@ -287,7 +287,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
      *
      * @param TimePointInterface $timePoint The start of the time span.
      *
-     * @return integer The total number of seconds.
+     * @return int The total number of seconds.
      */
     public function resolveToSeconds(TimePointInterface $timePoint)
     {
@@ -374,7 +374,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
     /**
      * Add another duration to this duration.
      *
-     * @param Duration|integer $duration The duration to add.
+     * @param Duration|int $duration The duration to add.
      *
      * @return Duration
      */
@@ -390,7 +390,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
     /**
      * Subtruct another duration from this duration.
      *
-     * @param Duration|integer $duration The duration to subtract.
+     * @param Duration|int $duration The duration to subtract.
      *
      * @return Duration
      */
@@ -408,7 +408,7 @@ class Duration implements TimeSpanInterface, Iso8601Interface, SubClassComparabl
      */
     public function string()
     {
-        $chunks = array();
+        $chunks = [];
 
         if ($this->weeks()) {
             $chunks[] = $this->weeks() . 'w';

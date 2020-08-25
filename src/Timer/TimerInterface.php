@@ -10,21 +10,21 @@ interface TimerInterface
     /**
      * Check if the timer is currently running.
      *
-     * @return boolean True if the timer is running; otherwise, false.
+     * @return bool True if the timer is running; otherwise, false.
      */
     public function isRunning();
 
     /**
      * Check if the timer has been stopped.
      *
-     * @return boolean True if the timer is was running and has since been stopped; otherwise, false.
+     * @return bool True if the timer is was running and has since been stopped; otherwise, false.
      */
     public function isStopped();
 
     /**
      * True if the timer has been reset, and is ready to be started again.
      *
-     * @return boolean True if the timer has been reset; otherwise, false.
+     * @return bool True if the timer has been reset; otherwise, false.
      */
     public function isReset();
 

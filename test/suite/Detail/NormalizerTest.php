@@ -48,35 +48,35 @@ class NormalizerTest extends TestCase
 
     public function normalizeTimeData()
     {
-        return array(
-            'valid time'                 => array(10, 25, 13,    '10:25:13',     0),
-            'min'                        => array(0,  0,  0,    '00:00:00',     0),
-            'max'                        => array(23, 59, 59,    '23:59:59',     0),
+        return [
+            'valid time'                 => [10, 25, 13,    '10:25:13',     0],
+            'min'                        => [0,  0,  0,    '00:00:00',     0],
+            'max'                        => [23, 59, 59,    '23:59:59',     0],
 
-            'seconds overflow'           => array(10, 25, 70,    '10:26:10',     0),
-            'minutes overflow'           => array(10, 70, 13,    '11:10:13',     0),
-            'hours overflow'             => array(25, 25, 13,    '01:25:13',     1),
-            'all overflow'               => array(25, 70, 70,    '02:11:10',     1),
+            'seconds overflow'           => [10, 25, 70,    '10:26:10',     0],
+            'minutes overflow'           => [10, 70, 13,    '11:10:13',     0],
+            'hours overflow'             => [25, 25, 13,    '01:25:13',     1],
+            'all overflow'               => [25, 70, 70,    '02:11:10',     1],
 
-            'seconds overflow multiple'  => array(10, 25, 130,   '10:27:10',     0),
-            'minutes overflow multiple'  => array(10, 130, 13,   '12:10:13',     0),
-            'hours overflow multiple'    => array(49, 25, 13,    '01:25:13',     2),
+            'seconds overflow multiple'  => [10, 25, 130,   '10:27:10',     0],
+            'minutes overflow multiple'  => [10, 130, 13,   '12:10:13',     0],
+            'hours overflow multiple'    => [49, 25, 13,    '01:25:13',     2],
 
-            'seconds underflow'          => array(10, 25, -10,   '10:24:50',     0),
-            'minutes underflow'          => array(10, -10, 13,   '09:50:13',     0),
-            'hours underflow'            => array(-10, 25, 13,   '14:25:13',     -1),
+            'seconds underflow'          => [10, 25, -10,   '10:24:50',     0],
+            'minutes underflow'          => [10, -10, 13,   '09:50:13',     0],
+            'hours underflow'            => [-10, 25, 13,   '14:25:13',     -1],
 
-            'seconds underflow multiple' => array(10, 25, -70,   '10:23:50',     0),
-            'minutes underflow multiple' => array(10, -70, 13,   '08:50:13',     0),
-            'hours underflow multiple'   => array(-34, 25, 13,   '14:25:13',     -2),
+            'seconds underflow multiple' => [10, 25, -70,   '10:23:50',     0],
+            'minutes underflow multiple' => [10, -70, 13,   '08:50:13',     0],
+            'hours underflow multiple'   => [-34, 25, 13,   '14:25:13',     -2],
 
-            'seconds underflow exact'    => array(10, 25, -60,   '10:24:00',     0),
-            'minutes underflow exact'    => array(10, -60, 13,   '09:00:13',     0),
-            'hours underflow exact'      => array(-24, 25, 13,   '00:25:13',     -1),
+            'seconds underflow exact'    => [10, 25, -60,   '10:24:00',     0],
+            'minutes underflow exact'    => [10, -60, 13,   '09:00:13',     0],
+            'hours underflow exact'      => [-24, 25, 13,   '00:25:13',     -1],
 
-            'seconds overflow hour'      => array(0, 0, 3600,    '01:00:00',     0),
-            'seconds overflow day'       => array(0, 0, 86400,   '00:00:00',     1),
-        );
+            'seconds overflow hour'      => [0, 0, 3600,    '01:00:00',     0],
+            'seconds overflow day'       => [0, 0, 86400,   '00:00:00',     1],
+        ];
     }
 
     /**
@@ -90,18 +90,18 @@ class NormalizerTest extends TestCase
 
     public function normalizeDateData()
     {
-        return array(
-            'valid date'                => array(2012,  6, 14,      '2012-06-14'),
-            'min'                       => array(0,  1,  1,      '0000-01-01'), // Note, behavior here deviates from [gm]mktime.
-            'max'                       => array(9999, 12, 31,      '9999-12-31'),
+        return [
+            'valid date'                => [2012,  6, 14,      '2012-06-14'],
+            'min'                       => [0,  1,  1,      '0000-01-01'], // Note, behavior here deviates from [gm]mktime.
+            'max'                       => [9999, 12, 31,      '9999-12-31'],
 
-            'day overflow'              => array(2012,  6, 31,      '2012-07-01'),
-            'month overflow'            => array(2012, 13,  1,      '2013-01-01'),
+            'day overflow'              => [2012,  6, 31,      '2012-07-01'],
+            'month overflow'            => [2012, 13,  1,      '2013-01-01'],
 
-            'day overflow multiple'     => array(2012,  6, 62,      '2012-08-01'),
-            'month overflow multiple'   => array(2012, 25,  1,      '2014-01-01'),
+            'day overflow multiple'     => [2012,  6, 62,      '2012-08-01'],
+            'month overflow multiple'   => [2012, 25,  1,      '2014-01-01'],
 
-            'zeroes'                    => array(2012,  0,  0,      '2011-11-30'),
-        );
+            'zeroes'                    => [2012,  0,  0,      '2011-11-30'],
+        ];
     }
 }

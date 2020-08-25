@@ -24,7 +24,7 @@ interface IntervalInterface extends ExtendedComparable, RestrictedComparable
     public function end();
 
     /**
-     * @return boolean True if the interval indicates a zero duration; otherwise, false.
+     * @return bool True if the interval indicates a zero duration; otherwise, false.
      */
     public function isEmpty();
 
@@ -33,7 +33,7 @@ interface IntervalInterface extends ExtendedComparable, RestrictedComparable
      *
      * @param TimePointInterface $timePoint The time point to check.
      *
-     * @return boolean True if this interval contains the given time point; otherwise, false.
+     * @return bool True if this interval contains the given time point; otherwise, false.
      */
     public function contains(TimePointInterface $timePoint);
 
@@ -42,18 +42,18 @@ interface IntervalInterface extends ExtendedComparable, RestrictedComparable
      *
      * @param IntervalInterface $interval The interval to check.
      *
-     * @return boolean True if this interval entirely contains the given interval; otherwise, false.
+     * @return bool True if this interval entirely contains the given interval; otherwise, false.
      */
-    public function encompasses(IntervalInterface $interval);
+    public function encompasses(self $interval);
 
     /**
      * Check if a given interval is at least partially contained within this interval.
      *
      * @param IntervalInterface $interval The interval to check.
      *
-     * @return boolean True if this interval intersects the given interval; otherwise, false.
+     * @return bool True if this interval intersects the given interval; otherwise, false.
      */
-    public function intersects(IntervalInterface $interval);
+    public function intersects(self $interval);
 
     /**
      * @return Duration A duration representing the difference between start and end.

@@ -5,8 +5,8 @@ namespace Icecave\Chrono;
 use Icecave\Chrono\Detail\Calendar;
 use Icecave\Chrono\TimeSpan\Duration;
 use Icecave\Chrono\TimeSpan\Period;
-use Icecave\Parity\ExtendedComparableTrait;
 use Icecave\Parity\Exception\NotComparableException;
+use Icecave\Parity\ExtendedComparableTrait;
 
 /**
  * Represents a concrete point on the time continuum.
@@ -23,7 +23,7 @@ abstract class AbstractTimePoint implements TimePointInterface
      *
      * @param mixed $value The value to compare.
      *
-     * @return boolean True if $this can be compared to $value.
+     * @return bool True if $this can be compared to $value.
      */
     public function canCompare($value): bool
     {
@@ -43,7 +43,7 @@ abstract class AbstractTimePoint implements TimePointInterface
      *
      * @param mixed $timePoint The time point to compare.
      *
-     * @return integer                0 if $this and $timePoint are equal, <0 if $this < $timePoint, or >0 if $this > $timePoint.
+     * @return int                    0 if $this and $timePoint are equal, <0 if $this < $timePoint, or >0 if $this > $timePoint.
      * @throws NotComparableException Indicates that the implementation does not know how to compare $this to $timePoint.
      */
     public function compare($timePoint): int
@@ -60,7 +60,7 @@ abstract class AbstractTimePoint implements TimePointInterface
      *
      * @param TimePointInterface $timePoint
      *
-     * @return integer
+     * @return int
      */
     public function differenceAsSeconds(TimePointInterface $timePoint)
     {
@@ -101,7 +101,7 @@ abstract class AbstractTimePoint implements TimePointInterface
     }
 
     /**
-     * @return integer ISO-8601 numeric representation of the day of the week, 1 (for Monday) through 7 (for Sunday).
+     * @return int ISO-8601 numeric representation of the day of the week, 1 (for Monday) through 7 (for Sunday).
      */
     public function isoDayOfWeek()
     {
@@ -109,7 +109,7 @@ abstract class AbstractTimePoint implements TimePointInterface
     }
 
     /**
-     * @return integer Numeric representation of the day of the week, 0 (for Sunday) through 6 (for Saturday).
+     * @return int Numeric representation of the day of the week, 0 (for Sunday) through 6 (for Saturday).
      */
     public function numericDayOfWeek()
     {

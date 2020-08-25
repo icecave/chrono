@@ -5,7 +5,7 @@ namespace Icecave\Chrono\Detail;
 abstract class Ordinal
 {
     /**
-     * @param integer $number
+     * @param int $number
      *
      * @return string
      */

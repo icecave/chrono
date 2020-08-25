@@ -217,13 +217,13 @@ class AbstractIntervalTest extends TestCase
     {
         $interval = new Interval(new Date(2010, 12, 25), new Date(2015, 12, 25));
 
-        $expected = array(
+        $expected = [
             new Year(2010),
             new Year(2011),
             new Year(2012),
             new Year(2013),
             new Year(2014),
-        );
+        ];
 
         $this->assertEquals($expected, iterator_to_array($interval->byYear(), true));
     }
@@ -232,11 +232,11 @@ class AbstractIntervalTest extends TestCase
     {
         $interval = new Interval(new Date(2010, 12, 25), new Date(2011, 2, 26));
 
-        $expected = array(
+        $expected = [
             new Month(new Year(2010), 12),
             new Month(new Year(2011), 1),
             new Month(new Year(2011), 2),
-        );
+        ];
 
         $this->assertEquals($expected, iterator_to_array($interval->byMonth(), true));
     }
@@ -245,12 +245,12 @@ class AbstractIntervalTest extends TestCase
     {
         $interval = new Interval(new Date(2010, 12, 30), new Date(2011, 1, 3));
 
-        $expected = array(
+        $expected = [
             new Date(2010, 12, 30),
             new Date(2010, 12, 31),
-            new Date(2011,  1,  1),
-            new Date(2011,  1,  2),
-        );
+            new Date(2011, 1, 1),
+            new Date(2011, 1, 2),
+        ];
 
         $this->assertEquals($expected, iterator_to_array($interval->byDay(), true));
     }
@@ -259,13 +259,13 @@ class AbstractIntervalTest extends TestCase
     {
         $interval = new Interval(new DateTime(2010, 12, 25, 10, 20, 30), new DateTime(2010, 12, 25, 15, 20, 30));
 
-        $expected = array(
+        $expected = [
             new DateTime(2010, 12, 25, 10, 20, 30),
             new DateTime(2010, 12, 25, 11, 20, 30),
             new DateTime(2010, 12, 25, 12, 20, 30),
             new DateTime(2010, 12, 25, 13, 20, 30),
             new DateTime(2010, 12, 25, 14, 20, 30),
-        );
+        ];
 
         $this->assertEquals($expected, iterator_to_array($interval->byHour(), true));
     }
@@ -274,13 +274,13 @@ class AbstractIntervalTest extends TestCase
     {
         $interval = new Interval(new DateTime(2010, 12, 25, 10, 20, 30), new DateTime(2010, 12, 25, 10, 25, 30));
 
-        $expected = array(
+        $expected = [
             new DateTime(2010, 12, 25, 10, 20, 30),
             new DateTime(2010, 12, 25, 10, 21, 30),
             new DateTime(2010, 12, 25, 10, 22, 30),
             new DateTime(2010, 12, 25, 10, 23, 30),
             new DateTime(2010, 12, 25, 10, 24, 30),
-        );
+        ];
 
         $this->assertEquals($expected, iterator_to_array($interval->byMinute(), true));
     }
@@ -289,13 +289,13 @@ class AbstractIntervalTest extends TestCase
     {
         $interval = new Interval(new DateTime(2010, 12, 25, 10, 20, 30), new DateTime(2010, 12, 25, 10, 20, 35));
 
-        $expected = array(
+        $expected = [
             new DateTime(2010, 12, 25, 10, 20, 30),
             new DateTime(2010, 12, 25, 10, 20, 31),
             new DateTime(2010, 12, 25, 10, 20, 32),
             new DateTime(2010, 12, 25, 10, 20, 33),
             new DateTime(2010, 12, 25, 10, 20, 34),
-        );
+        ];
 
         $this->assertEquals($expected, iterator_to_array($interval->bySecond(), true));
     }

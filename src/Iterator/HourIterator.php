@@ -10,7 +10,7 @@ class HourIterator extends TimeSpanIterator
 {
     /**
      * @param TimePointInterface $startTime  The time to start iterating at.
-     * @param integer|null       $iterations The number of iterations or null to iterate forever.
+     * @param int|null           $iterations The number of iterations or null to iterate forever.
      */
     public function __construct(TimePointInterface $startTime, $iterations)
     {
