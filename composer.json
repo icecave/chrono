@@ -24,7 +24,7 @@
         }
     ],
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.2",
         "icecave/isolator": "~3",
         "icecave/parity": "~2"
     },
@@ -37,7 +37,7 @@
     "config": {
         "sort-packages": true,
         "platform": {
-            "php": "7.1"
+            "php": "7.2"
         }
     }
 }
