@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 class TestClockTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->localDateTime = DateTime::fromIsoString('2001-01-01T01:01:01+01:00');
         $this->isolator      = Phake::mock('Icecave\Isolator\Isolator');
@@ -117,7 +117,7 @@ class TestClockTest extends TestCase
 
     public function testUnixTimeAsFloat()
     {
-        $this->assertEquals(978307261.0, $this->clock->unixTimeAsFloat(), '', 0.0000000001);
+        $this->assertEqualsWithDelta(978307261.0, $this->clock->unixTimeAsFloat(), 0.0000000001);
     }
 
     public function testSleep()

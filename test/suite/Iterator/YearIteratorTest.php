@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class YearIteratorTest extends TestCase
 {
-    protected function setUp()
+    public function setUp(): void
     {
         $this->startTime = new Date(2010, 12, 25);
 

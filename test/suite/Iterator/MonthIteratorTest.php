@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class MonthIteratorTest extends TestCase
 {
-    protected function setUp()
+    public function setUp(): void
     {
         $this->startTime = new Date(2010, 1, 25);
         $this->year      = new Year(2010);

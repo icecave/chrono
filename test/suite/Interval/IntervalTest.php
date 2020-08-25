@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 class IntervalTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->pointA   = new Date(2012, 1, 1);
         $this->pointB   = new Date(2012, 1, 5);

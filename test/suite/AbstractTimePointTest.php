@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class AbstractTimePointTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->timePoint = Phake::partialMock('Icecave\Chrono\AbstractTimePoint');
 

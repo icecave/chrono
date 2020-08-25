@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class TimeSpanIteratorTest extends TestCase
 {
-    protected function setUp()
+    public function setUp(): void
     {
         $this->startTime = new Date(2012, 12, 10);
         $this->timeSpan  = new Period(0, 0, 1);

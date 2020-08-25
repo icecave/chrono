@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class TimerTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->clock = Phake::mock('Icecave\Chrono\Clock\ClockInterface');
 

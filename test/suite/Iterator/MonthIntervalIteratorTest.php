@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class MonthIntervalIteratorTest extends TestCase
 {
-    protected function setUp()
+    public function setUp(): void
     {
         $this->year      = new Year(2010);
         $this->startTime = new Date(2010, 1, 25);

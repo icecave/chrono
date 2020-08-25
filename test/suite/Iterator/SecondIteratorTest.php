@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class SecondIteratorTest extends TestCase
 {
-    protected function setUp()
+    public function setUp(): void
     {
         $this->startTime = new DateTime(2012, 12, 25, 10, 20, 30);
 

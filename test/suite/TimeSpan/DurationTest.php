@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
  */
 class DurationTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->duration = Duration::fromComponents(1, 2, 3, 4, 5);
 

@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class ScopedSuspensionTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->clock = Phake::mock(__NAMESPACE__ . '\SuspendableClockInterface');
     }

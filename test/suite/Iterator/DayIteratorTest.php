@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class DayIteratorTest extends TestCase
 {
-    protected function setUp()
+    public function setUp(): void
     {
         $this->startTime = new Date(2012, 12, 10);
 

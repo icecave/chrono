@@ -29,9 +29,10 @@
         "icecave/parity": "^3"
     },
     "require-dev": {
-        "eloquent/liberator": "^1",
+        "eloquent/liberator": "^2",
+        "friendsofphp/php-cs-fixer": "^2",
         "phake/phake": "^3",
-        "phpunit/phpunit": "^7"
+        "phpunit/phpunit": "^8"
     },
     "autoload": { "psr-4": { "Icecave\\Chrono\\": "src" } },
     "config": {

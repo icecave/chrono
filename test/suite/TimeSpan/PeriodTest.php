@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
  */
 class PeriodTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->period = new Period(1, 2, 3, 4, 5, 6);
 

@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 class DateTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->date = new Date(2013, 2, 1);
     }

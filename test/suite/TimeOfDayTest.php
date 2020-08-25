@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 class TimeOfDayTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->time = new TimeOfDay(10, 20, 30);
     }

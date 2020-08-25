@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
  */
 class TimeZoneTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->timeZone = new TimeZone(36000, false);
     }

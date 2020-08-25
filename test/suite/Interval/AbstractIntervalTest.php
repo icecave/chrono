@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class AbstractIntervalTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         /*
                     A   B   C   D   E

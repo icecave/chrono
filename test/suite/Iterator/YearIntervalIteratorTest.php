@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class YearIntervalIteratorTest extends TestCase
 {
-    protected function setUp()
+    public function setUp(): void
     {
         $this->startTime = new Date(2010, 12, 25);
         $this->endTime   = new Date(2015, 12, 25);

@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class MinuteIntervalIteratorTest extends TestCase
 {
-    protected function setUp()
+    public function setUp(): void
     {
         $this->startTime = new DateTime(2010, 12, 25, 10, 20, 30);
         $this->endTime   = new DateTime(2010, 12, 25, 10, 25, 30);

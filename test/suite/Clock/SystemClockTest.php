@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class SystemClockTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->isolator = Phake::partialMock('Icecave\Isolator\Isolator');
         $this->clock    = new SystemClock($this->isolator);
@@ -24,10 +24,10 @@ class SystemClockTest extends TestCase
         $actualDateTime   = $this->clock->utcDateTime();
         $expectedDateTime = new DateTime(2013, 11, 20, 3, 10, 20);
 
-        $this->assertInternalType('array', $actual);
+        $this->assertIsArray($actual);
         $this->assertSame(array(0, 1), array_keys($actual));
         $this->assertSame(1384917020, $actual[0]);
-        $this->assertEquals(123456000, $actual[1], '', 1000);
+        $this->assertEqualsWithDelta(123456000, $actual[1], 1000);
         $this->assertEquals($expectedDateTime, $actualDateTime);
     }
 

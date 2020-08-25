@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 class DateTimeTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->dateTime = new DateTime(2013, 2, 1, 10, 20, 30);
     }

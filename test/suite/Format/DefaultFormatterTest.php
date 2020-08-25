@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class DefaultFormatterTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         Liberator::liberateClass(__NAMESPACE__ . '\DefaultFormatter')->instance = null;
 

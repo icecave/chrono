@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 class AbstractClockTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->isolator = Phake::mock('Icecave\Isolator\Isolator');
         $this->clock    = Phake::partialMock(__NAMESPACE__ . '\AbstractClock', $this->isolator);
@@ -167,7 +167,7 @@ class AbstractClockTest extends TestCase
 
     public function testUnixTimeAsFloat()
     {
-        $this->assertEquals(1384917020.123456789, $this->clock->unixTimeAsFloat(), '', 0.0000000001);
+        $this->assertEqualsWithDelta(1384917020.123456789, $this->clock->unixTimeAsFloat(), 0.0000000001);
 
         $this->verifyUnixTimeClockSuspended();
     }

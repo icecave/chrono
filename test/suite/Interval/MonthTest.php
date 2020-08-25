@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 class MonthTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->year  = new Year(2012);
         $this->month = new Month($this->year, 2);

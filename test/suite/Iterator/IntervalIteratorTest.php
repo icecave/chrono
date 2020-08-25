@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class IntervalIteratorTest extends TestCase
 {
-    protected function setUp()
+    public function setUp(): void
     {
         $this->startTime = new Date(2012, 12, 20);
         $this->endTime   = new Date(2012, 12, 25);
