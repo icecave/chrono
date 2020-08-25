@@ -1,5 +1,10 @@
 # Chrono Changelog
 
+### 2.0.0 (2020-08-25)
+
+* **[BC]** Bump minimum PHP version to 7.2
+* **[BC]** Remove `Icecave\Chrono\PackageInfo` class
+
 ### 1.0.4 (2016-02-19)
 
 * **[IMPROVED]** Added support for partial second parsing in internal class `Iso8604`, in preparation for adding partial-second support to the public interface
